@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html><head><meta name="viewport" http-equiv="Content-Type" content="text/html; charset=UTF-8; width=device-width; initial-scale=1; minimum-scale=1">
+
+	<title>ASCII Test</title>
+    <style type="text/css">
+        body {
+			background-color: #000;
+			color: #FFF;
+			font-family: monospace;
+			font-size: 14px;
+        }
+
+        div {
+            white-space: pre-line;
+			width: 100%;//800px;
+			line-height: 1.2;
+        }
+
+		f {
+            white-space: pre-wrap;
+			margin-top: 0px;
+			margin-bottom: 0px;
+			line-height: 1.2;
+		}
+
+		a {
+			color: #b0b0b0;
+		}
+		a:hover {
+			color: white;
+		}
+		a:visited {
+			color: #707070;
+		}
+
+		table {
+			padding-left: 0em;
+			width: 100%;
+		}
+
+		tr {
+			line-height: 1.2;
+		}
+
+		td {
+			vertical-align: top;
+			min-width: 11em;
+            white-space: pre-wrap;
+			padding-bottom: 1em;
+		}
+    </style>
+</head>
+<body><div><font color="#aaaaaa"></font>
+v2.1.0 - 2020/01/03
+
+·:·:· Stonescript ·:·:·
+<font color="#bbbbbb">
+<f>  Used in the Mind Stone to automate equipment choices. Stonescript is a very simple, yet powerful language inside of <a href="https://StoneStoryRPG.com" target="_blank">Stone Story RPG</a>.</f>
+
+<f>  Need help? Want to collaborate on scripts? Visit <a href="https://discord.gg/StoneStoryRPG" target="_blank">our Discord</a>.<f>
+
+<f>  The goal of a good script is to equip the best items as the state of the game changes. This could be as simple as automatically activating the potion if your health is low, or complex enough where combat is optimized to super-human levels.</f>
+</font>
+
+
+·:·:· Index ·:·:·
+
+<f>  <a href="#example">1. Example</a></f>
+<f>  <a href="#basics">2. Basics</a></f>
+<f>  <a href="#game-state">3. Game State</a></f>
+<f>  <a href="#commands">4. Commands</a></f>
+<f>  <a href="#comparisons">5. Comparisons</a></f>
+<f>  <a href="#variables">6. Variables</a></f>
+<f>  <a href="#math-operations">7. Math Operations</a></f>
+<f>  <a href="#search-filters">8. Search Filters</a></f>
+<f>  <a href="#tips">9. Tips</a></f>
+<f>  <a href="#default-script">10. Default script</a></f>
+<f>  <a href="#roadmap">11. Roadmap</a></f>
+
+
+<div id="example">
+·:·:· Example ·:·:·
+<font color="#bbbbbb">
+// Equips the Shovel for Rocky Plateau.
+// In Caves of Fear it equips loadout 1,
+//   except against the boss, where the
+//   Grappling Hook and a 7 star War Hammer
+//   are used instead.
+// For Haunted Halls it uses two Wands, 
+//   specifying Poison for left hand and
+//   Vigor for the right hand. However,
+//   if the difficulty is over 5 stars it
+//   uses an enchanted +13 Vigor Staff.
+// Potion activates if hitpoints fall
+//   below 10
+<f>?loc=rocky
+ equip shovel
+?loc=cave
+ loadout 1
+ ?foe=bolesh
+  equip grap
+  equip hammer *7 D
+?loc=halls
+ equipL poison wand
+ equipR vigor wand
+ ?loc.stars &gt; 5
+  equip vigor staff +13
+?hp < 10
+ activate potion
+</f>
+</font>
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="basics">
+·:·:· Basics ·:·:·
+<font color="#bbbbbb">
+<f>  ?     Compare and branch logic (if)</f>
+<f>  //    Comment</f>
+<f>  ^     Continue previous line</f>
+</font>
+
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="game-state">
+·:·:· Game State ·:·:·
+<font color="#bbbbbb">
+<f>These questions tell you what's happening and what's right in front of the player.</f>
+
+<table>
+  <tr>
+    <td>?loc</td>
+    <td>The current location name.</td>
+  </tr>
+  <tr>
+    <td>?loc.stars</td>
+    <td>The current location's difficulty.</td>
+  </tr>
+  <tr>
+    <td>?foe</td>
+    <td>The current foe being targeted by the player.</td>
+  </tr>
+  <tr>
+    <td>?foe.distance</td>
+    <td>The distance between the player and the foe being targeted.</td>
+  </tr>
+  <tr>
+    <td>?foe.count</td>
+    <td>The number of foes within 40 units.</td>
+  </tr>
+  <tr>
+    <td>?foe.hp</td>
+    <td>The current hitpoints of the foe being targeted by the player.</td>
+  </tr>
+  <tr>
+    <td>?foe.maxhp</td>
+    <td>The maximum hitpoints of the foe being targeted by the player.</td>
+  </tr>
+  <tr>
+    <td>?foe.armor</td>
+    <td>The current armor of the foe being targeted by the player.</td>
+  </tr>
+  <tr>
+    <td>?foe.debuffs.count</td>
+    <td>The number of debuffs on the foe being targeted.</td>
+  </tr>
+  <tr>
+    <td>?hp</td>
+    <td>The player's current hitpoints.</td>
+  </tr>
+  <tr>
+    <td>?maxhp</td>
+    <td>The player's maximum hitpoints.</td>
+  </tr>
+  <tr>
+    <td>?armor</td>
+    <td>The player's current armor.</td>
+  </tr>
+  <tr>
+    <td>?maxarmor</td>
+    <td>The player's maximum armor.</td>
+  </tr>
+  <tr>
+    <td>?pos.x</td>
+    <td>The player's current x position.</td>
+  </tr>
+  <tr>
+    <td>?debuffs.count</td>
+    <td>The number of debuffs currently on the player.</td>
+  </tr>
+  <tr>
+    <td>?pickup</td>
+    <td>The current pickup being targeted by the player.</td>
+  </tr>
+  <tr>
+    <td>?pickup.distance</td>
+    <td>The distance between the player and the pickup being targeted.</td>
+  </tr>
+  <tr>
+    <td>?time</td>
+    <td>The current frame number of the location.</td>
+  </tr>
+  <tr>
+    <td>?totaltime</td>
+    <td>The current frame number of the location, accumulated in case of boss sub-location.</td>
+  </tr>
+  <tr>
+    <td>?face</td>
+    <td>The player's current facial expression.<br>E.g. ?face =( ^^)</td>
+  </tr>
+  <tr>
+    <td>?level.start</td>
+    <td>Is true only on the first frame of a location, when time = 0, before any game simulation has run. Useful for initialization of variables.</td>
+  </tr>
+</table></font>
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="commands">
+·:·:· Commands ·:·:·
+<font color="#bbbbbb">
+These tell the game to do something.
+
+<table>
+  <tr>
+    <td>&gt; (str)</td>
+    <td>Prints a string to the top of the screen.</td>
+  </tr>
+  <tr>
+    <td>equip  (str)</td>
+    <td>Equips an item. (str) has a limit of 7 criteria.</td>
+  </tr>
+  <tr>
+    <td>equipL (str)</td>
+    <td>Equips an item to the left hand.</td>
+  </tr>
+  <tr>
+    <td>equipR (str)</td>
+    <td>Equips an item to the right hand.</td>
+  </tr>
+  <tr>
+    <td>loadout (n)</td>
+    <td>Equips a specific loadout number.</td>
+  </tr>
+  <tr>
+    <td>&gt;(abcd</td>
+    <td>Shows a custom facial expression on the player.<br>E.g. &gt;( OwO</td>
+  </tr>
+  <tr>
+    <td>&gt;oX,Y,[#rrggbb,](str)</td>
+    <td>Advanced print relative to the player's head position.<br>The following example writes "Let's go!" in red font, relative to the player's head position, 6 to the left and 3 down:<br>&gt;o-6,3,#ff0000,Let's go!</td>
+  </tr>
+  <tr>
+    <td>&gt;`X,Y,[#rrggbb,](str)</td>
+    <td>Advanced print relative to the upper-left corner of the screen.</td>
+  </tr>
+  <tr>
+    <td>&gt;cX,Y,[#rrggbb,](str)</td>
+    <td>Advanced print relative to the center of the screen.</td>
+  </tr>
+  <tr>
+    <td>&gt;fX,Y,[#rrggbb,](str)</td>
+    <td>Advanced print relative to the target foe's head position.</td>
+  </tr>
+</table></font>
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="comparisons">
+·:·:· Comparisons ·:·:·
+<font color="#bbbbbb">
+<f>Used in conjunction with game state to make decisions</f>
+
+<table>
+  <tr>
+    <td style="min-width: 3em"> =</td>
+    <td>Compares values equal or string contains.</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> !</td>
+    <td>Compares values not equal or string does not contain.<br>E.g.: "?foe!poison".</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> &</td>
+    <td>And. E.g.: "?loc=caves & foe=boss"</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> |</td>
+    <td>Or. E.g.: "?foe=slow | foe.count&gt;3"</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> &gt;</td>
+    <td>Greater than compare. Can be used with a location's difficulty, number of foes, health, etc.</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> <</td>
+    <td>Less than compare.</td>
+  </tr>
+</table></font>
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="variables">
+·:·:· Variables ·:·:·
+<font color="#bbbbbb">
+Variables are a way of storing value to use later. Declare a new variable with the keyword 'var'.
+
+E.g.:
+var myVar = 10
+(myVar now has the value 10)
+
+Variables preserve value between frames as well as over multiple Ouroboros loops.
+</font>
+
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="math-operations">
+·:·:· Math Operations ·:·:·
+<font color="#bbbbbb">
+<f>Operators modify numbers. Can be used in conjunction with variables or directly in game state expressions.</f>
+
+<table>
+  <tr>
+    <td style="min-width: 3em"> +</td>
+    <td>Adds two numbers together.</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> -</td>
+    <td>Subtracts two numbers from each other.</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> *</td>
+    <td>Multiplies two numbers together.</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> /</td>
+    <td>Divides one number by another.</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> ++</td>
+    <td>Increments a variable.<br>E.g.:<br>var a = 3<br>a++</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> --</td>
+    <td>Decrements a variable.<br>E.g.:<br>var a = 3<br>a--</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> %</td>
+    <td>Modulo. Gives the remainder of dividing one number by another.<br>E.g.:<br>var a = 5 % 4<br>(a equals 1)</td>
+  </tr>
+</table></font>
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="search-filters">
+·:·:· Search Filters ·:·:·
+<font color="#bbbbbb">
+These are used when evaluating game state.
+
+E.g.: "?foe = insect"
+
+poison
+vigor
+aether
+fire
+air
+ice
+arachnid
+serpent
+insect
+machine
+humanoid
+elemental
+boss
+spawner
+flying
+slow
+ranged
+unpushable
+undamageable
+magic_resist
+magic_vulnerability
+immune_to_stun
+immune_to_ranged
+immune_to_debuff_damage
+immune_to_physical
+*[number]  star level of a location or item
++[number]  enchantment bonus of an item
+</font>
+
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="tips">
+·:·:· Tips ·:·:·
+<font color="#bbbbbb">
+<f>Space (identation) matters when defining what happens as a result of '?' comparisons (scope).</f>
+
+<f>The script can be changed in the middle of a run by pressing 'M' on your keyboard.</f>
+
+<f>The Power button in the top-right of the Mind Stone turns the script ON/OFF.</f>
+
+<f>If multiple equip Commands are called, whichever comes last will occur.</f>
+
+<f>The script executes 30 times per second (once per frame).</f>
+
+<f>To experiment with different scripts it's recommended to copy them into an external text editor, such as Notepad.</f>
+
+<f>Common shortcuts such as Ctrl+A, Ctrl+C and Ctrl+V are useful.</f>
+
+<f>Holding the Tab key in-game gives you a lot of information about game state.</f>
+
+<f>A print command can be broken into multiple lines by using '\n' in the text.</f>
+</font>
+
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="default-script">
+·:·:· Default script ·:·:·
+<font color="#bbbbbb"><f>
+?hp < 10
+  activate potion
+loadout 1
+?loc = rocky
+  equip shovel
+?foe = poison
+  equipL crossbow
+</f></font>
+
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="roadmap">
+·:·:· Roadmap ·:·:·
+<font color="#bbbbbb">
+Things that are planned, but not yet in the game:
+
+2.2
+?harvest  returns the current harvest object targeted by the player
+?harvest.distance  returns the distance between the player and the target harvest location
+?ai.enabled  True if the AI is ON, False if the AI is off (e.g. during a cinematic moment)
+
+2.3
+:   Else logical branch
+:? Else-if logical branch
+
+More
+&gt; #var   Possibility to insert variables into the print
+
+Importing of external scripts.
+
+Permanent variables that retain value between executions of the app.
+
+?key  Allows custom key inputs. E.g. ?key = A
+
+UGC mini-games.
+
+?has = potion  Evaluates if there is a potion available to use
+?has = (item)  Evaluates if the given item is equipped
+?hasL = (item)  Evaluates if the given item is equipped on the Left
+?hasR = (item)  Evaluates if the given item is equipped on the Right
+
+brew [resources] Creates a potion at the beginning of a location. E.g.: brew wood stone
+
+?foe.level
+?foe.state (cast,perf,cooldown)
+?foe.statetime
+
+equipF (str)  equips an item to the Faerie
+
+foes  The list of foes within 40 units
+</font>
+
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+
+<font color="#505050">
+Copyright Martian Rex, Inc. 2020
+</font>
+</div>
+
+<br>
+</body></html>
