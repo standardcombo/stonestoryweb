@@ -5,6 +5,13 @@
 
 <link rel="stylesheet" href="faq-fixed.css" type="text/css" media="only screen and (min-device-width: 891px)" />
 <link rel="stylesheet" href="faq-stretch.css" type="text/css" media="only screen and (max-width: 890px)" />
+
+<style type="text/css">
+	eg {
+		color: #707070;
+	}
+</style>
+
 </head>
 <body><div id="content">
 <f>
@@ -93,11 +100,20 @@
 <div id="basics">
 ·:·:· Basics ·:·:·
 <font color="#bbbbbb">
-<f>  ?     Compare and branch logic (if)</f>
-
-<f>  //    Comment</f>
-
-<f>  ^     Continue previous line</f>
+<table>
+  <tr>
+    <td style="min-width: 3em"> ?  </td>
+    <td>Compare and branch logic (if).</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> // </td>
+    <td>A comment. All text to the right of '//' has no logical effect when the script executes.</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> ^  </td>
+    <td>Continue previous line.<eg><br>E.g.<br>?loc=caves |<br>^loc = mine<br>  equip repeating<br><br>Equals:<br>?loc=caves|loc=mine<br>  equip repeating</td>
+  </tr>
+</table>
 </font>
 
 <a href="#"><font color="#505050">^Back to top</font></a>
@@ -112,11 +128,11 @@
 <table>
   <tr>
     <td>?loc</td>
-    <td>The current location name.</td>
+    <td>The current location name.<eg><br>E.g.<br>?loc = caves<br>  loadout 1</td>
   </tr>
   <tr>
     <td>?loc.stars</td>
-    <td>The current location's difficulty.</td>
+    <td>The current location's difficulty.<eg><br>E.g.<br>?loc = caves<br>  ?loc.stars=4<br>    loadout 1<br>  ?loc.stars=5<br>    loadout 2</td>
   </tr>
   <tr>
     <td>?loc.start</td>
@@ -192,7 +208,7 @@
   </tr>
   <tr>
     <td>?face</td>
-    <td>The player's current facial expression.<br>E.g. ?face =( ^^)</td>
+    <td>The player's current facial expression.<eg><br>E.g.<br>?face =( ^^)</td>
   </tr>
 </table></font>
 <a href="#"><font color="#505050">^Back to top</font></a>
@@ -207,31 +223,31 @@ These tell the game to do something.
 <table>
   <tr>
     <td>&gt; (str)</td>
-    <td>Prints a string to the top of the screen.</td>
+    <td>Prints a string to the top of the screen.<eg><br>E.g.<br>&gt;Hello World!</td>
   </tr>
   <tr>
     <td>equip  (str)</td>
-    <td>Equips an item. (str) has a limit of 7 criteria.</td>
+    <td>Equips an item. (str) has a limit of 7 criteria.<eg><br>E.g.<br>equip vigor crossbow *8 +5</td>
   </tr>
   <tr>
     <td>equipL (str)</td>
-    <td>Equips an item to the left hand.</td>
+    <td>Equips an item to the left hand that best fits the given criteria.<eg><br>E.g.<br>equipL poison sword</td>
   </tr>
   <tr>
     <td>equipR (str)</td>
-    <td>Equips an item to the right hand.</td>
+    <td>Equips an item to the right hand that best fits the given criteria.<eg><br>E.g.<br>equipR vigor shield</td>
   </tr>
   <tr>
     <td>loadout (n)</td>
-    <td>Equips a specific loadout number.</td>
+    <td>Equips a specific loadout number.<eg><br>E.g.<br>?loc = caves<br>  loadout 1<br>?loc = deadwood<br>  loadout 2</td>
   </tr>
   <tr>
     <td>&gt;(abcd</td>
-    <td>Shows a custom facial expression on the player.<br>E.g. &gt;( OwO</td>
+    <td>Shows a custom facial expression on the player.<eg><br>E.g.<br>&gt;( OwO</td>
   </tr>
   <tr>
     <td>&gt;oX,Y,[#rrggbb,](str)</td>
-    <td>Advanced print relative to the player's head position.<br>The following example writes "Let's go!" in red font, relative to the player's head position, 6 to the left and 3 down:<br>&gt;o-6,3,#ff0000,Let's go!</td>
+    <td>Advanced print relative to the player's head position.<eg><br>The following example writes "Let's go!" in red font, relative to the player's head position, 6 to the left and 3 down:<br>&gt;o-6,3,#ff0000,Let's go!</td>
   </tr>
   <tr>
     <td>&gt;`X,Y,[#rrggbb,](str)</td>
@@ -258,27 +274,27 @@ These tell the game to do something.
 <table>
   <tr>
     <td style="min-width: 3em"> =</td>
-    <td>Compares values equal or string contains.</td>
+    <td>Compares values equal or string contains.<eg><br>E.g.<br>?hp = maxhp<br>  loadout 2</td>
   </tr>
   <tr>
     <td style="min-width: 3em"> !</td>
-    <td>Compares values not equal or string does not contain.<br>E.g.: "?foe!poison".</td>
+    <td>Compares values not equal or string does not contain.<eg><br>E.g.<br>?foe ! poison<br>  equipL sword</td>
   </tr>
   <tr>
     <td style="min-width: 3em"> &</td>
-    <td>And. E.g.: "?loc=caves & foe=boss"</td>
+    <td>Logical AND operator.<eg><br>E.g.<br>?loc=caves & foe=boss</td>
   </tr>
   <tr>
     <td style="min-width: 3em"> |</td>
-    <td>Or. E.g.: "?foe=slow | foe.count&gt;3"</td>
+    <td>Logical OR operator.<eg><br>E.g.<br>?foe=slow | foe.count&gt;3<br>  activate potion</td>
   </tr>
   <tr>
     <td style="min-width: 3em"> &gt;</td>
-    <td>Greater than compare. Can be used with a location's difficulty, number of foes, health, etc.</td>
+    <td>Greater-than compare. Can be used with a location's difficulty, number of foes, health, etc.<eg><br>E.g.<br>?foe.count > 10<br>  equip bardiche</td>
   </tr>
   <tr>
     <td style="min-width: 3em"> <</td>
-    <td>Less than compare.</td>
+    <td>Less-than compare.<eg><br>E.g.<br>?hp < 6<br>  activate potion</td>
   </tr>
 </table></font>
 <a href="#"><font color="#505050">^Back to top</font></a>
@@ -290,9 +306,16 @@ These tell the game to do something.
 <font color="#bbbbbb">
 Variables are a way of storing value to use later. Declare a new variable with the keyword 'var'.
 
-E.g.:
-var myVar = 10
-(myVar now has the value 10)
+<eg>E.g.:
+var myVar = 10</eg>
+(myVar is the name of the variable, and it's initialized with value 10)
+
+<eg>myVar = myVar + 5</eg>
+(myVar now equals 15)
+
+<eg>var secondVar = 3
+myVar = myVar - secondVar</eg>
+(myVar now equals 12)
 
 Variables preserve value between frames as well as over multiple Ouroboros loops.
 </font>
@@ -309,31 +332,31 @@ Variables preserve value between frames as well as over multiple Ouroboros loops
 <table>
   <tr>
     <td style="min-width: 3em"> +</td>
-    <td>Adds two numbers together.</td>
+    <td>Adds two numbers or variables together.</td>
   </tr>
   <tr>
     <td style="min-width: 3em"> -</td>
-    <td>Subtracts two numbers from each other.</td>
+    <td>Subtracts two numbers or variables from each other.</td>
   </tr>
   <tr>
     <td style="min-width: 3em"> *</td>
-    <td>Multiplies two numbers together.</td>
+    <td>Multiplies two numbers or variables together.</td>
   </tr>
   <tr>
     <td style="min-width: 3em"> /</td>
-    <td>Divides one number by another.</td>
+    <td>Divides one number or variable by another.</td>
   </tr>
   <tr>
     <td style="min-width: 3em"> ++</td>
-    <td>Increments a variable.<br>E.g.:<br>var a = 3<br>a++</td>
+    <td>Increments a variable.<eg><br>E.g.:<br>var a = 3<br>a++</td>
   </tr>
   <tr>
     <td style="min-width: 3em"> --</td>
-    <td>Decrements a variable.<br>E.g.:<br>var a = 3<br>a--</td>
+    <td>Decrements a variable.<eg><br>E.g.:<br>var a = 3<br>a--</td>
   </tr>
   <tr>
     <td style="min-width: 3em"> %</td>
-    <td>Modulo. Gives the remainder of dividing one number by another.<br>E.g.:<br>var a = 5 % 4<br>(a equals 1)</td>
+    <td>Modulo. Gives the remainder of dividing one number by another.<eg><br>E.g.:<br>var a = 5 % 4<br>(a equals 1)</td>
   </tr>
 </table></font>
 <a href="#"><font color="#505050">^Back to top</font></a>
@@ -343,9 +366,11 @@ Variables preserve value between frames as well as over multiple Ouroboros loops
 
 ·:·:· Search Filters ·:·:·
 <font color="#bbbbbb">
-These are used when evaluating game state.
+These are used when evaluating foes.
 
-E.g.: "?foe = insect"
+<eg><f>E.g.:
+?foe = insect
+  loadout 3</f></eg>
 
 poison
 vigor
