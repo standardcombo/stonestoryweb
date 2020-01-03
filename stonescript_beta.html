@@ -1,65 +1,42 @@
 <!DOCTYPE html>
 <html><head><meta name="viewport" http-equiv="Content-Type" content="text/html; charset=UTF-8; width=device-width; initial-scale=1; minimum-scale=1">
 
-	<title>ASCII Test</title>
-    <style type="text/css">
-        body {
-			background-color: #000;
-			color: #FFF;
-			font-family: monospace;
-			font-size: 14px;
-        }
+<title>Stonescript Manual</title>
 
-        div {
-            white-space: pre-line;
-			width: 100%;//800px;
-			line-height: 1.2;
-        }
-
-		f {
-            white-space: pre-wrap;
-			margin-top: 0px;
-			margin-bottom: 0px;
-			line-height: 1.2;
-		}
-
-		a {
-			color: #b0b0b0;
-		}
-		a:hover {
-			color: white;
-		}
-		a:visited {
-			color: #707070;
-		}
-
-		table {
-			padding-left: 0em;
-			width: 100%;
-		}
-
-		tr {
-			line-height: 1.2;
-		}
-
-		td {
-			vertical-align: top;
-			min-width: 11em;
-            white-space: pre-wrap;
-			padding-bottom: 1em;
-		}
-    </style>
+<link rel="stylesheet" href="faq-fixed.css" type="text/css" media="only screen and (min-device-width: 891px)" />
+<link rel="stylesheet" href="faq-stretch.css" type="text/css" media="only screen and (max-width: 890px)" />
 </head>
-<body><div><font color="#aaaaaa"></font>
-v2.1.0 - 2020/01/03
+<body><div id="content">
+<f>
+<div id="logo"><a href="https://StoneStoryRPG.com" target="_blank"><img src="capsule_b_231x87.png" alt="Stone Story RPG" align="middle"></a></div>
 
-·:·:· Stonescript ·:·:·
+<div id="title-separator"><!---------------------------></div>
+
+<center>· ·:·: Stonescript :·:· ·</center>
+<div id="title-separator"><!---------------------------></div>
+<center><font color="#808080">v2.1.0 - 2020/01/03</font></center>
+<center><font color="#808080">
+       _ ______________________ _             
+   ,:´      \____        __.---<font color="#ffffff">,.</font> `.          
+  :.!  __________\_______\__`--<font color="#ffffff">`´</font>__ \         
+  :' \ \──────────────────────────.\ \        
+  ':' · \ <font color="#ffffff">·:. :'· :.:·             </font>\\ \       
+   ':' \ \ <font color="#ffffff">:·' :·:.                 </font>\\ \      
+    ':' · \ <font color="#ffffff">.: ·:: '.:. ':'··:.      </font>\\ \     
+     ':' \ \ <font color="#ffffff">· :..                    </font>\\ \    
+      ':' · \ <font color="#ffffff">:·: ..': :·:. ·:: '.     </font>\\ \   
+       ':' \ \__________________________\\ \  
+        ':' `     .         \         .     ) 
+         ':' . . . \ . . . . ' . . . . \ . . ;
+           `·.;,;,;,;,;,;,;,;,;,;,;,;,;,;,;:' 
+</font></center>
+</f>
 <font color="#bbbbbb">
-<f>  Used in the Mind Stone to automate equipment choices. Stonescript is a very simple, yet powerful language inside of <a href="https://StoneStoryRPG.com" target="_blank">Stone Story RPG</a>.</f>
+<f>Used in the Mind Stone to automate equipment choices. Stonescript is a very simple, yet powerful language inside of <a href="https://StoneStoryRPG.com" target="_blank">Stone Story RPG</a>.</f>
 
-<f>  Need help? Want to collaborate on scripts? Visit <a href="https://discord.gg/StoneStoryRPG" target="_blank">our Discord</a>.<f>
+<f>Need help? Want to collaborate on scripts? Visit <a href="https://discord.gg/StoneStoryRPG" target="_blank">our Discord</a>.<f>
 
-<f>  The goal of a good script is to equip the best items as the state of the game changes. This could be as simple as automatically activating the potion if your health is low, or complex enough where combat is optimized to super-human levels.</f>
+<f>The goal of a good script is to equip the best items as the state of the game changes. This could be as simple as automatically activating the potion if your health is low, or complex enough where combat is optimized to super-human levels.</f>
 </font>
 
 
@@ -78,7 +55,8 @@ v2.1.0 - 2020/01/03
 <f>  <a href="#roadmap">11. Roadmap</a></f>
 
 
-<div id="example">
+<div id="example"><div id="separator"><!---------------------------></div>
+
 ·:·:· Example ·:·:·
 <font color="#bbbbbb">
 // Equips the Shovel for Rocky Plateau.
@@ -116,14 +94,17 @@ v2.1.0 - 2020/01/03
 ·:·:· Basics ·:·:·
 <font color="#bbbbbb">
 <f>  ?     Compare and branch logic (if)</f>
+
 <f>  //    Comment</f>
+
 <f>  ^     Continue previous line</f>
 </font>
 
 <a href="#"><font color="#505050">^Back to top</font></a>
 </div>
 
-<div id="game-state">
+<div id="game-state"><div id="separator"><!---------------------------></div>
+
 ·:·:· Game State ·:·:·
 <font color="#bbbbbb">
 <f>These questions tell you what's happening and what's right in front of the player.</f>
@@ -136,6 +117,10 @@ v2.1.0 - 2020/01/03
   <tr>
     <td>?loc.stars</td>
     <td>The current location's difficulty.</td>
+  </tr>
+  <tr>
+    <td>?loc.start</td>
+    <td>Is true only on the first frame of a location, when time = 0, before any game simulation has run. Useful for initialization of variables.</td>
   </tr>
   <tr>
     <td>?foe</td>
@@ -209,15 +194,12 @@ v2.1.0 - 2020/01/03
     <td>?face</td>
     <td>The player's current facial expression.<br>E.g. ?face =( ^^)</td>
   </tr>
-  <tr>
-    <td>?level.start</td>
-    <td>Is true only on the first frame of a location, when time = 0, before any game simulation has run. Useful for initialization of variables.</td>
-  </tr>
 </table></font>
 <a href="#"><font color="#505050">^Back to top</font></a>
 </div>
 
-<div id="commands">
+<div id="commands"><div id="separator"><!---------------------------></div>
+
 ·:·:· Commands ·:·:·
 <font color="#bbbbbb">
 These tell the game to do something.
@@ -267,7 +249,8 @@ These tell the game to do something.
 <a href="#"><font color="#505050">^Back to top</font></a>
 </div>
 
-<div id="comparisons">
+<div id="comparisons"><div id="separator"><!---------------------------></div>
+
 ·:·:· Comparisons ·:·:·
 <font color="#bbbbbb">
 <f>Used in conjunction with game state to make decisions</f>
@@ -301,7 +284,8 @@ These tell the game to do something.
 <a href="#"><font color="#505050">^Back to top</font></a>
 </div>
 
-<div id="variables">
+<div id="variables"><div id="separator"><!---------------------------></div>
+
 ·:·:· Variables ·:·:·
 <font color="#bbbbbb">
 Variables are a way of storing value to use later. Declare a new variable with the keyword 'var'.
@@ -316,7 +300,8 @@ Variables preserve value between frames as well as over multiple Ouroboros loops
 <a href="#"><font color="#505050">^Back to top</font></a>
 </div>
 
-<div id="math-operations">
+<div id="math-operations"><div id="separator"><!---------------------------></div>
+
 ·:·:· Math Operations ·:·:·
 <font color="#bbbbbb">
 <f>Operators modify numbers. Can be used in conjunction with variables or directly in game state expressions.</f>
@@ -354,7 +339,8 @@ Variables preserve value between frames as well as over multiple Ouroboros loops
 <a href="#"><font color="#505050">^Back to top</font></a>
 </div>
 
-<div id="search-filters">
+<div id="search-filters"><div id="separator"><!---------------------------></div>
+
 ·:·:· Search Filters ·:·:·
 <font color="#bbbbbb">
 These are used when evaluating game state.
@@ -393,7 +379,8 @@ immune_to_physical
 <a href="#"><font color="#505050">^Back to top</font></a>
 </div>
 
-<div id="tips">
+<div id="tips"><div id="separator"><!---------------------------></div>
+
 ·:·:· Tips ·:·:·
 <font color="#bbbbbb">
 <f>Space (identation) matters when defining what happens as a result of '?' comparisons (scope).</f>
@@ -418,7 +405,8 @@ immune_to_physical
 <a href="#"><font color="#505050">^Back to top</font></a>
 </div>
 
-<div id="default-script">
+<div id="default-script"><div id="separator"><!---------------------------></div>
+
 ·:·:· Default script ·:·:·
 <font color="#bbbbbb"><f>
 ?hp < 10
@@ -433,46 +421,49 @@ loadout 1
 <a href="#"><font color="#505050">^Back to top</font></a>
 </div>
 
-<div id="roadmap">
+<div id="roadmap"><div id="separator"><!---------------------------></div>
+
 ·:·:· Roadmap ·:·:·
-<font color="#bbbbbb">
+<font color="#bbbbbb"><f>
 Things that are planned, but not yet in the game:
 
 2.2
-?harvest  returns the current harvest object targeted by the player
-?harvest.distance  returns the distance between the player and the target harvest location
-?ai.enabled  True if the AI is ON, False if the AI is off (e.g. during a cinematic moment)
+?harvest - returns the current harvest object targeted by the player.
+?harvest.distance - returns the distance between the player and the target harvest location.
+?ai.enabled - True if the AI is ON, False if the AI is off (e.g. during a cinematic moment).
 
 2.3
 :   Else logical branch
-:? Else-if logical branch
+:?  Else-if logical branch
 
-More
-&gt; #var   Possibility to insert variables into the print
+
+More features:
+
+&gt; @varName@ - Possibility to insert variables into the print.
 
 Importing of external scripts.
 
 Permanent variables that retain value between executions of the app.
 
-?key  Allows custom key inputs. E.g. ?key = A
+?key - Allows custom key inputs. E.g. ?key = A
 
 UGC mini-games.
 
-?has = potion  Evaluates if there is a potion available to use
-?has = (item)  Evaluates if the given item is equipped
-?hasL = (item)  Evaluates if the given item is equipped on the Left
-?hasR = (item)  Evaluates if the given item is equipped on the Right
+?has = potion   Evaluates if there is a potion available to use.
+?has = (item)   Evaluates if the given item is equipped.
+?hasL = (item)  Evaluates if the given item is equipped on the Left.
+?hasR = (item)  Evaluates if the given item is equipped on the Right.
 
-brew [resources] Creates a potion at the beginning of a location. E.g.: brew wood stone
+brew [resources] Creates a potion at the beginning of a location. E.g.: brew wood stone.
 
-?foe.level
-?foe.state (cast,perf,cooldown)
-?foe.statetime
+?foe.level - The level/difficulty of the targeted foe.
+?foe.state (cast,perf,cooldown) - Current attack state of the targeted foe.
+?foe.statetime - Elapsed frames of the current state of the targeted foe's attack.
 
-equipF (str)  equips an item to the Faerie
+equipF (str) - equips an item to the Faerie.
 
-foes  The list of foes within 40 units
-</font>
+foes - The list of foes within 40 units.
+</f></font>
 
 <a href="#"><font color="#505050">^Back to top</font></a>
 </div>
@@ -480,6 +471,7 @@ foes  The list of foes within 40 units
 
 <font color="#505050">
 Copyright Martian Rex, Inc. 2020
+
 </font>
 </div>
 
