@@ -313,9 +313,19 @@ var myVar = 10</eg>
 
 <eg>var secondVar = 3
 myVar = myVar - secondVar</eg>
-(myVar now equals 12)
+(Many variables can be combined in math operations. myVar now equals 12)
 
-Variables preserve value between frames as well as over multiple Ouroboros loops.
+
+When a variable is declared, it is initialized only once at the start of a run.
+
+<eg>E.g.:
+var i = 0
+i++</eg>
+In this example, variable 'i' is declared and starts with value 0. During each frame of the run, the value of 'i' increases by 1.
+
+Variables reset to their initial value at the start of each Ouroboros loop, as well as any time you open and close the Mindstone panel in the middle of a run.
+
+<font color="#ffffff">NOTE</font> - These mechanics related to how variables reset may change soon.
 </font>
 
 <a href="#"><font color="#505050">^Back to top</font></a>
@@ -330,19 +340,19 @@ Variables preserve value between frames as well as over multiple Ouroboros loops
 <table>
   <tr>
     <td style="min-width: 3em"> +</td>
-    <td>Adds two numbers or variables together.</td>
+    <td>Adds two numbers or variables together.<eg><br>E.g.:<br>var a = 2 + 3<br>(a equals 5)</td>
   </tr>
   <tr>
     <td style="min-width: 3em"> -</td>
-    <td>Subtracts two numbers or variables from each other.</td>
+    <td>Subtracts two numbers or variables from each other.<eg><br>E.g.:<br>?hp < maxhp - 5<br>  equip vigor sword dL</td>
   </tr>
   <tr>
     <td style="min-width: 3em"> *</td>
-    <td>Multiplies two numbers or variables together.</td>
+    <td>Multiplies two numbers or variables together.<eg><br>E.g.:<br>var a = 2<br>var b = 5<br>a = a * b<br>(a equals 10)</td>
   </tr>
   <tr>
     <td style="min-width: 3em"> /</td>
-    <td>Divides one number or variable by another.</td>
+    <td>Divides one number or variable by another.<eg><br>E.g.:<br>var a = 8<br>a = a / 4<br>(a equals 2)</td>
   </tr>
   <tr>
     <td style="min-width: 3em"> ++</td>
@@ -354,7 +364,7 @@ Variables preserve value between frames as well as over multiple Ouroboros loops
   </tr>
   <tr>
     <td style="min-width: 3em"> %</td>
-    <td>Modulo. Gives the remainder of dividing one number by another.<eg><br>E.g.:<br>var a = 5 % 4<br>(a equals 1)</td>
+    <td>Modulo. Gives the remainder of dividing one number by another.<eg><br>E.g.:<br>var a = 5 % 4<br>(a equals 1)<br><br>E.g.2:<br>?time % 8 < 4<br>  &gt; \O)<br>?time % 8 > 3<br>  &gt; (O/<br>(this draws an animated emoji)</td>
   </tr>
 </table></font>
 <a href="#"><font color="#505050">^Back to top</font></a>
