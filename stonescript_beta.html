@@ -284,7 +284,7 @@ These tell the game to do something.
   </tr>
   <tr>
     <td style="min-width: 3em"> |</td>
-    <td>Logical OR operator.<eg><br>E.g.<br>?foe=slow | foe.count&gt;3<br>  activate potion</td>
+    <td>Logical OR operator. If '&' and '|' are mixed in a single complex expression, all '&' operate first.<eg><br>E.g.<br>?foe=slow | foe.count&gt;3<br>  activate potion</td>
   </tr>
   <tr>
     <td style="min-width: 3em"> &gt;</td>
@@ -325,7 +325,7 @@ In this example, variable 'i' is declared and starts with value 0. During each f
 
 Variables reset to their initial value at the start of each Ouroboros loop, as well as any time you open and close the Mindstone panel in the middle of a run.
 
-<font color="#ffffff">NOTE</font> - These mechanics related to how variables reset may change soon.
+<font color="#ffffff">NOTE</font> - These mechanics related to how variables reset are under development and may change.
 </font>
 
 <a href="#"><font color="#505050">^Back to top</font></a>
@@ -377,7 +377,7 @@ Variables reset to their initial value at the start of each Ouroboros loop, as w
 These are used when evaluating foes.
 
 <eg><f>E.g.:
-?foe = insect
+?foe = insect | foe = poison
   loadout 3</f></eg>
 
 poison
