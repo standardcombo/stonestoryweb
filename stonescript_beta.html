@@ -140,12 +140,16 @@
     <td>The current location's difficulty.<eg><br>E.g.<br>?loc = caves<br>  ?loc.stars=4<br>    loadout 1<br>  ?loc.stars=5<br>    loadout 2</td>
   </tr>
   <tr>
-    <td>?loc.start</td>
-    <td>Is true only on the first frame of a location, when time = 0, before any game simulation has run. Useful for initialization of variables.</td>
+    <td>?loc.begin</td>
+    <td>Is true only on the first frame of a location, when time = 0, before any game simulation has run. Is not true after an Ouroboros loop. Useful for initialization of variables.<eg><br>E.g.<br>?loc.begin<br>  var i = 0<br>  ?loc = caves<br>    i = -100</td>
+  </tr>
+  <tr>
+    <td>?loc.loop</td>
+    <td>Is true on the first frame of a run after an Ouroboros loop.<eg><br>E.g.<br>var loopCount = 0<br>?loc.loop<br>  loopCount++</td>
   </tr>
   <tr>
     <td>?foe</td>
-    <td>The current foe being targeted by the player.</td>
+    <td>The current foe being targeted by the player.<eg><br>E.g.<br>?foe = boo<br>  equip vigor staff</td>
   </tr>
   <tr>
     <td>?foe.distance</td>
@@ -202,6 +206,14 @@
   <tr>
     <td>?debuffs.count</td>
     <td>The number of debuffs currently on the player.</td>
+  </tr>
+  <tr>
+    <td>?harvest</td>
+    <td>True if there is a nearby harvestable object, such as a tree or boulder.</td>
+  </tr>
+  <tr>
+    <td>?harvest.distance</td>
+    <td>The distance between the player and the nearest harvestable object.</td>
   </tr>
   <tr>
     <td>?pickup</td>
@@ -264,7 +276,11 @@ These tell the game to do something.
   </tr>
   <tr>
     <td>&gt;oX,Y,[#rrggbb,](str)</td>
-    <td>Advanced print relative to the player's head position. X and Y are the coordinate offsets. #rrggbb is the color of the text in hexadecimal notation.<eg><br>The following example writes "Let's go!" in red font, relative to the player's head position, 6 to the left and 3 down:<br>&gt;o-6,3,#ff0000,Let's go!</td>
+    <td>Advanced print relative to the player's position. X and Y are the coordinate offsets. #rrggbb is the color of the text in <a href="https://htmlcolorcodes.com/" target="_blank">hexadecimal notation</a>.<eg><br>The following example writes "Let's go!" in red font, relative to the player's position, 6 to the left and 3 down:<br>&gt;o-6,3,#ff0000,Let's go!</td>
+  </tr>
+  <tr>
+    <td>&gt;hX,Y,[#rrggbb,](str)</td>
+    <td>Similar to "&gt;o", however, draws on the same layer as the Big Head. Ideal for accessories such as hats.<eg><br>The following draws a yellow hat on the player. Requires Big Head:<br>&gt;h-2,-4,#ffff00,\n<br>^##_\n<br>^#| |\n<br>^_|_|_</td>
   </tr>
   <tr>
     <td>&gt;`X,Y,[#rrggbb,](str)</td>
@@ -335,17 +351,15 @@ myVar = myVar - secondVar</eg>
 (Many variables can be combined in math operations. myVar now equals 12)
 
 
-When a variable is declared, it is initialized only once at the start of a run.
+When a variable is declared it is initialized only once, the first time 'var' executes.
 
 <eg>E.g.:
 var i = 0
 i++</eg>
 In this example, variable 'i' is declared and starts with value 0. During each frame of the run, the value of 'i' increases by 1.
 
-Variables reset to their initial value at the start of each Ouroboros loop, as well as any time you open and close the Mindstone panel in the middle of a run.
+Variables only reset to their initial value if you leave a location and begin a new run manually. They do not reset when the Ouroboros loops.
 
-<font color="#ffffff">NOTE</font> - These mechanics related to how variables reset are under development and may change.
-</font>
 
 <a href="#"><font color="#505050">^Back to top</font></a>
 </div>
@@ -483,15 +497,13 @@ loadout 1
 <font color="#bbbbbb"><f>
 Things that are planned, but not yet in the game:
 
-2.2
-?harvest - returns the current harvest object targeted by the player.
-?harvest.distance - returns the distance between the player and the target harvest location.
-?ai.enabled - True if the AI is ON, False if the AI is off (e.g. during a cinematic moment).
-
 2.3
 :   Else logical branch
 :?  Else-if logical branch
-
+?ai.paused - This is true in "cinematic" moments, such as when a boss is transitioning between phases.
+?ai.idle - True when the player is standing still.
+?ai.walking - True when the player is walking.
+?key - Allows custom key inputs. E.g. ?key = up
 
 More features:
 
@@ -501,7 +513,7 @@ Importing of external scripts.
 
 Permanent variables that retain value between executions of the app.
 
-?key - Allows custom key inputs. E.g. ?key = A
+Advanced printing relative to all 9 screen anchor points.
 
 UGC mini-games.
 
