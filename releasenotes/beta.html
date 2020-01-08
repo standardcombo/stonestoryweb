@@ -21,8 +21,9 @@
 
 <center>· ·:·: Release Notes (Beta) :·:· ·</center>
 <div id="title-separator"><!---------------------------></div>
-<answer>
-The release process for Stone Story is such that new versions are first pushed onto the Beta branch. This branch continuously advances with new features until all planned changes for that version are complete and all known bugs are fixed. Then that version is pushed onto the default branch. At that point both branches will be the same, until new features begin development and the process repeats.
+
+<answer><center><a href="http://stonestoryrpg.com/releasenotes">main</a> | beta</center></answer>
+<answer>The release process for Stone Story is such that new versions are first pushed onto the Beta branch. This branch continuously advances with new features until all planned changes for that version are complete and all known bugs are fixed. Then that version is pushed onto the default branch. At that point both branches will be the same, until new features begin development and the process repeats.
 
 Changing your game to the Beta branch is a way to help make the game better and experience the new features before everyone else. This comes at the cost of stability, and risks such as losing progress if a critical bug is introduced into the Beta and messes things up. When playing on the Beta you should safeguard your progress by making backups of your save files or at least understand where the game automatically creates backups.
 
@@ -48,6 +49,31 @@ For information about save file locations and about switching to the beta branch
 </center>
 </f>
 <div id="separator"><!---------------------------></div>
+
+v2.2.0 - 2020/01/07
+<answer>
+- Due to engine changes, support for Linux 32bits has been dropped. I need feedback from Linux 64bit users to know it's working normally. If you were using a Linux 32bit and are affected by this change please reach out.
+
+Stonescript Changes
+- Added game state ?pos.y and ?pos.z
+- Renamed ?loc.start to ?loc.begin, because it was too similar to ?loc.stars
+- Added ?loc.loop
+- Variables no longer reset when a location loops or when the Mindstone is opened min-run.
+- The advanced print ">o" now draws on the same layer as the player, fixing jitters and other issues.
+- Added an advanced print ">h" that draws on the big head. Ideal for accessories such as hats.
+- Added ?harvest and ?harvest.distance
+- Added ?ai.enabled
+
+Balance
+- Yellow Enoki's attack range from 40 -> 60.
+
+Bugs
+- Stonescript: Fixed a parsing error where conditions such as "?loc = caves of fear" where requiring underscores to work.
+- Fixed a bug where the big head wasn't drawing during some frames when picking up resources.
+- Changed external links (Stonescript help and Discord) to HTTPS to avoid bad interactions with anti-virus software.
+- German: Fixed the "armor per engaging foe" text.
+
+</answer><div id="separator"><!---------------------------></div>
 
 v2.1.0 - 2020/01/03
 <answer>
