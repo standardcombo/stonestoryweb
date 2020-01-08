@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html><head><meta name="viewport" http-equiv="Content-Type" content="text/html; charset=UTF-8; width=device-width; initial-scale=1; minimum-scale=1">
+
+<meta content="Stone Story RPG - Release Notes" property="og:title">
+<meta content="See every change made to the game since it was launched." property="og:description">
+<meta content='http://stonestoryrpg.com/sight_stone.png' property='og:image'>
+<meta name="theme-color" content="#ffffff">
+<meta name="twitter:card" content="summary_large_image">
+<link type="application/json+oembed" href="http://stonestoryrpg.com/faq.json" />
+
+<title>Release Notes</title>
+
+<link rel="stylesheet" href="http://stonestoryrpg.com/faq-fixed.css" type="text/css" media="only screen and (min-device-width: 891px)" />
+<link rel="stylesheet" href="http://stonestoryrpg.com/faq-stretch.css" type="text/css" media="only screen and (max-width: 890px)" />
+</head>
+<body><div id="content">
+<f>
+<div id="logo"><a href="https://StoneStoryRPG.com" target="_blank"><img src="http://stonestoryrpg.com/capsule_b_231x87.png" alt="Stone Story RPG" align="middle"></a></div>
+
+<div id="title-separator"><!---------------------------></div>
+
+<center>· ·:·: Release Notes :·:· ·</center>
+<div id="title-separator"><!---------------------------></div>
+<answer>
+These are all the changes to the game's default branch. For release notes about the Beta branch, <a href="http://stonestoryrpg.com/releasenotes/beta.html">go here</a>.
+</answer>
+<center>          __                      
+     _,·´    `'--._               
+   .´               `-._          
+ .:   '      .__        `-.       
+.:       ,---.__ ¯`-.      `.     
+::·      |    .-`-.  `.      `.   
+::       '   /  _  `.  `.      \  
+:: '      \ |  ( )  |`.  \      \ 
+::.· .     \ \  ¯  /   \  `      .
+ ::.        `.`---'    |        '|
+ '::.'  ·      `-.,__ /;   .    .:
+  '::.  . .                   , :'
+   ':::.     ·              ·  :' 
+     ::::. '  . `  ·  ·  ´ ' .;'  
+      '::::::..  '   '  '..:;'    
+         ':;:::::::::::::;:'      
+            '":;;;;;;;:"'         
+</center>
+</f>
+<div id="separator"><!---------------------------></div>
+
+v2.0.6 - 2019/12/22
+<answer>
+- Balance: Changed the cost to mutate Runestones from 100 -> 80 per Runestone.
+- Fixed a bug where the Repeating Crossbow zero stars dealt no damage.
+- Fixed an exploit that allowed duplication of basic items.
+- The Bardiche's super-attack buffs are no longer marked as debuffs.
+- The Bardiche's super-attack buffs now last longer, so they still work if you are Chilled.
+- Increased the Bardiche's collision exit point by 2.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.0.3 - 2019/12/15
+<answer>
+- Lowered the requirement to unlock Yellow from 3 to 1 Cyan location completed.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.0.2 - 2019/12/14
+<answer>
+- Fixed a bug where the +3 Bardiche (event) had the incorrect amount of quality points.
+- Fixed a bug where, if you were at the treasure limit of 150 you would permanently lose the special +3 Bardiche treasure.
+- Players who have already earned the +3 Bardiche, can earn it again!
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.0.0 - 2019/12/12
+<answer>
+Improvements
+- Added Yellow difficulty locations.
+- Added the Bardiche weapon.
+- Increased the max XP level to 60.
+- QoL: Added a "Repeat Craft" button to the Anvil screen that allows automation of the same craft multiple times.
+- QoL: Added a "Break Completely" button to the Fissure screen.
+- Stonescript: Added ?totaltime, for locations with boss sub-locations.
+- Added achievement: Finally, a Wizard.
+- Added achievement: Farewellow.
+- New icon for the Alchemist achievement.
+- New Event system.
+- Stonescript: Expanded the "activate" command  to take the following parameters: "potion", "P", "left", "L", "right" and "R".
+- Added key binding labels to the ability buttons in the HUD.
+- Dysangelos now resets the time at the beginning of each evolution.
+- Adjusted how Quarterstaffs are introduced in the early game.
+- Weapons with attack variations will no longer play the same animation twice in a row.
+- Changed how the HUD blinks armor in response to damage taken. Was pre-damage, now triggers post-damage.
+- Boiling Mine foreground pillars now obstruct the action much less.
+- Added SFX of Bronze Gate closing the first time you enter the Boiling Mine.
+- Minor revision to weapon ability texts.
+
+Balance: General
+- Re-roll cost: 500/Bonus -> 1,000 + 200/Bonus.
+- You can now dodge arching attacks (e.g. Poison Adept and Nagaraja).
+- Changed the RNG curve when selecting foe level to result in fewer, yet tougher, foes.
+
+Balance: Items
+- Chill debuff attack speed penalty: 30 -> 20.
+- Chill Debuff stack limit: 10 -> 6.
+- Repeating Crossbow damage: 2.5 + 0.25/Lv -> -1.9 + 0.68/Lv.
+- Staff attack speed: 0.5 + 1.5/Lv -> 0.5 + 1.3/Lv.
+- Quarterstaff range: 4 -> 5.
+- Wand attack duration Cast+Perf+Cooldown: 20+6+4 -> 14+8+8
+- Wand damage: 1 + 1/Lv -> 0.02 + 1.49/Lv
+- Wand hidden attack speed bonus: 1 + 1/Lv -> 0 + 1/Lv.
+- Removed Pushback from Ice Staffs and Wands.
+- Added Pushback to Stone and elemental Crossbows.
+- Stone Sword crit multiplier: 2.7 + 0.3/Lv -> 1.8 + 0.2/Lv.
+- Wand damage: 0.02 + 1.49/Lv -> -1.21 + 1.9/Lv.
+- Crossbow damage: 1.6 + 0.8/Lv -> -0.47 + 1.49/Lv.
+- Heavy Crossbow: 0.5 + 1.5/Lv -> -2.4 + 2.95/Lv.
+- Small Armor per foe (a): 0.16 + 0.08/Lv -> 0.2 + 0.05/Lv.
+- Large Armor per foe (A): 0.7 + 0.3/Lv -> 0.8 + 0.2/Lv.
+- Stone Shield Evasion chance: 6 + 1/Lv -> 7 + 0.74/Lv.
+- Lightning Potion damage: 100 -> 150.
+- Lucky Potion duration: 7 -> 6 seconds.
+- Strength Potion damage multiply against armor: 2 -> 3.
+
+Balance: Caves of Fear
+- Cyan: Caves of Fear increased by 1 screen.
+- Cyan: Bolesh now casts a self-buff periodically.
+- Cyan: Bolesh hitpoints: 350 + 150/Lv -> -550 + 900/Lv.
+- White: Not Caviar's hitpoints: 20 + 5/Lv -> 20 + 20/Lv.
+- Cyan: Not Caviar hitpoints: 20 + 5/Lv -> 20 + 30/Lv.
+
+Balance: Deadwood Canyon
+- Cyan: Xyloalgia hitpoints: 400 + 150/Lv -> 350 + 250/Lv.
+- Cyan: Xyloalgia damage: 3 + 1/Lv -> 7 + 2.5/Lv.
+- Cyan: Xyloalgia attack cooldown: 15 frames -> 75 frames.
+
+Balance: Mushroom Forest
+- Cyan: Morel hitpoints: 250 + 50/Lv -> -25 + 265/Lv.
+- Cyan: Morel punch damage: 2 -> 2 + 0.334/Lv.
+- Cyan: Enoki hitpoints: 100 + 25/Lv -> 75 + 65/Lv.
+
+Balance: Haunted Halls
+- Cyan: Haunted Halls reduced by 1 screen.
+- Cyan: Pallas sword damage: 10 + 1.5/Lv -> 8 + 1.5/Lv.
+- Cyan: Pallas phase 2 attack cooldown: 150 -> 165.
+- Cyan: Skeletony hitpoints: 60 + 20/Lv -> 30 + 30/Lv.
+- Cyan: R.I.P. hitpoints: 40 + 15/Lv -> 0 + 40/Lv.
+
+Balance: Boiling Mine
+- Cyan: Lowered amount of mobs in Boiling Mines.
+- Cyan: Bronze Guardian armor: 400 + 125/Lv -> -650 + 900/Lv.
+- Mine Walker armor: 25 + 5/Lv -> 20 + 15/Lv.
+- Mine Walker damage: 4 + 1/Lv -> 4 + 0.5/Lv.
+- Cyan: Dominataur damage: 4 + 0.85/Lv -> 2 + 0.7/Lv.
+
+Balance: Icy Ridge
+- Cyan: Icy Ridge screens reduced from 7 to 5.
+- Cyan: Hrimnir hitpoints: 5000 + 1000/Lv -> 2700 + 300/Lv.
+- Cyan: Hrimnir damage 3 + 1/Lv -> 2 + 0.5/Lv.
+- Cyan: Ki Eater hitpoints: 80 + 10/Lv -> 70 + 10/Lv.
+- Cyan: Ki Eater damage: 1 + 1/Lv -> 1 + 0.75/Lv.
+- Cyan: Ki Gobbler hitpoints: 240 + 20/Lv -> 140 + 20/Lv.
+- Cyan: Ki Gobbler damage: 3 + 1/Lv -> 2 + 0.5/Lv.
+- Cyan: Ki Slurper hitpoints: 200 + 10/Lv -> 130 + 10/Lv.
+- Cyan: Ice Pillar hitpoints: 2000 + 250/Lv -> 1150 + 50/Lv.
+- Cyan: Elite Ice Elemental damage: 3 + 1/Lv -> 2 + 0.75/Lv.
+- Cyan: Ice Elemental damage: 2 + 0.5/Lv -> 1 + 0.5/Lv.
+
+Balance: Temple
+- Cyan: Temple reduced by 2 screens.
+- Cyan: Nagaraja hitpoints: 2700 + 300/Lv -> 500 + 1700/Lv.
+- Cyan: Nagaraja poison damage: 3 -> 2.
+- Cyan: Nagaraja now applies multiple poison debuffs in a row.
+- Cyan: Nagaraja now cycles through its state machine much faster.
+- Range of Nagaraja's stone attack: 9 -> 10.
+- Cyan: Cultist Marksman damage: 2 + 0.5/Lv -> 2 + 0.34/Lv.
+- Cyan: Slight increase to the death duration of the Poison Adept.
+
+Balance: Rocky Plateau
+- Cyan: Bearer hitpoints: 1000 + 250/Lv -> 400 + 800/Lv.
+- Cyan: Elementalist hitpoints: 1200 + 400/Lv -> 600 + 1000/Lv.
+- Cyan: Elementalist attack cast: 120 to 60 frames.
+- Cyan: Elementalist attack cooldown: 30 to 10 frames.
+- Cyan: Perfected hitpoints: 2000 + 1000/Lv -> 1000 + 2000/Lv.
+- Cyan: Perfected armor: 400 + 200/Lv -> 350 + 250/Lv.
+
+Bugs
+- Fixed a bug where the credits got stuck in a single language (whichever is set first).
+- Regenerated treasure drop objects to try and fix a strange engine crash.
+- Fixed a minor rendering bug in the Anvil screen where the big rings could be seen for a frame when doing several crafts in a row.
+- Fixed a minor draw issue on weapons with fast attack speed where the blur frame sometimes didn't draw.
+- The Ice Wall summoned by Hrímnir is now destroyed if you win the fight while the Wall is up.
+- Fixed the Ice Shield (ai) so it applies the Chill debuff on all engaging foes, not just Poison ones.
+- Fixed a bug where rerolling an item when having multiple copies of it could result in the same stat always being enchanted each time.
+- Fixed a bug where printing something with Stonescript then starting a new save file made the printed text stick on the screen.
+- Fixed a crash in the json parser when using ']' or '}' in some situations in your Mind Stone script.
+- Stonescript: Fixed ?debuffs.count and ?foe.debuffs.count which were also counting buffs.
+- Fixed an exploit where players could easily walk through foes, even bosses, bypassing the encounter.
+- Fixed a bug where the poison debuff from weapons was not applying the correct penalty.
+- Fixed a bug where Pallas' AEther debuff from the second phase were not cleansing.
+- Fixed the SFX on Morel's punch attack.
+- Fixed a bug where negative weapon range would cause the player to keep walking past foes.
+- Fixed a bug where Nagaraja could die and swallow you at the same time, freezing the game.
+- Fixed a bug where high-level foes were not starting with the correct amount of armor.
+- Fixed a crash when pressing Tab right after launching the game.
+- Fixed a layout bug in the Sight Stone screen where it would cut the top of the window in some cases.
+- Fixed a bug where bosses could sometimes trigger events twice when they died.
+- Fixed a bug where it was possible for the game to generate a "Stone Runestone".
+
+</answer><div id="separator"><!---------------------------></div>
+
+v1.8.8 - 2019/10/09
+<answer>
+Improvements
+- Added 6x11 font.
+- Small improvements to the 5x9 and 7x12 fonts.
+- ASCII Particles can now scroll at different speeds when the camera moves.
+
+Balance
+- Ki Slurper Chill debuff 26 -> 22 attack speed penalty.
+- White: Ice Pillar hitpoints from 1800 -> 1300.
+- White: Ki Gobbler hitpoints from 220 -> 150.
+- White: Ki Slurper hitpoints from 180 -> 120.
+- White3: Hrimnir hitpoints 2100 -> 1800.
+- White4: Hrimnir hitpoints 3000 -> 2100.
+- White5: Hrimnir hitpoints 5400 -> 2400.
+- White5: Hrimnir damage 3 -> 2.
+- Cyan: Pallas phase 1 hitpoints from 700 + 150/Lv -> 550 + 300/Lv.
+- Cyan: Pallas phase 1 damage from 10 + 1/Lv -> 10 + 1.5/Lv.
+- Cyan: Pallas phase 2 attacks now apply a range debuff.
+- Cyan: Pallas phase 2 now has a chance to spawn ghosts.
+- Cyan: Pallas phase 2 Skeletimmy hitpoints from 15 + 5/Lv -> 0 + 33/Lv.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v1.8.6 - 2019/09/18
+<answer>
+Improvements
+- The Triskelion can now be equipped.
+- Added the Mutate workstation.
+- Added the Knee Chopper foe to Caves of Fear.
+- Added the 'Alchemist' achievement.
+- Settings screen reworked to have separate Audio/Video tabs.
+- Settings: Screen Flash On/Off.
+- Settings: Added audio sliders instead of On/Off buttons.
+- Updated OST.
+- Added Cyan version of Angry Shroom music.
+- Updated Xyloalgia music.
+- Updated Nagaraja's music.
+- Updated Bolesh's music.
+- Updated Dysangelos conversation music.
+- Added an activated ability to the Hatchet.
+- Changed the capitalization on ability abbreviations so they are all consistent.
+- Improved the Tab screen into a format that is more relevant to Stonescript.
+- Stonescript: ?loc now works with both the name of a sub-location (boss area) as well as its parent location.
+- Stonescript: Added advanced text printing. Can draw relative to screen, player or foe's head.
+- Stonescript: Added command: ?debuffs.count
+- Stonescript: Added command: ?foe.debuffs.count
+- Stonescript: Added command: ?face
+- Stonescript: Added command to set custom faces.
+- Stonescript: Changed print commands so they keep drawing as long as they are called.
+- Stonescript: Added ?loc.stars
+- Stonescript: Using < or > with ?loc (or other string search functions) now throws an error.
+- Clicking on items in the Anvil screen adds them instantly, skipping the context menu.
+- Added a mechanism that automatically generates historical backups, to help recover from loss of progress.
+- ESC key in the Locations/Workstation/Items screens now takes you to the main menu instead of opening a dialog to exit the app.
+- Doubled the scroll wheel speed on Windows.
+- The brightness of Ouroboros transition is now 35% when the 'Screen Flashes' setting is disabled.
+- New translation for Simplified Chinese.
+
+Balance
+- Ouroboros attack damage from 3 -> 4.
+- XP and Ki Stones attack damage from 2 -> 3.
+- The player can now only accumulate armor equal to their max health + armor from equipment.
+- Bronze Guardian is now immune to Chill.
+
+Bugs
+- Fixed the "Three Times a Charm" achievement.
+- Fixed a bug in the enchantment fusing screen where you could still press the slots in the middle of the fuse.
+- Fixed a Stonescript bug where glyph combinations such as "||" were throwing errors even though they were part of a print operation and not a logical expression.
+- Fixed a Stonescript bug where quotes were causing the script to save and load incorrectly.
+- Fixed a crash if you tried to mutate the Crafting Booklet.
+- Fixed a bug in Stonescript when print and multiple equip commands were combined the player would keep switching weapons very quickly and never attack.
+- Fixed a bug when copy-pasting code into Mind Stone where music glyphs sometimes appeared at the end of each line.
+- Fixed a bug where advanced Stonescript prints would linger on the screen between Ouroboros loops.
+- Stonescript: Fixed a UX issue where equip commands, e.g. "equip vigor hammer*7", would not find the right item because there was no space between the item name and the star level or enchantment bonus.
+- Progress is no longer saved upon application shutdown, to avoid some cases of progress corruption.
+- Fixed a bug where stacked enchantments could lose quality when fused below 100% on the Triskelion.
+- Fixed a bug where Mosquito and Ghost looping sounds were not being controlled by the settings.
+- Fixed the Dominotaur's Sight Stone icon.
+- Fixed a bug where the Angry Shroom location was locked to a minimum time of 30 seconds.
+- Fixed a bug where in some locales runestones would not generate abilities due to problems parsing item data.
+- Stonescript: Fixed a bug where parts of the script could be lost if you used brackets ']'.
+- Stonescript: Fixed an issue where the system had difficulty distinguishing between weapons with dL and D.
+- Hooked up localization for the "TOO MANY TREASURES" message.
+- Fixed two non-localized texts, in Scotty mini-game and in Triskelion screen.
+- Fixed a parsing bug where the Mind Stone could lose all memory.
+- Fixed a bug where the Hatchet's activated ability would not appear when switched by the Mind Stone.
+- Fixed a bug where Humble treasure drops could crash the game.
+- Fixed the shop 'buy' sound effect which did not respect volume settings.
+- Fixed a bug where some Chinese glyphs were missing.
+- Fixed a bug where the Knee Chopper's poison debuff was not doing anything.
+- Fixed a crash in Stonescript if you used a question with an empty expression. Such conditions will now evaluate to false.
+- Fixed a bug where some progress bar tasks were not playing the "completed" sound effect.
+- Fixed a bug that sometimes prevented the player from picking up the Ouroboros Stone.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v1.4.1 - 2019/08/14
+<answer>
+- Changed Grappling Hook crafting cost from @30 -> @22.
+- Fixed some non-localized potion and item texts.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v1.4.0 - 2019/08/13
+<answer>
+Improvements
+- Opening all treasures is now 48% faster.
+- Reduced some unnecessary logs when opening treasures.
+- Reworked how abilities are selected on the Anvil, so the player is able to control what they get.
+- Decreased player name minimum limit from 2 to 1.
+- Updated the engine to version 2018.4.6
+- Added automatic backup file in case there is failure to save.
+- Significantly reduced the size of the game's log file.
+- The game will now show a warning message if Steam is not initializing correctly.
+- New implementation for how save file folder paths are generated.
+
+Balance
+- Fissure Stone cast time changed from 1.5s -> 1.0s.
+- Elementalist (White) Chill duration from 22 -> 16 seconds.
+- Elementalist (Cyan) now has a chance to add multiple Poison debuffs in a single attack.
+
+Bugs
+- Fixed the Mind Stone's cooldown logic.
+- Fixed several misplaced color tags in Japanese NPC dialogs.
+- Fixed several misplaced color tags on Chinese NPC dialogs.
+- Fixed a non-localized "Too short" text when entering your name.
+- Fixed a bug where the player could get stuck if defeating a boss and activating the Sight Stone at the same time.
+- Fixed a bug in the Settings screen when the resolution combo box overlapped with the social link, the link had click priority over the combo box.
+- Fixed a bug where there was no "Use" button in the Anvil screen for Enchantments.
+- Fixed a crash in German related to malformed meta-data in one of Dysangelos' dialogs.
+- Fixed EN and PT potion texts so the use of "Health" VS "Hitpoints" is consistent.
+- Added caching of last used Steam ID to retrieve the most likely save files.
+- Reworked file saving so blank files are not generated in case of errors.
+- Fixed one non-localized Shopkeeper dialog.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v1.0.3 - 2019/08/09
+<answer>
+- Fixed a crash when unlocking achievements while Steam did not initialize correctly.
+- Fixed a crash when picking up objects with the Star Stone.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v1.0.2 - 2019/08/08
+<answer>
+- Fixed missing Chinese glyphs.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v1.0.0 - 2019/08/08
+<answer>
+- Game released into Early Access
+
+
+
