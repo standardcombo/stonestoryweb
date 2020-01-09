@@ -21,7 +21,7 @@
 
 <center>· ·:·: Stonescript :·:· ·</center>
 <div id="title-separator"><!---------------------------></div>
-<center><font color="#808080">v2.2.0 - 2020/01/07</font></center>
+<center><font color="#808080">v2.0.0 - 2019/12/13</font></center>
 <answer><center>main | <a href="http://stonestoryrpg.com/stonescript/beta.html">beta</a></center></answer>
 <center><font color="#808080">
       _ ______________________ _            
@@ -55,12 +55,10 @@
 <f>  <a href="#game-state">3. Game State</a></f>
 <f>  <a href="#commands">4. Commands</a></f>
 <f>  <a href="#comparisons">5. Comparisons</a></f>
-<f>  <a href="#variables">6. Variables</a></f>
-<f>  <a href="#math-operations">7. Math Operations</a></f>
-<f>  <a href="#search-filters">8. Search Filters</a></f>
-<f>  <a href="#tips">9. Tips</a></f>
-<f>  <a href="#default-script">10. Default script</a></f>
-<f>  <a href="#roadmap">11. Roadmap</a></f>
+<f>  <a href="#search-filters">6. Search Filters</a></f>
+<f>  <a href="#tips">7. Tips</a></f>
+<f>  <a href="#default-script">8. Default script</a></f>
+<f>  <a href="#roadmap">9. Roadmap</a></f>
 
 
 <div id="example"><div id="separator"><!---------------------------></div>
@@ -98,7 +96,8 @@
 <a href="#"><font color="#505050">^Back to top</font></a>
 </div>
 
-<div id="basics">
+<div id="basics"><div id="separator"><!---------------------------></div>
+
 ·:·:· Basics ·:·:·
 <font color="#bbbbbb">
 <table>
@@ -132,10 +131,6 @@
   <tr>
     <td>?loc.stars</td>
     <td>The current location's difficulty.<eg><br>E.g.<br>?loc = caves<br>  ?loc.stars=4<br>    loadout 1<br>  ?loc.stars=5<br>    loadout 2</td>
-  </tr>
-  <tr>
-    <td>?loc.start</td>
-    <td>Is true only on the first frame of a location, when time = 0, before any game simulation has run. Useful for initialization of variables.</td>
   </tr>
   <tr>
     <td>?foe</td>
@@ -184,14 +179,6 @@
   <tr>
     <td>?pos.x</td>
     <td>The player's current X position.</td>
-  </tr>
-  <tr>
-    <td>?pos.y</td>
-    <td>The player's current Y position.</td>
-  </tr>
-  <tr>
-    <td>?pos.z</td>
-    <td>The player's current Z position.</td>
   </tr>
   <tr>
     <td>?debuffs.count</td>
@@ -313,82 +300,6 @@ These tell the game to do something.
 
 <div id="variables"><div id="separator"><!---------------------------></div>
 
-·:·:· Variables ·:·:·
-<font color="#bbbbbb">
-Variables are a way of storing value to use later. Declare a new variable with the keyword 'var'.
-
-<eg>E.g.:
-var myVar = 10</eg>
-(myVar is the name of the variable, and it's initialized with value 10)
-
-<eg>myVar = myVar + 5</eg>
-(myVar now equals 15)
-
-<eg>var secondVar = 3
-myVar = myVar - secondVar</eg>
-(Many variables can be combined in math operations. myVar now equals 12)
-
-
-When a variable is declared, it is initialized only once at the start of a run.
-
-<eg>E.g.:
-var i = 0
-i++</eg>
-In this example, variable 'i' is declared and starts with value 0. During each frame of the run, the value of 'i' increases by 1.
-
-Variables reset to their initial value at the start of each Ouroboros loop, as well as any time you open and close the Mindstone panel in the middle of a run.
-
-<font color="#ffffff">NOTE</font> - These mechanics related to how variables reset are under development and may change.
-</font>
-
-<a href="#"><font color="#505050">^Back to top</font></a>
-</div>
-
-<div id="math-operations"><div id="separator"><!---------------------------></div>
-
-·:·:· Math Operations ·:·:·
-<font color="#bbbbbb">
-<f>Operators modify numbers. Can be used in conjunction with variables or directly in game state expressions.</f>
-
-<table>
-  <tr>
-    <td style="min-width: 3em"> +</td>
-    <td>Adds two numbers or variables together.<eg><br>E.g.:<br>var a = 2 + 3<br>(a equals 5)</td>
-  </tr>
-  <tr>
-    <td style="min-width: 3em"> -</td>
-    <td>Subtracts two numbers or variables from each other.<eg><br>E.g.:<br>?hp < maxhp - 5<br>  equip vigor sword dL</td>
-  </tr>
-  <tr>
-    <td style="min-width: 3em"> *</td>
-    <td>Multiplies two numbers or variables together.<eg><br>E.g.:<br>var a = 2<br>var b = 5<br>a = a * b<br>(a equals 10)</td>
-  </tr>
-  <tr>
-    <td style="min-width: 3em"> /</td>
-    <td>Divides one number or variable by another. The result is rounded down.<eg><br>E.g.:<br>var a = 8<br>a = a / 4<br>(a equals 2)</td>
-  </tr>
-  <tr>
-    <td style="min-width: 3em"> ++</td>
-    <td>Increments a variable.<eg><br>E.g.:<br>var a = 3<br>a++<br>(a equals 4)</td>
-  </tr>
-  <tr>
-    <td style="min-width: 3em"> --</td>
-    <td>Decrements a variable.<eg><br>E.g.:<br>var a = 3<br>a--<br>(a equals 2)</td>
-  </tr>
-  <tr>
-    <td style="min-width: 3em"> %</td>
-    <td>Modulo. Gives the remainder of dividing one number by another.<eg><br>E.g.:<br>var a = 5 % 4<br>(a equals 1)<br><br>E.g.2:<br>?time % 8 < 4<br>  &gt; \O)<br>?time % 8 > 3<br>  &gt; (O/<br>(this draws an animated emoji)</td>
-  </tr>
-  <tr>
-    <td style="min-width: 3em"> ( )</td>
-    <td>Parenthesis can be used to prioritize operations.<eg><br>E.g.:<br>var a = 2 * (3 - 1)<br>(a equals 4)</td>
-  </tr>
-</table></font>
-<a href="#"><font color="#505050">^Back to top</font></a>
-</div>
-
-<div id="search-filters"><div id="separator"><!---------------------------></div>
-
 ·:·:· Search Filters ·:·:·
 <font color="#bbbbbb">
 These are used when evaluating foes.
@@ -477,17 +388,22 @@ loadout 1
 <font color="#bbbbbb"><f>
 Things that are planned, but not yet in the game:
 
-2.2
+2.X:
+
+Variables
+Math operations
+Improvements to advanced prints
+
+?loc.begin
+?loc.loop
+?pos.x
+?pos.y
 ?harvest - returns the current harvest object targeted by the player.
 ?harvest.distance - returns the distance between the player and the target harvest location.
 ?ai.enabled - True if the AI is ON, False if the AI is off (e.g. during a cinematic moment).
 
-2.3
 :   Else logical branch
 :?  Else-if logical branch
-
-
-More features:
 
 &gt; @varName@ - Possibility to insert variables into the print.
 
@@ -503,6 +419,8 @@ UGC mini-games.
 ?has = (item)   Evaluates if the given item is equipped.
 ?hasL = (item)  Evaluates if the given item is equipped on the Left.
 ?hasR = (item)  Evaluates if the given item is equipped on the Right.
+
+More features:
 
 brew [resources] Creates a potion at the beginning of a location. E.g.: brew wood stone.
 
