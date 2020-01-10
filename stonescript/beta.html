@@ -28,7 +28,7 @@
 
 <center>· ·:·: Stonescript (Beta) :·:· ·</center>
 <div id="title-separator"><!---------------------------></div>
-<center><font color="#808080">v2.2.0 - 2020/01/07</font></center>
+<center><font color="#808080">v2.3.0 - 2020/01/10</font></center>
 <answer><center><a href="http://stonestoryrpg.com/stonescript">main</a> | beta</center></answer>
 <center><font color="#808080">
       _ ______________________ _            
@@ -112,15 +112,23 @@
 <table>
   <tr>
     <td style="min-width: 3em"> ?  </td>
-    <td>Compare and branch logic (if).</td>
+    <td>Evaluates a logical condition. If true, executes idented lines (if).<eg><br>E.g.<br>?loc = caves<br>  loadout 1</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> :  </td>
+    <td>Alternative logical branch, in case the '?' condition is false (else).<eg><br>E.g.<br>?loc = caves<br>  loadout 1<br>:<br>  loadout 2</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> :? </td>
+    <td>Alternative logical branch, with additional conditions (else-if).<eg><br>E.g.<br>?loc = caves<br>  loadout 1<br>:?loc = deadwood<br>  loadout 2<br>:<br>  loadout 3</td>
   </tr>
   <tr>
     <td style="min-width: 3em"> // </td>
-    <td>A comment. All text to the right of '//' has no logical effect when the script executes.</td>
+    <td>A comment. All text to the right of '//' has no logical effect when the script executes.<eg><br>E.g.<br>?loc = caves<br>  loadout 1<br>//The above equips loadout 1 for Caves of Fear</td>
   </tr>
   <tr>
     <td style="min-width: 3em"> ^  </td>
-    <td>Continue previous line.<eg><br>E.g.<br>?loc=caves |<br>^loc = mine<br>  equip repeating<br><br>Equals:<br>?loc=caves|loc=mine<br>  equip repeating</td>
+    <td>Continue previous line.<eg><br>E.g.<br>?loc=caves |<br>^loc = mine<br>  equip repeating<br><br>//The above is equal to:<br>?loc=caves|loc=mine<br>  equip repeating</td>
   </tr>
 </table></font>
 <a href="#"><font color="#505050">^Back to top</font></a>
@@ -241,6 +249,18 @@
     <td>?ai.enabled</td>
     <td>True if the AI is on, False if the AI is off (e.g. during a cinematic moment).</td>
   </tr>
+  <tr>
+    <td>?ai.paused</td>
+    <td>True if the AI is temporarily suspended, such as when waiting for a treasure to drop.</td>
+  </tr>
+  <tr>
+    <td>?ai.idle</td>
+    <td>True if the player is idle, waiting for something such as an attack to complete.</td>
+  </tr>
+  <tr>
+    <td>?ai.walking</td>
+    <td>True if the player is moving.</td>
+  </tr>
 </table></font>
 <a href="#"><font color="#505050">^Back to top</font></a>
 </div>
@@ -275,6 +295,10 @@ These tell the game to do something.
   <tr>
     <td>&gt; (str)</td>
     <td>Prints a string to the top of the screen.<eg><br>E.g.<br>&gt;Hello World!</td>
+  </tr>
+  <tr>
+    <td>&gt; @varName@</td>
+    <td>Prints a string with the value of a variable inserted. Multiple variables can be inserted into a single print. To insert, surround the variable's name with @.<eg><br>The following example prints information about the currently targeted foe:<br>var foeInfo = ""<br>foeInfo = foe<br>&gt;FOE = @foeInfo@</td>
   </tr>
   <tr>
     <td>&gt;(abcd</td>
@@ -361,8 +385,9 @@ When a variable is declared it is initialized only once, the first time 'var' ex
 
 <eg>E.g.:
 var i = 0
-i++</eg>
-In this example, variable 'i' is declared and starts with value 0. During each frame of the run, the value of 'i' increases by 1.
+i++
+>i = @i@</eg>
+In this example, variable 'i' is declared and starts with value 0. During each frame of the run, the value of 'i' increases by 1 and then is printed to the screen.
 
 Variables only reset to their initial value if you leave a location and begin a new run manually. They do not reset when the Ouroboros loops.
 
