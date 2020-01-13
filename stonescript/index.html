@@ -103,11 +103,11 @@
 <table>
   <tr>
     <td style="min-width: 3em"> ?  </td>
-    <td>Compare and branch logic (if).</td>
+    <td>Evaluates a logical condition. If true, executes idented lines (if).<eg><br>E.g.<br>?loc = caves<br>  loadout 1</td>
   </tr>
   <tr>
     <td style="min-width: 3em"> // </td>
-    <td>A comment. All text to the right of '//' has no logical effect when the script executes.</td>
+    <td>A comment. All text to the right of '//' has no logical effect when the script executes.<eg><br>E.g.<br>?loc = caves<br>  loadout 1<br>//The above equips loadout 1 for Caves of Fear</td>
   </tr>
   <tr>
     <td style="min-width: 3em"> ^  </td>
@@ -134,7 +134,7 @@
   </tr>
   <tr>
     <td>?foe</td>
-    <td>The current foe being targeted by the player.</td>
+    <td>The current foe being targeted by the player.<eg><br>E.g.<br>?foe = boo<br>  equip vigor staff</td>
   </tr>
   <tr>
     <td>?foe.distance</td>
@@ -245,7 +245,7 @@ These tell the game to do something.
   </tr>
   <tr>
     <td>&gt;oX,Y,[#rrggbb,](str)</td>
-    <td>Advanced print relative to the player's head position. X and Y are the coordinate offsets. #rrggbb is the color of the text in hexadecimal notation.<eg><br>The following example writes "Let's go!" in red font, relative to the player's head position, 6 to the left and 3 down:<br>&gt;o-6,3,#ff0000,Let's go!</td>
+    <td>Advanced print relative to the player's position. X and Y are the coordinate offsets. #rrggbb is the color of the text in <a href="https://htmlcolorcodes.com/" target="_blank">hexadecimal notation</a>.<eg><br>The following example writes "Let's go!" in red font, relative to the player's position, 6 to the left and 3 down:<br>&gt;o-6,3,#ff0000,Let's go!</td>
   </tr>
   <tr>
     <td>&gt;`X,Y,[#rrggbb,](str)</td>
@@ -396,8 +396,8 @@ Improvements to advanced prints
 
 ?loc.begin
 ?loc.loop
-?pos.x
 ?pos.y
+?pos.z
 ?harvest - returns the current harvest object targeted by the player.
 ?harvest.distance - returns the distance between the player and the target harvest location.
 ?ai.enabled - True if the AI is ON, False if the AI is off (e.g. during a cinematic moment).

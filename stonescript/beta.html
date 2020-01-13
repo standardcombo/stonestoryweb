@@ -28,7 +28,7 @@
 
 <center>· ·:·: Stonescript (Beta) :·:· ·</center>
 <div id="title-separator"><!---------------------------></div>
-<center><font color="#808080">v2.3.0 - 2020/01/10</font></center>
+<center><font color="#808080">v2.4.0 - 2020/01/14</font></center>
 <answer><center><a href="http://stonestoryrpg.com/stonescript">main</a> | beta</center></answer>
 <center><font color="#808080">
       _ ______________________ _            
@@ -65,9 +65,10 @@
 <f>  <a href="#variables">6. Variables</a></f>
 <f>  <a href="#math-operations">7. Math Operations</a></f>
 <f>  <a href="#search-filters">8. Search Filters</a></f>
-<f>  <a href="#tips">9. Tips</a></f>
-<f>  <a href="#default-script">10. Default script</a></f>
-<f>  <a href="#roadmap">11. Roadmap</a></f>
+<f>  <a href="#custom-input">9. Custom Input</a></f>
+<f>  <a href="#tips">10. Tips</a></f>
+<f>  <a href="#default-script">11. Default script</a></f>
+<f>  <a href="#roadmap">12. Roadmap</a></f>
 
 
 <div id="example"><div id="separator"><!---------------------------></div>
@@ -261,6 +262,10 @@
     <td>?ai.walking</td>
     <td>True if the player is moving.</td>
   </tr>
+  <tr>
+    <td>?key</td>
+    <td>The state of <a href="#custom-input">custom game input</a>.<eg><br>The following prints the current input:<br>&gt;@key@</td>
+  </tr>
 </table></font>
 <a href="#"><font color="#505050">^Back to top</font></a>
 </div>
@@ -310,19 +315,35 @@ These tell the game to do something.
   </tr>
   <tr>
     <td>&gt;hX,Y,[#rrggbb,](str)</td>
-    <td>Similar to "&gt;o", however, draws on the same layer as the Big Head. Ideal for accessories such as hats.<eg><br>The following draws a yellow hat on the player. Requires Big Head:<br>&gt;h-2,-4,#ffff00,\n<br>^##_\n<br>^#| |\n<br>^_|_|_</td>
+    <td>Similar to "&gt;o", however, draws on the same layer as the Big Head. Ideal for accessories such as hats.<eg><br>The following draws a yellow hat on the player. Requires Big Head:<br>&gt;h-2,-3,#ffff00,<br>^##_\n<br>^#| |\n<br>^_|_|_</td>
   </tr>
   <tr>
     <td>&gt;`X,Y,[#rrggbb,](str)</td>
-    <td>Advanced print relative to the upper-left corner of the screen.</td>
+    <td>Advanced print relative to the upper-left corner of the screen.<eg><br>The following prints "Hello World!", but uses variables for the coordinates and the color:<br>var posX = 10<br>var posY = 5<br>var color = ffff00<br>&gt;`@posX@,@posY@,#@color@,Hello World!</td>
   </tr>
   <tr>
     <td>&gt;cX,Y,[#rrggbb,](str)</td>
-    <td>Advanced print relative to the center of the screen.</td>
+    <td>Advanced print relative to the center of the screen. Similar to "&gt;`". Note that in all these the color is optional.<eg><br>This example demonstrates how the color is optional and defaults to white:<br>&gt;c0,0,Hello World!</td>
   </tr>
   <tr>
     <td>&gt;fX,Y,[#rrggbb,](str)</td>
-    <td>Advanced print relative to the target foe's head position.</td>
+    <td>Advanced print relative to the target foe's head position.<eg><br>The following draws a red crosshairs on the targeted foe:<br>&gt;f-2,0,#ff0000,<br>^##!\n<br>^-#·#-\n<br>^##¡</td>
+  </tr>
+  <tr>
+    <td>disable hud</td>
+    <td>Hides and disables the user interface elements including: Resources, hitpoints, ability buttons and pause button.</td>
+  </tr>
+  <tr>
+    <td>enable hud</td>
+    <td>Brings back all the user interface elements hidden by a previous "disable hud" command.</td>
+  </tr>
+  <tr>
+    <td>disable player</td>
+    <td>Hides the player. Has no effect on combat, this is only cosmetic.</td>
+  </tr>
+  <tr>
+    <td>enable player</td>
+    <td>Brings back the player rendering if it was hidden by a previous "disable player" command.</td>
   </tr>
 </table></font>
 <a href="#"><font color="#505050">^Back to top</font></a>
@@ -480,6 +501,107 @@ immune_to_physical
 <a href="#"><font color="#505050">^Back to top</font></a>
 </div>
 
+<div id="custom-input"><div id="separator"><!---------------------------></div>
+
+·:·:· Custom Input ·:·:·
+<font color="#bbbbbb">
+Stonescript can read player inputs by use of the ?key game state. This can be used to drive advanced behaviors, such as different modes for the AI, but custom inputs allow the creation of entirely new experiences layered on top of Stone Story.
+
+<eg><f>In this example, the @ symbol can be moved across the screen like the main character in a classic Rogue-like game. The key codes (leftBegin, etc) refer to the initial downpress of the button.
+
+var x = 0
+var y = 0
+
+?key = leftBegin
+  x--
+  ?x < 0
+    x = 0
+?key = rightBegin
+  x++
+
+?key = upBegin
+  y--
+  ?y < 0
+    y = 0
+?key = downBegin
+  y++
+
+>`@x@,@y@,#ffffff,@
+</f></eg>
+
+Table with all the available key codes:
+
+<table>
+  <tr>
+    <td>Held<br>----</td>
+    <td>Pressed<br>-------</td>
+    <td>Released<br>--------</td>
+	<td>Default PC<br>----------</td>
+  </tr>
+  <tr>
+    <td>left</td>
+    <td>leftBegin</td>
+    <td>leftEnd</td>
+	<td>A or ←</td>
+  </tr>
+  <tr>
+    <td>right</td>
+    <td>rightBegin</td>
+    <td>rightEnd</td>
+	<td>D or →</td>
+  </tr>
+  <tr>
+    <td>up</td>
+    <td>upBegin</td>
+    <td>upEnd</td>
+	<td>W or ↑</td>
+  </tr>
+  <tr>
+    <td>down</td>
+    <td>downBegin</td>
+    <td>downEnd</td>
+	<td>S or ↓</td>
+  </tr>
+  <tr>
+	<td>primary</td>
+	<td>primaryBegin</td>
+	<td>primaryEnd</td>
+	<td>Return</td>
+  </tr>
+  <tr>
+	<td>back</td>
+	<td>backBegin</td>
+	<td>backEnd</td>
+	<td>X</td>
+  </tr>
+  <tr>
+	<td>ability1</td>
+	<td>ability1Begin</td>
+	<td>ability1End</td>
+	<td>Shift</td>
+  </tr>
+  <tr>
+	<td>ability2</td>
+	<td>ability2Begin</td>
+	<td>ability2End</td>
+	<td>Control</td>
+  </tr>
+  <tr>
+	<td>bumpL</td>
+	<td>bumpLBegin</td>
+	<td>bumpLEnd</td>
+	<td>Z</td>
+  </tr>
+  <tr>
+	<td>bumpR</td>
+	<td>bumpRBegin</td>
+	<td>bumpREnd</td>
+	<td>C</td>
+  </tr>
+</table></font>
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
 <div id="tips"><div id="separator"><!---------------------------></div>
 
 ·:·:· Tips ·:·:·
@@ -528,32 +650,23 @@ loadout 1
 <font color="#bbbbbb"><f>
 Things that are planned, but not yet in the game:
 
-2.3
-:   Else logical branch
-:?  Else-if logical branch
-?ai.paused - This is true in "cinematic" moments, such as when a boss is transitioning between phases.
-?ai.idle - True when the player is standing still.
-?ai.walking - True when the player is walking.
-?key - Allows custom key inputs. E.g. ?key = up
-
-More features:
-
-&gt; @varName@ - Possibility to insert variables into the print.
-
-Ability to toggle the player's rendering on/off.
-
+2.5
 Importing of external scripts.
-
-Permanent variables that retain value between executions of the app.
-
 Advanced printing relative to all 9 screen anchor points.
 
-UGC mini-games.
+2.6
+Permanent variables that retain value between executions of the app.
+Tab as a valid input for identation.
+Play sound effects.
 
+2.7
+Fishing mini-game.
 ?has = potion   Evaluates if there is a potion available to use.
 ?has = (item)   Evaluates if the given item is equipped.
 ?hasL = (item)  Evaluates if the given item is equipped on the Left.
 ?hasR = (item)  Evaluates if the given item is equipped on the Right.
+
+More features:
 
 brew [resources] Creates a potion at the beginning of a location. E.g.: brew wood stone.
 
