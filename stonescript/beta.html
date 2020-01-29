@@ -28,7 +28,7 @@
 
 <center>· ·:·: Stonescript (Beta) :·:· ·</center>
 <div id="title-separator"><!---------------------------></div>
-<center><font color="#808080">v2.5.0 - 2020/01/19</font></center>
+<center><font color="#808080">v2.6.0 - 2020/01/29</font></center>
 <answer><center><a href="https://stonestoryrpg.com/stonescript">main</a> | beta</center></answer>
 <center><font color="#808080">
       _ ______________________ _            
@@ -64,11 +64,13 @@
 <f>  <a href="#comparisons">5. Comparisons</a></f>
 <f>  <a href="#variables">6. Variables</a></f>
 <f>  <a href="#math-operations">7. Math Operations</a></f>
-<f>  <a href="#search-filters">8. Search Filters</a></f>
-<f>  <a href="#custom-input">9. Custom Input</a></f>
-<f>  <a href="#tips">10. Tips</a></f>
-<f>  <a href="#default-script">11. Default script</a></f>
-<f>  <a href="#roadmap">12. Roadmap</a></f>
+<f>  <a href="#functions">8. Functions</a></f>
+<f>  <a href="#import">9. Importing External Scripts</a></f>
+<f>  <a href="#search-filters">10. Search Filters</a></f>
+<f>  <a href="#custom-input">11. Custom Input</a></f>
+<f>  <a href="#tips">12. Tips</a></f>
+<f>  <a href="#default-script">13. Default script</a></f>
+<f>  <a href="#roadmap">14. Roadmap</a></f>
 <f>  <a href="#sounds">Appendix A - Sound Effects</a></f>
 
 
@@ -209,11 +211,15 @@
   </tr>
   <tr>
     <td>?armor</td>
-    <td>The player's current armor.</td>
+    <td>The player's current armor, rounded down.<br>E.g. if the armor says [2.4] ?armor evaluates to 2.</td>
+  </tr>
+  <tr>
+    <td>?armor.f</td>
+    <td>The player's current armor's fractional amount.<br>E.g. if the armor says [2.4] ?armor.f evaluates to 4.</td>
   </tr>
   <tr>
     <td>?maxarmor</td>
-    <td>The player's maximum armor.</td>
+    <td>The player's maximum armor, rounded down.</td>
   </tr>
   <tr>
     <td>?pos.x</td>
@@ -280,6 +286,10 @@
     <td>The state of <a href="#custom-input">custom game input</a>.<eg><br>The following prints the current input:<br>&gt;@key@</td>
   </tr>
   <tr>
+    <td>?rng</td>
+    <td>Returns a random number between 0 and 9999.<eg><br>E.g.<br>?rng < 5000<br>  &gt;Heads!<br>:<br>  &gt;Tails!<br><br>This example generates a random number between 5 and 24:<br>var min = 5<br>var max = 24<br>var n = 0<br>n = min + rng % (max - min + 1)</td>
+  </tr>
+  <tr>
     <td>?screen.w</td>
     <td>The width of the screen's ASCII grid.<eg><br>E.g.<br>var sw = screen.w<br>&gt;Screen width = @sw@</td>
   </tr>
@@ -319,10 +329,6 @@ These tell the game to do something.
     <td>Equips a specific loadout number.<eg><br>E.g.<br>?loc = caves<br>  loadout 1<br>?loc = deadwood<br>  loadout 2</td>
   </tr>
   <tr>
-    <td>import (script)</td>
-    <td>Loads and executes an external script. External scripts must be located in your <a href="https://stonestoryrpg.com/faq.html#Technical%20Help">save-file folder</a>, inside a /Stonescript folder and end in '.txt'. CAVEAT: Variables in external scripts are currently global and it's possible to access variables across scripts. This will change and it's not recommended to do that.<eg><br>This example imports the fishing mini-game located at<br>(save-file folder)/Stonescript/fishing.txt<br><br>import fishing</td>
-  </tr>
-  <tr>
     <td>&gt; (str)</td>
     <td>Prints a string to the top of the screen.<eg><br>E.g.<br>&gt;Hello World!</td>
   </tr>
@@ -353,6 +359,18 @@ These tell the game to do something.
   <tr>
     <td>&gt;fX,Y,[#rrggbb,](str)</td>
     <td>Advanced print relative to the target foe's head position.<eg><br>The following draws a red crosshairs on the targeted foe:<br>&gt;f-2,0,#ff0000,<br>^##!\n<br>^-#·#-\n<br>^##¡</td>
+  </tr>
+  <tr>
+    <td>var (variable)</td>
+    <td>Declares a <a href="#variables">variable</a> that can be used in math, logical and string operations.<eg><br>E.g.<br>var message = Hello World!<br>&gt;@message@</td>
+  </tr>
+  <tr>
+    <td>func (function)</td>
+    <td>Declares a <a href="#functions">function</a> that can be called later.<eg><br>E.g.<br>func Print(message)<br>  >@message@<br><br>Print(Hello World!)</td>
+  </tr>
+  <tr>
+    <td>import (script)</td>
+    <td>Loads and executes an <a href="#import">external script</a>.<eg><br>This example imports the fishing mini-game located at<br>(save-file folder)/Stonescript/fishing.txt<br><br>import fishing</td>
   </tr>
   <tr>
     <td>disable hud</td>
@@ -457,6 +475,16 @@ In this example, variable 'i' is declared and starts with value 0. During each f
 
 Variables only reset to their initial value if you leave a location and begin a new run manually. They do not reset when the Ouroboros loops.
 
+String variables can optionally be declared with quotes. This allows special symbols and trailing spaces.
+<eg>E.g.:
+var a = 10
+var b = 5
+var myVar = a + " x " + b + " = " + (a * b)
+>@myVar@</eg>
+(This example also demonstrates how to join strings with the '+' operator)
+
+Variables in imported scripts are contained within those scripts and their names won't collide with variables or functions in other scripts.
+
 
 <a href="#"><font color="#505050">^Back to top</font></a>
 </div>
@@ -501,6 +529,85 @@ Variables only reset to their initial value if you leave a location and begin a 
     <td>Parenthesis can be used to prioritize operations.<eg><br>E.g.:<br>var a = 2 * (3 - 1)<br>(a equals 4)</td>
   </tr>
 </table></font>
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="functions"><div id="separator"><!---------------------------></div>
+
+·:·:· Functions ·:·:·
+<font color="#bbbbbb">
+Functions serve an important organizational purpose to scripts as they grow in complexity. They make scripts easier to read and reduce repetition. When a function is declared its contents are not executed immediately. Instead, lines of script inside a function execute when the function is called at a later point.
+
+This example creates a counter that increases by 1 each frame. When any custom input key is pressed, ResetCounter() is called and the counter value goes back to zero:
+<f><eg>
+var count = 0
+count++
+&gt;Counter = @count@
+
+func ResetCounter()
+  count = 0
+
+?key=begin
+  ResetCounter()
+</eg>
+Another aspect of functions is that they can return a value. In this example we declare a simple function that calculates the duration of the main location (non-boss area):
+<eg>
+func NonBossDuration()
+  return totalTime - time
+
+var duration = 0
+duration = NonBossDuration()
+>Time was: @duration@
+</eg>
+Functions also accept any number of arguments/parameters, making them even more powerful, with the ability to operate on arbitrary input. Here, we declare a utility function that generates a random number within a range, then we use it to generate random numbers between 5 and 10:
+<eg>
+func RandomRange(min, max)
+  ?min >= max
+    return min
+  return min + rng % (max - min + 1)
+
+var randomValue = 0
+randomValue = RandomRange(5, 10)
+>RNG: @randomValue@
+</eg></font>
+
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="import"><div id="separator"><!---------------------------></div>
+
+·:·:· Importing External Scripts ·:·:·
+<font color="#bbbbbb">
+Your script doesn't have to be all in the Mind Stone. Stonescript supports the loading of external files through the 'import' keyword. For external scripts to work they must be located in your <a href="https://stonestoryrpg.com/faq.html#Technical%20Help">save-file folder</a>, inside a /Stonescript folder and end in '.txt'.
+
+In the most basic example an external script is imported and runs as if it were directly in your Mind Stone, making this a convenient way to organize farming scripts:
+<eg>
+import rocky
+import deadwood
+import caves
+import forest
+</eg>
+When a script is imported it's copied into its own container and returns as a reference. Variables declared in the external script are isolated and don't interact with variables in other scripts. In this example, a printing utility script offers simplified services:
+<eg><f>
+// print_util.txt
+func LowerLeft(x, y, color, message)
+  y = y + screen.h
+  >`@x@,@y@,@color@,@message@
+
+func LowerRight(x, y, color, message)
+  x = x + screen.w
+  y = y + screen.h
+  >`@x@,@y@,@color@,@message@
+
+// Main script in Mind Stone
+var print = import print_util
+disable hud
+print.LowerLeft(0,-1,#ffffff,"Health: " + hp)
+</f></eg>
+
+CAVEAT - Despite using the 'var' keyword above, imported scripts don't (yet) behave as variables. You can't assign them to another variable and you can't pass them as function parameters. This may change.
+</font>
+
 <a href="#"><font color="#505050">^Back to top</font></a>
 </div>
 
@@ -695,13 +802,9 @@ loadout 1
 <font color="#bbbbbb"><f>
 Things that are planned, but not yet in the game:
 
-2.6
-Permanent variables that retain value between executions of the app.
-Optional quotes for string literals and variable declarations.
-Advanced printing relative to all 9 screen anchor points.
-Tab as a valid input for identation.
-
 2.7
+Permanent variables that retain value between executions of the app.
+Rainbow color for printing.
 Fishing mini-game.
 ?has = potion   Evaluates if there is a potion available to use.
 ?has = (item)   Evaluates if the given item is equipped.

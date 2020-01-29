@@ -50,6 +50,48 @@ For information about save file locations and about switching to the beta branch
 </f>
 <div id="separator"><!---------------------------></div>
 
+v2.6.0 - 2020/01/29
+<answer>
+Stonescript
+- Added ?rng
+- Added functions.
+- Strings can now be declared with quotes. This allows space and special characters
+  E.g. var a = " and "
+- String variables and literals can now be concatenation with '+'
+  E.g. var c = a + " " + b
+- ?armor now rounds down instead of rounding up.
+- Added ?armor.f to return the fractional part of the armor.
+- Fixed a bug in math operations that in some cases caused them to execute in the wrong order.
+- Variables in imported scripts are now contained within that import instance.
+- The Tab key is now a valid input on the Mind Stone and converts to 2 spaces.
+
+Balance
+- Item stats now support non-linear and exact number tuning per star and enchantment levels.
+- Repeating Crossbow has been reworked:
+  Attack speed can no longer be enchanted.
+  Critical chance and critical multiply stats are now enchanted together.
+
+  Attack frames (cast+perf+cool) from 6+4+5 -> 7+7+1.
+
+  Damage old [2,2,2,2,2,2,2,3,4,4,5,6,6,7,8,8,9,10,11,11,12,13,13,14,15,15,16,17,17,18,19,19]
+  Damage new [2,2,2,2,3,3,4,4,5,5,6,7,8,8,9,10,10,11,11,12,12,13,13,13,14,14,15,15,16,16,17,19]
+
+  Attack speed old [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
+  Attack speed new [0,1,3,5,7,8,10,12,14,16,17]
+
+  Crit chance old [8,8.5,9,9.5,10,10.5,11,11.5,12,12.5,13,13.5,14,14.5,15,15.5,16,16.5,17,17.5,18,18.5,19,19.5,20,20.5,21,21.5,22,22.5,23,23.5]
+  Crit chance new [10,11,12,13,14,15,16,17,18,19,20,24,28,32,36,40,43,47,51,55,59,63,67,71,75,79,82,86,90,94,98,100]
+
+  Crit multiply old [3,3.3,3.6,3.9,4.2,4.5,4.8,5.1,5.4,5.7,6,6.3,6.6,6.9,7.2,7.5,7.8,8.1,8.4,8.7,9,9.3,9.6,9.9,10.2,10.5,10.8,11.1,11.4,11.7,12,12.3]
+  Crit multiply new [1.5,1.7,1.9,2.1,2.3,2.5,2.7,2.9,3.1,3.3,3.5,3.6,3.7,3.8,3.9,4.1,4.2,4.3,4.4,4.5,4.6,4.7,4.8,4.9,5,5.2,5.3,5.4,5.5,5.6,5.7,5.8]
+
+Other
+- Camera shake has been reworked so it doesn't accumulate as much, e.g. when many critical attacks happen in a row.
+- Reduced the amount of slow motion from crossbow critical hits.
+- The main menu event window now supports hyperlinks.
+
+</answer><div id="separator"><!---------------------------></div>
+
 v2.5.1 - 2020/01/19
 <answer>
 - Fixed a critical Stonescript bug that caused some players to stop attacking.
