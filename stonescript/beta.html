@@ -28,7 +28,7 @@
 
 <center>· ·:·: Stonescript (Beta) :·:· ·</center>
 <div id="title-separator"><!---------------------------></div>
-<center><font color="#808080">v2.6.0 - 2020/01/29</font></center>
+<center><font color="#808080">v2.7.0 - 2020/01/29</font></center>
 <answer><center><a href="https://stonestoryrpg.com/stonescript">main</a> | beta</center></answer>
 <center><font color="#808080">
       _ ______________________ _            
@@ -342,15 +342,15 @@ These tell the game to do something.
   </tr>
   <tr>
     <td>&gt;oX,Y,[#rrggbb,](str)</td>
-    <td>Advanced print relative to the player's position. X and Y are the coordinate offsets. #rrggbb is the color of the text in <a href="https://htmlcolorcodes.com/" target="_blank">hexadecimal notation</a>.<eg><br>The following example writes "Let's go!" in red font, relative to the player's position, 6 to the left and 3 down:<br>&gt;o-6,3,#ff0000,Let's go!</td>
+    <td>Advanced print relative to the player's position. X and Y are the coordinate offsets. #rrggbb is the color of the text in <a href="https://htmlcolorcodes.com/" target="_blank">hexadecimal notation</a>. Color can also be set with these constants: #white, #cyan, #yellow, #green, #blue and #red. To print in rainbow use #rainFF where the last 2 characters define the brightness.<eg><br>The following example writes "Let's go!" in red font, relative to the player's position, 6 to the left and 3 down:<br>&gt;o-6,3,#red,Let's go!</td>
   </tr>
   <tr>
     <td>&gt;hX,Y,[#rrggbb,](str)</td>
-    <td>Similar to "&gt;o", however, draws on the same layer as the Big Head. Ideal for accessories such as hats.<eg><br>The following draws a yellow hat on the player. Requires Big Head:<br>&gt;h-2,-3,#ffff00,<br>^##_\n<br>^#| |\n<br>^_|_|_</td>
+    <td>Similar to "&gt;o", however, draws on the same layer as the Big Head. Ideal for accessories such as hats.<eg><br>The following draws a yellow hat on the player. Requires Big Head:<br>&gt;h-2,-3,#yellow,<br>^##_\n<br>^#| |\n<br>^_|_|_</td>
   </tr>
   <tr>
     <td>&gt;`X,Y,[#rrggbb,](str)</td>
-    <td>Advanced print relative to the upper-left corner of the screen.<eg><br>The following prints "Hello World!", but uses variables for the coordinates and the color:<br>var posX = 10<br>var posY = 5<br>var color = ffff00<br>&gt;`@posX@,@posY@,#@color@,Hello World!</td>
+    <td>Advanced print relative to the upper-left corner of the screen.<eg><br>The following prints "Hello World!", but uses variables for the coordinates and the color:<br>var posX = 10<br>var posY = 5<br>var color = rainE1<br>&gt;`@posX@,@posY@,#@color@,Hello World!</td>
   </tr>
   <tr>
     <td>&gt;cX,Y,[#rrggbb,](str)</td>
@@ -370,7 +370,7 @@ These tell the game to do something.
   </tr>
   <tr>
     <td>import (script)</td>
-    <td>Loads and executes an <a href="#import">external script</a>.<eg><br>This example imports the fishing mini-game located at<br>(save-file folder)/Stonescript/fishing.txt<br><br>import fishing</td>
+    <td>Loads and executes an <a href="#import">external script</a>.<eg><br>This example imports the fishing mini-game located at<br>(save-file folder)/Stonescript/Fishing.txt<br><br>import Fishing</td>
   </tr>
   <tr>
     <td>disable hud</td>
@@ -569,7 +569,17 @@ func RandomRange(min, max)
 var randomValue = 0
 randomValue = RandomRange(5, 10)
 >RNG: @randomValue@
-</eg></font>
+</eg>
+The prefix 'this' can be used inside a funtion when referencing variables that belong to the outside script. Use of 'this' is optional, and script variables can be accessed by a function without the prefix. However, in the following example the variable 'a' appears both inside and outside of the function, so 'this.a' is used for differentiation:
+<eg>
+var a = 1
+func TestScope(a)
+  >Script var = @this.a@, function var = @a@
+
+TestScope(3)
+</eg>
+When functions call other functions, or themselves, this creates an execution stack that can build in size until the application crashes. To safeguard computer resources Stonescript has a stack limit of 1024 and will throw an error if the limit is exceeded.
+</font>
 
 <a href="#"><font color="#505050">^Back to top</font></a>
 </div>
@@ -582,14 +592,14 @@ Your script doesn't have to be all in the Mind Stone. Stonescript supports the l
 
 In the most basic example an external script is imported and runs as if it were directly in your Mind Stone, making this a convenient way to organize farming scripts:
 <eg>
-import rocky
-import deadwood
-import caves
-import forest
+import Rocky
+import Deadwood
+import Caves
+import Forest
 </eg>
 When a script is imported it's copied into its own container and returns as a reference. Variables declared in the external script are isolated and don't interact with variables in other scripts. In this example, a printing utility script offers simplified services:
 <eg><f>
-// print_util.txt
+// PrintUtil.txt
 func LowerLeft(x, y, color, message)
   y = y + screen.h
   >`@x@,@y@,@color@,@message@
@@ -600,13 +610,52 @@ func LowerRight(x, y, color, message)
   >`@x@,@y@,@color@,@message@
 
 // Main script in Mind Stone
-var print = import print_util
+var print = import PrintUtil
 disable hud
 print.LowerLeft(0,-1,#ffffff,"Health: " + hp)
 </f></eg>
+Advanced solutions can import the same script multiple times, for example, to implement componentization or an Object Oriented paradigm:
+<eg><f>
+// Vector.txt
+var x = 0
+var y = 0
 
-CAVEAT - Despite using the 'var' keyword above, imported scripts don't (yet) behave as variables. You can't assign them to another variable and you can't pass them as function parameters. This may change.
-</font>
+func init(_x, _y)
+  x = _x
+  y = _y
+
+func subtract(otherVect)
+  x = x - otherVect.x
+  y = y - otherVect.y
+
+// Main script in Mind Stone
+var vectFrom = import Vector
+var vectTo = import Vector
+
+vectFrom.init(5, 4)
+vectTo.init(8, 2)
+vectTo.subtract(vectFrom)
+
+>x = @vectTo.x@, y = @vectTo.y@
+</f></eg>
+External scripts can implement a 'ToString()' function, allowing their direct use in advanced print commands:
+<eg><f>
+// Vector.txt
+var x = 0
+var y = 0
+
+func init(_x, _y)
+  x = _x
+  y = _y
+
+func ToString()
+  return "(" + x + ", " + y + ")"
+
+// Main script in Mind Stone
+var v = import Vector
+v.init(3,5)
+>Vector = @v@
+</f></eg></font>
 
 <a href="#"><font color="#505050">^Back to top</font></a>
 </div>
@@ -802,16 +851,14 @@ loadout 1
 <font color="#bbbbbb"><f>
 Things that are planned, but not yet in the game:
 
-2.7
 Permanent variables that retain value between executions of the app.
-Rainbow color for printing.
+
 Fishing mini-game.
+
 ?has = potion   Evaluates if there is a potion available to use.
 ?has = (item)   Evaluates if the given item is equipped.
 ?hasL = (item)  Evaluates if the given item is equipped on the Left.
 ?hasR = (item)  Evaluates if the given item is equipped on the Right.
-
-More features:
 
 Particle emissions.
 
