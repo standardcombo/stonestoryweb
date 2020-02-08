@@ -28,7 +28,7 @@
 
 <center>· ·:·: Stonescript (Beta) :·:· ·</center>
 <div id="title-separator"><!---------------------------></div>
-<center><font color="#808080">v2.7.0 - 2020/01/29</font></center>
+<center><font color="#808080">v2.7.0 - 2020/02/08</font></center>
 <answer><center><a href="https://stonestoryrpg.com/stonescript">main</a> | beta</center></answer>
 <center><font color="#808080">
       _ ______________________ _            
@@ -65,12 +65,14 @@
 <f>  <a href="#variables">6. Variables</a></f>
 <f>  <a href="#math-operations">7. Math Operations</a></f>
 <f>  <a href="#functions">8. Functions</a></f>
-<f>  <a href="#import">9. Importing External Scripts</a></f>
-<f>  <a href="#search-filters">10. Search Filters</a></f>
-<f>  <a href="#custom-input">11. Custom Input</a></f>
-<f>  <a href="#tips">12. Tips</a></f>
-<f>  <a href="#default-script">13. Default script</a></f>
-<f>  <a href="#roadmap">14. Roadmap</a></f>
+<f>  <a href="#native-functions">9. Native Functions</a></f>
+<f>  <a href="#import">10. Importing External Scripts</a></f>
+<f>  <a href="#ascii-art">11. ASCII-art</a></f>
+<f>  <a href="#search-filters">12. Search Filters</a></f>
+<f>  <a href="#custom-input">13. Custom Input</a></f>
+<f>  <a href="#tips">14. Tips</a></f>
+<f>  <a href="#default-script">15. Default script</a></f>
+<f>  <a href="#roadmap">16. Roadmap</a></f>
 <f>  <a href="#sounds">Appendix A - Sound Effects</a></f>
 
 
@@ -484,7 +486,7 @@ var myVar = a + " x " + b + " = " + (a * b)
 (This example also demonstrates how to join strings with the '+' operator)
 
 Variables in imported scripts are contained within those scripts and their names won't collide with variables or functions in other scripts.
-
+</font>
 
 <a href="#"><font color="#505050">^Back to top</font></a>
 </div>
@@ -536,7 +538,7 @@ Variables in imported scripts are contained within those scripts and their names
 
 ·:·:· Functions ·:·:·
 <font color="#bbbbbb">
-Functions serve an important organizational purpose to scripts as they grow in complexity. They make scripts easier to read and reduce repetition. When a function is declared its contents are not executed immediately. Instead, lines of script inside a function execute when the function is called at a later point.
+Custom functions serve an important organizational purpose to scripts as they grow in complexity. They make scripts easier to read and reduce repetition. When a function is declared its contents are not executed immediately. Instead, lines of script inside a function execute when the function is called at a later point.
 
 This example creates a counter that increases by 1 each frame. When any custom input key is pressed, ResetCounter() is called and the counter value goes back to zero:
 <f><eg>
@@ -581,6 +583,33 @@ TestScope(3)
 When functions call other functions, or themselves, this creates an execution stack that can build in size until the application crashes. To safeguard computer resources Stonescript has a stack limit of 1024 and will throw an error if the limit is exceeded.
 </font>
 
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="native-functions"><div id="separator"><!---------------------------></div>
+
+·:·:· Native Functions ·:·:·
+<font color="#bbbbbb">
+While scripts can define their own functions, Stonescript comes with a set of pre-defined/native functions that behave similar to commands, but differ in that they are more clearly grouped by subject, can accept parameters and sometimes return a value.
+
+<table>
+  <tr>
+    <td>draw.Clear()<br><eg>No return value</td>
+    <td>Clears the entire screen.</td>
+  </tr>
+  <tr>
+    <td>draw.Player()<br><eg>No return value</td>
+    <td>Draws the player character, with all equipment and addons, at a specific point in the script.</td>
+  </tr>
+  <tr>
+    <td>loc.Leave()<br><eg>No return value</td>
+    <td>Causes the run to be abandoned as if the player had pressed to leave manually.</td>
+  </tr>
+  <tr>
+    <td>string.Size(var)<br><eg>Returns integer</td>
+    <td>Takes a string variable as parameter and calculates how long it is, in number of glyphs.<eg><br>E.g.<br>var a = abc123<br>var size = string.Size(a)<br>>size = @size@</td>
+  </tr>
+</table></font>
 <a href="#"><font color="#505050">^Back to top</font></a>
 </div>
 
@@ -655,6 +684,67 @@ func ToString()
 var v = import Vector
 v.init(3,5)
 >Vector = @v@
+</f></eg>
+External scripts can be imported from subfolders:
+<eg><f>
+import Games/Blackjack
+import Cosmetics/Hats
+import Cosmetics/Pets
+</f></eg></font>
+
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="ascii-art"><div id="separator"><!---------------------------></div>
+
+·:·:· ASCII-art ·:·:·
+<font color="#bbbbbb">
+In Stonescript, custom ASCII-art can be embedded within the scripts and drawn on screen with the advanced print commands. There are a few methods to do this and some glyphs have special behavior:
+<f>
+#  - Blank space. Transparency. Does not draw.
+\n - Line break. Causes the draw to continue on the next line.
+</f>
+
+Method 1 - Advanced print
+
+This example draws a green circle to the top-left of the screen.
+<eg><f>
+>`1,0,#green,
+^#.-.\n
+^(   )\n
+^#`-´
+</f></eg>
+
+Method 2 - Variables
+
+This example saves the art for a spooky fish into a variable, then draws it to the top-left of the screen in red color.
+<eg><f>
+var fishSprite = ""
+fishSprite = "
+^###(°_##\n
+^#_/_ o\#\n
+^#´  `''#"
+
+>`0,3,#red,@fishSprite@
+</f></eg>
+
+Method 3 - ascii/asciiend block
+
+These examples show the use of ascii blocks as a replacement for methods 1 & 2. Note that with ascii blocks there is no need for ^ and \n in delimiting lines. Furthermore, special glyphs such as " can be used in the art without confusing the compiler.
+<eg><f>
+>`1,0,#green,ascii
+#.-.
+(   )
+#`-´
+asciiend
+
+var fishSprite = ""
+fishSprite = ascii
+###(°_#
+#_/_ o\
+#´  `'"
+asciiend
+>`0,3,#red,@fishSprite@
 </f></eg></font>
 
 <a href="#"><font color="#505050">^Back to top</font></a>
@@ -833,13 +923,15 @@ Table with all the available key codes:
 
 ·:·:· Default script ·:·:·
 <font color="#bbbbbb"><f>
-?hp < 10
+import Fishing
+
+?hp < 7
   activate potion
-loadout 1
-?loc = rocky
-  equip shovel
-?foe = poison
-  equipL crossbow
+?loc = caves
+  equipL sword
+  equipR shield
+  ?foe = boss
+    equip crossbow
 </f></font>
 
 <a href="#"><font color="#505050">^Back to top</font></a>
@@ -851,9 +943,15 @@ loadout 1
 <font color="#bbbbbb"><f>
 Things that are planned, but not yet in the game:
 
-Permanent variables that retain value between executions of the app.
+2.8:
 
+Permanent variables that retain value between executions of the app.
 Fishing mini-game.
+More draw native functions, such as the ability to set background colors and query a screen coordiante for the glyph.
+More string native functions, such as splitting and searching for substrings.
+Addition of math native functions.
+
+More:
 
 ?has = potion   Evaluates if there is a potion available to use.
 ?has = (item)   Evaluates if the given item is equipped.
@@ -863,6 +961,9 @@ Fishing mini-game.
 Particle emissions.
 
 brew [resources] Creates a potion at the beginning of a location. E.g.: brew wood stone.
+
+Arrays/Lists.
+Loops.
 
 ?foe.level - The level/difficulty of the targeted foe.
 ?foe.state (cast,perf,cooldown) - Current attack state of the targeted foe.

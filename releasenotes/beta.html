@@ -50,7 +50,43 @@ For information about save file locations and about switching to the beta branch
 </f>
 <div id="separator"><!---------------------------></div>
 
-v2.6.1. - 2020/01/30
+v2.7.0 - 2020/02/08
+<answer>
+Stonescript
+- New 'ascii' and 'asciiend' delimiters for inlining ASCII-art within a script.
+- Stonescript now supports native functions.
+- Added native function draw.Clear()
+- Added native function draw.Player()
+- Added native function loc.Leave()
+- Added native function string.Size()
+- Added the 'this' keyword.
+- Stonescript now has a stack depth limit of 1024 when functions call other functions.
+- Variables & parameters declared in functions now have local scope and are destroyed when the function ends.
+- Functions can now be passed as parameter into other functions.
+- Imported scripts assigned to variables can now be passed as parameters in functions.
+- Imported scripts can now be placed in subfolders.
+- Imported scripts can implement a 'ToString()' function, allowing direct use in print commands.
+- Added color constants: #white, #cyan, #yellow, #green, #blue and #red.
+- Added rainbow color #rainFF, where the last 2 characters define the brightness.
+- Changed the default Stonescript that comes with the Mind Stone.
+- Variable and function names now have stronger validation.
+
+Fishing v0.1.1
+- Renamed from 'fishing.txt' to 'Fishing.txt'. It's recommended to delete the old file.
+- Added version number underneath the logo.
+- Using the new 'ascii' block to draw.
+
+Other improvements
+- Added a confirmation dialog if you try to fuse 2 enchantments on the Anvil.
+- Updated game credits.
+
+Bugs
+- Fixed a crash when the main script tried to import a missing script.
+- Fixed a bug where the player would stop rendering after playing the fishing game and going to another location.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.6.1 - 2020/01/30
 <answer>
 - The /Stonescript folder is now automatically created (with fishing script inside).
 - Fixed a bug where trailing whitespace could mess up the import command.
