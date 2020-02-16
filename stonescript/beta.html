@@ -28,7 +28,7 @@
 
 <center>· ·:·: Stonescript (Beta) :·:· ·</center>
 <div id="title-separator"><!---------------------------></div>
-<center><font color="#808080">v2.7.0 - 2020/02/08</font></center>
+<center><font color="#808080">v2.8.0 - 2020/02/16</font></center>
 <answer><center><a href="https://stonestoryrpg.com/stonescript">main</a> | beta</center></answer>
 <center><font color="#808080">
       _ ______________________ _            
@@ -153,7 +153,7 @@
   </tr>
   <tr>
     <td>?loc.name</td>
-    <td>The localized name of the current location.<eg><br>E.g.<br>var name = ""<br>name = loc.name<br>&gt;Exploring @name@</td>
+    <td>The localized name of the current location.<eg><br>E.g.<br>var name<br>name = loc.name<br>&gt;Exploring @name@</td>
   </tr>
   <tr>
     <td>?loc.stars</td>
@@ -241,11 +241,11 @@
   </tr>
   <tr>
     <td>?harvest</td>
-    <td>True if there is a nearby harvestable object, such as a tree or boulder.</td>
+    <td>The next harvestable object, such as a tree or boulder.<eg><br>E.g.<br>?harvest=Boulder<br>  equip shovel</td>
   </tr>
   <tr>
     <td>?harvest.distance</td>
-    <td>The distance between the player and the nearest harvestable object.</td>
+    <td>The distance between the player and the nearest harvestable object.<eg><br>E.g.<br>?loc=Rocky & harvest.distance < 7<br>  equip shovel</td>
   </tr>
   <tr>
     <td>?pickup</td>
@@ -289,7 +289,7 @@
   </tr>
   <tr>
     <td>?rng</td>
-    <td>Returns a random number between 0 and 9999.<eg><br>E.g.<br>?rng < 5000<br>  &gt;Heads!<br>:<br>  &gt;Tails!<br><br>This example generates a random number between 5 and 24:<br>var min = 5<br>var max = 24<br>var n = 0<br>n = min + rng % (max - min + 1)</td>
+    <td>Returns a random number between 0 and 9999.<eg><br>E.g.<br>?rng < 5000<br>  &gt;Heads!<br>:<br>  &gt;Tails!<br><br>This example generates a random number between 5 and 24:<br>var min = 5<br>var max = 24<br>var n<br>n = min + rng % (max - min + 1)</td>
   </tr>
   <tr>
     <td>?screen.w</td>
@@ -336,7 +336,7 @@ These tell the game to do something.
   </tr>
   <tr>
     <td>&gt; @varName@</td>
-    <td>Prints a string with the value of a variable inserted. Multiple variables can be inserted into a single print. To insert, surround the variable's name with @.<eg><br>The following example prints information about the currently targeted foe:<br>var foeInfo = ""<br>foeInfo = foe<br>&gt;FOE = @foeInfo@</td>
+    <td>Prints a string with the value of a variable inserted. Multiple variables can be inserted into a single print. To insert, surround the variable's name with @.<eg><br>The following example prints information about the currently targeted foe:<br>var foeInfo<br>foeInfo = foe<br>&gt;FOE = @foeInfo@</td>
   </tr>
   <tr>
     <td>&gt;(abcd</td>
@@ -348,7 +348,7 @@ These tell the game to do something.
   </tr>
   <tr>
     <td>&gt;hX,Y,[#rrggbb,](str)</td>
-    <td>Similar to "&gt;o", however, draws on the same layer as the Big Head. Ideal for accessories such as hats.<eg><br>The following draws a yellow hat on the player. Requires Big Head:<br>&gt;h-2,-3,#yellow,<br>^##_\n<br>^#| |\n<br>^_|_|_</td>
+    <td>Similar to "&gt;o", however, draws on the same layer as the Big Head. Ideal for accessories such as hats.<eg><br>The following draws a yellow hat on the player. Requires Big Head:<br>&gt;h-2,-3,#yellow,ascii<br>##_<br>#| |<br>_|_|_<br>asciiend</td>
   </tr>
   <tr>
     <td>&gt;`X,Y,[#rrggbb,](str)</td>
@@ -372,7 +372,11 @@ These tell the game to do something.
   </tr>
   <tr>
     <td>import (script)</td>
-    <td>Loads and executes an <a href="#import">external script</a>.<eg><br>This example imports the fishing mini-game located at<br>(save-file folder)/Stonescript/Fishing.txt<br><br>import Fishing</td>
+    <td>Loads and executes a singular copy of an <a href="#import">external script</a>.<eg><br>This example imports the fishing mini-game located at<br>(save-file folder)/Stonescript/Fishing.txt<br><br>import Fishing</td>
+  </tr>
+  <tr>
+    <td>new (script)</td>
+    <td>Loads and executes an <a href="#import">external script</a> similar to 'import'. However, objects loaded with 'new' are each an individual copy and their script body will only execute one time.<eg><br>This example creates and prints a vector object:<br>var v = new Components/Vector<br>v.Init(10, 5)<br>>Vector = @v@</td>
   </tr>
   <tr>
     <td>disable hud</td>
@@ -530,6 +534,10 @@ Variables in imported scripts are contained within those scripts and their names
     <td style="min-width: 3em"> ( )</td>
     <td>Parenthesis can be used to prioritize operations.<eg><br>E.g.:<br>var a = 2 * (3 - 1)<br>(a equals 4)</td>
   </tr>
+  <tr>
+    <td style="min-width: 3em"> !</td>
+    <td>Negation. Inverts the value when used in front of a boolean expression.<eg><br>E.g.:<br>? !ai.enabled<br>  >The AI is not enabled.</td>
+  </tr>
 </table></font>
 <a href="#"><font color="#505050">^Back to top</font></a>
 </div>
@@ -557,7 +565,7 @@ Another aspect of functions is that they can return a value. In this example we 
 func NonBossDuration()
   return totalTime - time
 
-var duration = 0
+var duration
 duration = NonBossDuration()
 >Time was: @duration@
 </eg>
@@ -568,7 +576,7 @@ func RandomRange(min, max)
     return min
   return min + rng % (max - min + 1)
 
-var randomValue = 0
+var randomValue
 randomValue = RandomRange(5, 10)
 >RNG: @randomValue@
 </eg>
@@ -602,12 +610,36 @@ While scripts can define their own functions, Stonescript comes with a set of pr
     <td>Draws the player character, with all equipment and addons, at a specific point in the script.</td>
   </tr>
   <tr>
+    <td>draw.Bg(x, y, color)<br><eg>No return value</td>
+    <td>Sets the background color at a specific screen position.<br><eg>E.g.<br>draw.Bg(5, 4, #red)</td>
+  </tr>
+  <tr>
+    <td>draw.Bg(x, y, color, w, h)<br><eg>No return value</td>
+    <td>Sets the background color of a rectangular region on screen.<br><eg>E.g.<br>draw.Bg(5, 4, #cyan, 10, 6)</td>
+  </tr>
+  <tr>
     <td>loc.Leave()<br><eg>No return value</td>
     <td>Causes the run to be abandoned as if the player had pressed to leave manually.</td>
   </tr>
   <tr>
     <td>string.Size(var)<br><eg>Returns integer</td>
-    <td>Takes a string variable as parameter and calculates how long it is, in number of glyphs.<eg><br>E.g.<br>var a = abc123<br>var size = string.Size(a)<br>>size = @size@</td>
+    <td>Takes a string variable as parameter and calculates how long it is, in number of glyphs.<eg><br>E.g.<br>var a = Hello World!<br>var size = string.Size(a)<br>>size = @size@</td>
+  </tr>
+  <tr>
+    <td>string.IndexOf(var, criteria)<br><eg>Returns integer</td>
+    <td>Takes a string variable and a string criteria as parameters and finds the position of the criteria inside the string. Returns -1 if not found.<eg><br>E.g.<br>var a = Hello World!<br>var index = string.IndexOf(a, llo)<br>(index equals 2)</td>
+  </tr>
+  <tr>
+    <td>string.IndexOf(var, criteria, startAt)<br><eg>Returns integer</td>
+    <td>Takes a string variable, a string criteria and a starting index as parameters. Finds the position of the criteria inside the string, but begins the search at 'startAt'. Returns -1 if not found.<eg><br>E.g.<br>var a = Hello World!<br>var index = string.IndexOf(a, llo, 4)<br>(index equals -1 because the search began at position 4, therefore 'llo' was not found)</td>
+  </tr>
+  <tr>
+    <td>string.Sub(var, startAt)<br><eg>Returns string</td>
+    <td>Takes a string variable and a starting index as parameters and splits the string from that point forward.<eg><br>E.g.<br>var a = Hello World!<br>var subString = string.Sub(a, 6)<br>>substring = @subString@<br>(subString equals "World!")</td>
+  </tr>
+  <tr>
+    <td>string.Sub(var, startAt, length)<br><eg>Returns string</td>
+    <td>Takes a string variable, a starting index and a length as parameters and splits the string from that starting point, stopping at the given length.<eg><br>E.g.<br>var a = Hello World!<br>var subString = string.Sub(a, 6, 3)<br>>substring = @subString@<br>(subString equals "Wor")</td>
   </tr>
 </table></font>
 <a href="#"><font color="#505050">^Back to top</font></a>
@@ -617,7 +649,7 @@ While scripts can define their own functions, Stonescript comes with a set of pr
 
 ·:·:· Importing External Scripts ·:·:·
 <font color="#bbbbbb">
-Your script doesn't have to be all in the Mind Stone. Stonescript supports the loading of external files through the 'import' keyword. For external scripts to work they must be located in your <a href="https://stonestoryrpg.com/faq.html#Technical%20Help">save-file folder</a>, inside a /Stonescript folder and end in '.txt'.
+Your script doesn't have to be all in the Mind Stone. Stonescript supports the loading of external files through the 'import' and 'new' keywords. For external scripts to work they must be located in your <a href="https://stonestoryrpg.com/faq.html#Technical%20Help">save-file folder</a>, inside a /Stonescript folder and end in '.txt'.
 
 In the most basic example an external script is imported and runs as if it were directly in your Mind Stone, making this a convenient way to organize farming scripts:
 <eg>
@@ -643,7 +675,7 @@ var print = import PrintUtil
 disable hud
 print.LowerLeft(0,-1,#ffffff,"Health: " + hp)
 </f></eg>
-Advanced solutions can import the same script multiple times, for example, to implement componentization or an Object Oriented paradigm:
+Advanced solutions can import the same script multiple times using the 'new' command, for example, to implement componentization or an Object Oriented paradigm:
 <eg><f>
 // Vector.txt
 var x = 0
@@ -658,8 +690,8 @@ func subtract(otherVect)
   y = y - otherVect.y
 
 // Main script in Mind Stone
-var vectFrom = import Vector
-var vectTo = import Vector
+var vectFrom = new Components/Vector
+var vectTo = new Components/Vector
 
 vectFrom.init(5, 4)
 vectTo.init(8, 2)
@@ -681,16 +713,18 @@ func ToString()
   return "(" + x + ", " + y + ")"
 
 // Main script in Mind Stone
-var v = import Vector
+var v = import Components/Vector
 v.init(3,5)
 >Vector = @v@
 </f></eg>
 External scripts can be imported from subfolders:
 <eg><f>
 import Games/Blackjack
+import Cosmetics/PetFrog
 import Cosmetics/Hats
-import Cosmetics/Pets
-</f></eg></font>
+</f></eg>
+While similar, there are two important differences between 'import' and 'new'. With 'import' the same object is returned each time. If you import the same script from multiple places they will all be using the same object. Scripts imported with 'new' are unique copies, but their script body will only run 1 time as opposed to every frame.
+</font>
 
 <a href="#"><font color="#505050">^Back to top</font></a>
 </div>
@@ -719,7 +753,7 @@ Method 2 - Variables
 
 This example saves the art for a spooky fish into a variable, then draws it to the top-left of the screen in red color.
 <eg><f>
-var fishSprite = ""
+var fishSprite
 fishSprite = "
 ^###(°_##\n
 ^#_/_ o\#\n
@@ -738,7 +772,7 @@ These examples show the use of ascii blocks as a replacement for methods 1 & 2. 
 #`-´
 asciiend
 
-var fishSprite = ""
+var fishSprite
 fishSprite = ascii
 ###(°_#
 #_/_ o\
@@ -911,7 +945,7 @@ Table with all the available key codes:
 
 <f>Common shortcuts such as Ctrl+A, Ctrl+C and Ctrl+V are useful.</f>
 
-<f>Holding the Tab key in-game gives you a lot of information about game state.</f>
+<f>Holding the Tab key in-game gives you a lot of information about game state and shows a list of recent Stonescript errors.</f>
 
 <f>A print command can be broken into multiple lines by using '\n' in the text.</f>
 </font>
@@ -943,15 +977,9 @@ import Fishing
 <font color="#bbbbbb"><f>
 Things that are planned, but not yet in the game:
 
-2.8:
-
 Permanent variables that retain value between executions of the app.
 Fishing mini-game.
-More draw native functions, such as the ability to set background colors and query a screen coordiante for the glyph.
-More string native functions, such as splitting and searching for substrings.
 Addition of math native functions.
-
-More:
 
 ?has = potion   Evaluates if there is a potion available to use.
 ?has = (item)   Evaluates if the given item is equipped.
@@ -1399,6 +1427,8 @@ scout_arrives
 scout_leaves
 scout_wing
 scout_focus
+dog_bark
+frog
 </font>
 
 <a href="#"><font color="#505050">^Back to top</font></a>
