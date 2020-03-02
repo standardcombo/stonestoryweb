@@ -50,6 +50,133 @@ For information about save file locations and about switching to the beta branch
 </f>
 <div id="separator"><!---------------------------></div>
 
+v2.9.1 - 2020/03/01
+<answer>
+Stonescript
+- Added 'for' keyword.
+- Added loc.Pause()
+- Added draw.Box(x, y, w, h, color, style)
+- New script: Pet Dog
+- Pet Frog: Improved the scared state.
+- Fishing v0.3: Architectural changes, new fish designs, data models for fish and rods.
+
+Bugs
+- Decreased Stonescript max stack depth from 1024 to 215 to fix crashes on some devices.
+- Attempted fix for the CacheImport critical error.
+- Fixed a bug where in some conditions, operators such as modulus were being evaluated as part of variable/function names.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.8.6 - 2020/02/22 => to default
+<answer>
+- Temporarily increased the Stonescript max execution time from 100 to 250.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.8.5 - 2020/02/22 => to default
+<answer>
+- Treasure limit increased from 150 to 100 + 5 * the Player's level.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.8.4 - 2020/02/22
+<answer>
+- Added a new achievement!
+- Import calls that are written on the same line as a var declaration should now only happen 1 time, consistently.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.8.3 - 2020/02/21
+<answer>
+- Fixed a bug where functions would be missing after starting a new location until a recompile.
+- Fixed a bug where the app could freeze from an infinite import loop.
+- Added an exception if a script executes longer than the maximum execution time. The max execution time can be set with "stonescript.SetMaxExecutionTime(50)", where the time is in milliseconds. The default max execution time is 100 milliseconds per frame.
+- Fixed a bug where sometimes functions would execute the wrong code (or no code at all) after a recompile.
+- Fixed a bug where if there was an exception in the main script it would show as a critical error rather than a normal scripting error.
+- Fixed an issue where .meta files were being copied along with the builtin scripts.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.8.2 - 2020/02/20
+<answer>
+- Added int.Parse()
+- Added math.Clamp()
+- Equip commands now work with the translated names of items.
+- Pet Frog: Color is now easy to change. Small fix to happy face.
+- Stonescript error messages now break into 2 lines if needed to fit the screen.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.8.1 - 2020/02/18
+<answer>
+Improvements
+- Stonescript compile times improved.
+- Stonescript automated testing has been hardened.
+- Fishing: Setup shop state and re-enabled fish randomization.
+- Pet Frog v1.2: Improved the jumps, added surprised expression and fixed issues when turning the script on/off in the middle of a run.
+- The game now has a limit of 100ms that will be converted into simulation steps, in case the CPU is taken over by another program and that could result in a ping-pong effect on the CPU.
+
+Bug Fixes
+- Fixed the crit chance % on some items that were rounding down.
+- Fixed a bug where import functions weren't reloading if a script changed.
+- Fixed a bug where having two scripts reference each other could freeze the game.
+- Fixed a bug where having two references to the same object would create two copies of that object.
+- Removed a debug message that was left by accident in PlayingCards.txt
+- Fixed a bug related to renaming imported scripts.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.8.0 - 2020/02/16
+<answer>
+Improvements
+- Re-rolling an enchanted stat now has a dramatically lower chance of selecting the same stat.
+- Added 3 new glyphs for playing card suits, based on the DOS ascii table: ♦ ♣ ♠
+
+Stonescript
+- The Tab screen now shows the last few Stonescript errors.
+- Variables can now be declared without a starting value.
+- Added the 'new' keyword.
+- Added negation operator '!'.
+- Added native function string.IndexOf()
+- Added native function string.Sub()
+- Added native function Type().
+- Added native function draw.Bg()
+- Added native function draw.GetSymbol(x,y)
+- New script: Games/PlayingCards
+- Added a new sound: dog_bark
+- Added a new sound: frog
+- Moved all the built-in scripts to subfolders. It's recommended to clean up and use the latest versions.
+- Casting null variables to boolean now evaluates to false.
+- Integers can now be cast to boolean. 0 = false, everything else = true.
+- Imported/instantiated scripts can now be cast to boolean. Null = false.
+- Any two objects can now be compared for equality without throwing errors. If their types don't match the result is false.
+
+Balance
+- Critical chance and critical multiply stats are now enchanted together for all items.
+- Repeating Crossbow stats adjusted:
+Damage Old
+[2,2,2,2,3,3,4,4,5,5,6,7,8,8,9,10,10,11,11,12,12,13,13,13,14,14,15,15,16,16,17,19]
+Damage New
+[2,2,2,2,3,3,3,4,4,5,5,6,7,7,8,9,10,11,11,12,12,13,14,14,15,15,16,16,17,17,18,20]
+Crit Multiply Old
+[1.5,1.7,1.9,2.1,2.3,2.5,2.7,2.9,3.1,3.3,3.5,3.6,3.7,3.8,3.9,4.1,4.2,4.3,4.4,4.5,4.6,4.7,4.8,4.9,5,5.2,5.3,5.4,5.5,5.6,5.7,5.8]
+Crit Multiply New
+[1.5,1.7,1.9,2.1,2.3,2.5,2.7,2.9,3.1,3.3,3.5,3.6,3.8,3.9,4.1,4.2,4.4,4.5,4.7,4.8,5,5.1,5.2,5.4,5.5,5.7,5.8,6,6.1,6.3,6.4,6.5]
+
+Bugs
+- Fixed a crash when the R.I.Pieces dealt lethal damage to the player.
+- Fixed a bug where workstation tasks available in one saved game could affect another saved game.
+- Fixed a bug where sounds played with the Stonescript command 'play' could sometimes loop indefinately.
+- Internal name of boulders corrected from Bolder to Boulder.
+- Fixed a bug in advanced drawing where some ASCII-art could be confused for color metadata.
+
+Other
+- Added a cheat code to unlock Stonescript early.
+- Updated localization texts.
+- Updated credits.
+
+</answer><div id="separator"><!---------------------------></div>
+
 v2.7.0 - 2020/02/08
 <answer>
 Stonescript
