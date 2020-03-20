@@ -28,7 +28,7 @@
 
 <center>· ·:·: Stonescript :·:· ·</center>
 <div id="title-separator"><!---------------------------></div>
-<center><font color="#808080">v2.8.5 - 2020/02/22</font></center>
+<center><font color="#808080">v2.9.2 - 2020/03/09</font></center>
 <answer><center>main | <a href="https://stonestoryrpg.com/stonescript/beta.html">beta</a></center></answer>
 <center><font color="#808080">
       _ ______________________ _            
@@ -68,11 +68,12 @@
 <f>  <a href="#native-functions">9. Native Functions</a></f>
 <f>  <a href="#import">10. Importing External Scripts</a></f>
 <f>  <a href="#ascii-art">11. ASCII-art</a></f>
-<f>  <a href="#search-filters">12. Search Filters</a></f>
-<f>  <a href="#custom-input">13. Custom Input</a></f>
-<f>  <a href="#tips">14. Tips</a></f>
-<f>  <a href="#default-script">15. Default script</a></f>
-<f>  <a href="#roadmap">16. Roadmap</a></f>
+<f>  <a href="#loops">12. Loops</a></f>
+<f>  <a href="#search-filters">13. Search Filters</a></f>
+<f>  <a href="#custom-input">14. Custom Input</a></f>
+<f>  <a href="#tips">15. Tips</a></f>
+<f>  <a href="#default-script">16. Default script</a></f>
+<f>  <a href="#roadmap">17. Roadmap</a></f>
 <f>  <a href="#sounds">Appendix A - Sound Effects</a></f>
 
 
@@ -371,6 +372,10 @@ These tell the game to do something.
     <td>Declares a <a href="#functions">function</a> that can be called later.<eg><br>E.g.<br>func Print(message)<br>  >@message@<br><br>Print(Hello World!)</td>
   </tr>
   <tr>
+    <td>for v = a..b</td>
+    <td>Creates a <a href="#loops">loop</a> that iterates a variable 'v' from value 'a' to value 'b'. Code that appears inside the loop's scope will run multiple times.<eg><br>E.g.<br>var a<br>a = 0<br>for i = 1..5<br>  a = a + i<br>>a = @a@</td>
+  </tr>
+  <tr>
     <td>import (script)</td>
     <td>Loads and executes a singular copy of an <a href="#import">external script</a>.<eg><br>This example imports the fishing mini-game located at<br>(save-file folder)/Stonescript/Fishing.txt<br><br>import Fishing</td>
   </tr>
@@ -588,7 +593,7 @@ func TestScope(a)
 
 TestScope(3)
 </eg>
-When functions call other functions, or themselves, this creates an execution stack that can build in size until the application crashes. To safeguard computer resources Stonescript has a stack limit of 1024 and will throw an error if the limit is exceeded.
+When functions call other functions, or themselves, this creates an execution stack that can build in size until the application crashes. To safeguard computer resources Stonescript has a stack limit of 215 and will throw an error if the limit is exceeded.
 </font>
 
 <a href="#"><font color="#505050">^Back to top</font></a>
@@ -604,6 +609,10 @@ While scripts can define their own functions, Stonescript comes with a set of pr
   <tr>
     <td>draw.Bg(x, y, color)<br><eg>No return value</td>
     <td>Sets the background color at a specific screen position.<br><eg>E.g.<br>draw.Bg(5, 4, #red)</td>
+  </tr>
+  <tr>
+    <td>draw.Box(x, y, w, h, color, style)<br><eg>No return value</td>
+    <td>Draws a rectangular shape at the specified position and size. The rectangle's border is defined by color and a style number. Negative style numbers cause the center of the rectangle to be transparent. CAVEAT - At this time, advanced prints always draw on top of boxes.<br><eg>Use this example to explore the different styles by pressing Left/Right<br>var style = 1<br>?key = leftBegin<br>  style--<br>?key = rightBegin<br>  style++<br>draw.Box(10, 5, 30, 15, #333333, style)<br>>`12,6,#ffffff,Style = @style@<br>>`12,8,#888888,Press Left/Right\nto change style</td>
   </tr>
   <tr>
     <td>draw.Bg(x, y, color, w, h)<br><eg>No return value</td>
@@ -630,6 +639,10 @@ While scripts can define their own functions, Stonescript comes with a set of pr
     <td>Causes the run to be abandoned as if the player had pressed to leave manually.</td>
   </tr>
   <tr>
+    <td>loc.Pause()<br><eg>No return value</td>
+    <td>Causes the run to be paused as if the player had pressed the pause button manually.</td>
+  </tr>
+  <tr>
     <td>math.Clamp(num, min, max)<br><eg>Returns integer</td>
     <td>Contrains a number to within the range 'min' and 'max'. If the number is already within the range then it will be returned without changing.<br><eg>E.g.<br>var number = 50<br>number = math.Clamp(number, 0, 10)<br>(number has been clamped down and will equal 10)</td>
   </tr>
@@ -652,6 +665,10 @@ While scripts can define their own functions, Stonescript comes with a set of pr
   <tr>
     <td>string.Sub(str, startAt, length)<br><eg>Returns string</td>
     <td>Takes a string variable, a starting index and a length as parameters and splits the string from that starting point, stopping at the given length.<eg><br>E.g.<br>var a = Hello World!<br>var subString = string.Sub(a, 6, 3)<br>>substring = @subString@<br>(subString equals "Wor")</td>
+  </tr>
+  <tr>
+    <td>Type(var)<br><eg>Returns string</td>
+    <td>Evaluates the type of a variable and returns a string representation. Possible types include 'string', 'int', 'bool', 'function', 'object' and 'null'.<eg><br>E.g.<br>var a = 0<br>?Type(a) = int<br>  >Variable 'a' is an integer.</td>
   </tr>
 </table></font>
 <a href="#"><font color="#505050">^Back to top</font></a>
@@ -792,6 +809,58 @@ fishSprite = ascii
 asciiend
 >`0,3,#red,@fishSprite@
 </f></eg></font>
+
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="loops"><div id="separator"><!---------------------------></div>
+
+·:·:· Loops ·:·:·
+<font color="#bbbbbb"><f>
+
+Loops allow a section of code to run multiple times. To create a loop use the 'for' keyword in the form:
+<eg>
+for v = a..b
+</eg>
+The variable 'v' begins the loop with value 'a' and increases in value until it reaches 'b', then the loop ends:
+<eg>
+for i = 1..5
+  >`0,@i@,i = @i@
+</eg>
+The iteration variable 'v' should not be declared prior to the 'for' and is contained to the scope of the loop. However, the begin and end values 'a' and 'b' can be declared prior to the loop:
+<eg>
+var min = 1
+var max = 4
+var sum
+sum = 0
+for j = min..max
+  sum = sum + j
+>sum = @sum@
+</eg>
+Loops can also go in the opposite direction, as well as use negative numbers:
+<eg>
+var g
+g = ""
+for k = 5..-2
+  g = g + k
+>g = @g@
+</eg>
+Loops can be nested inside each other, as well as inlined with math expressions to form complex algorithms:
+<eg>
+for x = 1..9
+  for y = x/2 .. x/2 + 6
+    >`@x@,@y@,*
+</eg>
+To break out of the loop early, modify the iteration variable so that it's out of range:
+<eg>
+var n
+n = ""
+for i = 1..5
+  ?i = 3
+    i = -1
+  n = n + i
+>n = @n@
+</eg></font>
 
 <a href="#"><font color="#505050">^Back to top</font></a>
 </div>
@@ -1003,7 +1072,6 @@ Particle emissions.
 brew [resources] Creates a potion at the beginning of a location. E.g.: brew wood stone.
 
 Arrays/Lists.
-Loops.
 
 ?foe.level - The level/difficulty of the targeted foe.
 ?foe.state (cast,perf,cooldown) - Current attack state of the targeted foe.

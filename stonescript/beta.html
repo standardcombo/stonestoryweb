@@ -28,7 +28,7 @@
 
 <center>· ·:·: Stonescript (Beta) :·:· ·</center>
 <div id="title-separator"><!---------------------------></div>
-<center><font color="#808080">v2.9.1 - 2020/03/01</font></center>
+<center><font color="#808080">v2.10.0 - 2020/03/20</font></center>
 <answer><center><a href="https://stonestoryrpg.com/stonescript">main</a> | beta</center></answer>
 <center><font color="#808080">
       _ ______________________ _            
@@ -72,8 +72,8 @@
 <f>  <a href="#search-filters">13. Search Filters</a></f>
 <f>  <a href="#custom-input">14. Custom Input</a></f>
 <f>  <a href="#tips">15. Tips</a></f>
-<f>  <a href="#default-script">15. Default script</a></f>
-<f>  <a href="#roadmap">16. Roadmap</a></f>
+<f>  <a href="#default-script">16. Default script</a></f>
+<f>  <a href="#roadmap">17. Roadmap</a></f>
 <f>  <a href="#sounds">Appendix A - Sound Effects</a></f>
 
 
@@ -205,42 +205,6 @@
     <td>The number of debuffs on the foe being targeted.</td>
   </tr>
   <tr>
-    <td>?hp</td>
-    <td>The player's current hitpoints.</td>
-  </tr>
-  <tr>
-    <td>?maxhp</td>
-    <td>The player's maximum hitpoints.</td>
-  </tr>
-  <tr>
-    <td>?armor</td>
-    <td>The player's current armor, rounded down.<br>E.g. if the armor says [2.4] ?armor evaluates to 2.</td>
-  </tr>
-  <tr>
-    <td>?armor.f</td>
-    <td>The player's current armor's fractional amount.<br>E.g. if the armor says [2.4] ?armor.f evaluates to 4.</td>
-  </tr>
-  <tr>
-    <td>?maxarmor</td>
-    <td>The player's maximum armor, rounded down.</td>
-  </tr>
-  <tr>
-    <td>?pos.x</td>
-    <td>The player's current X position.</td>
-  </tr>
-  <tr>
-    <td>?pos.y</td>
-    <td>The player's current Y position.</td>
-  </tr>
-  <tr>
-    <td>?pos.z</td>
-    <td>The player's current Z position.</td>
-  </tr>
-  <tr>
-    <td>?debuffs.count</td>
-    <td>The number of debuffs currently on the player.</td>
-  </tr>
-  <tr>
     <td>?harvest</td>
     <td>The next harvestable object, such as a tree or boulder.<eg><br>E.g.<br>?harvest=Boulder<br>  equip shovel</td>
   </tr>
@@ -265,8 +229,40 @@
     <td>The current frame number of the location, accumulated in case of boss sub-location.</td>
   </tr>
   <tr>
-    <td>?face</td>
-    <td>The player's current facial expression.<eg><br>E.g.<br>?face =( ^^)</td>
+    <td>?armor</td>
+    <td>The player's current armor, rounded down.<br>E.g. if the armor says [2.4] ?armor evaluates to 2.</td>
+  </tr>
+  <tr>
+    <td>?armor.f</td>
+    <td>The player's current armor's fractional amount.<br>E.g. if the armor says [2.4] ?armor.f evaluates to 4.</td>
+  </tr>
+  <tr>
+    <td>?debuffs.count</td>
+    <td>The number of debuffs currently on the player.</td>
+  </tr>
+  <tr>
+    <td>?hp</td>
+    <td>The player's current hitpoints.</td>
+  </tr>
+  <tr>
+    <td>?maxhp</td>
+    <td>The player's maximum hitpoints.</td>
+  </tr>
+  <tr>
+    <td>?maxarmor</td>
+    <td>The player's maximum armor, rounded down.</td>
+  </tr>
+  <tr>
+    <td>?pos.x</td>
+    <td>The player's current X position.</td>
+  </tr>
+  <tr>
+    <td>?pos.y</td>
+    <td>The player's current Y position.</td>
+  </tr>
+  <tr>
+    <td>?pos.z</td>
+    <td>The player's current Z position.</td>
   </tr>
   <tr>
     <td>?ai.enabled</td>
@@ -285,8 +281,16 @@
     <td>True if the player is moving.</td>
   </tr>
   <tr>
+    <td>?face</td>
+    <td>The player's current facial expression.<eg><br>E.g.<br>?face = "^^"<br>  >Happy</td>
+  </tr>
+  <tr>
     <td>?key</td>
     <td>The state of <a href="#custom-input">custom game input</a>.<eg><br>The following prints the current input:<br>&gt;@key@</td>
+  </tr>
+  <tr>
+    <td>?res.stone<br>?res.wood<br>?res.tar<br>?res.ki<br>?res.bronze</td>
+    <td>The player's current amount of resources in their inventory.<eg><br>E.g.<br>?loc = Deadwood<br>  >Wood = @res.wood@</td>
   </tr>
   <tr>
     <td>?rng</td>
@@ -665,6 +669,10 @@ While scripts can define their own functions, Stonescript comes with a set of pr
   <tr>
     <td>string.Sub(str, startAt, length)<br><eg>Returns string</td>
     <td>Takes a string variable, a starting index and a length as parameters and splits the string from that starting point, stopping at the given length.<eg><br>E.g.<br>var a = Hello World!<br>var subString = string.Sub(a, 6, 3)<br>>substring = @subString@<br>(subString equals "Wor")</td>
+  </tr>
+  <tr>
+    <td>Type(var)<br><eg>Returns string</td>
+    <td>Evaluates the type of a variable and returns a string representation. Possible types include 'string', 'int', 'bool', 'function', 'object' and 'null'.<eg><br>E.g.<br>var a = 0<br>?Type(a) = int<br>  >Variable 'a' is an integer.</td>
   </tr>
 </table></font>
 <a href="#"><font color="#505050">^Back to top</font></a>
@@ -1068,7 +1076,6 @@ Particle emissions.
 brew [resources] Creates a potion at the beginning of a location. E.g.: brew wood stone.
 
 Arrays/Lists.
-Loops.
 
 ?foe.level - The level/difficulty of the targeted foe.
 ?foe.state (cast,perf,cooldown) - Current attack state of the targeted foe.
