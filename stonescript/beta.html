@@ -652,11 +652,11 @@ While scripts can define their own functions, Stonescript comes with a set of pr
   </tr>
   <tr>
     <td>string.Size(str)<br><eg>Returns integer</td>
-    <td>Takes a string variable as parameter and calculates how long it is, in number of glyphs.<eg><br>E.g.<br>var a = Hello World!<br>var size = string.Size(a)<br>>size = @size@</td>
+    <td>Takes a string variable as parameter and calculates how long it is, in number of glyphs.<eg><br>E.g.<br>var a = "Hello World!"<br>var size = string.Size(a)<br>>size = @size@</td>
   </tr>
   <tr>
     <td>string.IndexOf(str, criteria)<br><eg>Returns integer</td>
-    <td>Takes a string variable and a string criteria as parameters and finds the position of the criteria inside the string. Returns -1 if not found.<eg><br>E.g.<br>var a = Hello World!<br>var index = string.IndexOf(a, llo)<br>(index equals 2)</td>
+    <td>Takes a string variable and a string criteria as parameters and finds the position of the criteria inside the string. Returns -1 if not found.<eg><br>E.g.<br>var a = "Hello World!"<br>var index = string.IndexOf(a, llo)<br>(index equals 2)</td>
   </tr>
   <tr>
     <td>string.IndexOf(str, criteria, startAt)<br><eg>Returns integer</td>
@@ -664,11 +664,11 @@ While scripts can define their own functions, Stonescript comes with a set of pr
   </tr>
   <tr>
     <td>string.Sub(str, startAt)<br><eg>Returns string</td>
-    <td>Takes a string variable and a starting index as parameters and splits the string from that point forward.<eg><br>E.g.<br>var a = Hello World!<br>var subString = string.Sub(a, 6)<br>>substring = @subString@<br>(subString equals "World!")</td>
+    <td>Takes a string variable and a starting index as parameters and splits the string from that point forward.<eg><br>E.g.<br>var a = "Hello World!"<br>var subString = string.Sub(a, 6)<br>>substring = @subString@<br>(subString equals "World!")</td>
   </tr>
   <tr>
     <td>string.Sub(str, startAt, length)<br><eg>Returns string</td>
-    <td>Takes a string variable, a starting index and a length as parameters and splits the string from that starting point, stopping at the given length.<eg><br>E.g.<br>var a = Hello World!<br>var subString = string.Sub(a, 6, 3)<br>>substring = @subString@<br>(subString equals "Wor")</td>
+    <td>Takes a string variable, a starting index and a length as parameters and splits the string from that starting point, stopping at the given length.<eg><br>E.g.<br>var a = "Hello World!"<br>var subString = string.Sub(a, 6, 3)<br>>substring = @subString@<br>(subString equals "Wor")</td>
   </tr>
   <tr>
     <td>Type(var)<br><eg>Returns string</td>
