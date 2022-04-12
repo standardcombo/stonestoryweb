@@ -21,6 +21,8 @@
 
 <center>· ·:·: Frequently Asked Questions :·:· ·</center>
 <div id="title-separator"><!---------------------------></div>
+
+<answer><center><a href="https://discord.gg/stonestoryrpg" target="_blank">community</a> | <a href="https://stonestoryrpg.com/releasenotes">release notes</a> | <a href="https://stonestoryrpg.com/stonescript">stonescript tutorial</a></center></answer>
 <center>
                 .-.            
                /_  \           
@@ -46,8 +48,8 @@ _     __.--´    )|   ´    \
 <f>  <a href="#Basic Gameplay">3. Basic Gameplay</a></f>
 <f>  <a href="#Stonescript">4. Stonescript</a></f>
 <f>  <a href="#Lore Questions">5. Lore Questions</a></f>
-<f>  <a href="#Misc - Limits">6. Miscellaneous Features</a></f>
-<f>  <a href="#Misc - Extra">7. Miscellaneous Details - Extra</a></f>
+<f>  <a href="#Crafting">6. Crafting</a></f>
+<f>  <a href="#Misc - Extra">7. Miscellaneous - Extra</a></f>
 <f>  <a href="#Development and community">8. Development and Community</a></f>
 
 
@@ -58,9 +60,13 @@ _     __.--´    )|   ´    \
 
 ▶ I haven’t bought the game yet, but it looks great! What is it about? How does it play?
 <answer>
-Stone Story is a mixture of RPG and incremental/idle gameplay (e.g. Cookie Clicker, Candy Box). You don’t control the character directly; instead, you manage equipment to adjust to the enemies and challenges you face.
+Stone Story is an unusual game that fuses genres by mixing RPG with incremental/idle gameplay and programming elements. You don’t control the character directly; instead, you make decisions about equipment and crafting, adjusting to the enemies and challenges you face.
 
-The beginning of Stone Story can be thought of as a puzzle game. As you progress it transitions to a more incremental/idle play style as you collect more loot to tackle harder challenges. However, it still maintains puzzle and RPG mechanics as you work out better solutions to previous challenges and tackle harder difficulty challenges.
+The beginning of Stone Story can be thought of as a puzzle. Mystery and discovery are guiding forces as you progress through the locations and begin to amass items. As your gear grows powerful, the game transitions to a more incremental/idle play style as you tackle harder locations. All the while, it maintains puzzle and RPG mechanics, as challenges can be approached in creative ways.
+
+A system of side-quests (Legends) offers an alternate way to progress, through adventures rich in dialogue and NPCs.
+
+The experience expands to infinite depth with a crafting system rich in choices, as well as the game's built-in scripting language, Stonescript-- unlocking combat automation, cosmetics and modding.
 </answer>
 
 ▶ What is an incremental/idle game?
@@ -72,19 +78,17 @@ In Stone Story, incremental gameplay is best exemplified with loot farming. You 
 
 ▶ How long is the game?
 <answer>
-The main storyline takes about 6-8 hours. Beyond that, there are higher difficulties to unlock and more loot to horde!
-</answer>
-
-▶ What's the end-game got to offer me?
-<answer>
-At the moment, after you beat the main story arc you'll unlock higher difficulty versions of all the areas. These will offer progressively harder challenges, forcing you to adapt your play style and improve your gear. 
-  
-New content is actively being worked on and will add even more to the end-game as it releases.
+The main storyline takes about 6-8 hours. But that's only the beginning. It takes a few days to play through all the Legend quests. Beyond that, there are higher difficulties to unlock, cosmetics and more loot to horde! Some players have clocked more than 5,000 hours in the dark world.
 </answer>
 
 ▶ Is there a mobile/Switch version?
 <answer>
-Currently not. However, both mobile and Switch versions are planned for 2020.
+Currently not. However, both mobile and Switch versions are planned for 2021.
+</answer>
+
+▶ I've missed many of the limited-time events. How can I participate in those?
+<answer>
+The quests and items that appear in events are available through regular gameplay. In a way, the community events are celebratory moments when new pieces of content are added. There is really no way to go back in time and un-celebrate improvements to the game! That said, some popular challenges may return in new or adjusted forms. Also, some of the limited-time events are setup to repeat each year (e.g. Summer Moonstice 2x loot).
 </answer>
 
 <a href="#"><font color="#505050">^Back to top</font></a></div>
@@ -104,6 +108,7 @@ Currently not. However, both mobile and Switch versions are planned for 2020.
 <answer>
 Space – Pause Menu
 I – Inventory
+L - If paused, leaves the location
 Q – Drink Potion 
 R – Activate equipped weapon’s special attack
 M – Edit the Mind Stone script
@@ -115,7 +120,8 @@ M – Edit the Mind Stone script
   
 <font color=#ffffff>MacOS:</font> ~/Library/Application Support/Martian Rex, Inc_/Stone Story/(steam id)/primary_save.txt
   
-<font color=#ffffff>Linux:</font> (your Steam install location for SSRPG)/saves/(steam id)/primary_save.txt
+<font color=#ffffff>Linux:</font> (your Steam install location for SSRPG)/Martian Rex, Inc_/Stone Story/(steam id)/primary_save.txt
+typical install location: ~/.local/share/Steam/steamapps/common/Stone Story RPG/
 </answer>
 
 ▶ I’ve lost my save, is there anything I can do?
@@ -221,9 +227,11 @@ The Staff and Hammer have 6 potential suffixes. As a result, the crafting of the
 
 ▶ What does the Quest Stone do? 
 <answer>
-The Quest Stone is not yet fully implemented. It’s planned to allow user-generated side-quests. 
+The Quest Stone unlocks a series of side-quests. Some are basic quests and others are Legends. Basic quests are simple quantitative goals, such as defeating X enemies of a specific type. Legends, on the other hand, are dialog-rich stories that expand the dark world. In Legends you encounter NPCs, solve non-combat problems and unlock new areas to explore.
 
-In the meantime, it’s just a good way to supplement the passive armor generation of shields, as it can be equipped on either hand.
+When equipped, the Quest Stone is a good way to supplement the armor generation of shields, as it can be equipped on both hands. Meanwhile, shields have to be specifically equipped on the right hand.
+
+Additionally, weekly quests can be unlocked after completing the Legend "Remnants of Five". These weekly quests focus on progression of locations, such as unlocking a higher difficulty or improving the average clear time of a location.
 </answer>
 
 ▶ What does the Mutate workstation do?
@@ -235,6 +243,11 @@ A base weapon like a sword will turn into another base item (ex. a Wand into a S
 A rune on its own, not slotted into anything, will turn into another type of rune (ex. Poison(∞) > Ice(❄)).
 
 The result from the mutation is randomized. 
+</answer>
+
+▶ What are Ki Crystals for?
+<answer>
+Ki Crystals are a rare currency in the dark world. They are introduced in the Legend "Remnants of Five", but can also be: earned as a daily reward, found in Delta treasures, from special community events, and are the main reward for completing weekly quests.
 </answer>
 
 <a href="#"><font color="#505050">^Back to top</font></a></div>
@@ -250,21 +263,22 @@ _____/ / \
 
 ▶ What is Stonescript?
 <answer>
-Stonescript is an optional, late-game addition that unlocks when you find the Mind Stone.
+Stonescript is an optional, late-game addition that unlocks when you find the Mind Stone. This allows automation and modding/cosmetics.
 
-It allows you to write scripts that further automate your character (ex. having them drink potions if your health gets low). The most common use is to change weapons based on current conditions in the game. For example, when you face a specific boss you can automatically equip the best gear against it.
+With the Mind Stone you can further automate your character (ex. having them drink potions if your health gets low). The most common use is to change weapons based on current conditions in the game. For example, when you face a specific boss you can automatically equip the best gear against it.
 
-Stonescript also allows you to overlay custom ASCII art over the game; in a word, cosmetics. Maybe Pallas needs a hat or Bolesh needs some booties? That's up to you!
+Stonescript also allows you to overlay custom ASCII art over the game; in a word, cosmetics. Maybe Pallas needs a hat or you have an idea for a pet? That's up to you!
 
-Version 3.0 of the game will expand Stone Story with a broad range of new functionality that allows players to get extra creative.
+See the <a href="https://stonestoryrpg.com/stonescript" target="_blank">introduction tutorial</a> to get started.
+
+The Stone Story RPG installation comes with a collection of community-created scripts. These include pets, cosmetics, mini-games, UI and more. To see all built-in scripts, open the Mind Stone and in a new line type "import Fishing". Click the button that appears to the left of the word "import" to open the corresponding folder.
 </answer>
 
 ▶ Programming? That sounds hard…
 <answer>
 Not to worry, Stonescript is for programmers of all expertise! Whether you're just starting out or a seasoned coder, Stonescript offers a wide variety of features that can help you bring your game to the next level.  
 
-Strictly speaking, Stonescript is optional (though recommended). There is nothing stopping you from beating the game without it. However, if you are interested in giving it a go the SSRPG 
-  community is full of helpful people willing to lend a hand. Got a script idea? Need to iron out some kinks in your code? We'll be more than happy to help!
+Strictly speaking, Stonescript is optional (though recommended). There is nothing stopping you from beating the game without it. However, if you are interested in giving it a go, the SSRPG community is full of helpful people willing to lend a hand. Got a script idea? Need to iron out some kinks in your code? We'll be more than happy to help!
 
 [ <a href="https://discord.gg/StoneStoryRPG" target="_blank">https://discord.gg/StoneStoryRPG</a> ]
 </answer>
@@ -275,7 +289,7 @@ Hold Tab for more information in-level.
 
 ‘foe = boss’ is a good catch all for the bosses.
 
-Check out <a href="http://stonestoryrpg.com/stonescript.html" target="_blank">http://stonestoryrpg.com/stonescript.html</a> for a comprehensive documentation of implemented Stonescript features.
+Check out <a href="https://stonestoryrpg.com/stonescript/manual.html" target="_blank">the manual</a> for comprehensive documentation on all Stonescript features.
 
 You can also browse the Discord’s #stonescript channel and ask questions there if you get stuck.
 </answer>
@@ -295,7 +309,7 @@ You can also browse the Discord’s #stonescript channel and ask questions there
 
 ▶ What is Acropolis? Is there a way to get there?
 <answer>
-Acropolis is the home of the ascended. Not much is known about Acropolis at this time. However, it is the next destination of a certain intrepid stone person...
+Acropolis is a city and the home of the ascended. Not much is known about Acropolis at this time. However, it is the next destination of a certain intrepid stone person...
 </answer>
 
 ▶ What is the green stream on the bridge? Can I open the chest?
@@ -303,6 +317,11 @@ Acropolis is the home of the ascended. Not much is known about Acropolis at this
 That's the Stream of the Silent. Said to extend all the way into Acropolis, few know how it was created or what sustains it.
 
 Perhaps in the future you might be able to reach the chest or Acropolis itself.
+</answer>
+
+▶ Are there boots or other such articles?
+<answer>
+There is no footwear in the dark world.
 </answer>
 
 <a href="#"><font color="#505050">^Back to top</font></a></div>
@@ -313,14 +332,14 @@ Perhaps in the future you might be able to reach the chest or Acropolis itself.
   \   (_.\
    `~...~'
 </center></f>
-<div id="Misc - Limits"><div id="separator"><!---------------------------></div>
+<div id="Crafting"><div id="separator"><!---------------------------></div>
 
-·:·:· Miscellaneous Features ·:·:·
+·:·:· Crafting ·:·:·
 
 
 ▶ Is there any benefit to enchanting a stat above 100% chance?
 <answer>
-Not currently.
+In the case of healing items, if the chance is more than 100%, then there is a chance to heal 2 hitpoints instead of the usual 1.
 </answer>
 
 ▶ What’s the maximum star/enchantment level?
@@ -328,36 +347,66 @@ Not currently.
 10☆, +21 enchantment.
 </answer>
 
+▶ What does the +X number mean on an enchanted (colored) item?
+<answer>
+The +Number means the bonus value given to a single stat on an item. Stats include things like damage, attack speed, armor, etc. When you level up an item normally, all the stats are improved per ☆ added. However, an enchantment affects a single stat and pushes it beyond the ☆ value.
+
+When you look an item's details, the stat that is colored is the one boosted by the enchantment. You can change the enchanted stat by "Re-rolling" it on the Anvil.
+</answer>
+
+▶ Is the enchantment bonus lost if the item is fused on the Anvil?
+<answer>
+No. Enchantment quality is always preserved and additive. If you combine an enchanted sword with a regular shield it will result in an enchanted hammer.
+
+Enchantments can also be removed from an item on the Fissure station and added to another item on the Anvil, without losing any bonus. This operation costs Ki.
+
+The only case where you can lose enchantments is if you fuse two enchanted items together on the anvil. In this case the game warns you about the loss, so you can cancel the craft. If you decide to do this anyway, the lowest of the two enchantments is discarded. The correct way to fuse enchantments is on the Triskelion station.
+</answer>
+
+▶ What’s the difference between the various enchantment colors?
+<answer>
+The six enchantment colors are: Cyan, Yellow, Green, Blue, Red and Rainbow. They indicate the range of bonus. Cyan is always +1. Yellow is +2-3.  The different colors don't affect combat or stats, but they do indicate the underlying "quality" value of the enchantment and how they combine on the Triskelion. The logic is rather complicated, so there is the "Fuse+" where you don't have to think about it!
+</answer>
+
 ▶ How do I get my weapon to be all rainbow-y?
 <answer>
 An item enchanted to +16 becomes transcendent and gets the cool rainbow effect. Pshow!
 </answer>
 
-▶ What’s the max level?
+▶ What are Lost items and what's the [1/2] that appears on them?
+<answer>
+Lost items are rare and powerful and cannot be made by crafting. They begin at 5☆. They are found in Delta treasures, in the Hotspring Shop and are given as rewards in some Legends.
+
+To upgrade a Lost item you need to find additional copies of them. The [1/2] indicates how many copies you have found and how many you need until the next upgrade. In the example of [1/2], there is 1 copy and if it gets to 2 then it can upgrade. Lost items can also be "boosted" by large amounts of common items. This replaces the need to find extra copies of the Lost item. However, there are limits to how many times an item can be boosted per ☆ level.
+</answer>
+
+<a href="#"><font color="#505050">^Back to top</font></a></div>
+<f><center>
+               _         
+_.──────.__   |\`.______ 
+`|      !·´   |O\_\-----'
+  )____(       \/_/      
+ '──────'                
+</center></f>
+<div id="Misc - Extra"><div id="separator"><!---------------------------></div>
+
+·:·:· Miscellaneous - Extra ·:·:·
+
+
+▶ What’s the max character level?
 <answer>
 Currently, 60.
 </answer>
 
-▶ What does re-roll do?
+▶ Is there an inventory limit?
 <answer>
-It changes the stat that an enchantment affects (the highlighted one).
+Un-opened treasures are limited by your character level, up to 400 treasures. There is no limit for other items.
 </answer>
 
-<a href="#"><font color="#505050">^Back to top</font></a></div>
-<f><center>      /    
-   ),_ ____
-   `o/(  -´
-  ,/_\ );  
-  /  /\´   
- / -´ _)_  
-L    / .´  
-    ; (    
-   /   \   
-</center></f>
-<div id="Misc - Extra"><div id="separator"><!---------------------------></div>
-
-·:·:· Miscellaneous Details - Extra ·:·:·
-
+▶ How does the Ouroboros offline farming work?
+<answer>
+Offline farming allows you to turn off the game and collect the treasures when you come back. The total duration of the offline run depends on your performance at the chosen location, combined with your total treasure limit. When you play locations normally, the game tracks statistics such as the amount of damage taken and how much time it takes you to beat the location. If you let the location loop a few times it accelerates the gathering of these stats. If you see a red cross † in the location selection screen, that means the game calculates you will die before collecting all possible treasures. This can happen if you have potion refill disabled, not enough resources for potions or if you take too much damage or don't heal enough during your normal runs. In other words, you need to train a location and improve your performance to get better offline results.
+</answer>
 
 ▶ Where can I learn more about the game?
 <answer>
@@ -374,13 +423,19 @@ There is a Stone Story RPG wiki, but it's currently being worked on by members o
 
 ▶ What does the ‘codes’ thing do in the options?
 <answer>
-It’s not used in normal play. This is a development and customer support tool.
+It’s not used in normal play. This is a development and customer support tool. It can also be used for unlocking Stonescript early (before the Mind Stone is found) by typing "import" in the Codes screen.
 </answer>
 
 <a href="#"><font color="#505050">^Back to top</font></a></div>
-<f><center> O   
-(╤═}≡
-/ \  
+<f><center>      /    
+   ),_ ____
+   `o/(  -´
+  ,/_\ );  
+  /  /\´   
+ / -´ _)_  
+L    / .´  
+    ; (    
+   /   \   
 </center></f>
 <div id="Development and community"><div id="separator"><!---------------------------></div>
 
@@ -394,13 +449,18 @@ The lead developer is Gabriel Santos (@standardcombo), with audio design by Rafa
 Many other talented developers have also contributed to the project. Check the game’s credits to see the full list!
 </answer>
 
+▶ How was Stone Story made?
+<answer>
+The game's development started in 2014 and was first published in 2019 on Steam. It was written in C# on top of the Unity engine. The animations are text-art in ASCII style, typed the old-fashined way, frame by frame. Some procedural ASCII appears in visual effects, such as particles.
+</answer>
+
 ▶ Is there anything I can do to help?
 <answer>
-The biggest way you can help Stone Story RPG is to spread the word about it. We're a small team and -completely- independent, meaning we're not attached to any publisher. This allows us to retain total creative control over the project and make the game that both we and our community want. 
+The biggest way you can help Stone Story RPG is to spread the word about it. We're a small team and completely independent, meaning we're not attached to any publisher. This allows us to retain total creative control over the project, taking as much time as needed, and make the game that both we and our community want. 
   
 However, as you might imagine, this means we're spread fairly thin! We don't have the benefit of a large marketing budget. If you share Stone Story RPG and get people talking about the game (especially streamers and YouTubers), that would help immensely towards the long-term health of the game and community.   
 
-For something more hands-on with the project, the Discord server is a great place for you to be. By taking part in active discussion with suggestions and bug reports, you help to refine the game and create a better experience for other fans.
+For something more hands-on with the project, the Discord server is a great place for you to be. By taking part in active discussion with suggestions and bug reports, you help to refine the game and create a better experience for other players.
 
 Stone Story RPG would not be where it is right now were it not for the generous support of players like you.
 </answer>

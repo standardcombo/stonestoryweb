@@ -1,0 +1,1802 @@
+<!DOCTYPE html>
+<html><head><meta name="viewport" http-equiv="Content-Type" content="text/html; charset=UTF-8; width=device-width; initial-scale=1; minimum-scale=1">
+
+<meta content="Stonescript Manual" property="og:title">
+<meta content="All instructions for Stonescript, the programming language inside Stone Story RPG. Includes examples and tips to maximize your Mind Stone." property="og:description">
+<meta content='https://stonestoryrpg.com/mind_stone.png' property='og:image'>
+<meta name="theme-color" content="#ffffff">
+<meta name="twitter:card" content="summary_large_image">
+<link type="application/json+oembed" href="https://stonestoryrpg.com/faq.json" /> 
+
+<title>Stonescript Manual</title>
+
+<link rel="stylesheet" href="https://stonestoryrpg.com/faq-fixed.css" type="text/css" media="only screen and (min-device-width: 891px)" />
+<link rel="stylesheet" href="https://stonestoryrpg.com/faq-stretch.css" type="text/css" media="only screen and (max-width: 890px)" />
+
+<style type="text/css">
+	eg {
+		color: #707070;
+	}
+</style>
+
+</head>
+<body><div id="content">
+<f>
+<div id="logo"><a href="https://StoneStoryRPG.com" target="_blank"><img src="https://stonestoryrpg.com/capsule_b_231x87.png" alt="Stone Story RPG" align="middle"></a></div>
+
+<div id="title-separator"><!---------------------------></div>
+
+<center>· ·:·: Stonescript :·:· ·</center>
+<div id="title-separator"><!---------------------------></div>
+<center><font color="#808080">v2.29.0 - 2020/12/12</font></center>
+<answer><center><a href="https://stonestoryrpg.com/stonescript">intro</a> | manual | <a href="https://stonestoryrpg.com/stonescript/beta.html">beta</a></center></answer>
+<center><font color="#808080">
+      _ ______________________ _            
+  ,:´      \____        __.---<font color="#ffffff">,.</font> `.         
+ :.!  __________\_______\__`--<font color="#ffffff">`´</font>__ \        
+ :' \ \--------------------------.\ \       
+ ':' · \ <font color="#ffffff">·:. :'· :.:·             </font>\\ \      
+  ':' \ \ <font color="#ffffff">:·' :·:.                 </font>\\ \     
+   ':' · \ <font color="#ffffff">.: ·:: '.:. ':'··:.      </font>\\ \    
+    ':' \ \ <font color="#ffffff">· :..                    </font>\\ \   
+     ':' · \ <font color="#ffffff">:·: ..': :·:. ·:: '.     </font>\\ \  
+      ':' \ \__________________________\\ \ 
+       ':' `     .         \         .     )
+        ':' . . . \ . . . . ' . . . . \ . .;
+          `·.;,;,;,;,;,;,;,;,;,;,;,;,;,;,:' 
+</font></center>
+</f>
+<font color="#bbbbbb">
+<f>Used in the Mind Stone to automate equipment choices. Stonescript is a very simple, yet powerful language inside of <a href="https://StoneStoryRPG.com" target="_blank">Stone Story RPG</a>.</f>
+
+<f>Need help? Want to collaborate on scripts? Visit <a href="https://discord.gg/StoneStoryRPG" target="_blank">our Discord</a>.<f>
+
+<f>New to Stonescript? Consider starting at the <a href="https://stonestoryrpg.com/stonescript">Introduction to the Mind Stone</a> tutorial.
+
+<f>The goal of a good script is to equip the best items as the state of the game changes. This could be as simple as automatically activating the potion if your health is low, or complex enough where combat is optimized to super-human levels.</f>
+</font>
+
+
+·:·:· Index ·:·:·
+
+<f>  <a href="#example">1. Example</a></f>
+<f>  <a href="#basics">2. Basics</a></f>
+<f>  <a href="#game-state">3. Game State</a></f>
+<f>  <a href="#commands">4. Commands</a></f>
+<f>  <a href="#comparisons">5. Comparisons</a></f>
+<f>  <a href="#variables">6. Variables</a></f>
+<f>  <a href="#math-operations">7. Math Operations</a></f>
+<f>  <a href="#functions">8. Functions</a></f>
+<f>  <a href="#native-functions">9. Native Functions</a></f>
+<f>  <a href="#import">10. Importing External Scripts</a></f>
+<f>  <a href="#ascii-art">11. ASCII-art</a></f>
+<f>  <a href="#loops">12. Loops</a></f>
+<f>  <a href="#arrays">13. Arrays</a></f>
+<f>  <a href="#search-filters">14. Search Filters</a></f>
+<f>  <a href="#custom-input">15. Custom Input</a></f>
+<f>  <a href="#tips">16. Tips</a></f>
+<f>  <a href="#default-script">17. Default script</a></f>
+<f>  <a href="#roadmap">18. Roadmap</a></f>
+<f>  <a href="#sounds">Appendix A - Sound Effects</a></f>
+
+
+<div id="example"><div id="separator"><!---------------------------></div>
+
+·:·:· Example ·:·:·
+<font color="#bbbbbb">
+// Equips the Shovel for Rocky Plateau.
+// In Caves of Fear it equips loadout 1,
+//   except against the boss, where the
+//   Grappling Hook and a 7 star War Hammer
+//   are used instead.
+// For Haunted Halls it uses two Wands, 
+//   specifying Poison for left hand and
+//   Vigor for the right hand. However,
+//   if the difficulty is over 5 stars it
+//   uses an enchanted +13 Vigor Staff.
+// Potion activates if hitpoints fall
+//   below 10
+<f>?loc=rocky
+ equip shovel
+?loc=cave
+ loadout 1
+ ?foe=bolesh
+  equip grap
+  equip hammer *7 D
+?loc=halls
+ equipL poison wand
+ equipR vigor wand
+ ?loc.stars &gt; 5
+  equip vigor staff +13
+?hp < 10
+ activate potion
+</f>
+</font>
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="basics"><div id="separator"><!---------------------------></div>
+
+·:·:· Basics ·:·:·
+<font color="#bbbbbb">
+<table>
+  <tr>
+    <td style="min-width: 3em"> ?  </td>
+    <td>Evaluates a logical condition. If true, executes idented lines (if).<eg><br>E.g.<br>?loc = caves<br>  loadout 1</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> :  </td>
+    <td>Alternative logical branch, in case the '?' condition is false (else).<eg><br>E.g.<br>?loc = caves<br>  loadout 1<br>:<br>  loadout 2</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> :? </td>
+    <td>Alternative logical branch, with additional conditions (else-if).<eg><br>E.g.<br>?loc = caves<br>  loadout 1<br>:?loc = deadwood<br>  loadout 2<br>:<br>  loadout 3</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> // </td>
+    <td>A comment. All text to the right of '//' has no logical effect when the script executes.<eg><br>E.g.<br>?loc = caves<br>  loadout 1<br>//The above equips loadout 1 for Caves of Fear</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> ^  </td>
+    <td>Continue previous line.<eg><br>E.g.<br>?loc=caves |<br>^loc = mine<br>  equip repeating<br><br>//The above is equal to:<br>?loc=caves|loc=mine<br>  equip repeating</td>
+  </tr>
+</table></font>
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="game-state"><div id="separator"><!---------------------------></div>
+
+·:·:· Game State ·:·:·
+<font color="#bbbbbb">
+<f>These questions tell you what's happening and what's right in front of the player.</f>
+
+<table>
+  <tr>
+    <td>?loc</td>
+    <td>The current location the player is visiting.<eg><br>E.g.<br>?loc = caves<br>  loadout 1</td>
+  </tr>
+  <tr>
+    <td>?loc.name</td>
+    <td>The localized name of the current location.<eg><br>E.g.<br>var name<br>name = loc.name<br>&gt;Exploring @name@</td>
+  </tr>
+  <tr>
+    <td>?loc.stars</td>
+    <td>The current location's difficulty.<eg><br>E.g.<br>?loc = caves<br>  ?loc.stars=4<br>    loadout 1<br>  ?loc.stars=5<br>    loadout 2</td>
+  </tr>
+  <tr>
+    <td>?loc.begin</td>
+    <td>Is true only on the first frame of a location, when time = 0, before any game simulation has run. Is not true after an Ouroboros loop. Useful for resetting variables.<eg><br>E.g.<br>var i<br>?loc.begin<br>  i = 0<br>  ?loc = caves<br>    i = -100</td>
+  </tr>
+  <tr>
+    <td>?loc.loop</td>
+    <td>Is true on the first frame of a run after an Ouroboros loop.<eg><br>E.g.<br>var loopCount = 0<br>?loc.loop<br>  loopCount++</td>
+  </tr>
+  <tr>
+    <td>?foe</td>
+    <td>The current foe being targeted by the player.<eg><br>E.g.<br>?foe = boo<br>  equip vigor staff</td>
+  </tr>
+  <tr>
+    <td>?foe.name</td>
+    <td>The localized name of the foe being targeted by the player.</td>
+  </tr>
+  <tr>
+    <td>?foe.distance</td>
+    <td>The distance between the player and the foe being targeted.</td>
+  </tr>
+  <tr>
+    <td>?foe.count</td>
+    <td>The number of foes within 46 units.</td>
+  </tr>
+  <tr>
+    <td>?foe.hp</td>
+    <td>The current hitpoints of the foe being targeted by the player.</td>
+  </tr>
+  <tr>
+    <td>?foe.maxhp</td>
+    <td>The maximum hitpoints of the foe being targeted by the player.</td>
+  </tr>
+  <tr>
+    <td>?foe.armor</td>
+    <td>The current armor of the foe being targeted by the player.</td>
+  </tr>
+  <tr>
+    <td>?foe.maxarmor</td>
+    <td>The maximum armor of the foe being targeted by the player.</td>
+  </tr>
+  <tr>
+    <td>?foe.buffs.count</td>
+    <td>The number of buffs (positive effects) on the foe being targeted.</td>
+  </tr>
+  <tr>
+    <td>?foe.buffs.string</td>
+    <td>A composite of information about all the buffs on the target foe.<eg><br>E.g.<br>?foe.buffs.count > 0<br>  >`0,3,Foe buffs = @foe.buffs.string@</td>
+  </tr>
+  <tr>
+    <td>?foe.debuffs.count</td>
+    <td>The number of debuffs (negative effects) on the foe being targeted.</td>
+  </tr>
+  <tr>
+    <td>?foe.debuffs.string</td>
+    <td>A composite of information about all the debuffs on the target foe.<eg><br>E.g.<br>?foe.debuffs.count > 0<br>  >`0,4,Foe debuffs = @foe.debuffs.string@</td>
+  </tr>
+  <tr>
+    <td>?foe.state</td>
+    <td>A number representing the target foe's current state.<eg><br>E.g.<br>?foe.state = 0<br>  >`0,0,Foe is asleep</td>
+  </tr>
+  <tr>
+    <td>?foe.time</td>
+    <td>Elapsed number of frames in target foe's current state.<eg><br>E.g.<br>>`0,0,Foe = @foe.name@:@foe.state@,@foe.time@</td>
+  </tr>
+  <tr>
+    <td>?foe.level</td>
+    <td>The level number of the target foe.<eg><br>E.g.<br>>`0,0,Foe = @foe.name@ is level @foe.level@</td>
+  </tr>
+  <tr>
+    <td>?harvest</td>
+    <td>The next harvestable object, such as a tree or boulder.<eg><br>E.g.<br>?harvest=Boulder<br>  equip shovel</td>
+  </tr>
+  <tr>
+    <td>?harvest.distance</td>
+    <td>The distance between the player and the nearest harvestable object.<eg><br>E.g.<br>?loc=Rocky & harvest.distance < 7<br>  equip shovel</td>
+  </tr>
+  <tr>
+    <td>?pickup</td>
+    <td>The current pickup being targeted by the player.</td>
+  </tr>
+  <tr>
+    <td>?pickup.distance</td>
+    <td>The distance between the player and the pickup being targeted.</td>
+  </tr>
+  <tr>
+    <td>?time</td>
+    <td>The current frame number of the location.<eg><br>E.g.<br>?time % 300 = 0<br>  >Every 10 seconds you'll see this message</td>
+  </tr>
+  <tr>
+    <td>?totaltime</td>
+    <td>The current frame number of the location, accumulated in case of boss sub-location.</td>
+  </tr>
+  <tr>
+    <td>time.year, time.month, time.day, time.hour, time.minute, time.second</td>
+    <td>The local system time on the player's computer.<eg><br>E.g.<br>>`0,0,@time.year@/@time.month@/@time.day@<br>^ @time.hour@:@time.minute@:@time.second@</td>
+  </tr>
+  <tr>
+    <td>?armor</td>
+    <td>The player's current armor, rounded down.<br>E.g. if the armor says [2.4] ?armor evaluates to 2.</td>
+  </tr>
+  <tr>
+    <td>?armor.f</td>
+    <td>The player's current armor's fractional amount.<br>E.g. if the armor says [2.4] ?armor.f evaluates to 4.</td>
+  </tr>
+  <tr>
+    <td>?buffs.count</td>
+    <td>The number of buffs (positive effects) on the player.</td>
+  </tr>
+  <tr>
+    <td>?buffs.string</td>
+    <td>A composite of information about all buffs on the player.<eg><br>E.g.<br>?buffs.count > 0<br>  >`0,1,Player buffs = @buffs.string@</td>
+  </tr>
+  <tr>
+    <td>?debuffs.count</td>
+    <td>The number of debuffs (negative effects) on the player.</td>
+  </tr>
+  <tr>
+    <td>?debuffs.string</td>
+    <td>A composite of information about all debuffs on the player.<eg><br>E.g.<br>?debuffs.count > 0<br>  >`0,2,Player debuffs = @debuffs.string@</td>
+  </tr>
+  <tr>
+    <td>?hp</td>
+    <td>The player's current hitpoints.</td>
+  </tr>
+  <tr>
+    <td>?maxhp</td>
+    <td>The player's maximum hitpoints.</td>
+  </tr>
+  <tr>
+    <td>?maxarmor</td>
+    <td>The player's maximum armor, rounded down.</td>
+  </tr>
+  <tr>
+    <td>?pos.x</td>
+    <td>The player's current X position.</td>
+  </tr>
+  <tr>
+    <td>?pos.y</td>
+    <td>The player's current Y position.</td>
+  </tr>
+  <tr>
+    <td>?pos.z</td>
+    <td>The player's current Z position.</td>
+  </tr>
+  <tr>
+    <td>?ai.enabled</td>
+    <td>True if the AI is on, False if the AI is off (e.g. during a cinematic moment).</td>
+  </tr>
+  <tr>
+    <td>?ai.paused</td>
+    <td>True if the AI is temporarily suspended, such as when waiting for a treasure to drop.</td>
+  </tr>
+  <tr>
+    <td>?ai.idle</td>
+    <td>True if the player is idle, waiting for something such as an attack to complete.</td>
+  </tr>
+  <tr>
+    <td>?ai.walking</td>
+    <td>True if the player is moving.</td>
+  </tr>
+  <tr>
+    <td>?face</td>
+    <td>The player's current facial expression.<eg><br>E.g.<br>?face = "^^"<br>  >Happy</td>
+  </tr>
+  <tr>
+    <td>?key</td>
+    <td>The state of <a href="#custom-input">custom game input</a>.<eg><br>The following prints the current input:<br>&gt;@key@</td>
+  </tr>
+  <tr>
+    <td>?res.stone<br>?res.wood<br>?res.tar<br>?res.ki<br>?res.bronze</td>
+    <td>The player's current amount of resources in their inventory.<eg><br>E.g.<br>?loc = Deadwood<br>  >Wood = @res.wood@</td>
+  </tr>
+  <tr>
+    <td>player.name</td>
+    <td>The name chosen by the player.<eg><br>This example prints the player's name above their head:<br>var name<br>var x<br>name = player.name<br>x = string.Size(name) / -2<br>>o@x@,-2,@name@</td>
+  </tr>
+  <tr>
+    <td>?totalgp</td>
+    <td>The total "Gear Points" of your inventory, calculated from item star levels and enchantment bonuses.<eg><br>E.g.<br>&gt;My gear points = @totalgp@</td>
+  </tr>
+  <tr>
+    <td>?rng</td>
+    <td>Returns a random number between 0 and 9999.<eg><br>E.g.<br>?rng < 5000<br>  &gt;Heads!<br>:<br>  &gt;Tails!<br><br>This example generates a random number between 5 and 24:<br>var min = 5<br>var max = 24<br>var n<br>n = min + rng % (max - min + 1)</td>
+  </tr>
+  <tr>
+    <td>?screen.i</td>
+    <td>The screen's position in-game, as an index that increses when the player reaches the right-side and it slides over.<eg><br>E.g.<br>>`0,0,Screen index = @screen.i@</td>
+  </tr>
+  <tr>
+    <td>?screen.x</td>
+    <td>The screen's position in-game.<eg><br>E.g.<br>>`0,0,Screen position X = @screen.x@</td>
+  </tr>
+  <tr>
+    <td>?screen.w</td>
+    <td>The width of the screen's ASCII grid.<eg><br>E.g.<br>var sw = screen.w<br>&gt;Screen width = @sw@</td>
+  </tr>
+  <tr>
+    <td>?screen.h</td>
+    <td>The height of the screen's ASCII grid.<eg><br>E.g.<br>var sh = screen.h<br>&gt;Screen height = @sh@</td>
+  </tr>
+</table></font>
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="commands"><div id="separator"><!---------------------------></div>
+
+·:·:· Commands ·:·:·
+<font color="#bbbbbb">
+These tell the game to do something.
+
+<table>
+  <tr>
+    <td>activate (ability)</td>
+    <td>Activates an item ability. (ability) can have these values: potion, P, left, L, right, R.<eg><br>E.g.<br>activate R<br>(activates the ability of the item equipped on the right side, such as the Hatchet)</td>
+  </tr>
+  <tr>
+    <td>equip  (str)</td>
+    <td>Equips an item. (str) has a limit of 7 criteria.<eg><br>E.g.<br>equip vigor crossbow *8 +5</td>
+  </tr>
+  <tr>
+    <td>equipL (str)</td>
+    <td>Equips an item to the left hand that best fits the given criteria.<eg><br>E.g.<br>equipL poison sword</td>
+  </tr>
+  <tr>
+    <td>equipR (str)</td>
+    <td>Equips an item to the right hand that best fits the given criteria.<eg><br>E.g.<br>equipR vigor shield</td>
+  </tr>
+  <tr>
+    <td>loadout (n)</td>
+    <td>Equips a specific loadout number.<eg><br>E.g.<br>?loc = caves<br>  loadout 1<br>?loc = deadwood<br>  loadout 2</td>
+  </tr>
+  <tr>
+    <td>&gt; (str)</td>
+    <td>Prints a string to the top of the screen.<eg><br>E.g.<br>&gt;Hello World!</td>
+  </tr>
+  <tr>
+    <td>&gt; @varName@</td>
+    <td>Prints a string with the value of a variable inserted. Multiple variables can be inserted into a single print. To insert, surround the variable's name with @.<eg><br>The following example prints information about the currently targeted foe:<br>var foeInfo<br>foeInfo = foe<br>&gt;FOE = @foeInfo@</td>
+  </tr>
+  <tr>
+    <td>&gt;(abcd</td>
+    <td>Shows a custom facial expression on the player. Requires Big Head.<eg><br>E.g.<br>&gt;( OwO</td>
+  </tr>
+  <tr>
+    <td>&gt;oX,Y,[#rrggbb,](str)</td>
+    <td>Advanced print relative to the player's position. X and Y are the coordinate offsets. #rrggbb is the color of the text in <a href="https://htmlcolorcodes.com/" target="_blank">hexadecimal notation</a>. Color can also be set with these constants: #white, #cyan, #yellow, #green, #blue and #red. To print in rainbow use #rainFF where the last 2 characters define the brightness.<eg><br>The following example writes "Let's go!" in red font, relative to the player's position, 6 to the left and 3 down:<br>&gt;o-6,3,#red,Let's go!</td>
+  </tr>
+  <tr>
+    <td>&gt;hX,Y,[#rrggbb,](str)</td>
+    <td>Similar to "&gt;o", however, draws on the same layer as the Big Head. Ideal for accessories such as hats.<eg><br>The following draws a yellow hat on the player. Requires Big Head:<br>&gt;h-2,-3,#yellow,ascii<br>##_<br>#| |<br>_|_|_<br>asciiend</td>
+  </tr>
+  <tr>
+    <td>&gt;`X,Y,[#rrggbb,](str)</td>
+    <td>Advanced print relative to the upper-left corner of the screen.<eg><br>The following prints "Hello World!", but uses variables for the coordinates and the color:<br>var posX = 10<br>var posY = 5<br>var color = rainE1<br>&gt;`@posX@,@posY@,#@color@,Hello World!</td>
+  </tr>
+  <tr>
+    <td>&gt;cX,Y,[#rrggbb,](str)</td>
+    <td>Advanced print relative to the center of the screen. Similar to "&gt;`". Note that in all these the color is optional.<eg><br>This example demonstrates how the color is optional and defaults to white:<br>&gt;c0,0,Hello World!</td>
+  </tr>
+  <tr>
+    <td>&gt;fX,Y,[#rrggbb,](str)</td>
+    <td>Advanced print relative to the target foe's head position.<eg><br>The following draws a red crosshairs on the targeted foe:<br>&gt;f-2,0,#ff0000,ascii<br>##!<br>-#·#-<br>##¡<br>asciiend</td>
+  </tr>
+  <tr>
+    <td>var (variable)</td>
+    <td>Declares a variable that can be used in math, logical and string operations. See the <a href="#variables">variables section</a> for details about their lifecycle and behavior, that may differ from other languages.<eg><br>E.g.<br>var message = Hello World!<br>&gt;@message@</td>
+  </tr>
+  <tr>
+    <td>func (function)</td>
+    <td>Declares a <a href="#functions">function</a> that can be called later.<eg><br>E.g.<br>func Print(message)<br>  >@message@<br><br>Print(Hello World!)</td>
+  </tr>
+  <tr>
+    <td>for v = a..b</td>
+    <td>Creates a <a href="#loops">loop</a> that iterates a variable 'v' from value 'a' to value 'b'. Code that appears inside the loop's scope will run multiple times.<eg><br>E.g.<br>var a<br>a = 0<br>for i = 1..5<br>  a = a + i<br>>a = @a@</td>
+  </tr>
+  <tr>
+    <td>import (script)</td>
+    <td>Loads and executes a singular copy of an <a href="#import">external script</a>.<eg><br>This example imports the fishing mini-game located at<br>(save-file folder)/Stonescript/Fishing.txt<br><br>import Fishing</td>
+  </tr>
+  <tr>
+    <td>new (script)</td>
+    <td>Loads and executes an <a href="#import">external script</a> similar to 'import'. However, objects loaded with 'new' are each an individual copy and their script body will only execute one time.<eg><br>This example creates and prints a vector object:<br>var v = new Components/Vector<br>v.Init(10, 5)<br>>Vector = @v@</td>
+  </tr>
+  <tr>
+    <td>disable hud</td>
+    <td>Hides and disables the user interface elements including: Resources, hitpoints, ability buttons and pause button.</td>
+  </tr>
+  <tr>
+    <td>enable hud</td>
+    <td>Brings back all the user interface elements hidden by a previous "disable hud" command.</td>
+  </tr>
+  <tr>
+    <td>disable loadout input</td>
+    <td>Prevents weapon loadouts from being saved or recalled with input keys.</td>
+  </tr>
+  <tr>
+    <td>enable loadout input</td>
+    <td>Restores the saving or recalling of weapon loadouts by means of input keys.</td>
+  </tr>
+  <tr>
+    <td>disable loadout print</td>
+    <td>Hides the messages that appear when a loadout is recalled.</td>
+  </tr>
+  <tr>
+    <td>enable loadout print</td>
+    <td>Brings back the printing of loadout messages.</td>
+  </tr>
+  <tr>
+    <td>disable player</td>
+    <td>Hides the player. Has no effect on combat, this is only cosmetic.</td>
+  </tr>
+  <tr>
+    <td>enable player</td>
+    <td>Brings back the player rendering if it was hidden by a previous "disable player" command.</td>
+  </tr>
+  <tr>
+    <td>play (sound) (pitch)</td>
+    <td>Plays a <a href="#sounds">sound effect</a> with an optional pitch value. The pitch default value is 100 with higher numbers increasing the pitch and smaller numbers lowering it.<eg><br>E.g.<br>?key = primary<br>  play buy<br>?key = up<br>  play buy 200</td>
+  </tr>
+</table></font>
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="comparisons"><div id="separator"><!---------------------------></div>
+
+·:·:· Comparisons ·:·:·
+<font color="#bbbbbb">
+<f>Used in conjunction with game state to make decisions</f>
+
+<table>
+  <tr>
+    <td style="min-width: 3em"> =</td>
+    <td>Compares values equal or string contains.<eg><br>E.g.<br>?hp = maxhp<br>  loadout 2</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> !</td>
+    <td>Compares values not equal or string does not contain.<eg><br>E.g.<br>?foe ! poison<br>  equipL sword</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> &</td>
+    <td>Logical AND operator.<eg><br>E.g.<br>?loc=caves & foe=boss</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> |</td>
+    <td>Logical OR operator. If '&' and '|' are mixed in a single complex expression, all '&' operate first.<eg><br>E.g.<br>?foe=slow | foe.count&gt;3<br>  activate potion</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> &gt;</td>
+    <td>Greater-than compare. Can be used with a location's difficulty, number of foes, health, etc.<eg><br>E.g.<br>?foe.count > 10<br>  equip shiny bardiche</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> <</td>
+    <td>Less-than compare.<eg><br>E.g.<br>?hp < 6<br>  activate potion</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> &gt;=</td>
+    <td>Greater-than or equal compare. The combination of '&gt;' and '=' into a single comparison.<eg><br>The following two examples are equivalent:<br><br>?loc.stars >= 6<br>  equipR vigor shield<br><br>?loc.stars > 6 | loc.stars = 6<br>  equipR vigor shield</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> <=</td>
+    <td>Less-than or equal compare. The combination of '<' and '=' into a single comparison.<eg><br>E.g.<br>?hp <= 6<br>  activate potion</td>
+  </tr>
+</table></font>
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="variables"><div id="separator"><!---------------------------></div>
+
+·:·:· Variables ·:·:·
+<font color="#bbbbbb">
+Variables are a way of storing value to use later. Declare a new variable with the keyword 'var'.
+
+<eg>E.g.:
+var myVar = 10</eg>
+(myVar is the name of the variable, and it's initialized with value 10)
+
+<eg>myVar = myVar + 5</eg>
+(myVar now equals 15)
+
+<eg>var secondVar = 3
+myVar = myVar - secondVar</eg>
+(Many variables can be combined in math operations. myVar now equals 12)
+
+
+When a variable is declared it is initialized only once, the first time 'var' executes.
+
+<eg>E.g.:
+var i = 0
+i++
+>i = @i@</eg>
+In this example, variable 'i' is declared and starts with value 0. During each frame of the run, the value of 'i' increases by 1 and then is printed to the screen.
+
+Variables only reset to their initial value if you leave a location and begin a new run manually. They do not reset when the Ouroboros loops or when the Mind Stone is opened then closed again.
+
+String variables can optionally be declared with quotes. This allows special symbols and trailing spaces.
+<eg>E.g.:
+var a = 10
+var b = 5
+var myVar = a + " x " + b + " = " + (a * b)
+>@myVar@</eg>
+(This example also demonstrates how to join strings with the '+' operator)
+
+Variables in imported scripts are contained within those scripts and their names won't collide with variables or functions in other scripts.
+</font>
+
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="math-operations"><div id="separator"><!---------------------------></div>
+
+·:·:· Math Operations ·:·:·
+<font color="#bbbbbb">
+<f>Operators modify numbers. Can be used in conjunction with variables or directly in game state expressions.</f>
+
+<table>
+  <tr>
+    <td style="min-width: 3em"> +</td>
+    <td>Adds two numbers or variables together.<eg><br>E.g.:<br>var a = 2 + 3<br>(a equals 5)</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> -</td>
+    <td>Subtracts two numbers or variables from each other.<eg><br>E.g.:<br>?hp < maxhp - 5<br>  equip vigor sword dL</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> *</td>
+    <td>Multiplies two numbers or variables together.<eg><br>E.g.:<br>var a = 2<br>var b = 5<br>a = a * b<br>(a equals 10)</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> /</td>
+    <td>Divides one number or variable by another. The result is rounded down.<eg><br>E.g.:<br>var a = 8<br>a = a / 4<br>(a equals 2)</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> ++</td>
+    <td>Increments a variable.<eg><br>E.g.:<br>var a = 3<br>a++<br>(a equals 4)</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> --</td>
+    <td>Decrements a variable.<eg><br>E.g.:<br>var a = 3<br>a--<br>(a equals 2)</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> %</td>
+    <td>Modulo. Gives the remainder of dividing one number by another.<eg><br>E.g.:<br>var a = 5 % 4<br>(a equals 1)<br><br>E.g.2:<br>?time % 8 < 4<br>  &gt; \O)<br>?time % 8 > 3<br>  &gt; (O/<br>(this draws an animated emoji)</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> ( )</td>
+    <td>Parenthesis can be used to prioritize operations.<eg><br>E.g.:<br>var a = 2 * (3 - 1)<br>(a equals 4)</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> !</td>
+    <td>Negation. Inverts the value when used in front of a boolean expression.<eg><br>E.g.:<br>? !ai.enabled<br>  >The AI is not enabled.</td>
+  </tr>
+</table></font>
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="functions"><div id="separator"><!---------------------------></div>
+
+·:·:· Functions ·:·:·
+<font color="#bbbbbb">
+Custom functions serve an important organizational purpose to scripts as they grow in complexity. They make scripts easier to read and reduce repetition. When a function is declared its contents are not executed immediately. Instead, lines of script inside a function execute when the function is called at a later point.
+
+This example creates a counter that increases by 1 each frame. When any custom input key is pressed, ResetCounter() is called and the counter value goes back to zero:
+<f><eg>
+var count = 0
+count++
+&gt;Counter = @count@
+
+func ResetCounter()
+  count = 0
+
+?key=begin
+  ResetCounter()
+</eg>
+Another aspect of functions is that they can return a value. In this example we declare a simple function that calculates the duration of the main location (non-boss area):
+<eg>
+func NonBossDuration()
+  return totalTime - time
+
+var duration
+duration = NonBossDuration()
+>Time was: @duration@
+</eg>
+Functions also accept any number of arguments/parameters, making them even more powerful, with the ability to operate on arbitrary input. Here, we declare a utility function that generates a random number within a range, then we use it to generate random numbers between 5 and 10:
+<eg>
+func RandomRange(min, max)
+  ?min >= max
+    return min
+  return min + rng % (max - min + 1)
+
+var randomValue
+randomValue = RandomRange(5, 10)
+>RNG: @randomValue@
+</eg>
+The prefix 'this' can be used inside a funtion when referencing variables that belong to the outside script. Use of 'this' is optional, and script variables can be accessed by a function without the prefix. However, in the following example the variable 'a' appears both inside and outside of the function, so 'this.a' is used for differentiation:
+<eg>
+var a = 1
+func TestScope(a)
+  >Script var = @this.a@, function var = @a@
+
+TestScope(3)
+</eg>
+When functions call other functions, or themselves, this creates an execution stack that can build in size until the application crashes. To safeguard computer resources Stonescript has a stack limit of 215 and will throw an error if the limit is exceeded.
+</font>
+
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="native-functions"><div id="separator"><!---------------------------></div>
+
+·:·:· Native Functions ·:·:·
+<font color="#bbbbbb">
+While scripts can define their own functions, Stonescript comes with a set of pre-defined/native functions that behave similar to commands, but differ in that they are more clearly grouped by subject, can accept parameters and sometimes return a value.
+
+<table>
+  <tr><td>draw<br>‾‾‾‾</td></tr>
+  <tr>
+    <td>draw.Bg(x, y, color)<br><eg>No return value</td>
+    <td>Sets the background color at a specific screen position.<br><eg>E.g.<br>draw.Bg(5, 4, #red)</td>
+  </tr>
+  <tr>
+    <td>draw.Bg(x, y, color, w, h)<br><eg>No return value</td>
+    <td>Sets the background color of a rectangular region on screen.<br><eg>E.g.<br>draw.Bg(5, 4, #cyan, 10, 6)</td>
+  </tr>
+  <tr>
+    <td>draw.Box(x, y, w, h, color, style)<br><eg>No return value</td>
+    <td>Draws a rectangular shape at the specified position and size. The rectangle's border is defined by color and a style number. Negative style numbers cause the center of the rectangle to be transparent. CAVEAT - At this time, advanced prints always draw on top of boxes.<br><eg>Use this example to explore the different styles by pressing Left/Right<br>var style = 1<br>?key = leftBegin<br>  style--<br>?key = rightBegin<br>  style++<br>draw.Box(10, 5, 30, 15, #333333, style)<br>>`12,6,#ffffff,Style = @style@<br>>`12,8,#888888,Press Left/Right\nto change style</td>
+  </tr>
+  <tr>
+    <td>draw.Clear()<br><eg>No return value</td>
+    <td>Clears the entire screen.</td>
+  </tr>
+  <tr>
+    <td>draw.GetSymbol(x, y)<br><eg>Returns string</td>
+    <td>Returns the glyph at screen position (x, y).<br><eg>This example selects a screen coordinate and draws the symbol found there in the top left. The selection [ ] can be moved by the player:<br>var s<br>var x = 20<br>var y = 10<br>var drawX<br>?key=leftBegin<br>  x--<br>?key=rightBegin<br>  x++<br>?key=upBegin<br>  y--<br>?key=downBegin<br>  y++<br>s = draw.GetSymbol(x, y)<br>>`0,1,Symbol = @s@<br>drawX = x - 1<br>>`@drawX@,@y@,[#］<br></td>
+  </tr>
+  <tr>
+    <td>draw.Player()<br><eg>No return value</td>
+    <td>Draws the player character, with all equipment and addons, at a specific point in the script.</td>
+  </tr>
+  <tr><td><br>int<br>‾‾‾</td></tr>
+  <tr>
+    <td>int.Parse(str)<br><eg>Returns integer</td>
+    <td>Converts a string of a number into an integer value. If the given string is not a number an error is thrown.<br><eg>E.g.<br>var s = "999"<br>var i = int.Parse(s)<br>i++</td>
+  </tr>
+  <tr><td>item<br>‾‾‾‾</td></tr>
+  <tr>
+    <td>item.CanActivate()<br><eg>Returns boolean</td>
+    <td>Returns true if it's possible to activate item abilities. False otherwise. In some gameplay situations ability activations are disabled, even if they are not on cooldown, such as moments before a boss fight or during a cinematic.<br><eg>E.g.<br>?item.CanActivate()<br>  equip Bardiche<br>  activate R</td>
+  </tr>
+  <tr>
+    <td>item.GetCooldown(str)<br><eg>Returns integer</td>
+    <td>Returns the remaining cooldown time (in frames) for a given ability.<br><eg>E.g.<br>?foe = boss & item.GetCooldown("bardiche") <= 0<br>  equip bardiche<br>  activate R
+</eg>
+See the following table for all available ability strings. NOTE: Invalid ability strings will return -1. Some abilities from weapons that have not been used yet will return -1.
+
+<table>
+  <tr>
+    <td>Item<br>----</td>
+    <td>Cooldown ID<br>-----------</td>
+    <td><br></td>
+  </tr>
+  <tr>
+    <td>Bardiche</td>
+    <td>"bardiche"</td>
+  </tr>
+  <tr>
+    <td>Bashing Shield</td>
+    <td>"bash"</td>
+  </tr>
+  <tr>
+    <td>Dashing Shield</td>
+    <td>"dash"</td>
+  </tr>
+  <tr>
+    <td>Hatchet</td>
+    <td>"hatchet"</td>
+  </tr>
+  <tr>
+    <td>Mind Stone</td>
+    <td>"mind"</td>
+  </tr>
+  <tr>
+    <td>Quarterstaff</td>
+    <td>"quarterstaff"</td>
+  </tr>
+  <tr>
+    <td>Blade of the Fallen God</td>
+    <td>"blade"</td>
+  </tr>
+</table></td>
+  </tr>
+  <tr><td>loc<br>‾‾‾</td></tr>
+  <tr>
+    <td>loc.Leave()<br><eg>No return value</td>
+    <td>Causes the run to be abandoned as if the player had pressed to leave manually.</td>
+  </tr>
+  <tr>
+    <td>loc.Pause()<br><eg>No return value</td>
+    <td>Causes the run to be paused as if the player had pressed the pause button manually.</td>
+  </tr>
+  <tr><td><br>math<br>‾‾‾‾</td></tr>
+  <tr>
+    <td>math.Clamp(num, min, max)<br><eg>Returns integer</td>
+    <td>Contrains a number to within the range 'min' and 'max'. If the number is already within the range then it will be returned without changing.<br><eg>E.g.<br>var number = 50<br>number = math.Clamp(number, 0, 10)<br>(number has been clamped down and will equal 10)</td>
+  </tr>
+  <tr><td></td></tr>
+  <tr><td>storage<br>‾‾‾‾‾‾‾</td><td>Values saved into permanent storage persist when you leave a location, as well as when the game is shut down. They are not part of your primary_save, existing instead in a series of separate files within the Stonescript folder. Imported scripts access storage in isolation from each other, allowing different modules to use the same keys without modifying each other's data.</td></tr>
+  <tr>
+    <td>storage.Delete(string)<br><eg>No return value</td>
+    <td>Deletes any value that may exist at the specified key.<br><eg>E.g.<br>storage.Delete("highscore")</td>
+  </tr>
+  <tr>
+    <td>storage.Get(string)<br><eg>Returns value</td>
+    <td>Retrieves a permanent value stored at the specified key.<br><eg>E.g.<br>var value = storage.Get("highscore")<br>?value<br>  >High Score = @value@<br>:<br>  >No High Score found.</td>
+  </tr>
+  <tr>
+    <td>storage.Get(string, value)<br><eg>Returns value</td>
+    <td>Retrieves a permanent value stored at the specified key. If it's not found, returns the second parameter as a default value.<br><eg>E.g.<br>var value = storage.Get("highscore", 0)<br>>High Score = @value@</td>
+  </tr>
+  <tr>
+    <td>storage.Has(string)<br><eg>Returns boolean</td>
+    <td>Returns <eg>true</eg> if the specified key exists in permanent storage; <eg>false</eg> otherwise.<br><eg>E.g.<br>?storage.Has("highscore")<br>  var value = storage.Get("highscore")<br>  >High Score = @value@<br>:<br>  >No High Score found.</td>
+  </tr>
+  <tr>
+    <td>storage.Incr(string)<br><eg>Returns integer</td>
+    <td>Increases by 1 the value stored at the specified key, then returns the new value.<br><eg>E.g.<br>?gameOver<br>  storage.Incr("stat_TimesPlayed")</td>
+  </tr>
+  <tr>
+    <td>storage.Incr(string, integer)<br><eg>Returns integer</td>
+    <td>Increases the value stored at the specified key by a given amount, then returns the new value.<br><eg>E.g.<br>var amount<br>?foundCoins<br>  amount = rng%5 + 5<br>  storage.Incr("coins", amount)</td>
+  </tr>
+  <tr>
+    <td>storage.Set(string, value)<br><eg>No return value</td>
+    <td>Saves a value to permanent storage at a specified key.<br><eg>E.g.<br>var score = 1000<br>storage.Set("highscore", score)</td>
+  </tr>
+  <tr><td>string<br>‾‾‾‾‾‾</td></tr>
+  <tr>
+    <td>string.Equals(str1, str2)<br><eg>Returns boolean</td>
+    <td>Takes two string parameters and returns true if they are exactly the same. Returns false otherwise. Case sensitive.<eg><br>E.g.<br>var a = "foo"<br>?string.Equals(a, "foo")<br>  >The strings are equal<br>:<br>  >They are NOT equal<br>(The strings are equal in this case. string.Equals() evaluates to true)</td>
+  </tr>
+  <tr>
+    <td>string.IndexOf(str, criteria)<br><eg>Returns integer</td>
+    <td>Takes a string variable and a string criteria as parameters and finds the position of the criteria inside the string. Returns -1 if not found.<eg><br>E.g.<br>var a = Hello World!<br>var index = string.IndexOf(a, llo)<br>(index equals 2)</td>
+  </tr>
+  <tr>
+    <td>string.IndexOf(str, criteria, startAt)<br><eg>Returns integer</td>
+    <td>Takes a string variable, a string criteria and a starting index as parameters. Finds the position of the criteria inside the string, but begins the search at 'startAt'. Returns -1 if not found.<eg><br>E.g.<br>var a = Hello World!<br>var index = string.IndexOf(a, llo, 4)<br>(index equals -1 because the search began at position 4, therefore 'llo' was not found)</td>
+  </tr>
+  <tr>
+    <td>string.Size(str)<br><eg>Returns integer</td>
+    <td>Takes a string variable as parameter and calculates how long it is, in number of glyphs.<eg><br>E.g.<br>var a = Hello World!<br>var size = string.Size(a)<br>>size = @size@</td>
+  </tr>
+  <tr>
+    <td>string.Sub(str, startAt)<br><eg>Returns string</td>
+    <td>Takes a string variable and a starting index as parameters and splits the string from that point forward.<eg><br>E.g.<br>var a = Hello World!<br>var subString = string.Sub(a, 6)<br>>substring = @subString@<br>(subString equals "World!")</td>
+  </tr>
+  <tr>
+    <td>string.Sub(str, startAt, length)<br><eg>Returns string</td>
+    <td>Takes a string variable, a starting index and a length as parameters and splits the string from that starting point, stopping at the given length.<eg><br>E.g.<br>var a = Hello World!<br>var subString = string.Sub(a, 6, 3)<br>>substring = @subString@<br>(subString equals "Wor")</td>
+  </tr>
+  <tr><td>Other<br>‾‾‾‾‾</td></tr>
+  <tr>
+    <td>Type(var)<br><eg>Returns string</td>
+    <td>Evaluates the type of a variable and returns a string representation. Possible types include 'string', 'int', 'bool', 'function', 'object' and 'null'.<eg><br>E.g.<br>var a = 0<br>?Type(a) = int<br>  >Variable 'a' is an integer.</td>
+  </tr>
+</table></font>
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="import"><div id="separator"><!---------------------------></div>
+
+·:·:· Importing External Scripts ·:·:·
+<font color="#bbbbbb">
+Your script doesn't have to be all in the Mind Stone. Stonescript supports the loading of external files through the 'import' and 'new' keywords. For external scripts to work they must be located in your <a href="https://stonestoryrpg.com/faq.html#Technical%20Help">save-file folder</a>, inside a /Stonescript folder and end in '.txt'.
+
+In the most basic example an external script is imported and runs as if it were directly in your Mind Stone, making this a convenient way to organize farming scripts:
+<eg>
+import Rocky
+import Deadwood
+import Caves
+import Forest
+</eg>
+When a script is imported it's copied into its own container and returns as a reference. Variables declared in the external script are isolated and don't interact with variables in other scripts. In this example, a printing utility script offers simplified services:
+<eg><f>
+// PrintUtil.txt
+func LowerLeft(x, y, color, message)
+  y = y + screen.h
+  >`@x@,@y@,@color@,@message@
+
+func LowerRight(x, y, color, message)
+  x = x + screen.w
+  y = y + screen.h
+  >`@x@,@y@,@color@,@message@
+
+// Main script in Mind Stone
+var print = import PrintUtil
+disable hud
+print.LowerLeft(0,-1,#ffffff,"Health: " + hp)
+</f></eg>
+Advanced solutions can import the same script multiple times using the 'new' command, for example, to implement componentization or an Object Oriented paradigm:
+<eg><f>
+// Vector.txt
+var x = 0
+var y = 0
+
+func init(_x, _y)
+  x = _x
+  y = _y
+
+func subtract(otherVect)
+  x = x - otherVect.x
+  y = y - otherVect.y
+
+// Main script in Mind Stone
+var vectFrom = new Components/Vector
+var vectTo = new Components/Vector
+
+vectFrom.init(5, 4)
+vectTo.init(8, 2)
+vectTo.subtract(vectFrom)
+
+>x = @vectTo.x@, y = @vectTo.y@
+</f></eg>
+External scripts can implement a 'ToString()' function, allowing their direct use in advanced print commands:
+<eg><f>
+// Vector.txt
+var x = 0
+var y = 0
+
+func init(_x, _y)
+  x = _x
+  y = _y
+
+func ToString()
+  return "(" + x + ", " + y + ")"
+
+// Main script in Mind Stone
+var v = import Components/Vector
+v.init(3,5)
+>Vector = @v@
+</f></eg>
+External scripts can be imported from subfolders:
+<eg><f>
+import Games/Blackjack
+import Cosmetics/PetFrog
+import Cosmetics/Hats
+</f></eg>
+While similar, there are two important differences between 'import' and 'new'. With 'import' the same object is returned each time. If you import the same script from multiple places they will all be using the same object. Scripts imported with 'new' are unique copies, but their script body will only run 1 time as opposed to every frame.
+</font>
+
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="ascii-art"><div id="separator"><!---------------------------></div>
+
+·:·:· ASCII-art ·:·:·
+<font color="#bbbbbb">
+In Stonescript, custom ASCII-art can be embedded within the scripts and drawn on screen with the advanced print commands. There are a few methods to do this and some glyphs have special behavior:
+<f>
+#  - Blank space. Transparency. Does not draw.
+\n - Line break. Causes the draw to continue on the next line. WARNING: This is an expensive operator and should not be used for breaking lines in large drawings. Use the ascii/asciiend block instead.
+</f>
+
+Method 1 - Advanced print
+
+This example draws a green circle to the top-left of the screen.
+<eg><f>
+>`1,0,#green,ascii
+#.-.
+(   )
+#`-´
+asciiend
+</f></eg>
+
+Method 2 - Variables
+
+This example saves the art for a spooky fish into a variable, then draws it to the top-left of the screen in red color.
+<eg><f>
+var fishSprite
+fishSprite = ascii
+###(°_##
+#_/_ o\#
+#´  `'"#
+asciiend
+
+>`0,3,#red,@fishSprite@
+</f></eg></font>
+
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="loops"><div id="separator"><!---------------------------></div>
+
+·:·:· Loops ·:·:·
+<font color="#bbbbbb"><f>
+
+Loops allow a section of code to run multiple times. To create a loop use the 'for' keyword in the form:
+<eg>
+for v = a..b
+</eg>
+The variable 'v' begins the loop with value 'a' and increases in value until it reaches 'b', then the loop ends:
+<eg>
+for i = 1..5
+  >`0,@i@,i = @i@
+</eg>
+The iteration variable 'v' should not be declared prior to the 'for' and is contained to the scope of the loop. However, the begin and end values 'a' and 'b' can be declared prior to the loop:
+<eg>
+var min = 1
+var max = 4
+var sum
+sum = 0
+for j = min..max
+  sum = sum + j
+>sum = @sum@
+</eg>
+Loops can also go in the opposite direction, as well as use negative numbers:
+<eg>
+var g
+g = ""
+for k = 5..-2
+  g = g + k
+>g = @g@
+</eg>
+Loops can be nested inside each other, as well as inlined with math expressions to form complex algorithms:
+<eg>
+for x = 1..9
+  for y = x/2 .. x/2 + 6
+    >`@x@,@y@,*
+</eg>
+To break out of the loop early, modify the iteration variable so that it's out of range:
+<eg>
+var n
+n = ""
+for i = 1..5
+  ?i = 3
+    i = -1
+  n = n + i
+>n = @n@
+</eg></font>
+
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="arrays"><div id="separator"><!---------------------------></div>
+
+·:·:· Arrays ·:·:·
+<font color="#bbbbbb"><f>
+Arrays are a special type of variable. They provide a way to sequentially organize values and objects into a collection that is assigned to a single variable.
+
+<table>
+  <tr>
+    <td>Operation<br>---------</td>
+    <td>Description<br>-----------</td>
+  </tr>
+  <tr>
+    <td>a = []</td>
+    <td>Initializes a new array. See below for more information.</td>
+  </tr>
+  <tr>
+    <td>a[integer]</td>
+    <td>Reads the value at a given position.<br><eg>E.g.:<br>var myArray = [10, 3]<br>?myArray[1] = 3<br>  >Yes, the value at [1] equals 3</td>
+  </tr>
+  <tr>
+    <td>a.Add(value)</td>
+    <td>Adds a new value/object to the end of the array.<br><eg>E.g.:<br>var myArray = []<br>myArray.Add(10)</td>
+  </tr>
+  <tr>
+    <td>a.Clear()</td>
+    <td>Removes all elements from the array, making it empty. This is more efficient than re-declaring the array with [].<br><eg>E.g.:<br>var myArray = [10, 3]<br>myArray.Clear()</td>
+  </tr>
+  <tr>
+    <td>a.Contains(value)</td>
+    <td>Determines if a given value is inside the array. Returns true if found; false otherwise.<br><eg>E.g.:<br>var myArray = [10, 3]<br>?myArray.Contains(3)<br>  >Yes</td>
+  </tr>
+  <tr>
+    <td>a.Count()</td>
+    <td>Returns the number of elements in the array.<br><eg>E.g.:<br>var myArray = ["apple","banana"]<br>var size = myArray.Count()<br>>Array size = @size@</td>
+  </tr>
+  <tr>
+    <td>a.Emplace(integer, value)</td>
+    <td>Replaces the value at a given position with a new value.<br><eg>E.g.:<br>var myArray = [10, 3]<br>myArray.Emplace(0, 4)<br>var value = myArray[0]<br>>Value at [0] is now @value@</td>
+  </tr>
+  <tr>
+    <td>a.IndexOf(value)</td>
+    <td>Searches for a given value inside the array. Returns an integer indicating the position of the first occurrance of the value. If the value is not found returns -1.<br><eg>E.g.:<br>var myArray = [10, 3]<br>var index = myArray.IndexOf(3)<br>>Found at position @index@</td>
+  </tr>
+  <tr>
+    <td>a.Insert(integer, value)</td>
+    <td>Adds a new value/object to a specific position of the array. Elements to the right are shifted to the next position.<br><eg>E.g.:<br>var myArray = [10, 3]<br>myArray.Insert(1, "apple")<br>// The array is now [10, "apple", 3]</td>
+  </tr>
+  <tr>
+    <td>a.RemoveAt(integer)</td>
+    <td>Removes an element in the array from a specific position. Returns the value removed.<br>Zero-based: <eg>myArray.RemoveAt(0)</eg> removes the first element.<br>Elements to the right are shifted to the previous position.</td>
+  </tr>
+  <tr>
+    <td>a.Sort()</td>
+    <td>Organizes the array's elements into ascending order. If the array contains objects of different types it will still be sorted, but no expected results are defined and elements are not guaranteed to be grouped by type.<br><eg>E.g.:<br>var myArray = ["Cherry", 2, "Apple", 1, true, false, "Banana", 3]<br>var value<br><br>myArray.Sort()<br><br>for i = 0 .. myArray.Count() - 1<br>  value = myArray[i]<br>  >`0,@i@,@value@</td>
+  </tr>
+</table>
+
+Here are some of the different ways to initialize and use arrays:
+<eg>
+var emptyCollection = []
+
+var magicNumbers = [10, 3, 0, 15, -7]
+
+var someStrings = ["apple", "banana", "cherry"]
+
+var sameButMultiLine = [
+^"apple",
+^"banana",
+^"cherry"]
+
+var redeclaredEachFrame
+redeclaredEachFrame = [] // Not good for the PC
+
+var clearedEachFrame = []
+clearedEachFrame.Clear() // Better for CPU & memory
+
+var clearedEachLoop = []
+?loc.begin | loc.loop
+  clearedEachLoop.Clear()
+
+var multiDimensional = [[], [], []]
+
+var objectCollection = [
+^new Components/Float,
+^new Components/Float,
+^new Components/Vector
+^]
+
+var animationFrames = [ascii
+───┼
+  O/
+ /|
+ / \
+asciiend
+^,ascii
+   ---.
+  O    \
+ /|\┼───
+ / \
+asciiend
+^]
+</eg>
+
+Looping through arrays:
+<eg>
+var myArray = ["Apple", "Banana", "Cherry"]
+var count
+var value
+
+count = myArray.Count()
+?count > 0
+  for i = 0 .. count - 1
+    value = myArray[i]
+    >`0,@i@,@value@
+
+// This example prints fruit names to the left of the screen
+</eg>
+
+NOTE: Direct access to multi-dimensional arrays, e.g. <eg>a[0][0]</eg>, currently returns a syntax error. Here's a way to access them instead:
+<eg>
+var a = [[1,2], [3,4]]
+var b
+var value
+
+b = a[1]
+value = b[0]
+>Found value @value@ at a[1][0]
+</eg></font>
+
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="search-filters"><div id="separator"><!---------------------------></div>
+
+·:·:· Search Filters ·:·:·
+<font color="#bbbbbb">
+These are used when evaluating foes, locations and items.
+
+<eg><f>E.g.:
+?foe = insect | foe = poison
+  loadout 3</f></eg>
+
+poison
+vigor
+aether
+fire
+air
+ice
+arachnid
+serpent
+insect
+machine
+humanoid
+elemental
+boss
+phase1
+phase2
+phase3
+spawner
+flying
+slow
+ranged
+explode
+swarm
+unpushable
+undamageable
+magic_resist
+magic_vulnerability
+immune_to_stun
+immune_to_ranged
+immune_to_debuff_damage
+immune_to_physical
+*[number]  star level (location or item)
++[number]  enchantment bonus (item only)
+</font>
+
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="custom-input"><div id="separator"><!---------------------------></div>
+
+·:·:· Custom Input ·:·:·
+<font color="#bbbbbb">
+Stonescript can read player inputs by use of the ?key game state. This can be used to drive advanced behaviors, such as different modes for the AI, but custom inputs allow the creation of entirely new experiences layered on top of Stone Story.
+
+<eg><f>In this example, the @ symbol can be moved across the screen like the main character in a classic Rogue-like game. The key codes (leftBegin, etc) refer to the initial downpress of the button.
+
+var x = 0
+var y = 0
+
+?key = leftBegin
+  x--
+  ?x < 0
+    x = 0
+?key = rightBegin
+  x++
+
+?key = upBegin
+  y--
+  ?y < 0
+    y = 0
+?key = downBegin
+  y++
+
+>`@x@,@y@,#ffffff,@
+</f></eg>
+
+Table with all the available key codes:
+
+<table>
+  <tr>
+    <td>Held<br>----</td>
+    <td>Pressed<br>-------</td>
+    <td>Released<br>--------</td>
+	<td>Default PC<br>----------</td>
+  </tr>
+  <tr>
+    <td>left</td>
+    <td>leftBegin</td>
+    <td>leftEnd</td>
+	<td>A or ←</td>
+  </tr>
+  <tr>
+    <td>right</td>
+    <td>rightBegin</td>
+    <td>rightEnd</td>
+	<td>D or →</td>
+  </tr>
+  <tr>
+    <td>up</td>
+    <td>upBegin</td>
+    <td>upEnd</td>
+	<td>W or ↑</td>
+  </tr>
+  <tr>
+    <td>down</td>
+    <td>downBegin</td>
+    <td>downEnd</td>
+	<td>S or ↓</td>
+  </tr>
+  <tr>
+	<td>primary</td>
+	<td>primaryBegin</td>
+	<td>primaryEnd</td>
+	<td>Return</td>
+  </tr>
+  <tr>
+	<td>back</td>
+	<td>backBegin</td>
+	<td>backEnd</td>
+	<td>X</td>
+  </tr>
+  <tr>
+	<td>ability1</td>
+	<td>ability1Begin</td>
+	<td>ability1End</td>
+	<td>Shift</td>
+  </tr>
+  <tr>
+	<td>ability2</td>
+	<td>ability2Begin</td>
+	<td>ability2End</td>
+	<td>Control</td>
+  </tr>
+  <tr>
+	<td>bumpL</td>
+	<td>bumpLBegin</td>
+	<td>bumpLEnd</td>
+	<td>Z</td>
+  </tr>
+  <tr>
+	<td>bumpR</td>
+	<td>bumpRBegin</td>
+	<td>bumpREnd</td>
+	<td>C</td>
+  </tr>
+</table></font>
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="tips"><div id="separator"><!---------------------------></div>
+
+·:·:· Tips ·:·:·
+<font color="#bbbbbb">
+<f>Space (identation) matters when defining what happens as a result of '?' comparisons (scope).</f>
+
+<f>The script can be changed in the middle of a run by pressing 'M' on your keyboard.</f>
+
+<f>The Power button in the top-right of the Mind Stone turns the script ON/OFF.</f>
+
+<f>If multiple equip Commands are called, whichever comes last will occur.</f>
+
+<f>The script executes 30 times per second (once per frame).</f>
+
+<f>To experiment with different scripts it's recommended to copy them into an external text editor, such as Notepad.</f>
+
+<f>Common shortcuts such as Ctrl+A, Ctrl+C and Ctrl+V are useful.</f>
+
+<f>Holding the Tab key in-game gives you a lot of information about game state and shows a list of recent Stonescript errors.</f>
+
+<f>A print command can be broken into multiple lines by using '\n' in the text.</f>
+</font>
+
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="default-script"><div id="separator"><!---------------------------></div>
+
+·:·:· Default script ·:·:·
+<font color="#bbbbbb"><f>
+import Fishing
+
+?hp < 7
+  activate potion
+?loc = caves
+  equipL sword
+  equipR shield
+  ?foe = boss
+    equip crossbow
+</f></font>
+
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="roadmap"><div id="separator"><!---------------------------></div>
+
+·:·:· Roadmap ·:·:·
+<font color="#bbbbbb"><f>
+Things that are planned, but not yet in the game:
+
+Fishing mini-game.
+Addition of math native functions.
+
+?has = potion   Evaluates if there is a potion available to use.
+?has = (item)   Evaluates if the given item is equipped.
+?hasL = (item)  Evaluates if the given item is equipped on the Left.
+?hasR = (item)  Evaluates if the given item is equipped on the Right.
+
+Particle emissions.
+
+brew [resources] Creates a potion at the beginning of a location. E.g.: brew wood stone.
+
+equipF (str) - equips an item to the Faerie.
+
+foes - The list of foes within 46 units.
+</f></font>
+
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+<div id="sounds"><div id="separator"><!---------------------------></div>
+
+·:·:· Appendix - Sound Effects ·:·:·
+<font color="#bbbbbb">
+Stonescript can play sound effects from the game, based on custom logic.
+
+<eg><f>In this example, the 'unequip' sound is played whenever the player loses health:
+
+var lasthp = hp
+?hp < lasthp
+  play unequip
+lasthp = hp</f></eg>
+
+Most sounds have variations that either play randomly or sequentially. If the same sound is played more than once in a single frame it will be ignored. If more than 5 sounds are played per second they will be throttled.
+
+Here is the full list of sounds available in Stone Story RPG:
+
+buy
+click
+confirm
+soul_stone
+sword_cast
+sword_hit
+wand_cast
+wand_hit
+player_kick
+player_punch
+stone_throw_cast
+stone_throw_hit
+grappling_cast
+grappling_hit
+grappling_idle
+hatchet_cast
+hatchet_hit
+shovel_cast
+torch_cast
+torch_hit
+torch_idle
+pickup_stone
+pickup_wood
+pickup_tar
+pickup_success
+soul_stone_drop
+wand_drop
+key_drop
+cross_deadwood_bump
+cross_deadwood_row
+cross_deadwood_splash
+ui_starfirst
+ui_starnew
+ui_starold1
+ui_starold2
+ui_starold3
+ui_starold4
+bronze_gate_open
+prompt_choice
+waterfall_hook_hit
+waterfall_splash
+haunted_gate_key_bounce_1
+haunted_gate_key_bounce_2
+haunted_gate_key_bounce_3
+haunted_gate_opening
+haunted_gate_point_lost
+haunted_gate_key_into_gate
+haunted_gate_shuffle
+haunted_gate_shuffle_fast
+haunted_gate_torch_off
+haunted_gate_torch_on
+haunted_gate_try_to_open
+paint_splat
+waterfall_land
+waterfall_rope_grab
+waterfall_rope_swing
+skeleton_boss_death
+skeleton_boss_legs_die
+spider_boss_death
+tree_boss_death
+mushroom_boss_death
+tree_boss_attack
+tree_boss_awake
+tree_boss_idle
+tree_boss_spike
+spider_boss_attack
+player_hit
+mushroom_boss_awake
+mushroom_boss_punch
+mushroom_boss_shoot
+skeleton_boss_arm1
+skeleton_boss_arm2
+skeleton_boss_attack
+skeleton_boss_idle
+skeleton_boss_bone_bounce
+skeleton_boss_arm_woosh
+equip
+unequip
+bat_attack_small
+bat_death_small
+bat_wing
+bat_wing_small
+spider_attack
+spider_death
+spider_death_small
+spider_eggs_spawn
+spider_walk
+scarab_awake
+scarab_bite
+scarab_death
+scarab_horn
+scarab_wings
+mosquito_attack
+mosquito_death
+mosquito_loop
+bronze_gate_locked
+bat_attack
+bat_death
+progress_1
+progress_2
+progress_3
+progress_4
+progress_5
+progress_6
+progress_7
+progress_8
+progress_9
+life_gain
+player_death
+logo_full
+logo_short
+smithy_hammer
+sightstone_cast
+error
+ranting_tree_halt
+treasure_close
+treasure_item_pop
+treasure_item_show
+treasure_open
+skeleton_boss_awake
+skeleton_boss_hand_slam
+level_up
+insta_kill
+spider_boss_awake
+metal_drop
+treasure_drop
+smithy_hammer_fail
+xp_tick
+crossbow_cast
+crossbow_hit
+wand_aether_cast
+wand_aether_hit
+wand_air_cast
+wand_air_hit
+wand_fire_cast
+wand_fire_hit
+wand_ice_cast
+wand_ice_hit
+wand_poison_cast
+wand_poison_hit
+wand_vigor_cast
+wand_vigor_hit
+skeleton_boss_arm_reconnect
+skeleton_boss_summon_minions
+mushroom_boss_fat_slam
+pickup_bronze
+temple_npc_chant
+temple_npc_clear_throat
+temple_npc_talk
+first_controller
+slave_npc
+slave_outro_chatter
+slave_outro_voice
+haunted_gate_npc_voice
+slave_outro_transition
+bronze_guardian_attack1
+bronze_guardian_attack2
+bronze_guardian_attack3
+bronze_guardian_death
+bronze_guardian_helmet
+bronze_guardian_power_up
+bronze_guardian_steps
+ant_attack
+ant_death
+ant_walk
+snail_attack
+snail_attack_small
+snail_death
+snail_death_small
+snail_walk
+ghost_death
+ghost_death_small
+skeletimmy_death
+skeletony_death
+skeletimmy_attack
+skeletony_attack
+skeletony_awake_a
+skeletony_awake_b
+skeletony_walk
+ghost_loop
+ghost_loop_small
+ghost_attack
+ghost_attack_small
+controller_death
+controller_whip_attack
+controller_whip_hit
+dominotaur_death
+dominotaur_whip_attack
+dominotaur_whip_hit
+mine_walker_death
+mine_walker_attack_a
+mine_walker_attack_b
+mine_walker_attack_hit
+mine_walker_awake
+mine_walker_step
+fire_elemental_attack
+fire_elemental_attack_hit
+fire_elemental_awake
+fire_elemental_death
+mine_walker_helmet_break
+ice_elemental_attack
+ice_elemental_attack_hit
+ice_elemental_awake
+ice_elemental_death
+ki_eater_attack
+ki_eater_attack_hit
+ki_eater_awake
+ki_eater_death
+ki_gobbler_attack
+ki_gobbler_attack_hit
+ki_gobbler_awake
+ki_gobbler_death
+ki_slerper_attack
+ki_slerper_attack_hit
+ki_slerper_awake
+ki_slerper_death
+bell_ringer_attack
+bell_ringer_attack_hit
+cult_guard_attack
+cult_guard_attack_hit
+cult_marksman_attack
+cult_marksman_attack_hit
+cult_sorcerer_attack
+cult_sorcerer_attack_hit
+cultist_death
+flying_serpent_loop
+poison_adept_attack
+poison_adept_attack_hit
+serpent_attack
+serpent_death
+serpent_handler_release
+serpent_hiss
+serpent_slither
+worm_rider_hop
+booklet_open
+booklet_turn_page
+booklet_close
+hammer_cast
+hammer_hit
+shield_dash
+fissure_break_apart
+fissure_unmake
+mindstone_off
+mindstone_on
+triskelion_fuse
+potion_berserk
+potion_cleansing
+potion_defensive
+potion_experience
+potion_healing
+potion_invisibility
+potion_lightning
+potion_lucky
+potion_strength
+potion_vampiric
+bronze_guardian_pulling_hammer
+bronze_guardian_removing_hammer
+bronze_guardian_turbine
+bronze_guardian_ears_ring
+bronze_guardian_fuse
+bronze_guardian_attack4
+yeti_attack
+yeti_attack_flick
+yeti_attack_hit
+yeti_awake_blow
+yeti_awake_explosion
+yeti_awake_inhale
+yeti_awake_lick
+yeti_blow
+yeti_blow_ice_wall
+yeti_death
+yeti_inhale
+yeti_inhale_lick
+nagaraja_awake_roar
+nagaraja_awake_swallow
+nagaraja_awake_tongue_1
+nagaraja_awake_tongue_2
+nagaraja_dead
+nagaraja_poison_attack
+nagaraja_poison_attack_hit
+nagaraja_wail
+nagaraja_wail_brick
+nagaraja_attack_eat
+nagaraja_attack_lick
+nagaraja_attack_swallow
+nagaraja_tongue_damaged
+nagaraja_tongue_lift
+nagaraja_tongue_smell
+nagaraja_tongue_wrap
+bearer3_talk
+bearer_attack
+bearer_attack_hit
+bearer_death
+bearer_stealing
+bearer_super_attack
+bearer_scream
+bearer4_talk
+bearer4_talk_evolving
+bearer_evolving
+elementalist_aether_attack
+elementalist_aether_attack_hit
+elementalist_aether_blink
+elementalist_death
+elementalist_fire_attack
+elementalist_fire_attack_hit
+elementalist_fire_blink
+elementalist_ice_attack
+elementalist_ice_attack_hit
+elementalist_ice_blink
+elementalist_poison_attack
+elementalist_poison_attack_hit
+elementalist_poison_blink
+elementalist_vigor_attack
+elementalist_vigor_attack_hit
+elementalist_vigor_blink
+bearer5_talk
+elementalist_evolving
+perfected_attack
+perfected_attack_hit
+perfected_death
+perfected_defense
+perfected_energy_ball
+perfected_energy_ball_hit
+perfected_summon
+perfected_talk
+epilogue_devolving
+epliogue_player_evolves
+epilogue_talk
+devolved_talk
+dysangelos_guidance
+dysangelos_guidance_1
+dysangelos_guidance_2
+dysangelos_guidance_3
+dysangelos_intro_talk
+ranting_tree_talk_halt
+ranting_tree_talk_again
+ranting_tree_talk_how_dare
+ranting_tree_talk_avenge
+ranting_tree_talk_get_out
+ranting_tree_talk_impressive
+ranting_tree_talk_very_well
+hans_talk_intro
+hans_talk_reward
+scotty_a_pleasure
+scotty_a_worthy_opponent
+scotty_deuced
+scotty_failte_back
+scotty_getting_good
+scotty_grr
+scotty_guess_which
+scotty_intro
+scotty_lets_harden
+scotty_make_ye_guess
+scotty_noo_jist
+scotty_perhaps_the_rules
+scotty_pick_some_treasure
+scotty_shall_we_up
+scotty_we_have_wee_use
+scotty_well_met
+scotty_well_then
+scotty_wizard
+scotty_wrong_choice
+scotty_hell_be_back
+scotty_out_of_treasure
+scotty_there_he_is
+nagaraja_choir
+mushroom_boss_split
+ant_hill
+treasure_drop_common
+treasure_drop_epic
+treasure_drop_giant
+treasure_drop_humble
+treasure_drop_rare
+dominotaur_awake
+fire_geyser
+ice_pillar
+treasure_item_cyan
+treasure_item_yellow
+treasure_item_green
+treasure_item_blue
+treasure_item_red
+treasure_item_rainbow
+ki_slerper_walk
+mindstone_found
+ghost_tomb_death
+perfected_fly_start
+perfected_fly_loop
+perfected_fly_end
+shop_door_open
+shop_door_enter
+scorpion_death
+bomb_cart_explosion
+bomb_cart_fuse
+bomb_cart_move
+bronze_gate_close
+poison_powerup
+acronian_cultist_power_up
+giant_ice_elemental_attack
+scout_dialog
+morel_punch
+falling_stonefolk
+scout_arrives
+scout_leaves
+scout_wing
+scout_focus
+dog_bark
+frog
+lost_item_boost
+treasure_item_lost
+blade_glow
+blade_pallas_attack
+blade_raise
+blade_drag
+</font>
+
+<a href="#"><font color="#505050">^Back to top</font></a>
+</div>
+
+
+<font color="#505050">
+Copyright Martian Rex, Inc. 2020
+
+</font>
+</div>
+
+<br>
+</body></html>

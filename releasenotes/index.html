@@ -22,7 +22,7 @@
 <center>· ·:·: Release Notes :·:· ·</center>
 <div id="title-separator"><!---------------------------></div>
 
-<answer><center>main | <a href="https://stonestoryrpg.com/releasenotes/beta.html">beta</a></center></answer>
+<answer><center>main notes | <a href="https://stonestoryrpg.com/releasenotes/beta.html">beta notes</a>  ·:·  <a href="https://stonestoryrpg.com/stonescript">stonescript</a> | <a href="https://stonestoryrpg.com/faq.html">faq</a></center></answer>
 <center>          __                      
      _,·´    `'--._               
    .´               `-._          
@@ -44,6 +44,1551 @@
 </f>
 <div id="separator"><!---------------------------></div>
 
+v3.14.1 - 2022/04/04
+<answer>
+- Added Canvas.blend
+- Fixed bug where UI Canvas would error if wider than 27.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.14.0 - 2022/04/04
+<answer>
+Stonescript Additions
+- New type: Canvas
+- ui.AddCanvas()
+- canvas.Set(), canvas.SetFG() and canvas.SetBG()
+- color.FromRGB(), color.ToRGB(), color.Random() and color.Lerp()
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.13.6 - 2022/04/03
+<answer>
+- Throwing Stones: Fixed a bug where the fishing game couldn't be played.
+- Fixed bug where invisible panels would still set their foreground color in the whole area they occupied.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.13.5 - 2022/04/03
+<answer>
+Stonescript patch
+
+Additions
+- Added Component.Recycle()
+- Added Button.style
+
+Changes
+- Component.Remove() now recycles the object.
+- Removed Text.bgcolor
+
+Bugs
+- Fixed a crash in ui.Clear()
+- Fixed Component.Remove(int), it was throwing errors.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.13.4 - 2022/04/02
+<answer>
+Improvement
+- Text box color metadata now supports shorthand, such as #red.
+
+Bugs
+- Fishing: Fixed Play button to use new UI system.
+- UI Root can no longer be added as child of a Panel.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.13.3 - 2022/03/31
+<answer>
+Stonescript - Advanced UI
+
+This patch introduces a new system for building complex and performant user interfaces. This is comprised of four object types: Panel, Button, Text and Anim. All of them inherit behavior from the common 'Component' type. The top-level UI namespace has also gained a few functions. See the Stonescript manual for details. Additions:
+
+UI: ui.root, ui.AddPanel(), ui.AddText(), ui.AddAnim(), ui.AddStyle().
+
+Component: x, y, w, h, absoluteX, absoluteY, anchor, dock, ax, ay, dx, dy, parent, visible.
+
+Panel: children, clip, color, style, Clear(), Add(), Remove().
+
+Button (Pre-existing type). Additions: hcolor, SetDown(), SetUp().
+
+Text: align, color, bgColor, lines, text.
+
+Anim: color, duration, flipX, flipY, frame, gamePause, isPlaying, isPaused, pivotX, pivotY, Load(string), playOnStart, loop, Pause(), Play(), Stop().
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.12.6 - 2022/03/22
+<answer>
+- Stonescript: Added res.crystals
+- Attempted fix for rare crash when using the Cultist Mask's activated ability.
+- Upgraded OSX and Linux build toolchain to v1.0.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.12.5 - 2022/03/20
+<answer>
+- Fixed edge-case crashes in the R&D Book.
+- Simplified Chinese: Fixed translation of Smite ability on Blade of the Fallen God.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.12.4 - 2022/03/20
+<answer>
+- Upgraded Steamworks.NET to v20.1.0
+- Cultist Mask added to loot drops.
+- Fixed localization of foe names in Blade of the Fallen God's second goal.
+- Fixed the random distribution of Ki Crystals found in a Lost Treasure, so the average gained corresponds to the cost.
+- Fixed bug where selecting a resolution in settings would sometimes result in a different resolution being used.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.12.1 - 2022/03/17
+<answer>
+- Balance: Cultist Mask goals 3 and 4 changed from 400/2400 to 600/1600.
+- Fixed a bug where the first Cultist Mask goal could be completed by activating other items.
+- Fixed a bug where multiple copies of Feeble could be added instead of one copy.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.12.0 - 2022/03/16
+<answer>
+- New Quest: The Initiate!
+- New Lost item: Cultist Mask!
+- New item: R&D Book!
+- New Challenge Event: Rite of Passage!
+
+Stonescript
+- Added item.left.id, item.right.id
+- Added loc.isQuest
+- Added storage.Keys()
+- New Sounds: mask_summon_1, mask_summon_2
+
+Balance
+- Bardiche:
+  Changed the Bardiche's activated ability to increase base damage instead of critical multiplier (bardiche_buff_crit_mult):
+  From: +0 base damage, +1.5 critical multiplier
+  To:  +17 base damage,   +0 critical multiplier
+
+- Croaked: Changed Kevin's goal from 25 to 18 snails.
+- Craft Grappling Hook cost changed from 90 to 70 wood.
+
+Improvements
+- Upgraded engine to version 2020.3.29f1
+- The back page of the Crafting Booklet is now localized.
+- Hotspring Shop: On a player's first day, the Name Tag is replaced by a +4 enchantment.
+- Players can no longer see seasonal skins before acquiring the Quest Stone.
+- Added "1 of 3" to the Metal Chunk descriptions.
+- Improved layout of the Event Reward dialog.
+- Minor improvement to formatting consistency in Japanese and Spanish(LA) texts.
+- Minor art improvement to the banners in Temple background.
+
+Bugs
+- Smack Hammer: Fixed a bug where the quest would sometimes end abruptly.
+- Simplified Chinese: Fixed localization of the Crafting Booklet's last page.
+- Fixed seasonal background in the mountain climb cinematic.
+- Fixed a bug in the first-time user experience where pressing ESC in language selection closed the window.
+- Fixed a bug where some sprites would load with height value +1.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.9.0 - 2022/01/29
+<answer>
+Improvements
+- Stonemon minigame is back, with v1.3.0
+  import Games/Stonemon
+- Added a setting to disable sound effects when the application is not in the foreground.
+- Sound effect of a Lost item being found in a treasure now follows the regular volume settings.
+- Duplicate resolutions are now filtered out in the settings screen.
+
+Bugs
+- Fixed the "import" achievement.
+- Fixed bug where players could earn a large volume of Ki Crystals after maxing all Lost items.
+- Fixed bug in Croaked where text IDs were appearing instead of the actual text.
+- Fixed bug where Deadwood and Rocky could be without difficulty selection while the Croaked legend was active.
+- Fixed bug where using special symbols such as } { ] [ in a name tag could corrupt your save file.
+
+Balance
+- Time stats are reset for Deadwood Canyon.
+- Lowered the Lucky Potion's critical multiplier from 2x -> 1.8x
+- Xyloalgia (cyan) base hitpoints from 250 -> 200
+- Poena (cyan) base hitpoints from 1100 -> 1025
+- Poena (yellow) base hitpoints from -300 -> 500
+- Poena (yellow) attack cooldown from 180 -> 220
+- Deadwood (cyan & yellow) reworked foe distributions
+- Deadwood (yellow) number of sections from 9 -> 7
+- Deadwood (yellow) reworked treasure distribution
+
+Blade of the Fallen God:
+Damage
+from:[100,160,220,280,340,400]
+to:[100,150,220,310,420,550]
+
+Bardiche Rework:
+
+Cast/Perf/Cooldown
+from: 14/16/0
+to: 20/10/0
+
+Damage
+from:[4,9,14,19,24,29,34,39,44,49,54,59,64,69,74,79,84,89,94,99,104,109,114,119,124,129,134,139,144,149,154,159]
+to:[4,8,12,16,22,28,33,37,42,47,52,57,63,68,74,80,85,91,96,102,107,113,118,124,130,135,141,146,152,157,163,168]
+
+Attack Speed
+- Attack speed no longer increases with star level, only by enchantment.
+from:[0,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
+to:[1,3,4,6,8,9,11,13,14,16,18,19,21,23,24,26,28,29,31,33,34]
+
+Crit Chance
+from:[8,8.5,9,9.5,10,10.5,11,11.5,12,12.5,13,13.5,14,14.5,15,15.5,16,16.5,17,17.5,18,18.5,19,19.5,20,20.5,21,21.5,22,22.5,23,23.5%]
+to:[15,16,17,18,19,20,21,22,23,24,25,25,25.5,26,26.5,27,27.5,28,28.5,29,29.5,30,30.5,31,31.5,32,32.5,33,33.5,34,34.5,35]
+
+Crit Multiplier
+from:[2,2.2,2.4,2.6,2.8,3,3.2,3.4,3.6,3.8,4,4.2,4.4,4.6,4.8,5,5.2,5.4,5.6,5.8,6,6.2,6.4,6.6,6.8,7,7.2,7.4,7.6,7.8,8,8.2]
+to:[1.5,1.75,2,2.25,2.5,2.75,3,3.25,3.5,3.75,4,4.5,4.9,5.4,5.8,6.3,6.7,7.2,7.6,8.1,8.5,9,9.4,9.9,10.3,10.8,11.2,11.7,12.1,12.6,13,13.5]
+
+<div id="separator"><!---------------------------></div>
+
+v3.7.1 - 2021/12/17
+<answer>
+Added
+- Phase 2 boss fight to Xyloalgia: Poena, Mistress of Punishment.
+- 2x Loot event for Deadwood Canyon.
+- New hidden achievement.
+- The Mind Stone screen now shows weapon previews when typing 'equip' commands.
+
+Balance
+- Completion stats are reset for Deadwood Canyon.
+
+Other Improvements
+- Reworked symbols ◙, ♂ and ♀ in all the fonts.
+- Added 1 cell of blank padding to the left and right of in-game narration texts that appear above option buttons.
+
+Bugs
+- Fixed the ID and Name of cyan Cult Marksman.
+- Fixed some of the pivots for seasonal moon art.
+- Fixed a bug when drawing enemy buffs. If there were more than 9 of the same type the number would be misaligned.
+- Fixed a bug when two upcoming events had approximate start dates it was possible to be showing the wrong event info in the main menu.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.6.6 - 2021/12/03
+<answer>
+- Treasure opening dialog now shows "x2" detail related to the double-ki event.
+- Fissure screen now shows "x2" detail related to the double-ki event.
+- Fixed double-loot events (winter, spring, etc) as well as Guardian cosmetics.
+- Fixed a bug where Hrimnir's winter scarf would appear after defeating him.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.6.5 - 2021/12/03
+<answer>
+- Fixed the color of the sky that was drawing incorrectly in a few locations.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.6.4 - 2021/12/03
+<answer>
+- Fixed bug where river reflections and other such elements, that can change with seasonal events, were not drawing correctly.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.6.3 - 2021/12/01
+<answer>
+- Fixed a bug where the main menu event dialog would show wrong countdown values.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.6.2 - 2021/12/01
+<answer>
+- Re-architected events system. Let me know if anything looks weird!
+- Reworked string.Format() to tie more directly to the C# specification.
+- Cauldron Collective is now more tolerant of where you activate the Lucky potion.
+- Blade of the Fallen God can no longer be activated in Wild Ride.
+- Fixed error in Legend quests that could appear if you exited a location in the middle of an animation then entered the location again.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.6.1 - 2021/11/25
+<answer>
+- Cauldron Collective: Fixed an error if you opened treasures while this Legend was active.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.6.0 - 2021/11/25
+<answer>
+NEW LEGEND: The Cauldron Collective
+
+- Stonescript: Added ui.ShowBanner(string <,string>)
+- Ascension: The first treasure step now accepts both Humble and Common treasures.
+- Titanic Accord: Added "To be continued..." at the end of the conclusion text.
+- Revised the use of double quotes in all quest texts.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.5.1 - 2021/11/13
+<answer>
+- Record Player v1.0.4, by Mind Stone Thief
+- Shiny and name-tagged items can now be unmade at the Fissure station, as long as they have no special signature.
+- Smack Hammer legend: Fixed an error if the player took damage from a source that no longer exists.
+- Adjusted event dates.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.5.0 - 2021/11/11
+<answer>
+NEW LEGEND: The Guild of Smack-Hammer
+
+- New UI: Record Player
+  by: Mind Stone Thief
+    import UI/RecordPlayer
+
+- New Cosmetic: Santa Hat
+  by: link2_thepast
+    import Cosmetics/Hats/SantaHat
+
+- New UI: Pef Window
+  by: Pef619
+    var window = new UI/PefWindow
+    window.init(Test, 10, 6)
+    window.draw()
+
+- Two New UI by 10100111001
+  Damage Flash
+    import UI/damageFlash
+  &
+  Fancy UI
+    var fancyUI = import UI/FancyUI/fancyui
+    fancyUI.Main()
+
+- Steal Meter v1.1, by Agerak
+  import UI/StealMeter
+
+Balance
+- Stone Staff: Base armor increased by 1.
+
+Bugs
+- Fixed a bug where the Bronze Guardian's helmet would momentarily disappear while powering up.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.4.2 - 2021/11/02
+<answer>
+- Titan's Trial: Fixed bug where sometimes negative points were awarded in goal 4/5.
+- Titan's Trial: Fixed crash in the event controller.
+- Fixed a bug where some foes could spawn with negative health for a split moment.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.4.0 - 2021/11/01
+<answer>
+NEW LEGEND: Titanic Accord
+
+- New cosmetic: Pet Cranius
+  by: Newominus
+    import Cosmetics/PetCranius
+
+- New cosmetic: Cozy Cave
+  by: link2_thepast
+    import Cosmetics/CozyCave
+
+- New UI: Calculator
+  by: Bl
+    import UI/Calculator
+
+- New UI: Steal Meter
+  by: Agerak
+    var StealMeter = new UI/StealMeter
+    StealMeter.EXE(x,y,color)
+
+Other Changes
+- When a Legend sends you to a normal location (e.g. Croaked) the difficulty is now selected based on the highest you have completed, instead of the highest you have unlocked.
+- Attempt to fix an issue where loadouts can change while switching focus between apps.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.3.2 - 2021/10/24
+<answer>
+Improvements
+- Stonescript: Added player.direction
+- It's no longer possible to pause and leave Mushroom Forest *2 after collecting the treasure.
+- Added bonus @ rewards to some foes in Mushroom Forest 0* and 1*.
+
+Bugs
+- Ascension: Fixed a bug where you could activate the Quarterstaff and break the quest.
+- Fixed layout of the Hotspring Shop's row in the Locations screen.
+- Fixed a bug where enchantments from the shop could have an incorrect quality value.
+- Command key is no longer used for loadout saving/loading in Win/Linux (only Mac now).
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.3.1 - 2021/10/22
+<answer>
+- Ascension: Updated Korean and Turkish texts.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.3.0 - 2021/10/21
+<answer>
+NEW LEGEND: Ascension
+
+- New cosmetic: Pet Snail
+  by: Agerak
+    import Cosmetics/PetSnail
+
+- New mini-game: Digits Puzzle
+  by: Okamiroy
+    import Games/DigitsPuzzle
+
+- New UI: Doom-inspired Face HUD
+  by: Dr Abandonment
+    import UI/FaceHUD
+
+Improvements
+- You can now press ESC to leave the Hotspring Shop.
+- The buy button in Hotspring Shop now toggles off/on to indicate confirmation of the purchase and avoid accidental double-purchases.
+
+Stonescript
+- Fixed bug where debuffs.string was giving the remaining time of the first buff, instead of the smallest remaining time.
+- Added string.Split() and string.Join()
+
+Balance
+- Adjusted treasures and enemy distributions for Mushroom Forest 0*, 1* and 2*.
+- Changed Angry Shroom 3* armor regen from 0.9 -> 0.7
+- Changed Angry Shroom 4* armor regen from 1.0 -> 0.8
+
+Bugs
+- Fixed bug where you could press "Replay" on two Legends at the same time and get into a bad state.
+- Fixed issue where NPC dialogs from a Legend could continue appearing after leaving the location.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.2.1 - 2021/10/13
+<answer>
+- Fixed localization of the weekly quest to "upgrade ouroboros".
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.2.0 - 2021/10/13
+<answer>
+NEW LEGEND: Remnants of Five
+
+- New cosmetic: Knight
+  by: Mind Stone Thief, Gergő, XX, standardcombo
+    import Cosmetics/Knight
+
+- New mini-game: Mystic Sword
+  by: Flan Bi
+    import Games/SwordGame
+
+- New UI: Free Chest Tracker
+  by: 10100111001
+    var freeChest = import UI/FreeChestTracker
+    freeChest.Main()
+
+- Quips 2.0, by Superfulous J.
+  import Cosmetics/quips
+
+Stonescript
+- Added foe.id
+- New SFX: fire_beast_1, fire_beast_2, uulaa_voice
+
+Other Improvements
+- Players upgrading from a version older than 3.2.0 get a boost of 5x to their Ki Crystal count.
+- Updated the description on Ki Crystals.
+- Reworked the Waterfall puzzle section.
+- Changed the layout of Mushroom Shop content on day zero.
+- Small decrease in resource cost to some of the early-game workstation tasks.
+- Updated credits.
+
+Balance
+- Changed the drop amount of Ki Crystals in Delta treasures.
+- Lowered the cost of runed items in the Mushroom Shop.
+- Roof Overhead: Lowered the number of mosquitos and scarabs.
+- Reworked foe distribution at Mushroom Forest 0*
+- Adjusted loot drops for Mushroom Forest 0* and 2*
+
+Bugs
+- Fixed the "Complete!" label on Legends that was not appearing while on cooldown.
+- Fixed a bug in Temple 0* where the music would play even if your audio settings were set to zero.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.1.3 - 2021/10/01
+<answer>
+- Fixed issue with name tags where named items were overshadowing other items when using equip commands.
+- Fixed a bug where typing in the Mind Stone could stop working after using a Name Tag.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.1.2 - 2021/10/01
+<answer>
+- Fixed a memory leak in the Haunted Gate that was causing Wild Ride to crash in certain conditions.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.1.1 - 2021/09/30
+<answer>
+NEW EVENT: Wild Ride - Challenge IV
+
+Balance
+- Bolesh 3*, 4* and 5* is now weak to Ranged.
+- Pallas 3* damage from 8 -> 7.
+- Changed the Grappling Hook's Ki cost to craft from 22 -> 18.
+
+Changes
+- Fishing v0.6.2: Added help text for first-time players.
+- Now, pressing ESC or clicking on the Menu button while in Items screen goes to the Locations screen instead of to the Main Menu.
+- Lowered the delay in the intro sequence before the message appears "PRESS TO BEGIN".
+- Added some gameplay tips to Dysangelos' help dialogs.
+- Changed the description on the Grappling Hook.
+- Deadwood Waterfall is now forced into #4 in the Locations list.
+- Added a sheen to new location rows.
+- Added a small auto-scroll to the Locations screen for first-time users.
+
+Bugs
+- Stonescript: Fixed comments placed at the end of equip commands.
+- Roof Overhead: Fixed a bug where opening the inventory would break the mines section.
+- Fixed a crash if watching the countdown reach zero in the main menu event window.
+- Fixed bug where mutating a signed item would lose the signature.
+- Fixed an issue in the language selection screen where the different fonts could have strange sizes depending on the previously selected language.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.0.3 - 2021/09/22
+<answer>
+- The Quest Stone is now fully functional.
+
+Improvements
+- 1 new achievement added.
+- Stonescript: Added math.e
+- Temporary workstation tasks now appear in the middle of the list, instead of at the top.
+- Updated credits.
+- The 'Section Sign' glyph has been redesigned.
+- Added glyphs that were missing in the 3x5 font.
+- Increased the default/fallback scale of non-ASCII alphabets.
+
+Bugs
+- Temporarily removed the Stonemon mini-game.
+- Stonescript: Fixed a crash if a native function were set as a UI Button's callback.
+- Stonescript: Fixed a bug where floats would not parse correctly in some locales.
+- Fixed a bug where some text coloring would be applied to the wrong letters.
+- Fixed the Mind Stone's on/off label in Simplified Chinese.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.99.6 - 2021/09/16
+<answer>
+Mods
+- New minigame: Burger Rush by Fyda.
+  import Games/BurgerRush
+
+- New UI script: BetterInfo2 by Bl & Agerak
+  import UI/BetterInfo2
+
+- New pet: Panda by Mind Stone Thief and xx.
+  import Cosmetics/PetPanda
+
+- New cosmetic: quips by Superfulous J.
+  import Cosmetics/quips
+
+- New cosmetic: Headphones by link2_thepast.
+  import Cosmetics/Hats/Headphones
+
+- New pet: Skully by Newominus
+  import Cosmetics/PetSkully
+
+- PetDog v1.2: You can now pet the dog. Minor improvement to bark animation and removed the instruction/hint.
+  import Cosmetics/PetDog
+
+Fishing v0.6.0
+- Added localization.
+- Changed the glyph used to represent scales.
+- Now saves your record for biggest fish caught.
+- Reworked architecture so the main import is minimal and uses "new" to instantiate the game.
+- Replaced menu options with Play button.
+- Pause button now appears during menu.
+- Fixed permanent storage of scales earned.
+- Shop is hidden for now, while incomplete.
+
+
+Balance
+- Reworked the Vigor Shield and Lifesteal items so the enchantment bonus works correctly. If the resulting stat is over 100%, then there is a chance for extra healing.
+- Changed duration of Ceiling Decorator's poison debuff
+  from 100+10/Lv -> 85+5/Lv seconds.
+- Elementalist: Now loses 2% max HP if the Fire arm is unmade.
+- Stone Staff damage from [2,3,5,6,7,9,10,11,13,14,15] -> [3,5,6,7,8,9,10,11,13,14,15]
+- Quarterstaff damage from [2,3,5,6,8,9,10,12,13,15,16] -> [3,5,7,9,10,11,12,13,14,15,16]
+
+
+-= Stonescript =-
+
+Language improvements
+- Block comments /*  */
+- Floating numbers
+- for x : array
+- Using @@ to inject variables and expressions can be done in more commands (e.g. equip)
+- "disable/enable hud" no longer hides/shows the pause button.
+- Multi-dimensional array direct access (e.g. arr[1][2])
+- Array initialization and function headers can now be delcared over multiple lines, without the need for ^
+
+Gameplay Additions
+- brew
+- disable banner
+- disable abilities
+- disable pause
+- item.potion, item.left, item.right
+- item.CanActivate(string) overload
+- item.GetCount()
+- item.GetTreasureCount()
+- item.GetTreasureLimit()
+- loc.id
+- loc.bestTime
+- loc.averageTime
+- music, music.Play(), music.Stop()
+- ambient, ambient.Add(), ambient.Stop()
+- player.ShowScaredFace()
+
+Data Additions
+- string.Break()
+- string.ToLower() and string.ToUpper()
+- string.Format()
+- string.Capitalize()
+- time.FormatCasual()
+- time.FormatDigital()
+- utc.year, utc.month, utc.day, utc.hour, utc.minute and utc.second
+
+Expanded math API
+- math.pi, math.ToDeg(), math.ToRad()
+- math.Abs(), math.Sign(), math.Min(), math.Max(), math.Clamp()
+- math.Round(), math.RoundToInt()
+- math.Floor(), math.FloorToInt()
+- math.Ceil(), math.CeilToInt()
+- math.Log(), math.Pow(), math.Sqrt()
+- math.Acos(), math.Asin(), math.Atan()
+- math.Cos(), math.Sin(), math.Tan()
+- math.Lerp()
+
+Input changes
+- input.x, input.y give you the position of mouse cursor
+- The mouse left-click now counts as primary key, in addition to Enter/Return.
+
+UI & View
+- screen.Next(), screen.Previous() and screen.ResetOffset()
+- screen.FromWorldX() and screen.FromWorldZ()
+- screen.ToWorldX() and screen.ToWorldZ()
+- ui.AddButton()
+- ui.Clear()
+
+Other API additions
+- rngf
+- te.language
+- te.GetTID()
+- te.ToEnglish()
+- te.xt()
+
+Misc Improvements
+- The >h command no longer requires Big Head to be enabled.
+- `equipL` and `equipR` now ignore all two-handed items as options, regardless of criteria.
+- For two-handed items, use the singular `equip` command.
+- Changed item search when calling `equip` commands to more exactly fit the intended item. Results should seem less arbitrary.
+- Added - (minus) modifier to `equip` criteria, so it's possible to filter out items that have a given term.
+  E.g.: equip sword -big // Only equips small swords, where "big" is not in the name
+- Increased the limit on the number of search filter terms from 7 to 11.
+- type() now supports arrays and returns "array".
+- Fixed a bug where key presses could buffer while the game is outside of play and fire on the first frame of play.
+- Speed optimizations.
+- All import dependencies of a script now compile at the same time it compiles, so the first execution frame doesn't take so long.
+- The 'new' command now caches and compiles scripts at compile time.
+
+New sounds:
+  quest_stone_jump
+  quest_stone_unlock
+  bardiche_cast
+  quarterstaff_cast
+  pallas_voice
+  boo_voice
+  ranting_tree_talk_extra
+  air_hiss
+  bang_go_forward
+  fire_orbs
+  open_note
+  talisman_reveal
+Updated sounds: mushroom_boss_shoot, haunted_gate_torch_on, pickup_bronze, wand_cast, bat_wing, bat_wing_small, hammer_cast, sword_cast, wand_aether_cast, wand_fire_cast and wand_ice_cast.
+
+See <a href="https://stonestoryrpg.com/stonescript">the manual</a> for details about these Stonescript changes.
+
+
+General Improvements
+- When starting a run, equipping armor or health items with Stonescript at time 0 now applies those health and armor changes as if they were selected beforehand.
+- Shop contents are now the same for all players.
+- The player now looks to the left when walking left.
+- Added an extra boost slot for the final upgrade of Lost items.
+- Links now appear on the left side of the Mind Stone, next to imported scripts.
+- Ki Crystal drops in Delta Treasures are now independent from that of Lost items.
+- Added a description text to Enchantments.
+- The Quest Stone now has a description.
+- When calculating the outcome of a run towards your offline farm stats, the weight of the first loop has been significantly reduced. The weight of loops after the first one has been slightly increased.
+- Improved the Mushroom Shop's chimney smoke animation.
+- Improved the Item Found Dialog when it shows your first copy of a Lost item.
+- Removed "import Fishing" from the Mind Stone's default script.
+- Item abilities can no longer be activated at time 0.
+- It's no longer possible to unmake shiny items.
+- The location name in paused inventory screen now has line breaks for longer names.
+- Improved the onboarding at the waterfall, where some players were getting stuck.
+- The main menu event card now supports multiple hyperlinks.
+- The main menu event card now has a slight animation on its borders.
+- The main menu event card's countdown number now turns red as it nears zero.
+- Added the keyword "Distance" to localization.
+- Updated game credits.
+- Added support for flipping ASCII sprites on X and Y axes.
+- Upgraded engine to v2019.4.26
+
+Audio Improvements
+- Changed the Bardiche's attack sound.
+- Changed the Stone Wand's attack sound.
+- Changed the sound of torches lighting up in Haunted Gate.
+- Changed the sound of Enoki attacking.
+- Changed the sound that plays when you pickup bronze.
+
+Bugs
+- Fixed broken localization for the "Power" label in the Mind Stone screen.
+- Fixed the Temple music, which was fading out early in several of the difficulty levels.
+- Fixed Stonescript compilation issue where some combinations of whitespace/identation would cause sections of code to be nested incorrectly. This resulted in blocks of code being skipped when they should have executed.
+- Fixed an exploit where the shop could be forcibly restocked.
+- Fixed a bug where wand attack sounds were sometimes playing twice in a row.
+- Fixed a bug where Gilbert, in the early game, was using the wrong talking sound in one of the passages.
+- Fixed localization of the Nail Biter's description.
+- Fixed the position of stars in the sky in some of the Rocky Plateau levels.
+- Fixed the name and localization for Cult Marksman.
+- Fixed spider description that mentioned "Caustic Caves" instead of "Caves of Fear".
+- Fixed a bug where the Mind Stone's main script did not have a "this" reference to itself.
+- Fixed a crash in the Mushroom Shop when pressing on items.
+- Fixed a bug where mutating a basic item would lead to an item with no stats.
+- Fixed minor bugs and vertical misalignment on various glyphs across all fonts.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.29.2 - 2021/06/21
+<answer>
+- Updated the upcoming Summer Moonstice event.
+- Updated engine to version 2019.4.26f1
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.29.1 - 2020/12/20
+<answer>
+- New minigame: StoneBoxman by Okamiroy
+  import Games/StoneBoxman
+
+- New cosmetic: Wavy Scarf by electronic and Deaymon.
+  import Cosmetics/WavyScarf
+
+- New pet: Bear by XX
+  import Cosmetics/Bear
+
+- New UI: Border Clock by Agerak
+  var clock = new ui/BorderClock
+  clock.Show()
+
+Improvements
+- It's now significantly faster to add all copies of an item to the Fissure Stone workstation. If your Star Stone is upgraded to Cyan or higher and the item is not enchanted, then all copies of the item are automatically added.
+- Stonescript: Added pitch modulation to "play" command.
+- Updated engine to version 2019.4.16f1
+- Minor adjustments for the winter event.
+- Version 2 of Ascii Sprite loading. It's now much less rigid about the format of art files.
+
+Bugs
+- Fixed a bug where hammers were not receiving the Lifesteal (L) ability.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.28.10 - 2020/12/08
+<answer>
+- Fixed a bug in the Mushroom Shop UI where the description lines were misaligned.
+- Item count in item details dialog is now dynamically positioned based on the size of the icon.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.28.8 - 2020/11/08
+<answer>
+Stonescript
+- Fixed foe.state for Pallas *4 and *5.
+- Added: player.name
+- Added: time.year, time.month, time.day, time.hour, time.minute and time.second
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.28.6 - 2020/11/02
+<answer>
+- Added theme music for StoneJam 3.
+
+Balance
+Wand attack speed
+from: [0,1,2,3,4,5,6,7,8,9,9,10,11,12,13,14,15,16,17,18,18,19,20,21,22,23,24,25,26,27,27,28]
+to:   [0,1,2,3,4,5,6,7,8,9,9,10,11,12,13,14,15,16,17,18,18,19,20,21,22,23,24,25,26,27,28,29]
+
+Bugs
+- Fixed a crash where the game would show the advanced difficulty selection screen in a new save, even though the Ouroboros hadn't even been found yet.
+- Fixed a bug in the Boost screen when adding materials, where the percentage complete could say "100.0%" while still being less than 100%. Should now say "99.9%" in those cases.
+- Fixed a visual issue on the Big Boo's attack where the debug collision sometimes appeared.
+- Fixed a bug where you could dash past the ledge of the Waterfall.
+- Fixed a bug after the Pallas boss fight where it was possible to make the camera scroll into an invalid screen.
+- Fixed a bug where Vampiric Potion was being miscalculated towards Offline Farming estimates.
+- Fixed a bug where the screen could get stuck in white if loc.Leave() was called during Bronze Guardian's bomb attack.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.28.2 - 2020/10/23
+<answer>
+Added details for the Halloween event.
+
+Stonescript
+- Added arrays.
+- Added permanent storage.
+- Added foe.level
+  See the <a href="https://StoneStoryRPG.com/stonescript/beta.html#arrays">Stonescript Manual</a> for details.
+
+Balance
+- Fixed an issue where the first few damage numbers for Wand, Sword and Stone Sword were incorrect:
+Wand: from [2,2,4,6, ...] -> [2,3,4,6, ...]
+Sword damage: from [2,3,4,6, ...] -> [1,3,4,6, ...]
+Stone Sword: from [3,4,6,7,9,10, ...] -> [2,4,5,7,8,10, ...]
+(only affects lower-star gear)
+
+Bugs
+- Fixed the ID on Mr. Puff's debuff. It now says "puff_debuff_damage".
+- Fixed the stun from Strength potion that was not triggering Smite.
+- Blade of the Fallen God no longer deals activation damaging to foes already defeated.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.27.0 - 2020/10/17
+<answer>
+- Lost items now appear in Delta treasures!
+- Stonescript: Added ?foe.state for Hrimnir, Bolesh and Pallas.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.26.3 - 2020/10/11
+<answer>
+- Fixed a bug where Large Ghost attacks would miss the player if they were in very close range.
+- Fixed stuns that were not triggering Smite: Stone Hammer, Bashing Shield, Quarterstaff and Grappling Hook.
+- Fixed a bug where boss buffs (e.g. Bolesh's damage increase) were triggering Smite.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.26.2 - 2020/10/10
+<answer>
+Balance: Blade of the Fallen God:
+Damage old
+[100/130/160/190/220/250]
+Damage new
+[100/160/220/280/340/400]
+
+Bugs
+- Fixed a crash when adding debuffs to the Angry Shroom as it splits into phase 2.
+- Fixed a crash when adding debuffs to any foe before the Blade of the Fallen God has ever been used.
+- Fixed a bug where attacking with Blade of the Fallen God would draw the player's head small for 1 frame.
+- Fixed a bug where the Blade of the Fallen God icon didn't fit in the Lost item boost window.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.26.1 - 2020/10/09
+<answer>
+
+Major Changes
+=============
+
+- New Lost item: Blade of the Fallen God.
+- Added the Titan's Trial challenge.
+- Updated loot tables for all locations in order to provide rewards more aligned with time invested.
+- Caves of Fear, Mushroom Forest, Temple and Rocky Plateau have meaningfully changed. Their offline farming stats are therefore reset.
+- Added a tutorial: <a href="https://stonestoryrpg.com/stonescript" target="_blank">Introduction to the Mind Stone</a> to help beginners learn automation with Stonescript.
+- Added Input Settings. Will be improved with key bindings in the future.
+- Updated engine to version 2019.4.7f1.
+
+
+User-generated Content
+======================
+
+- New mini-game: Getaway Driver by LikesToast.
+  import Games/GetawayDriver
+
+- New hat: Star Cloak by Raeborga.
+  import Cosmetics/Hats/StarCloak
+
+- New pet: PetFly by Metrocysh.
+  import Cosmetics/PetFly
+
+
+Stonescript
+===========
+
+See <a href="https://stonestoryrpg.com/stonescript/manual.html" target="_blank">the manual</a> for details about each change
+
+- Added
+  foe.state
+  foe.time
+  buffs.count
+  buffs.string
+  debuffs.string
+  foe.buffs.count
+  foe.buffs.string
+  foe.debuffs.string
+  screen.i
+  screen.x
+  disable loadout input
+  enable loadout input
+  item.CanActivate()
+  string.Equals()
+
+- Changed the search distance in foe.count from 40 -> 46.
+
+- New sounds available:
+  lost_item_boost
+  treasure_item_lost
+  blade_glow
+  blade_pallas_attack
+  blade_raise
+  blade_drag
+
+
+Other Improvements
+==================
+
+- Ability cooldowns no longer reset when entering a boss area or other sub-location.
+- Buffs and debuffs that stack 3 or more copies now appear abbreviated in the HUD.
+- The cooldown for Mind Stone's dodge ability can now be checked with Stonescript.
+- Bosses are now tagged with "phase1".
+- historical_X.txt files renamed to historical_X.txt.backup, and are no longer backed up into Steam Cloud.
+- Players can no longer switch weapons in the middle of an ability activation. E.g. Potion animation.
+- Changed the color of the narration card borders when entering the shop for the first time.
+- Added one section and changed decorations in Rocky Plateau 1*.
+- The game can no longer be paused in the brief moment after defeating Pallas.
+- Draw position of the player in the inventory screen is now dynamic based on their equipment.
+- The item details dialog layout is now more flexible and can fit more information.
+
+
+Balance: Items
+==============
+
+- Swords and Crossbows have changed. See below.
+
+- Fire debuff (F) total damage from 2 + 2/Lv -> 3 + 6/Lv.
+- Fire debuff (F) damage per tick from 2 -> 3.
+- Fire debuff (f) total damage from 3 + 3/Lv -> 4 + 8/Lv.
+- Fire debuff (f) damage per tick from 3 -> 4.
+- Fire debuffs (F) and (f) bonus damage to Ice foes from x2 -> +1.
+
+- Weapon hidden health enchantment bonuses changed:
+  Hammer: 0 + 3.5/Lv -> 5 + 6/Lv
+  Stone Hammer: 0 + 4/Lv -> 4 + 6/Lv
+  Big Sword: 0 + 2/Lv -> 5 + 6/Lv
+  Big Stone Sword: 0 + 2/Lv -> 4 + 6/Lv
+  Sword: 0 + 2/Lv -> -1 + 7/Lv
+  Stone Sword: 0 + 2/Lv -> -2 + 7/Lv
+  Runestone: 1 + 2/Lv -> -6 + 7.43/Lv (min 5)
+
+- Dashing Shield cooldown from 1s -> 1.5s.
+
+
+- Sword:
+
+Damage old
+[2,3,4,6,7,9,10,12,13,15,17,18,20,21,23,24,26,27,29,31,32,34,35,37,38,40,41,43,44,46,48,49]
+Damage new
+[2,3,4,6,7,9,10,12,13,15,17,19,21,23,26,28,30,33,35,37,40,42,44,46,49,51,53,56,58,60,63,65]
+
+Attack speed old
+[0,1,2,3,3,4,5,6,6,7,8,9,9,10,11,12,12,13,14,15,15,16,17,18,18,19,20,21,21,22,23,24]
+Attack speed new
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,13,14,15,16,17,18,19,20,21,22,23,24,25,26,26,27,28,29]
+
+
+- Stone Sword:
+
+Damage old
+[2,4,5,7,8,10,11,13,14,16,18,19,21,22,24,25,27,28,30,32,33,35,36,38,39,41,42,44,45,47,49,50]
+Damage new
+[3,4,6,7,9,10,12,13,15,17,18,21,23,25,28,30,33,35,38,40,43,45,47,50,52,55,57,60,62,65,67,70]
+
+Attack speed old
+[0,0,1,2,3,4,5,6,7,8,9,9,10,11,12,13,14,15,16,17,18,18,19,20,21,22,23,24,25,26,27,27]
+Attack speed new
+[0,0,1,2,3,4,5,6,6,7,8,9,10,11,12,12,13,14,15,16,17,18,18,19,20,21,22,23,24,24,25,26]
+
+Critical chance old
+[8,8.5,9,9.5,10,10.5,11,11.5,12,12.5,13,13.5,14,14.5,15,15.5,16,16.5,17,17.5,18,18.5,19 19.5,20,20.5,21,21.5,22,22.5,23,23.5]
+Critical chance new
+[8,8.5,9,9.5,10,10.5,11,11.5,12,12.5,13,14,14.5,15,15.5,16,16.5,17,17.5,18,19,19.5,20,20.5,21,21.5,22,22.5,23,23.5,24,25]
+
+Critical multiply old
+[2,2.2,2.4,2.6,2.8,3,3.2,3.4,3.6,3.8,4,4.2,4.4,4.6,4.8,5,5.2,5.4,5.6,5.8,6,6.2,6.4,6.6,6.8,7,7.2,7.4,7.6,7.8,8,8.2]
+Critical multiply new
+[2,2.2,2.4,2.6,2.8,3,3.2,3.4,3.6,3.8,4,4.4,4.8,5.1,5.5,5.9,6.3,6.7,7,7.4,7.8,8.2,8.6,8.9,9.3,9.7,10.1,10.5,10.8,11.2,11.6,12]
+
+(d) Bonus damage against element old	
+[2,2,3,4,4,5,6,6,7,8,9,9,10,11,11,12,13,13,14,15,16,16,17,18,18,19,20,20,21,22,23,23]
+(d) Bonus damage against element new
+[2,3,3,4,5,6,6,7,8,8,9,12,15,18,21,24,26,29,32,35,38,41,44,47,50,53,55,58,61,64,67,70]
+
+(D) Bonus damage against element old
+[7,9,10,12,14,15,17,19,20,22,24,26,27,29,31,32,34,36,37,39,41,43,44,46,48,49,51,53,54,56,58,60]
+(D) Bonus damage against element new
+[7,9,11,12,14,16,18,19,21,23,24,27,30,33,36,39,42,45,48,50,53,56,59,62,65,68,71,74,77,79,82,85]
+
+
+- Big Sword:
+
+Damage old
+[2,5,7,10,12,15,17,20,22,25,27,30,32,35,37,40,42,45,47,50,52,55,57,60,62,65,67,70,72,75,77,80]
+Damage new
+[2,5,7,10,12,15,17,20,22,25,27,32,37,42,47,52,56,61,66,71,76,81,86,91,96,101,105,110,115,120,125,130]
+
+
+- Stone Big Sword:
+
+Damage old
+[3,6,8,11,13,16,18,21,23,26,28,31,33,36,38,41,43,46,48,51,53,56,58,61,63,66,68,71,73,76,78,81]
+Damage new
+[3,6,8,11,13,16,18,21,23,26,28,33,37,42,46,51,56,60,65,69,74,79,83,88,92,97,102,106,111,115,120,125]
+
+Attack speed old
+[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]
+Attack speed new
+[1,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+
+(d) Bonus damage against element old
+[2,2,3,4,4,5,6,6,7,8,9,9,10,11,11,12,13,13,14,15,16,16,17,18,18,19,20,20,21,22,23,23]
+(d) Bonus damage against element new
+[2,2,3,4,4,5,6,6,7,8,9,14,19,24,30,35,40,46,51,56,62,67,72,77,83,88,93,99,104,109,115,120]
+
+(D) Bonus damage against element old
+[7,9,10,12,14,15,17,19,20,22,24,26,27,29,31,32,34,36,37,39,41,43,44,46,48,49,51,53,54,56,58,60]
+(D) Bonus damage against element new
+[7,9,10,12,14,15,17,19,20,22,24,29,34,40,45,50,56,61,66,72,77,82,87,93,98,103,109,114,119,125,130,135]
+
+
+- Crossbow:
+
+Attack speed old
+[0,1,2,3,3,4,5,6,7,7,8,9,10,10,11,12,13,14,14,15,16,17,17,18,19,20,21,21,22,23,24,24]
+Attack speed new
+[0,1,2,3,4,4,5,6,7,8,8,9,10,11,12,12,13,14,15,16,17,17,18,19,20,21,21,22,23,24,25,25]
+
+Critical multiply old
+[2,2.2,2.4,2.6,2.8,3,3.2,3.4,3.6,3.8,4,4.2,4.4,4.6,4.8,5,5.2,5.4,5.6,5.8,6,6.2,6.4,6.6,6.8,7,7.2,7.4,7.6,7.8,8,8.2]
+Critical multiply new
+[2,2.2,2.4,2.6,2.8,3,3.2,3.4,3.6,3.8,4,4.2,4.4,4.7,4.9,5.1,5.3,5.5,5.8,6,6.2,6.4,6.6,6.9,7.1,7.3,7.5,7.7,8,8.2,8.4,8.6]
+
+
+- Heavy Crossbow:
+
+Attack cast/perf/cooldown changed from 11/8/8 -> 16/6/5
+
+Damage old
+[2,4,6,9,12,15,18,21,24,27,30,33,35,38,41,44,47,50,53,56,59,62,65,68,71,74,77,80,83,86,89,92]
+Damage new
+[2,4,6,9,12,15,17,20,22,25,27,32,36,41,46,50,55,60,64,69,74,78,83,87,92,97,101,106,111,115,120,125]
+
+Attack speed old
+[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22]
+Attack speed new
+[2,3,4,5,6,7,8,9,10,11,12,13,14,16,19,22,25,28,31,34,37]
+
+Critical chance old
+[8,10.5,13,15.5,18,20.5,23,25.5,28,30.5,33,35.5,38,40.5,43,45.5,48,50.5,53,55.5,58,60.5,63,65.5,68,70.5,73,75.5,78,80.5,83,85.5]
+Critical chance new
+[8,10.5,13,15.5,18,20.5,23,25.5,28,30.5,33,35,37,39,41,43,45,47,49,51,53,55,57,59,61,63,65,67,69,71,73,75]
+
+Critical multiply old
+[3,3.3,3.6,3.9,4.2,4.5,4.8,5.1,5.4,5.7,6,6.3,6.6,6.9,7.2,7.5,7.8,8.1,8.4,8.7,9,9.3,9.6,9.9,10.2,10.5,10.8,11.1,11.4,11.7,12,12.3]
+Critical multiply new
+[3,3.3,3.6,3.9,4.2,4.5,4.8,5.1,5.4,5.7,6,6.6,7.1,7.7,8.3,8.9,9.4,10,10.6,11.1,11.7,12.3,12.8,13.4,14,14.6,15.1,15.7,16.3,16.8,17.4,18]
+
+
+- Stone Crossbow:
+
+Attack cast/perf/cooldown changed from 11/8/8 -> 16/6/5
+
+Damage old
+[2,3,5,6,8,9,11,12,14,15,17,18,20,21,23,24,26,27,29,30,32,33,35,36,38,39,41,42,44,45,47,48]
+Damage new
+[2,3,5,6,8,9,11,12,14,15,17,22,28,34,40,46,52,58,64,70,76,81,87,93,99,105,111,117,123,129,135,140]
+
+Attack speed old
+[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22]
+Attack speed new
+[2,3,4,5,6,7,8,9,10,11,12,13,14,16,19,22,25,28,31,34,37]
+
+Critical chance old
+[8,10.5,13,15.5,18,20.5,23,25.5,28,30.5,33,35.5,38,40.5,43,45.5,48,50.5,53,55.5,58,60.5,63,65.5,68,70.5,73,75.5,78,80.5,83,85.5]
+Critical chance new
+[8,10.5,13,15.5,18,20.5,23,25.5,28,30.5,33,35,37,39,41,43,45,47,49,51,53,55,57,59,61,63,65,67,69,71,73,75]
+
+Critical multiply old
+[3,3.3,3.6,3.9,4.2,4.5,4.8,5.1,5.4,5.7,6,6.3,6.6,6.9,7.2,7.5,7.8,8.1,8.4,8.7,9,9.3,9.6,9.9,10.2,10.5,10.8,11.1,11.4,11.7,12,12.3]
+Critical multiply new
+[3,3.3,3.6,3.9,4.2,4.5,4.8,5.1,5.4,5.7,6,6.6,7.1,7.7,8.3,8.9,9.4,10,10.6,11.1,11.7,12.3,12.8,13.4,14,14.6,15.1,15.7,16.3,16.8,17.4,18]
+
+(d) Bonus damage against element old
+[1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13,14,14,15,15,16,16]
+(d) Bonus damage against element new
+[1,1,2,2,3,3,4,4,5,5,6,12,19,25,32,39,45,52,59,65,72,79,85,92,99,105,112,119,125,132,139,145]
+		
+(D) Bonus damage against element old
+[5,6,8,9,11,12,14,15,17,18,20,21,23,24,26,27,29,30,32,33,35,36,38,39,41,42,44,45,47,48,50,51]
+(D) Bonus damage against element new
+[5,6,8,9,11,12,14,15,17,18,20,26,33,40,47,54,60,67,74,81,88,94,101,108,115,122,128,135,142,149,156,162]
+
+
+Balance: Locations
+==================
+
+- Caves of Fear, Mushroom Forest, Temple and Rocky Plateau have meaningfully changed. See below.
+
+
+Caves of Fear (Cyan & Yellow):
+
+- Bolesh now drops double treasures.
+- Decreased White*5 location by 1 section.
+- Increased Cyan location by 2 sections.
+- Increased Yellow location by 1 section.
+
+- Cyan Bolesh hitpoints
+  from 350/1250/2150/3950 -> 2220/2725/3230/3735/4240.
+
+- Cyan Bolesh damage (bite)
+  from 10/12/14/16/18 -> 6/9/12/15/18.
+
+- Yellow Bolesh hitpoints
+  from 2600/4000/5400/6800/8200 -> 3500/4675/5850/7025/8200.
+
+- Yellow Bolesh damage (bite)
+  from 20/22/24/26/28 -> 39/43/47/51/55.
+
+- Scorpion poison duration
+  from 5400/5700/6000/6300/6600 -> 900/1125/1350/1575/1800.
+
+- Scorpion damage from 1 + 1/Lv -> 1 + 0.34/Lv.
+- Skin Peeler damage from 1 + 1/Lv -> 1 + 0.25/Lv.
+- Nail Biter damage from 1 + 1/Lv -> 1 + 0.2/Lv.
+- Wound Licker damage from 2 + 1/Lv -> 2 + 0.25/Lv.
+- Ceiling Decorator now takes 20% more damage from Ranged.
+
+- Ceiling Decorator hitpoints
+  from 600/840/1080/1320/1560 -> 1300/1600/1900/2200/2500.
+
+
+Mushroom Forest:
+
+- Increased White*5 location by 3 sections.
+- Decreased Yellow location by 1 section.
+- Changed foe quantities and positions across all difficulties.
+
+- White*5 Angry Shroom hitpoints from 340 -> 400.
+- White*5 Morel hitpoints from 250 -> 700.
+- White*5 Enoki hitpoints from 150 -> 300.
+
+- White and Cyan Angry Shroom projectile attacks
+cast/perf/cool from 8/8/0 -> 10/10/0.
+
+- White*5 Enoki cast/perf/cool from 17/15/0 -> 23/18/0.
+- Cyan Angry Shroom punch attack perf from 30 -> 32.
+
+- Yellow Angry Shroom armor
+from 1300/1850/2400/2950/3500 -> 1200/1750/2300/2850/3400.
+
+- Yellow Morel hitpoints
+from 1000/1400/1800/2200/2600 -> 850/1250/1650/2050/2450.
+
+- Yellow Enoki hitpoints
+from 500/750/1000/1250/1500 -> 400/650/900/1150/1400.
+
+
+Temple (White):
+
+- Increased White*5 by 12 sections.
+
+Temple (Cyan & Yellow):
+
+- Increased Cyan location by 13 sections.
+- Increased Yellow location by 11 sections.
+- Changed foe quantities and positions across all difficulties.
+
+- Cyan Nagaraja hitpoints
+  from 2200/3900/5600/7300/9000 -> 6240/6930/7620/8310/9000.
+
+- Cyan Nagaraja damage
+  from 2/2/2/2/2 -> 1/1/1/2/2.
+
+- Acronian Cultist hitpoints
+  from 1550/1950/2350/2750 -> 2150/2450/2750/3050/3350.
+
+- Yellow Nagaraja hitpoints
+  from 5500/8775/12050/15325/18600 -> 11100/12975/14850/16725/18600.
+
+- Cult Guard - Damage from 1 + 1/Level -> 1 + 0.14/Level.
+- Cult Guard - Removed crits.
+- Cult Guard - Attack cast/perf/cool from 6/24/0 -> 12/24/0.
+- The Bell Ringer - Hitpoints from 25 + 5/Level -> 80 + 10/Level.
+- The Bell Ringer - Damage from 4 + 0.5/Level -> 1 + 0.25/Level.
+- Cult Marksman - Damage from 2 + 0.34/Level -> 1 + 0.2/Level.
+- Cult Marksman - Removed crits.
+- Cult Sorcerer - Damage from 2 + 0.5/Level -> 1 + 0.14/Level.
+- Cult Sorcerer - Attack cast/perf/cool from 2/58/0 -> 6/84/0.
+- Toupée Snatcher - Damage from 2 + 1/Level -> 1 + 0.2/Level.
+- Ground Serpent - Damage from 2 + 1/Level -> 1 + 0.2/Level.
+- Poison Adept - Damage from 1 + 0.35/Level -> 1.
+- Worm Rider - Hitpoints from 75 + 15/Level -> 130 + 15/Level.
+- Worm Rider - Damage from 2 + 1/Level -> 1 + 0.2/Level.
+- Worm Rider - Removed crits.
+- Serpent Handler now immediately spawns a snake when it awakens.
+- Decreased chance of spawning Marksman and Sorcerer.
+
+
+Rocky Plateau:
+
+- Boss no longer drops double treasures.
+
+- Bearer Cyan hitpoints
+  from 1200/2000/2800/3600/4400 -> 6000/6750/7500/8250/9000.
+
+- Elementalist Cyan hitpoints
+  from 1600/2600/3600/4600/5600 -> 10000/11125/12250/13375/14500.
+
+- Perfected Cyan hitpoints
+  from 3000/5000/7000/9000/11000 -> 16000/17500/19000/20500/22000.
+
+- Perfected Cyan armor gain
+  from 600/850/1100/1350/1600 -> 1840/2005/2170/2335/2500.
+
+- Perfected Cyan super attack damage
+  from 36/42/48/54/60 -> 20/25/30/35/40.
+
+- Bearer Yellow hitpoints
+  from 4400/5400/6400/7400/8400 -> 9000/10250/11500/12750/14000.
+
+- Elementalist Yellow hitpoints
+  from 5000/7000/9000/11000/13000 -> 13200/14650/16100/17550/19000.
+
+- Perfected Yellow hitpoints
+  from 11000/15000/19000/23000/27000 -> 18000/21000/24000/27000/30000.
+
+- Perfected Yellow armor gain
+  from 1600/2100/2600/3100/3600 -> 3300/3725/4150/4575/5000.
+
+- Perfected Yellow super attack damage
+  from 66/72/78/84/90 -> 80/100/120/140/160.
+
+
+Bugs
+- Fixed a bug where pressing ESC immediately after starting offline farm could lead to a bad game state.
+- Fixed a bug where Fuse+ could be miscalculated and the game would get stuck in a deadend.
+- Fixed a bug where the Dashing/Bashing shields could stop working if a foe survived behind the player.
+- Fixed enchantment of the (F) and (f) abilities.
+- Fixed an exploit where it was possible to clip through foes with the Quarterstaff due to a bug in the loading order of weapon variables.
+- Fixed a bug where the player could get stuck in mid-air when defeating the Bronze Guardian.
+- Fixed a crash when initiating offline farming in one save then loading another save where the Ouroboros had not been found yet.
+- Moved the Mind Stone save data to the end of the save file, to reduce risk of arbitrary symbols from players interfering with other systems.
+- Fixed an issue where Stonescript commands could be called even though the game state was no longer valid for commands. For example, if loc.Leave() or loc.Pause() was followed immediately by commands to equip or activate abilities it could result in unpredictable edge cases.
+- Fixed an issue where abilities that only scale with enchantment (not with star levels) could appear with miscalculated numbers in their description in the item details dialog.
+- Fixed a bug where calling loc.Leave() during one of Dysangelos' transitions would cause the screen to be permanently dark/dim.
+- Fixed a bug where resources gained and lost during offline farming were sometimes miscalculated.
+- Xyloalgia Cyan and Yellow no longer display dialog after usage of the Sight Stone.
+- Fixed some Acronian Scout dialogs in German. Minor NPC text changes in Russian and LatAm Spanish.
+- Fixed the darkened color of two-handed weapons equipped in the inventory when the icon exceeds the box.
+- Fixed the German translation for the Big Sword's name.
+- Removed the "humanoid" tag from Dysangelos Bearer.
+- Fixed a bug where transitions from the main menu back to the game would not work if offline farming had just been started.
+- Fixed a bug where sometimes the advanced location selection screen would say your inventory is full when in fact it's an edge case where you can't complete a single loop even though in the past you were able to establish run times.
+- Fixed a bug in the brightness of the Ouroboros transition when activating Offline Farming with screen flashes disabled.
+- Fixed a bug where the player's big head could momentarily pop to the wrong position is Mushroom Forest.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.18.4 - 2020/10/03
+<answer>
+- Includes info about the upcoming Titan's Trial challenge.
+
+Bugs
+- Fixed the German translation for the Big Sword's name.
+- Fixed some Acronian Scout dialogs in German.
+- Fixed an offline farming UI text in Japanese and Turkish that appears when the inventory is full.
+- Minor NPC text changes in Russian and LatAm Spanish.
+- Minor item text changes in Simplified Chinese, Korean and Brazilian Portuguese.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.18.3 - 2020/08/01
+<answer>
+Improvements
+- The Ouroboros can now be upgraded.
+- Added Offline Farming.
+- Total gear points now appear in the Saved Games screen.
+- Lost item icons now have a special frame in the inventory.
+- Added localization for clock/time suffixes.
+
+Bugs
+- Fixed a bug where item quantity labels could get colored incorrectly in the inventory screen.
+- Fixed a bug where the Bashing Shield was not giving the correct bonus armor when the stun ability was enchanted.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.16.6 (Hotfix to main) - 2020/07/07
+<answer>
+- Fixed the re-rolling of Lost items.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.16.4 - 2020/06/27
+<answer>
+- Fixed a crash when using the Bashing Shield's bash ability.
+- Stonescript: Fixed a crash when function paramter names started with a number.
+- Fixed the sound effects when boosting Lost items.
+- Fixed issues and updated the localized texts for the Lost item crafting systems.
+- Updated mini-game: Snake v1.4.2 by XX.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.16.3 - 2020/06/25
+<answer>
+- Fixed a bug where a Lost item would lose their boosts after adding or removing enchantments from them.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.16.2 - 2020/06/23
+<answer>
+- New pet: PetCrab by Agerak.
+  import Cosmetics/PetCrab
+
+- New mini-game: Snake by XX.
+  import Games/Snake
+
+- Added crafting systems for Lost items.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.16.1 - 2020/06/19
+<answer>
+- New item added: Bashing Shield!
+- Summer event implemented.
+- Stonescript: Added native function item.GetCooldown(str)
+- Reworked cooldown on Dashing shield. It's set to 1 second and should no longer reset when unequipped/equipped.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.15.8 - 2020/06/14
+<answer>
+- Fixed a crash that could happen when opening the reward from the Hamartia event.
+- Fixed a bug where mutating a shiny item would cause it to lose the shiny modifier.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.15.7 - 2020/06/08
+<answer>
+- Hamartia event: Multiple weaknesses now stack when calculating damage multiply.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.15.6 - 2020/06/05
+<answer>
+- Fixed the rarity bonus that was not appearing in the progress popup card for the Hamartia event.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.15.5 - 2020/06/05
+<answer>
+
+Improvements
+- Foe immunity and weakness have been reworked and are now displayed in the Sight Stone dialog.
+- Added Stonescript ?totalgp that gives your total Gear Points.
+- Rerolls are 90% off during the Hamartia event.
+- Added theme music specific to events.
+- Added a counter to the Anvil screen when crafting many copies in a row.
+- Physical + Magic immunity can no longer be added to the same foe.
+- Bomb Cart and Mr. Puff are now tagged as "explode".
+- Bosses are now tagged with "phase2" and "phase3".
+
+Balance
+- Final boss now drops double treasures.
+
+Bugs
+- Fixed a bug where the bottom HUD would disappear after looping Rocky Plateau.
+- Fixed an exploit where you could dash into the Guardian's copper pit with the Quarterstaff ability.
+- Fixed the Cyan/Yellow Fire Geysers that were not tagged as "spawner".
+- Fixed a bug where the player could jump over some foes with the Quarterstaff ability.
+- Fixed a bug where the player would keep walking after defeating a boss, if they had previously died in the same location, but in a higher difficulty.
+- Fixed a bug where the R.I.Pieces death animation was offset down by 1.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.15.0 - 2020/05/31
+<answer>
+- Changes for the Hamartia challenge.
+- Updated credits.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.14.1 - 2020/05/07
+<answer>
+- Event progress bar now says MAX when it's complete.
+- Fixed an exploit where activated abilities could be used in boss intro animations to skip them.
+- Fixed a bug in the Triskelion screen if you pressed ESC during the Fuse+ process.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.14.0 - 2020/05/03
+<answer>
+- Count-down for Bardiche Executioner event.
+- Enchantments on Shiny items can now be broken off.
+- Stonescript: "shiny" can now be used as a search filter with the "equip" command.
+- Cost to re-roll Enchantments from: 1000 + Bonus * 200 -> 1000 + Bonus * 100.
+- Cost to break apart Enchantments from: Bonus * 10 -> Bonus * 200.
+- Added an acknowledgement dialog when events are completed.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.13.5 - 2020/04/25
+<answer>
+- Fixed a crash when fusing max-level enchantments with Fuse+ if quality of the center item was "off by 1".
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.13.4 - 2020/04/23
+<answer>
+- Fixed a bug in the event system where rewards from one save could "bleed" onto another save.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.13.3 - 2020/04/21
+<answer>
+- Fixed a critical bug that caused event data to not be saved.
+- Lowered the requirement to unlock events from completing the game to acquiring the Quest Stone.
+- Added diagnostics for the Events system.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v2.13.2 - 2020/04/18
+<answer>
+Improvements
+- New loot event!
+- Added the Compound Shield.
+- Added an activated ability to Quarterstaffs.
+- Added a new achievement: Hans hugs!
+- Cloud saving now works across different operating systems.
+- Linux and OSX save file locations are migrated to conform with Steam's choice of path.
+  If game progress exists in both locations, they will be merged.
+  Linux and OSX players may see the message "Merging local save file w/Steam Cloud".
+- Added "Fuse More" to the Triskelion screen to automate high volumes of enchantments.
+
+Stonescript
+- Added ?res.stone, ?res.wood, ?res.tar, ?res.ki and ?res.bronze.
+
+- New cosmetic: DiscoVisor by Fyda.
+  import Cosmetics/Hats/DiscoVisor
+
+- New cosmetic: ChefHat by Fyda.
+  import Cosmetics/Hats/ChefHat
+
+- New cosmetic: PallasCrown by Fyda.
+  import Cosmetics/Foes/PallasCrown
+
+- New mini-game: Stonemon by DarkLucifer69.
+  import Games/Stonemon
+
+- New mini-game: SSRPG Idle by AceShadow, Raeborga and Fyda.
+  import Games/SSRPGIdle
+
+- New UI script: OkamiroyUtils by Okamiroy.
+  import UI/OkamiroyUtils
+
+Bugs
+- Small fix to the single quote glyph in the 13x24 font.
+- Probably fixed the armor gain exploit when swapping shields.
+- Adjusted the Neck Warmer's head position.
+- Fixed a longstanding bug where the Anvil's scroll container could get clipped at the bottom, for new players.
+
+Balance
+- Staff and Quarterstaff armor stats now enchant together.
+
+- Wand:
+- Attack speed is no longer a hidden stat and goes up with normal star levels.
+Attack Speed Old
+[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]
+Attack Speed New
+[0,1,2,3,4,5,6,7,8,9,9,10,11,12,13,14,15,16,17,18,18,19,20,21,22,23,24,25,26,27,27,28]
+
+Damage Old
+[2,2,4,6,8,10,12,13,15,17,19,21,23,25,27,29,31,32,34,36,38,40,42,44,46,48,50,51,53,55,57,59]
+Damage New
+[2,2,4,6,8,10,12,14,16,18,20,23,26,29,31,34,37,40,43,46,49,51,54,57,60,63,66,68,71,74,77,80]
+
+(d) Bonus damage against element Old
+[1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13,14,14,15,15,16,16]
+(d) Bonus damage against element New
+[1,1,2,2,3,3,4,4,5,5,6,9,13,16,20,23,27,30,34,37,41,45,48,52,55,59,62,66,69,73,77,80]
+
+(D) Damage bonus against element Old
+[5,6,8,9,11,12,14,15,17,18,20,21,23,24,26,27,29,30,32,33,35,36,38,39,41,42,44,45,47,48,50,51]
+(D) Damage bonus against element New
+[5,6,8,9,11,12,14,15,17,18,20,23,27,31,35,39,43,46,50,54,58,62,66,70,73,77,81,85,89,93,97,100]
+
+- Staff:
+Damage Old
+[2,3,5,6,7,9,10,11,13,14,15,17,18,19,21,22,23,25,26,28,29,30,32,33,34,36,37,38,40,41,42,44]
+Damage New
+[2,3,5,6,7,9,10,11,13,14,15,19,23,28,32,36,40,44,48,52,56,60,64,68,72,76,80,84,88,92,96,100]
+
+(d) Damage bonus against element Old
+[2,2,3,4,4,5,6,6,7,8,9,9,10,11,11,12,13,13,14,15,16,16,17,18,18,19,20,20,21,22,23,23]
+(d) Damage bonus against element New
+[2,2,3,4,4,5,6,6,7,8,9,14,19,24,30,35,40,46,51,56,62,67,72,77,83,88,93,99,104,109,115,120]
+
+(D) Damage bonus against element Old
+[7,9,10,12,14,15,17,19,20,22,24,26,27,29,31,32,34,36,37,39,41,43,44,46,48,49,51,53,54,56,58,60]
+(D) Damage bonus against element New
+[7,9,10,12,14,15,17,19,20,22,24,29,35,40,46,52,57,63,68,74,79,85,90,96,102,107,113,118,124,129,135,140]
+
+- Quarterstaff:
+Damage Old
+[2,3,5,6,8,9,10,12,13,15,16,17,19,20,22,23,24,26,27,29,30,31,33,34,36,37,38,40,41,43,44,45]
+Damage New
+[2,3,5,6,8,9,10,12,13,15,16,17,19,20,22,23,24,26,27,29,30,31,33,36,38,42,46,50,56,62,70,80]
+
+- Hammer:
+Damage Old
+[3,4,6,7,9,10,11,13,14,16,17,18,20,21,23,24,25,27,28,30,31,32,34,35,37,38,39,41,42,44,45,46]
+Damage New
+[3,4,6,7,9,13,16,19,21,23,25,29,32,35,39,42,45,49,52,55,58,62,65,68,72,75,78,82,85,88,91,95]
+
+- Stone Hammer:
+Damage Old
+[4,5,7,8,10,11,12,14,15,17,18,19,21,22,24,25,26,28,29,31,32,33,35,36,38,39,40,42,43,45,46,47]
+Damage New
+[4,5,7,8,10,14,18,20,23,25,28,31,34,38,41,45,48,52,55,59,62,65,69,72,76,79,83,86,90,93,97,100]
+
+(d) Bonus damage against element Old
+[2,2,3,4,4,5,6,6,7,8,9,9,10,11,11,12,13,13,14,15,16,16,17,18,18,19,20,20,21,22,23,23]
+(d) Bonus damage against element New
+[2,2,3,4,4,5,6,6,7,8,9,12,16,20,24,28,32,36,39,43,47,51,55,59,63,66,70,74,78,82,86,90]
+
+(D) Damage bonus against element Old
+[7,9,10,12,14,15,17,19,20,22,24,26,27,29,31,32,34,36,37,39,41,43,44,46,48,49,51,53,54,56,58,60]
+(D) Damage bonus against element New
+[7,9,10,12,14,15,17,19,20,22,24,28,32,35,39,43,47,51,55,58,62,66,70,74,78,82,85,89,93,97,101,105]
+
+- Both Hammers:
+Attack Speed Old (hidden stat)
+[1,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10]
+Attack Speed New (hidden stat)
+[3,6,6,8,8,8,9,9,9,9,10,10,10,10,10,11,11,11,11,12,12]
+
+Armor Damage Multiply Old	[2,2.1,2.2,2.3,2.4,2.5,2.6,2.7,2.8,2.9,3,3.1,3.2,3.3,3.4,3.5,3.6,3.7,3.8,3.9,4,4.1,4.2,4.3,4.4,4.5,4.6,4.7,4.8,4.9,5,5.1]
+Armor Damage Multiply New	[2,2,2.1,2.1,2.2,2.2,2.2,2.3,2.3,2.4,2.4,2.6,2.8,3,3.2,3.4,3.6,3.8,4,4.2,4.4,4.6,4.8,5,5.2,5.4,5.6,5.8,6,6.2,6.4,6.6]
+
+</answer><div id="separator"><!---------------------------></div>
+
 v2.9.2 - 2020/03/09
 <answer>
 - Added the Spring Equinox event.
@@ -52,8 +1597,13 @@ Stonescript
 - Added 'for' keyword.
 - Added loc.Pause()
 - Added draw.Box(x, y, w, h, color, style)
-- New script: Pet Dog
+
+- New pet: Pet Dog
+  import Cosmetics/PetDog
+
 - Pet Frog: Improved the scared state.
+  import Cosmetics/PetFrog
+
 - Fishing v0.3: Architectural changes, new fish designs, data models for fish and rods.
 - Temporarily increased the Stonescript max execution time from 100 to 250.
 

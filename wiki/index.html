@@ -29,7 +29,7 @@
 <center>· ·:·: Introduction to the Mind Stone :·:· ·</center>
 <div id="title-separator"><!---------------------------></div>
 
-<answer><center>intro | <a href="https://stonestoryrpg.com/stonescript/manual.html">manual</a> | <a href="https://stonestoryrpg.com/stonescript/beta.html">beta</a>  ·:·  <a href="https://stonestoryrpg.com/releasenotes">release notes</a> | <a href="https://stonestoryrpg.com/faq.html">faq</a></center></answer>
+<answer><center>intro | <a href="https://stonestoryrpg.com/stonescript/manual.html">manual</a> | <a href="https://stonestoryrpg.com/stonescript/beta.html">beta</a></center></answer>
 <center><font color="#808080">
       _ ______________________ _            
   ,:´      \____        __.---<font color="#ffffff">,.</font> `.         
@@ -342,8 +342,6 @@ Hint: You can copy/paste scripts from here or from other players into the Mind S
  .· /`°´\ ·.
  `-´     `-´
 <font color="#bbbbbb">
-External resources and mini-tutorials below.
-
 
 Links
 
@@ -387,11 +385,12 @@ Players often employ the Dashing Shield, Triskelion and even the Quarterstaff ab
 
 
 Ability Activation
+(mini-tutorial)
 
 Here things start getting more complex. A common question from players is how to activate abilities. While some items like the Hatchet and Blade of the Fallen God are easier, an important one that gives players lots of trouble is the Bardiche:
 
 <eg>
-?foe = boss & foe.distance <= 10 &
+?foe = boss & foe.distance <= 9 &
 ^item.GetCooldown("bardiche") <= 0 |
 ^item.GetCooldown("bardiche") > 870
   equip bardiche
@@ -400,11 +399,11 @@ Here things start getting more complex. A common question from players is how to
 
 A few new symbols you will notice here are the <eg>^</eg> which is a way of continuing the previous line, as well as the <eg>|</eg> which means <eg>"OR"</eg>.
 
-In this example we are using the Bardiche's special ability against the boss (<eg>?foe = boss</eg>) when it's in range (<eg>foe.distance <= 10</eg>) by calling <eg>equip bardiche</eg> then <eg>activate R</eg>. We are also using <eg>item.GetCooldown()</eg> to check the cooldown on the Bardiche's super attack.
+In this example we are using the Bardiche's special ability against the boss (<eg>?foe = boss</eg>) when it's in range (<eg>foe.distance <= 9</eg>) by calling <eg>equip bardiche</eg> then <eg>activate R</eg>. We are also using <eg>item.GetCooldown()</eg> to check the cooldown on the Bardiche's super attack.
 
 We use the cooldown information to keep it equipped only during the activation. Unlike some ability activations that are instantaneous, the Bardiche has a "cast" time, during which we need to keep it equipped. The game allows you to equip something else during the cast, but that cancels the ability and it goes on cooldown anyway. That's where the <eg>870</eg> comes from: Cooldown values are represented in frames. Each second equals 30 frames. The Bardiche has a 30 second cooldown which translates to 900 frames. Minus the cast time which is roughly one second, equals 870 frames.
 
-To better visualize what's happening with the Bardiche, try adding this:
+To better visualize what's happening with the Bardiche's try adding this:
 
 <eg>
 var cd
