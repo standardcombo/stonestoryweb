@@ -50,6 +50,98 @@ For information about save file locations and about switching to the beta branch
 </f>
 <div id="separator"><!---------------------------></div>
 
+v3.17.3 - 2022/09/05
+<answer>
+Stonescript
+- Scripts can now be imported remotely from the web with both import/new commands.
+- New namespace: sys (System)
+- Added sys.fileUrl, sys.SetFileUrl() and sys.cacheRemoteFiles
+- All the game's built-in Stonescripts can now be found at https://StoneStoryRPG.com/stonescript
+  E.g.: https://StoneStoryRPG.com/stonescript/Cosmetics/PetFrog.txt
+
+Improvements
+- Greatly reduced the size of save files. The game will automatically rework your file upon next save.
+- The Mind Stone can now be powered on/off from the item details popup.
+- Changed the border color of button [Claim Reward] in daily quests to green.
+- Croaked: Optimized CPU in the scene with many frogs.
+- When entering your character's name, empty space at the beginning or at the end are now deleted.
+- Added proper handling of UTF-8 "BOM" encoding when importing scripts.
+
+Bugs
+- Fixed a critical bug where save file sizes could balloon out of control, due to multiple copies of offline farming stats.
+- Fixed bugs in draw.GetSymbol() and canvas.Get() where some glyphs would return incorrectly.
+- Fixed a legacy bug where it was possible to win a location star and not save progress properly.
+- Remnants of Five: Fixed case where you could complete the quest during a 2x Ki event and earn 40 crystals instead of 20.
+- Croaked: Fixed a UX issue after feeding Kevin. If the Ouroboros screen appeared and you pressed the pause button, it would would send you to Locations instead of Quests screen.
+- Fixed the encoding of FishingGame.txt to UTF-8.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.16.0 - 2022/05/14
+<answer>
+Community Content
+- New mini-game: Frog Jump, by Mind Stone Thief
+  import Games/FrogJump
+- New pet: Legs Turkey, by link2_thepast
+  import Cosmetics/LegsTurkeyPet
+- Record Player updated to v2.0, by Mind Stone Thief
+- Cozy Cave updated to v2.0, by Link2_thepast
+
+Improvements
+- Dysangelo's dialog at the start of encounter now auto-skips at Yellow 2 or higher.
+- The quarterstaff's cooldown can now be enchanted.
+- Armor is no longer lost when an item that gives bonus health is unequipped.
+- Mutating a complex item now has better odds of changing its abilities.
+- Added inventory message "Cannot equip identical items" if you attempt to do so.
+
+Balance
+- Reworked stuns so the character is completely frozen.
+- Quarterstaff base cooldown changed from 5 -> 6.5 seconds.
+- Hammers can no longer have abilities (p), (u), (f), (i) or (A).
+- (A) hammers are automatically converted to (aX).
+- Unmake ability (u) changed from 7 + 3/Lv % -> 8 + 2.9/Lv %.
+
+- Chill duration on-hit (I) reworked
+from: [2,2.4,2.8,3.2,3.6,4,4.4,4.8,5.2,5.6,6,6.4,6.8,7.2,7.6,8,8.4,8.8,9.2,9.6,10,10.4,10.8,11.2,11.6,12,12.4,12.8,13.2,13.6,14,14.4]
+to: [2,2.4,2.8,3.2,3.6,4,4.4,4.8,5.2,5.6,6,6.6,7.2,7.8,8.4,9,9.6,10.2,10.8,11.4,12,12.6,13.2,13.8,14.4,15,15.6,16.2,16.8,17.4,18,18.6]
+
+- Chill duration on-engage (i) reworked
+from: [7,7.8,8.6,9.4,10.2,11,11.8,12.6,13.4,14.2,15,15.8,16.6,17.4,18.2,19,19.8,20.6,21.4,22.2,23,23.8,24.6,25.4,26.2,27,27.8,28.6,29.4,30.2,31,31.8]
+to: [4,4.8,5.6,6.4,7.2,8,8.8,9.6,10.4,11.2,12,13.2,14.4,15.6,16.8,18,19.2,20.4,21.6,22.8,24,25.2,26.4,27.6,28.8,30,31.2,32.4,33.6,34.8,36,37.2]
+
+Bugs
+- Stonescript: Fixed a crash when reserved words were used as function names.
+- Custom UI elements no longer clear when entering a boss area (sub-location).
+- Fixed an issue where "Repeat Craft" sometimes placed ingredients in the wrong slots, resulting in different abilities.
+- Fixed the display of event information in main menu for duplicate events.
+- Optimized crafting by removing deprecated abilities from the pool of possibilities.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.15.0 - 2022/04/30
+<answer>
+Mini-games
+- Asteroids v1.2.2, bounty completed by skyDelight
+  import Games/Asteroids
+- Blackjack v1.0, bounty completed by link2_thepast
+  import Games/Blackjack
+
+Improvements
+- New "Mini-Games" section in credits.
+- Setup all 2x repeating events, as well as several 2x Ki weekends, til the end of times.
+- Added support for multiple event entries with the same ID (2xKi).
+
+Balance
+- Defensive poison ability (p) has been reworked.
+- Fixed the enchantment of Chill duration across all items that apply it.
+- Fixed the enchantment of stun duration on Compound Shield and Hammers.
+
+Bugs
+- Fixed crash when activating the Cultist Mask.
+- Fixed a memory leak when crafting (any operation) where the old items would stay in memory.
+
+</answer><div id="separator"><!---------------------------></div>
+
 v3.14.2 - 2022/04/11
 <answer>
 - Loot event: Bolesh 2x treasure quality.

@@ -44,6 +44,59 @@
 </f>
 <div id="separator"><!---------------------------></div>
 
+v3.16.0 - 2022/05/19
+<answer>
+Community Content
+- Asteroids v1.2.2, bounty completed by skyDelight
+  import Games/Asteroids
+- Blackjack v1.0, bounty completed by link2_thepast
+  import Games/Blackjack
+- New mini-game: Frog Jump, by Mind Stone Thief
+  import Games/FrogJump
+- New pet: Legs Turkey, by link2_thepast
+  import Cosmetics/LegsTurkeyPet
+- Record Player updated to v2.0, by Mind Stone Thief
+- Cozy Cave updated to v2.0, by Link2_thepast
+
+Improvements
+- Dysangelo's dialog at the start of encounter now auto-skips at Yellow 2 or higher.
+- The quarterstaff's cooldown can now be enchanted.
+- Armor is no longer lost when an item that gives bonus health is unequipped.
+- New "Mini-Games" section in credits.
+- Setup all 2x repeating events, as well as several 2x Ki weekends, til the end of times.
+- Added support for multiple event entries with the same ID (2xKi).
+- Mutating a complex item now has better odds of changing its abilities.
+- Added inventory message "Cannot equip identical items" if you attempt to do so.
+
+Balance
+- Defensive poison ability (p) has been reworked.
+- Fixed the enchantment of Chill duration across all items that apply it.
+- Fixed the enchantment of stun duration on Compound Shield and Hammers.
+- Reworked stuns so the character is completely frozen.
+- Quarterstaff base cooldown changed from 5 -> 6.5 seconds.
+- Hammers can no longer have abilities (p), (u), (f), (i) or (A).
+- (A) hammers are automatically converted to (aX).
+- Unmake ability (u) changed from 7 + 3/Lv % -> 8 + 2.9/Lv %.
+
+- Chill duration on-hit (I) reworked
+from: [2,2.4,2.8,3.2,3.6,4,4.4,4.8,5.2,5.6,6,6.4,6.8,7.2,7.6,8,8.4,8.8,9.2,9.6,10,10.4,10.8,11.2,11.6,12,12.4,12.8,13.2,13.6,14,14.4]
+to: [2,2.4,2.8,3.2,3.6,4,4.4,4.8,5.2,5.6,6,6.6,7.2,7.8,8.4,9,9.6,10.2,10.8,11.4,12,12.6,13.2,13.8,14.4,15,15.6,16.2,16.8,17.4,18,18.6]
+
+- Chill duration on-engage (i) reworked
+from: [7,7.8,8.6,9.4,10.2,11,11.8,12.6,13.4,14.2,15,15.8,16.6,17.4,18.2,19,19.8,20.6,21.4,22.2,23,23.8,24.6,25.4,26.2,27,27.8,28.6,29.4,30.2,31,31.8]
+to: [4,4.8,5.6,6.4,7.2,8,8.8,9.6,10.4,11.2,12,13.2,14.4,15.6,16.8,18,19.2,20.4,21.6,22.8,24,25.2,26.4,27.6,28.8,30,31.2,32.4,33.6,34.8,36,37.2]
+
+Bugs
+- Stonescript: Fixed a crash when reserved words were used as function names.
+- Custom UI elements no longer clear when entering a boss area (sub-location).
+- Fixed crash when activating the Cultist Mask.
+- Fixed an issue where "Repeat Craft" sometimes placed ingredients in the wrong slots, resulting in different abilities.
+- Fixed a memory leak when crafting (any operation) where the old items would stay in memory.
+- Fixed the display of event information in main menu for duplicate events.
+- Optimized crafting by removing deprecated abilities from the pool of possibilities.
+
+</answer><div id="separator"><!---------------------------></div>
+
 v3.14.2 - 2022/04/11
 <answer>
 - Loot event: Bolesh 2x treasure quality.
