@@ -50,7 +50,7 @@ For information about save file locations and about switching to the beta branch
 </f>
 <div id="separator"><!---------------------------></div>
 
-v3.17.3 - 2022/09/05
+v?.?.?
 <answer>
 Stonescript
 - Scripts can now be imported remotely from the web with both import/new commands.
@@ -59,6 +59,174 @@ Stonescript
 - All the game's built-in Stonescripts can now be found at https://StoneStoryRPG.com/stonescript
   E.g.: https://StoneStoryRPG.com/stonescript/Cosmetics/PetFrog.txt
 
+</answer><div id="separator"><!---------------------------></div>
+
+v3.32.3 - 2023/05/12
+<answer>
+- Stonescript: Added parameter "u" to disable Utility Belt UI
+  E.g.: "disable hud u"
+- Poena now has the 'humanoid' tag.
+- Fixed ambient sound of water during the "Cross Deadwood River" cinematic.
+- Polished treasure descriptions in Mushroom Shop when translated to other languages.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.32.2 - 2023/05/12
+<answer>
+New
+- Utility Belt UI (mobile only)
+
+Changes
+- Hamartia: UI changes, such as arrows in Locations screen, no longer appear before finding the Quest Stone.
+
+Bugs
+- Fixed crashes when unmaking or breaking apart items while the quest Bad Business was active.
+- Fixed bugs when switching between different saves.
+- Fixed bug where the navigation selector would often start in the wrong position.
+- Fixed importing of save data where extra space at the start or end would cause it to fail.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.31.1 - 2023/05/07
+<answer>
+- Changed Adaptive Defense to only stack one element at a time.
+- Decreased the damage reduction on Adaptive Defense from 50% to 40%.
+- Rebalanced Lifesteal on ranged weapons to 8 + 1.5/Lv, closer to how it used to be.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.31.0 - 2023/05/07
+<answer>
+New
+- Dysangelos Perfected has a new ability: Adaptive Defense.
+
+Balance
+- Rebalanced Lifesteal on ranged weapons, from 12 + 1.5/Lv -> 2 + 2.5/Lv
+
+Bugs
+- Fixed the advice given by Dysangelos after defeating Angry Shroom.
+- Fixed XP dialog at the end of locations that would sometimes show the wrong information and not play VFX.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.30.2 - 2023/05/06
+<answer>
+- Fixed Xyloalgia's tail animation.
+- Fixed crash during loading.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.29.2 - 2023/05/05
+<answer>
+- Fixed a bug where the Ki indicator could briefly disappear at the top of the screen while receiving items in Shop.
+- Fixed the splash screen that was configured incorrectly in the previous build.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.29.0 - 2023/05/03
+<answer>
+Improvements
+- Halved the costs to mutate basic items and runestones.
+- UI content that is smaller than its container can no longer be scrolled.
+- The Ki indicator at the top of the shop is now aligned to the center of the shop's content.
+- The [Export] button no longer appears if you have zero save files.
+- The [Codes] button is now disabled if you have zero save files.
+
+Bugs
+- Fixed a bug where the Bronze Key could fail to drop from Pallas.
+- Fixed a bug where daily quests could cause the game to continuously save progress, multiple times during a run.
+- Fixed a bug where rainbow and shiny sprites at the edges of a clipped view would bleed their effects outside of the clip.
+- Fixed a bug in the Saved Games screen where pressing too quickly on the Export/Import buttons would close the dialog.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.28.0 - 2023/04/24
+<answer>
+- The Hamartia event is back and is set to repeat yearly.
+- New [Skip] button added when opening all treasures.
+- Item selection container now scales for different screen resolutions.
+- Improved the UI layout of Hotspring Shop.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.27.2 - 2023/04/15
+<answer>
+- Ascension: Fixed bug where sometimes it would fail to spawn the delta treasure.
+- Fixed a crash when pressing at the very edges of the screen.
+- Fixed a bug where fast-clicking on buttons that are bleeding off their parent dialog windows would close the dialog instead of triggering the button.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.26.1 - 2023/04/09
+<answer>
+- The game's install is curiously smaller now (117MB on Windows).
+- Fixed issue where some texts would draw the '\n' instead of doing a line break.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.26.0 - 2023/04/08
+<answer>
+Fishing v0.7.0
+- Improved performance across the entire fishing mini-game.
+- Lowered the difficulty to catch speedyfins.
+- Reworked to use the new UI system instead of advanced draw.
+- Gameplay feel is different due to all the changes.
+
+Additions
+- Added "Triple-XP Weekend" event.
+- Added Import/Export buttons to the bottom of the Saved Games screen.
+- Added drop % numbers to treasures in the Mushroom Shop.
+- Added a Wand pickup to the start of Scary Chamber.
+- Added special dragon skin for Nagaraja, for use in Lunar New Year event.
+
+Quests
+- Optimized Croaked, Roof Overhead, Remnants of Five and Bad Business.
+- Lowered the requirement to play Roof Overhead and Remnants of Five.
+- Lowered the number of Snails required in Croaked (2nd Frog).
+- Lowered the difficulty in Roof Overhead.
+- Minor increase to the enemy requirements for the AEther daily quest.
+- Cauldron Collective: Fixed bug where some players were unable to complete the Vampiric Potion step.
+- The Initiate: Fixed cultists staying on screen in some resolutions.
+
+Improvements
+- Swapped the drop order of Ouroboros and Quest Stone.
+- Offline farming now gives guaranteed minimum loot if the selected difficulty is lower than the highest unlocked difficulty for the location.
+- Progress now saves after opening all treasures, exiting the Mushroom Shop, completing a Legend quest or crafting anything on the Anvil.
+- Polished the cinematic when approaching the Mushroom Shop for the first time.
+- Lowered the requirements to upgrade Star Stone for the first time.
+- Minor CPU optimizations to Stonescript.
+
+Balance
+- Increased the Ki Crystal rewards for completing R&D goals.
+- Increased Hatchet damage to Xyloalgia from +2 to +3.
+- Minor change to the enchantment drop rates for Omega treasures.
+- Minor change to loot drop tables, so total enchantment rates are the same.
+
+Misc
+- Engine upgraded to version 2021.3.18
+- Added a limit to the number of save files that can be created.
+- All locations now have specific sorted positions in the Locations screen, regardless of the order in which they were unlocked.
+- Reworked the loading architecture.
+- FTUE: Rocky Plateau is now disabled until workstation is completed.
+- Removed progress saving when the application becomes paused by the OS.
+- Added unique ID to save files.
+
+Bugs
+- Fixed critical issue where the game could get stuck with a blank Locations screen, in the very early game.
+- Fixed crashes that could happen when talking to the sweeper NPC in Temple.
+- Fixed a crash when playing for the first time.
+- Fixed a crash when pressing the side navigation buttons very quickly.
+- Fixed a bug where the Locations container would sometimes scroll to the top.
+- Fixed one of Dysangelo's help texts that was not localized correctly.
+- Fixed Stonescript errors when box drawing with custom user-defined styles.
+- Fixed Stonescript bug where some UI component properties were not resetting when recycled.
+- Eliminated a few rare cases of players being stuck with no input.
+- Fixed a rare crash in shops when there's pending treasures to open.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.17.3 - 2022/09/05
+<answer>
 Improvements
 - Greatly reduced the size of save files. The game will automatically rework your file upon next save.
 - The Mind Stone can now be powered on/off from the item details popup.
@@ -72,7 +240,7 @@ Bugs
 - Fixed bugs in draw.GetSymbol() and canvas.Get() where some glyphs would return incorrectly.
 - Fixed a legacy bug where it was possible to win a location star and not save progress properly.
 - Remnants of Five: Fixed case where you could complete the quest during a 2x Ki event and earn 40 crystals instead of 20.
-- Croaked: Fixed a UX issue after feeding Kevin. If the Ouroboros screen appeared and you pressed the pause button, it would would send you to Locations instead of Quests screen.
+- Croaked: Fixed a UX issue after feeding Kevin. If the Ouroboros screen appeared and you pressed the pause button, it would send you to Locations instead of Quests screen.
 - Fixed the encoding of FishingGame.txt to UTF-8.
 
 </answer><div id="separator"><!---------------------------></div>

@@ -84,3 +84,70 @@ td {
 	white-space: pre-wrap;
 	padding-bottom: 1em;
 }
+
+.yt {
+	position: relative;
+	padding-bottom: 53.25%;
+	padding-top: 30px;
+	height: 0;
+	overflow: hidden;
+}
+.yt,
+	.yt iframe {
+	max-width: 1633px;
+	max-height: 1080px;
+}
+.yt iframe {
+	position: absolute;
+	top: 0; left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#storebuttons {
+	width: 17.5em;
+    overflow: hidden;
+	margin: 0 auto;
+}
+#boxbutton {
+	height: 5em;
+	border-style: solid;
+	border-color: #bbbbbb;
+	border-width: thin;
+	border-radius: 7px;
+	float: left;
+	margin-left: 0.7em;
+	margin-right: 0.7em;
+	margin-bottom: 1.4em;
+}
+#googlebutton {
+	background-size: 14.5em;
+	background-image: url("google_button.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 100%;
+	height: 100%;
+}
+#applebutton {
+	background-size: 14.5em;
+	background-image: url("apple_button.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 100%;
+	height: 100%;
+}
+#steambutton {
+	background-size: 11.0em;
+	background-image: url("steam_button.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 100%;
+	height: 100%;
+}
+
+#storeimg {
+	width: 100%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}

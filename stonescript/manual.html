@@ -28,7 +28,7 @@
 
 <center>· ·:·: Stonescript :·:· ·</center>
 <div id="title-separator"><!---------------------------></div>
-<center><font color="#808080">v3.14.1 - 2022/04/04</font></center>
+<center><font color="#808080">v3.32.3 - 2023/05/12</font></center>
 <answer><center><a href="https://stonestoryrpg.com/stonescript">intro</a> | manual | <a href="https://stonestoryrpg.com/stonescript/beta.html">beta</a>  ·:·  <a href="https://stonestoryrpg.com/releasenotes">release notes</a> | <a href="https://stonestoryrpg.com/faq.html">faq</a></center></answer>
 <center><font color="#808080">
       _ ______________________ _            
@@ -49,9 +49,9 @@
 <font color="#bbbbbb">
 <f>Used in the Mind Stone to automate equipment choices. Stonescript is a minimalistic, yet powerful language inside of <a href="https://StoneStoryRPG.com" target="_blank">Stone Story RPG</a>.</f>
 
-<f>Need help? Want to collaborate on scripts? Visit <a href="https://discord.gg/StoneStoryRPG" target="_blank">our Discord</a>.<f>
-
 <f>New to Stonescript? Consider starting at the <a href="https://stonestoryrpg.com/stonescript">Introduction to the Mind Stone</a> tutorial.
+
+<f>Need help? Want to collaborate on scripts? Visit <a href="https://discord.gg/StoneStoryRPG" target="_blank">our Discord</a>.<f>
 
 <f>This manual is the comprehensive reference of all available Stonescript features. Most of the examples can be copy/pasted directly into the Mind Stone, which is a great way to learn how they work.</f>
 </font>
@@ -538,12 +538,12 @@ These tell the game to do something.
     <td>Restores rendering of the horizontal banner with location name.</td>
   </tr>
   <tr>
-    <td>disable hud</td>
-    <td>Hides and disables the user interface elements including: Resources, hitpoints and ability buttons.</td>
+    <td>disable hud (opts)</td>
+    <td>Hides and disables the gameplay user interface elements. Accepts optional parameters, specifying the set of elements to disable: p = player health and debuffs, f = foe health and debuffs, a = ability buttons, r = resources, b = banner, u = utility belt.<eg><br>E.g.<br>disable hud // Disables all hud elements<br>E.g.2<br>disable hud ru // Disables only resources (r) and utility belt (u)</td>
   </tr>
   <tr>
-    <td>enable hud</td>
-    <td>Brings back all the user interface elements hidden by a previous "disable hud" command.</td>
+    <td>enable hud (opts)</td>
+    <td>Brings back the user interface elements hidden by previous "disable hud" commands. Accepts the same optional parameters as the disable command.</td>
   </tr>
   <tr>
     <td>disable loadout input</td>
@@ -1187,6 +1187,19 @@ See the following table for all available ability strings. NOTE: Invalid ability
   <tr>
     <td>string.ToUpper(str)<br><eg>Returns string</td>
     <td>Changes all letters in a string to upper-case.<eg><br>E.g.<br>var a = "Foo"<br>a = string.ToUpper(a)<br>>@a@<br>// Prints "FOO" to the screen</td>
+  </tr>
+  <tr><td>sys<br>‾‾‾<td>(The sys namespace is not functioning as intended at the moment)</td></tr>
+  <tr>
+    <td>sys.cacheRemoteFiles<br><eg>boolean</td>
+    <td>Indicates if files imported remotely should be cached between runs. Default is <eg>true</eg>. If set to false, then remote scripts will re-download when you begin play from the Locations screen. It can be useful to change this during development and iteration of new scripts that are deployed remotely. This global property persists between runs.<eg><br>E.g.<br>// We use the "up" key as an input to toggle<br>// remote caching on/off during rapid iteration<br>?key = upBegin<br>  sys.cacheRemoteFiles = !sys.cacheRemoteFiles<br>  ?sys.cacheRemoteFiles<br>    >Remote caching ENABLED<br>  :<br>    >Remote caching DISABLED</td>
+  </tr>
+  <tr>
+    <td>sys.fileUrl<br><eg>string (get only)</td>
+    <td>Getter for the current file path to be used when importing scripts. The default value depends on your device. On PC the default value is <eg>local</eg>. On mobile the default is <eg>https://StonestoryRPG.com/stonescript/</eg><eg><br>E.g.<br>>`0,1,fileUrl = @sys.fileUrl@</td>
+  </tr>
+  <tr>
+    <td>sys.SetFileUrl(str)<br><eg>No return value</td>
+    <td>Changes the origin of imported scripts when using the commands <eg>import</eg> or <eg>new</eg>. Can only be called on the Mind Stone and will error if written on an imported script. Accepts any URL as a remote location, but also accepts the values <eg>"local"</eg> and <eg>"remote"</eg> as shortcuts to easily point at your local drive or to the official Stone Story RPG repository, respectively. If <eg>null</eg> is passed as parameter, then the file URL resets to the default value for your device. This global property persists between runs.<eg><br>E.g.<br>sys.SetFileUrl(<br>^"https://MyCoolDomain.com/scripts/")<br>import MyCombatScript</td>
   </tr>
   <tr><td>Text Localization<br>‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾</td><td>Stonescript supports 12 languages as of this writing. A few operations allow custom scripts to adapt to the player's chosen language.</td></tr>
   <tr>
@@ -1877,6 +1890,10 @@ root
   <tr>
     <td>anim.playOnStart<br><eg>bool</td>
     <td>If true, the animation will begin playing as soon as possible.</td>
+  </tr>
+  <tr>
+    <td>anim.AddLayer(string)<br><eg>Returns Anim</td>
+    <td>Adds a new ASCII sprite on top of this one. As the animation plays (or its frame is changed with <eg>anim.frame</eg>) all layers stay in sync. Each layer has their own set of properties for color, pivot, etc. Advantages of using animation layers for complex ASCII-art include improved performance and better code quality. If the animation is recycled all layers clean up simultaneously.<eg><br>E.g.<br>var a = ui.AddAnim(asciiArtA)<br>var layer2 = a.AddLayer(asciiArtB)<br>layer2.color = #bbbbbb</td>
   </tr>
   <tr>
     <td>anim.Load(string)<br><eg>No return value</td>
