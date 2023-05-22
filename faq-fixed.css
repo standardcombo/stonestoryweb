@@ -105,7 +105,7 @@ td {
 }
 
 #storebuttons {
-	width: 52em;
+	width: 55em;
     overflow: hidden;
 	margin: 0 auto;
 }
@@ -137,7 +137,7 @@ td {
 	height: 100%;
 }
 #steambutton {
-	background-size: 10.5em;
+	background-size: 14em;
 	background-image: url("steam_button.png");
 	background-repeat: no-repeat;
 	background-position: center;
