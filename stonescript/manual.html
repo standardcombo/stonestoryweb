@@ -28,7 +28,7 @@
 
 <center>· ·:·: Stonescript :·:· ·</center>
 <div id="title-separator"><!---------------------------></div>
-<center><font color="#808080">v3.32.3 - 2023/05/12</font></center>
+<center><font color="#808080">v3.39.0 - 2023/08/12</font></center>
 <answer><center><a href="https://stonestoryrpg.com/stonescript">intro</a> | manual | <a href="https://stonestoryrpg.com/stonescript/beta.html">beta</a>  ·:·  <a href="https://stonestoryrpg.com/releasenotes">release notes</a> | <a href="https://stonestoryrpg.com/faq.html">faq</a></center></answer>
 <center><font color="#808080">
       _ ______________________ _            
@@ -259,6 +259,22 @@
     <td>The level number of the target foe.<eg><br>E.g.<br>>`0,0,Foe = @foe.name@ is level @foe.level@</td>
   </tr>
   <tr>
+    <td>?harvest</td>
+    <td>The next harvestable object, such as a tree or boulder.<eg><br>E.g.<br>?harvest=Boulder<br>  equip shovel</td>
+  </tr>
+  <tr>
+    <td>?harvest.distance</td>
+    <td>The distance between the player and the nearest harvestable object.<eg><br>E.g.<br>?loc=Rocky & harvest.distance < 7<br>  equip shovel</td>
+  </tr>
+  <tr>
+    <td>?input.x</td>
+    <td>The X position, on the ASCII grid, of the input device (mouse/touch).</td>
+  </tr>
+  <tr>
+    <td>?input.y</td>
+    <td>The Y position, on the ASCII grid, of the input device (mouse/touch).<eg><br>E.g.<br>> (@input.x@, @input.y@)</td>
+  </tr>
+  <tr>
     <td>?item.left</td>
     <td>The item equipped to the left hand.<eg><br>E.g.<br>>`0,1,Left:@item.left@<br>>`0,2,Right:@item.right@</td>
   </tr>
@@ -275,28 +291,12 @@
     <td>The potion currently brewed. Includes "auto" if auto-refill is enabled on the Cauldron.<eg><br>E.g.<br>?item.potion ! empty & item.potion = auto<br>  activate potion</td>
   </tr>
   <tr>
-    <td>?harvest</td>
-    <td>The next harvestable object, such as a tree or boulder.<eg><br>E.g.<br>?harvest=Boulder<br>  equip shovel</td>
-  </tr>
-  <tr>
-    <td>?harvest.distance</td>
-    <td>The distance between the player and the nearest harvestable object.<eg><br>E.g.<br>?loc=Rocky & harvest.distance < 7<br>  equip shovel</td>
-  </tr>
-  <tr>
     <td>?pickup</td>
     <td>The current pickup being targeted by the player.<eg><br>E.g.<br>?pickup<br>  equip star stone<br>:<br>  loadout 1</td>
   </tr>
   <tr>
     <td>?pickup.distance</td>
-    <td>The distance between the player and the pickup being targeted.</td>
-  </tr>
-  <tr>
-    <td>?time</td>
-    <td>The current frame number of the location.<eg><br>E.g.<br>?time % 300 = 0<br>  >Every 10 seconds you'll see this message</td>
-  </tr>
-  <tr>
-    <td>?totaltime</td>
-    <td>The current frame number of the location, accumulated in case of boss sub-location.<eg><br>E.g.<br>>`0,0,Current time = @totaltime@ frames</td>
+    <td>The distance between the player and the pickup being targeted.<eg><br>E.g.<br>?pickup.distance < 5<br>  equipL star stone</td>
   </tr>
   <tr>
     <td>?armor</td>
@@ -383,24 +383,12 @@
     <td>The name chosen by the player.<eg><br>This example prints the player's name above their head:<br>var name<br>var x<br>name = player.name<br>x = string.Size(name) / -2<br>>o@x@,-2,@name@</td>
   </tr>
   <tr>
-    <td>?totalgp</td>
-    <td>The total "Gear Points" of your inventory, calculated from item star levels and enchantment bonuses.<eg><br>E.g.<br>&gt;My gear points = @totalgp@</td>
-  </tr>
-  <tr>
     <td>?rng</td>
     <td>Returns a random integer between 0 and 9999.<eg><br>E.g.<br>?rng < 5000<br>  &gt;Heads!<br>:<br>  &gt;Tails!<br><br>E.g.2: Generates a random integer between 5 and 24:<br>var min = 5<br>var max = 24<br>var n = min + rng % (max - min + 1)</td>
   </tr>
   <tr>
     <td>?rngf</td>
     <td>Returns a random floating-point number between 0 and 1.<eg><br>E.g.<br>>random float = @rngf@<br><br>E.g.2: Generates a random float between 5.0 and 24.0:<br>var min = 5.0<br>var max = 24.0<br>var n = min + (max - min) * rngf</td>
-  </tr>
-  <tr>
-    <td>?input.x</td>
-    <td>The X position, on the ASCII grid, of the input device (mouse/touch).</td>
-  </tr>
-  <tr>
-    <td>?input.y</td>
-    <td>The Y position, on the ASCII grid, of the input device (mouse/touch).<eg><br>E.g.<br>> (@input.x@, @input.y@)</td>
   </tr>
   <tr>
     <td>?screen.i</td>
@@ -417,6 +405,42 @@
   <tr>
     <td>?screen.h</td>
     <td>The height of the screen's ASCII grid.<eg><br>E.g.<br>var sh = screen.h<br>&gt;Screen height = @sh@</td>
+  </tr>
+  <tr>
+    <td>?summon.count</td>
+    <td>The number of summoned allies currently in game.<eg><br>E.g.<br>?summon.count = 0<br>  equipL talisman<br>  activate E</td>
+  </tr>
+  <tr>
+    <td>summon.GetId(index = 0)</td>
+    <td>Returns the ID of the summon at a given index. The index parameter is optional and defaults to zero (first summon). Returns null if no summons are at that index.<eg><br>E.g.<br>?summon.GetId() ! "cinderwisp"<br>  equipR fire talisman<br>  activate R</td>
+  </tr>
+  <tr>
+    <td>summon.GetName(index = 0)</td>
+    <td>Returns the localized name of the summon at a given index. The index parameter is optional and defaults to zero (first summon). Returns null if no summons are at that index.<eg><br>E.g.<br>>`0,1,Summon:@summon.GetName()@</td>
+  </tr>
+  <tr>
+    <td>summon.GetVar(varName,<br>index = 0)</td>
+    <td>Returns the value for a custom variable on a summon. Different types of summons expose different variables, based on their unique abilities. The index parameter is optional and defaults to zero (first summon). Returns null if no summons are at that index. Shows an error if <f>varName</f> does not correspond to a valid variable.<eg><br>E.g.<br>?summon.GetId() = "cinderwisp" &<br>^summon.GetVar("ignition") > 2<br>  activate W</td>
+  </tr>
+  <tr>
+    <td>summon.GetState(index = 0)</td>
+    <td>Returns a number representing the current state of a summon. The index parameter is optional and defaults to zero (first summon). Returns -1 if no summons are at that index.<eg><br>E.g.<br>>`0,1,Summon state:@summon.GetState()@</td>
+  </tr>
+  <tr>
+    <td>summon.GetTime(index = 0)</td>
+    <td>Returns the elapsed number of frames in the current state of a summon. The index parameter is optional and defaults to zero (first summon). Returns -1 if no summons are at that index.<eg><br>E.g.<br>>`0,1,Summon time:@summon.GetTime()@</td>
+  </tr>
+  <tr>
+    <td>?totalgp</td>
+    <td>The total "Gear Points" of your inventory, calculated from item star levels and enchantment bonuses.<eg><br>E.g.<br>&gt;My gear points = @totalgp@</td>
+  </tr>
+  <tr>
+    <td>?time</td>
+    <td>The current frame number of the location.<eg><br>E.g.<br>?time % 300 = 0<br>  >Every 10 seconds you'll see this message</td>
+  </tr>
+  <tr>
+    <td>?totaltime</td>
+    <td>The current frame number of the location, accumulated in case of boss sub-location.<eg><br>E.g.<br>>`0,0,Current time = @totaltime@ frames</td>
   </tr>
   <tr>
     <td>time.ms</td>
@@ -927,6 +951,10 @@ See the following table for all available ability strings. NOTE: Invalid ability
   <tr>
     <td>Hatchet</td>
     <td>"hatchet"</td>
+  </tr>
+  <tr>
+    <td>Heavy Hammer</td>
+    <td>"hammer"</td>
   </tr>
   <tr>
     <td>Mind Stone</td>
