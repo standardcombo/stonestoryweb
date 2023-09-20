@@ -44,6 +44,112 @@
 </f>
 <div id="separator"><!---------------------------></div>
 
+v3.43.0 - 2023/09/02
+<answer>
+Improvements
+- Improved the Moonbloom Bud's icon and sorting order in inventory.
+- Cases of double Ouroboros should now auto-fix.
+- Failed initialization of IAPs now shows a warning message on screen.
+
+Bugs
+- Fixed rewards for players who completed the Blowing Steam event, but never received the golden Talisman or "BlowItUp" signature.
+- Fixed the 'À' glyph which was bleeding into the top glyph in the 20x36 font.
+- The main menu event information is now more in sync with the actual event progress.
+- Fixed the bug where multiple Cinderwisp ability buttons appeared.
+- Fixed crash when dynamic ability buttons didn't cleanup correctly between runs.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.42.3 - 2023/08/24
+<answer>
+- Fixed icon and name of Fire Talisman in Hotspring Shop.
+- Fixed crash when completing the golden Fire Talisman set, but the cosmetic is already owned.
+- Fixed bug where some R&D goals could get their progress counter out of sync.
+- iOS: Fixed repeated popup message "Stone Story Pasted from..." in Mind Stone.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.42.2 - 2023/08/23
+<answer>
+- Fixed summon.GetVar() so it works in the form with single parameter.
+- Fixed crash when a Cindierwisp was unsummoned and sometimes did not cleanup correctly.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.42.1 - 2023/08/23
+<answer>
+- Fixed the Cinderwisp ability activation with Stonescript, so it respects cooldown.
+- Added ヴ to Japanese font.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.42.0 - 2023/08/23
+<answer>
+New
+- (PC only) Added music to the Poena boss fight.
+- Stonescript: Added buffs.oldest and debuffs.oldest
+
+Balance
+- The Cultist Mask's Extend ability now only affects one buff (the oldest).
+
+Bugs
+- Fixed bug with multiple copies of the Cinderwisp's Devour ability.
+- Fixed exploit where players could fully heal and brew an extra potion in the middle of a run.
+- Fixed the color mask in difficulty selection UI's time label.
+- Fixed an inventory memory leak when switching between different saves.
+- Bearer & Elementalist are now treated as "dead" during transition to next forms.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.41.2 - 2023/08/20
+<answer>
+New
+- Event: Blowing Steam
+- Lost item: Fire Talisman
+
+Balance
+- Changed the weighted average of training offline time from 15% to 21% (loops).
+
+Improvements
+- The Referral Quest now reappears if there is a treasure to collect.
+- Stonescript: Abilities can now be activated by their id. E.g.: "activate cinderwisp"
+- Remnants of Five: Reworked some details to improve completion rate.
+- Scotty has a new explanation dialog when you can't add a referral code.
+- Improved the white flash effect on ability buttons when they come off cooldown.
+
+Bugs
+- Fixed crash in the pooling of ability HUD buttons.
+- Fixed R&D book layout in some languages.
+- Buffs/Debuffs can no longer be added to dead characters.
+- Fixed Dysangelos (phase 1) that could get stuck with his evolving animation on loop.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.40.1 - 2023/08/14
+<answer>
+Improvements
+- Added blowing steam event countdown.
+- Stonescript: Added new `key` namespace. This allows rebinding of keyboard shortcuts.
+- Added 'À' to the font.
+- Added "Dig" indicator to Rocky 0-stars.
+- Added a shop sign and outro text at the end of Mushroom Forest 0-star.
+
+Quests
+- Croaked: Fixed the enchantment reward in case you use Hatchet.
+- Croaked: Reworked section with Sight Stone to improve completion.
+
+Bugs
+- Fixed achievement "One For the Books".
+- Enchanted treasures can no longer be selected at the Triskelion and Moondial stations.
+- The Re-roll button no longer appears on Moondial if an Enchantment is selected.
+- Fixed crash if you bought a treasure in Mushroom Shop then quickly went over to Hotspring Shop.
+- Fixed rare crash if opening a treasure with Ki Crystals inside while having zero crystals in inventory.
+- Fixed rare crash when exiting the shop if you've never received the Crafting Booklet.
+- Fixed serialization of decimal numbers in some locales that lead to bugs.
+- Fixed the pivot calculation for flipped multi-layer sprites.
+
+</answer><div id="separator"><!---------------------------></div>
+
 v3.38.7 - 2023/08/02
 v3.38.6
 <answer>

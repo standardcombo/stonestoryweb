@@ -28,7 +28,7 @@
 
 <center>· ·:·: Stonescript :·:· ·</center>
 <div id="title-separator"><!---------------------------></div>
-<center><font color="#808080">v3.39.0 - 2023/08/12</font></center>
+<center><font color="#808080">v3.44.1 - 2023/09/20</font></center>
 <answer><center><a href="https://stonestoryrpg.com/stonescript">intro</a> | manual | <a href="https://stonestoryrpg.com/stonescript/beta.html">beta</a>  ·:·  <a href="https://stonestoryrpg.com/releasenotes">release notes</a> | <a href="https://stonestoryrpg.com/faq.html">faq</a></center></answer>
 <center><font color="#808080">
       _ ______________________ _            
@@ -125,7 +125,7 @@
 <table>
   <tr>
     <td style="min-width: 3em"> ?  </td>
-    <td>Evaluates a logical condition. If true, executes idented lines (if).<eg><br>E.g.<br>?loc = caves<br>  loadout 1</td>
+    <td>Evaluates a logical condition. If true, executes indented lines (if).<eg><br>E.g.<br>?loc = caves<br>  loadout 1</td>
   </tr>
   <tr>
     <td style="min-width: 3em"> :  </td>
@@ -197,6 +197,10 @@
   <tr>
     <td>?foe</td>
     <td>The current foe being targeted by the player.<eg><br>E.g.<br>?foe = boo<br>  equip vigor staff</td>
+  </tr>
+  <tr>
+    <td>?foe.id</td>
+    <td>The unique ID (or type) of the foe being targeted by the player.</td>
   </tr>
   <tr>
     <td>?foe.name</td>
@@ -287,6 +291,10 @@
     <td>The ID of the item equipped to the left or right hand.<eg><br>E.g.<br>>`0,1,Left ID:@item.left.id@<br>>`0,2,Right ID:@item.right.id@</td>
   </tr>
   <tr>
+    <td>?item.left.state<br>?item.left.time<br>?item.right.state<br>?item.right.time</td>
+    <td>The numeric representation for an equipped weapon's current state and elapsed frames within that state.<eg><br>E.g.<br>>`0,1,@item.left.state@:@item.left.time@<br>>`0,2,@item.right.state@:@item.right.time@</td>
+  </tr>
+  <tr>
     <td>?item.potion</td>
     <td>The potion currently brewed. Includes "auto" if auto-refill is enabled on the Cauldron.<eg><br>E.g.<br>?item.potion ! empty & item.potion = auto<br>  activate potion</td>
   </tr>
@@ -315,12 +323,20 @@
     <td>A composite of information about all buffs on the player.<eg><br>E.g.<br>?buffs.count > 0<br>  >`0,1,Player buffs = @buffs.string@</td>
   </tr>
   <tr>
+    <td>?buffs.oldest</td>
+    <td>The ID of the oldest buff on the player<eg><br>E.g.<br>>`0,1,Oldest buff: @buffs.oldest@</td>
+  </tr>
+  <tr>
     <td>?debuffs.count</td>
     <td>The number of debuffs (negative effects) on the player.</td>
   </tr>
   <tr>
     <td>?debuffs.string</td>
     <td>A composite of information about all debuffs on the player.<eg><br>E.g.<br>?debuffs.count > 0<br>  >`0,2,Player debuffs = @debuffs.string@</td>
+  </tr>
+  <tr>
+    <td>?debuffs.oldest</td>
+    <td>The ID of the oldest debuff on the player<eg><br>E.g.<br>>`0,1,Oldest debuff: @debuffs.oldest@</td>
   </tr>
   <tr>
     <td>?hp</td>
@@ -408,7 +424,7 @@
   </tr>
   <tr>
     <td>?summon.count</td>
-    <td>The number of summoned allies currently in game.<eg><br>E.g.<br>?summon.count = 0<br>  equipL talisman<br>  activate E</td>
+    <td>The number of summoned allies currently in game.<eg><br>E.g.<br>?summon.count = 0<br>  equipL talisman<br>  activate L</td>
   </tr>
   <tr>
     <td>summon.GetId(index = 0)</td>
@@ -420,7 +436,7 @@
   </tr>
   <tr>
     <td>summon.GetVar(varName,<br>index = 0)</td>
-    <td>Returns the value for a custom variable on a summon. Different types of summons expose different variables, based on their unique abilities. The index parameter is optional and defaults to zero (first summon). Returns null if no summons are at that index. Shows an error if <f>varName</f> does not correspond to a valid variable.<eg><br>E.g.<br>?summon.GetId() = "cinderwisp" &<br>^summon.GetVar("ignition") > 2<br>  activate W</td>
+    <td>Returns the value for a custom variable on a summon. Different types of summons expose different variables, based on their unique abilities. The index parameter is optional and defaults to zero (first summon). Returns null if no summons are at that index. Shows an error if <f>varName</f> does not correspond to a valid variable.<eg><br>E.g.<br>?summon.GetId() = cinderwisp &<br>^summon.GetVar("ignition") > 2<br>  activate cinderwisp</td>
   </tr>
   <tr>
     <td>summon.GetState(index = 0)</td>
@@ -929,6 +945,10 @@ See the following table for all available ability strings. NOTE: Invalid ability
     <td><br></td>
   </tr>
   <tr>
+    <td>Æther Talisman</td>
+    <td>"aether_talisman"</td>
+  </tr>
+  <tr>
     <td>Bardiche</td>
     <td>"bardiche"</td>
   </tr>
@@ -941,12 +961,20 @@ See the following table for all available ability strings. NOTE: Invalid ability
     <td>"blade"</td>
   </tr>
   <tr>
+    <td>Cinderwisp Devour</td>
+    <td>"cinderwisp"</td>
+  </tr>
+  <tr>
     <td>Cultist Mask</td>
     <td>"mask"</td>
   </tr>
   <tr>
     <td>Dashing Shield</td>
     <td>"dash"</td>
+  </tr>
+  <tr>
+    <td>Fire Talisman</td>
+    <td>"fire_talisman"</td>
   </tr>
   <tr>
     <td>Hatchet</td>
@@ -968,13 +996,150 @@ See the following table for all available ability strings. NOTE: Invalid ability
     <td>Skeleton Arm</td>
     <td>"skeleton_arm"</td>
   </tr>
+  <tr>
+    <td>Voidweaver Devour</td>
+    <td>"voidweaver"</td>
+  </tr>
 </table></td>
   </tr>
   <tr>
     <td>item.GetCount(str)<br><eg>Returns integer</td>
     <td>Returns the number of copies of an item in the inventory. Returns 0 if no item is found.<br><eg>E.g.<br>var searchCriteria = "sword *0 -big -socket"<br>var swordCount = item.GetCount(searchCriteria)<br>>I have @swordCount@ basic swords
   </tr>
-  <tr><td>loc<br>‾‾‾</td></tr>
+  <tr><td>key<br>‾‾‾</td><td><br>The key namespace allows for the customization of standard game inputs and shortcuts. This system is based on <eg>actions (abbreviated "act")</eg> and <eg>keys</eg>, where each action corresponds to a type of input/shortcut and each key corresponds to a physical key press. The list of all possible keys that can be assigned to actions can be found <a href="https://docs.unity3d.com/ScriptReference/KeyCode.html" target="_Blank">here</a>. Changes to action bindings persist between runs (they currently do not save to storage). For optimization purposes, it is recommended to not change bindings every frame.<br>
+<table>
+  <tr>
+    <td>Action<br>------</td>
+    <td>Default Key<br>-----------</td>
+    <td>Default Key 2<br>-------------</td>
+    <td><br></td>
+  </tr>
+  <tr>
+    <td>Pause</td>
+    <td>P</td>
+    <td>Space</td>
+  </tr>
+  <tr>
+    <td>Leave</td>
+    <td>L</td>
+  </tr>
+  <tr>
+    <td>Inventory</td>
+    <td>I</td>
+  </tr>
+  <tr>
+    <td>Mindstone</td>
+    <td>M</td>
+  </tr>
+  <tr><td></td></tr>
+  <tr>
+    <td>Potion</td>
+    <td>Q</td>
+  </tr>
+  <tr>
+    <td>ItemLeft</td>
+    <td>E</td>
+  </tr>
+  <tr>
+    <td>ItemRight</td>
+    <td>R</td>
+  </tr>
+  <tr><td></td></tr>
+  <tr>
+    <td>Up</td>
+    <td>W</td>
+    <td>UpArrow</td>
+  </tr>
+  <tr>
+    <td>Down</td>
+    <td>S</td>
+    <td>DownArrow</td>
+  </tr>
+  <tr>
+    <td>Left</td>
+    <td>A</td>
+    <td>LeftArrow</td>
+  </tr>
+  <tr>
+    <td>Right</td>
+    <td>D</td>
+    <td>RightArrow</td>
+  </tr>
+  <tr><td></td></tr>
+  <tr>
+    <td>Primary</td>
+    <td>Return</td>
+    <td>KeypadEnter</td>
+  </tr>
+  <tr>
+    <td>Back</td>
+    <td>X</td>
+  </tr>
+  <tr>
+    <td>Ability1</td>
+    <td>LeftShift</td>
+    <td>RightShift</td>
+  </tr>
+  <tr>
+    <td>Ability2</td>
+    <td>LeftControl</td>
+    <td>RightControl</td>
+  </tr>
+  <tr>
+    <td>BumpL</td>
+    <td>Z</td>
+  </tr>
+  <tr>
+    <td>BumpR</td>
+    <td>C</td>
+  </tr>
+  <tr><td></td></tr>
+  <tr>
+    <td>Dynamic1</td>
+    <td>F</td>
+  </tr>
+  <tr>
+    <td>Dynamic2</td>
+    <td>T</td>
+  </tr>
+  <tr>
+    <td>Dynamic3</td>
+    <td>G</td>
+  </tr>
+  <tr>
+    <td>Dynamic4</td>
+    <td>V</td>
+  </tr>
+  <tr>
+    <td>Dynamic5</td>
+    <td>B</td>
+  </tr>
+</table></td>
+  <tr>
+    <td>key.Bind(act, key1)<br>key.Bind(act, key1, key2)<br><eg>No return value</td>
+    <td>Assigns a new set of keys to a specific action. If another action already has one of those keys, then the key already in use is abandoned for the original action. Up to two keys may be assigned to an action.<br><eg>E.g.<br>?loc.begin<br>  key.Bind("Potion", "P")<br>  // In this example, the "P" key that originally is assigned to Pause, no longer pauses the game and activates the potion instead. Also, the Potion's original "Q" key no longer works. "Q" is bound to no action.</td>
+  </tr>
+  <tr>
+    <td>key.GetKeyAct(key)<br><eg>Returns string</td>
+    <td>Returns the action bound to a given key. Returns "None" if the given key is not bound to any actions.</td>
+  </tr>
+  <tr>
+    <td>key.GetActKey(act)<br><eg>Returns string</td>
+    <td>Returns the first key bound to a given action. Returns "None" if the given action has no keys bound to it.</td>
+  </tr>
+  <tr>
+    <td>key.GetActKey2(act)<br><eg>Returns string</td>
+    <td>Returns the second key bound to a given action. Returns "None" if the given action does not have a secondary key bound to it.</td>
+  </tr>
+  <tr>
+    <td>key.GetActLabel(act)<br><eg>Returns string</td>
+    <td>Returns a user-facing label that represents the first key bound to a given action. The current implementation returns the first letter of the bound key, which can be confusing in cases such as "LeftShift".</td>
+  </tr>
+  <tr>
+    <td>key.ResetBinds()<br><eg>no return value</td>
+    <td>Resets all actions to their default key bindings.</td>
+  </tr>
+  <tr><td><br>loc<br>‾‾‾</td></tr>
   <tr>
     <td>loc.Leave()<br><eg>No return value</td>
     <td>Causes the run to be abandoned as if the player had pressed to leave manually.</td>
@@ -1437,6 +1602,22 @@ n = ""
 for i = 1..5
   ?i = 3
     i = -1
+  n = n + i
+>n = @n@
+</eg>
+Similarly, break out of the loop with the <eg>break</eg> command:
+<eg>
+for i = 1..5
+  ?i = 3
+    break
+</eg>
+Loops also support the <eg>continue</eg> command. When called, instructions below the <eg>continue</eg> are skipped and the loop continues looping:
+<eg>
+var n
+n = ""
+for i = 1..5
+  ?i = 3
+    continue
   n = n + i
 >n = @n@
 </eg>
@@ -2507,7 +2688,7 @@ mask_summon_2
 
 ·:·:· Appendix - Music ·:·:·
 <font color="#bbbbbb">
-Stonescript can play music tracks from the game, based on custom logic.
+Stonescript can play music tracks from the game, based on custom logic. Available tracks depend on the platform.
 <eg><f>
 ?loc.begin | loc.loop
   music.Play(temple_0)</f></eg>
@@ -2545,6 +2726,7 @@ deadwood_5
 deadwood_cyan
 tree_boss
 waterfall_descent
+poena
 
 <eg>Haunted Halls</eg>
 skeleton_boss
