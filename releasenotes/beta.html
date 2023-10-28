@@ -23,7 +23,7 @@
 <div id="title-separator"><!---------------------------></div>
 
 <answer><center><a href="https://stonestoryrpg.com/releasenotes">main notes</a> | beta notes  ·:·  <a href="https://stonestoryrpg.com/stonescript/beta.html">stonescript</a> | <a href="https://stonestoryrpg.com/faq.html">faq</a></center></answer>
-<answer>The release process for Stone Story is such that new versions are first pushed onto the Beta branch. This branch continuously advances with new features until all planned changes for that version are complete and all known bugs are fixed. Then that version is pushed onto the main branch. At that point both branches will be the same, until new features begin development and the process repeats.
+<answer>The release process for Stone Story is such that new versions are first pushed onto the Beta branch (Steam only). This branch continuously advances with new features until all planned changes for that version are complete and all known bugs are fixed. Then that version is pushed onto the main branch. At that point both branches will be the same, until new features begin development and the process repeats.
 
 Changing your game to the Beta branch is a way to help make the game better and experience the new features before everyone else. This comes at the cost of stability, and risks such as losing progress if a critical bug is introduced into the Beta and messes things up. When playing on the Beta you should safeguard your progress by making backups of your save files or at least understand where the game automatically creates backups.
 
@@ -49,6 +49,140 @@ For information about save file locations and about switching to the beta branch
 </center>
 </f>
 <div id="separator"><!---------------------------></div>
+
+v3.49.5 - 2023/10/28
+<answer>
+- (mobile) Offers to upgrade treasure now go on cooldown if you press [x].
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.49.4 - 2023/10/27
+v3.49.3
+<answer>
+Stonescript
+- Calling Recycle() on a UI component that's already been recycled no longer shows errors.
+- Fixed error in UIComponent.parent
+- Fixed BigNumber.ToUI()
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.49.2 - 2023/10/24
+<answer>
+Stonescript
+- New namespace: BigNumber, with 11 functions. 
+- Added math.BigNumber() and time.msbn
+- time.ms has been deprecated.
+
+Misc
+- Reworked item loading to fix the bug of disappearing inventory.
+- Added lock glyph to the font.
+- Updated the IAP component to v4.10
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.49.1 - 2023/10/24
+<answer>
+New
+- Stonescript: Added math.e, math.Exp() and math.Atan().
+
+Balance
+- Heavy Hammer: Attack speed increased by 1.
+
+Bugs
+- Croaked: Fixed being able to kill Gilbert with the Hatchet ability.
+- BetterInfo2: Fixed time bug and updated header with correct version and release notes.
+- Fixed bug where upgrade was offered for Golden treasures.
+- Fixed Skull Piñatas which sometimes behaved like Golden treasures.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.48.1 - 2023/10/19
+<answer>
+- Bug fixes for mobile, related to treasure upgrades.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.48.0 - 2023/10/19
+<answer>
+- Added Skull Piñata.
+- Added Crystal Powder.
+- PetBoo has been updated to v2.0
+- BetterInfo2 has been updated to v2.0
+- PetBoo and BetterInfo2 have been optimized.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.47.3 - 2023/10/08
+<answer>
+- Fixed translations of "import Fishing" which is case sensitive.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.47.2 - 2023/10/08
+<answer>
+- Stonescript: Added sys.os, sys.isMobile, sys.isPC and sys.isConsole
+- Fixed crash when being killed by the Elementalist's AEther attack.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.47.1 - 2023/10/06
+<answer>
+- Fixed loading crash related to craft of Fishing Rod.
+- Fixed the number of pages in R&D book.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.47.0 - 2023/10/06
+<answer>
+- Stonescript: Added item.GetLoadoutL() and item.GetLoadoutR()
+- Stonescript: Added foe.GetCount()
+- Double quotes are now replaced by single quotes in item name tags.
+- Fixed a crash during loading.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.46.1 - 2023/09/29
+<answer>
+- Content events can now be adjusted remotely.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.46.0 - 2023/09/29
+<answer>
+New
+- (PC) Anti-aliasing video setting scales the rendering to fill screen.
+- Added automated crash reporting.
+- Added main menu info if your version is out of date.
+
+Bugs
+- (mobile) Fixed the clock on beginner bundles that would always reset on load.
+- Stonescript: Fixed the storage of floating point numbers.
+- Stonescript: Fixed the UI style and highlight color on recycled buttons.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.45.2 - 2023/09/22
+<answer>
+- Fixed crash when loading progress.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.45.1 - 2023/09/21
+<answer>
+- Fixed crash in shops.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v3.45.0 - 2023/09/20
+<answer>
+- Mobile: Added four beginner bundles.
+- Fixed "open all" treasures, which could get stuck on Lost items.
+- Fixed the position of "Ki Crystal" names in Hotspring Shop.
+- Fixed the importing of save data that's been reformatted by intermediary apps.
+- Fixed bug where Stone Runes would drop from some treasures.
+- Any "Stone Runes" are now converted to Vigor.
+
+</answer><div id="separator"><!---------------------------></div>
 
 v3.44.0 - 2023/09/09
 <answer>

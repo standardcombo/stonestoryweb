@@ -28,7 +28,7 @@
 
 <center>· ·:·: Stonescript :·:· ·</center>
 <div id="title-separator"><!---------------------------></div>
-<center><font color="#808080">v3.44.1 - 2023/09/20</font></center>
+<center><font color="#808080">v3.49.5 - 2023/10/28</font></center>
 <answer><center><a href="https://stonestoryrpg.com/stonescript">intro</a> | manual | <a href="https://stonestoryrpg.com/stonescript/beta.html">beta</a>  ·:·  <a href="https://stonestoryrpg.com/releasenotes">release notes</a> | <a href="https://stonestoryrpg.com/faq.html">faq</a></center></answer>
 <center><font color="#808080">
       _ ______________________ _            
@@ -216,7 +216,11 @@
   </tr>
   <tr>
     <td>?foe.count</td>
-    <td>The number of foes within 46 units.</td>
+    <td>The number of foes within 46 units of the player.</td>
+  </tr>
+  <tr>
+    <td>?foe.GetCount(int)</td>
+    <td>The number of foes within a specific number of units.</td>
   </tr>
   <tr>
     <td>?foe.hp</td>
@@ -243,12 +247,20 @@
     <td>A composite of information about all the buffs on the target foe.<eg><br>E.g.<br>?foe.buffs.count > 0<br>  >`0,3,Foe buffs = @foe.buffs.string@</td>
   </tr>
   <tr>
+    <td>?buffs.oldest</td>
+    <td>The ID of the oldest buff on the player<eg><br>E.g.<br>>`0,1,Oldest buff: @buffs.oldest@</td>
+  </tr>
+  <tr>
     <td>?foe.debuffs.count</td>
     <td>The number of debuffs (negative effects) on the foe being targeted.</td>
   </tr>
   <tr>
     <td>?foe.debuffs.string</td>
     <td>A composite of information about all the debuffs on the target foe.<eg><br>E.g.<br>?foe.debuffs.count > 0<br>  >`0,4,Foe debuffs = @foe.debuffs.string@</td>
+  </tr>
+  <tr>
+    <td>?debuffs.oldest</td>
+    <td>The ID of the oldest debuff on the player<eg><br>E.g.<br>>`0,1,Oldest debuff: @debuffs.oldest@</td>
   </tr>
   <tr>
     <td>?foe.state</td>
@@ -323,20 +335,12 @@
     <td>A composite of information about all buffs on the player.<eg><br>E.g.<br>?buffs.count > 0<br>  >`0,1,Player buffs = @buffs.string@</td>
   </tr>
   <tr>
-    <td>?buffs.oldest</td>
-    <td>The ID of the oldest buff on the player<eg><br>E.g.<br>>`0,1,Oldest buff: @buffs.oldest@</td>
-  </tr>
-  <tr>
     <td>?debuffs.count</td>
     <td>The number of debuffs (negative effects) on the player.</td>
   </tr>
   <tr>
     <td>?debuffs.string</td>
     <td>A composite of information about all debuffs on the player.<eg><br>E.g.<br>?debuffs.count > 0<br>  >`0,2,Player debuffs = @debuffs.string@</td>
-  </tr>
-  <tr>
-    <td>?debuffs.oldest</td>
-    <td>The ID of the oldest debuff on the player<eg><br>E.g.<br>>`0,1,Oldest debuff: @debuffs.oldest@</td>
   </tr>
   <tr>
     <td>?hp</td>
@@ -377,6 +381,10 @@
   <tr>
     <td>?ai.walking</td>
     <td>True if the player is moving.</td>
+  </tr>
+  <tr>
+    <td>?bighead</td>
+    <td>True if the player has Big Head enabled (Moondial).</td>
   </tr>
   <tr>
     <td>?face</td>
@@ -459,8 +467,8 @@
     <td>The current frame number of the location, accumulated in case of boss sub-location.<eg><br>E.g.<br>>`0,0,Current time = @totaltime@ frames</td>
   </tr>
   <tr>
-    <td>time.ms</td>
-    <td>Unix time represents the number of milliseconds that have elapsed since<br>1970-01-01T00:00:00Z (January 1, 1970, at 12:00 AM UTC). It does not take leap seconds into account.<eg><br>E.g.<br>>@time.ms@</td>
+    <td>time.msbn</td>
+    <td>Unix time represents the number of milliseconds that have elapsed since<br>1970-01-01T00:00:00Z (January 1, 1970, at 12:00 AM UTC). It does not take leap seconds into account. Returns a BigNumber<eg><br>E.g.<br>>@time.msbn@</td>
   </tr>
   <tr>
     <td>time.year, time.month, time.day, time.hour, time.minute, time.second</td>
@@ -876,6 +884,51 @@ While scripts can define their own functions, Stonescript comes with a set of pr
     <td>ambient.Stop()<br><eg>No return value</td>
     <td>Clears all ambient layers.<br><eg>E.g.<br>?time = 3<br>  ambient.Stop()<br>  ambient.Add(ambient_mines)</td>
   </tr>
+  <tr><td><br>BigNumber<br>‾‾‾‾‾‾‾‾‾</td><td><br>BigNumbers are a special type of object that provide a way to work with large integers that exceed 32 bits. While they can only hold positive and negative whole number values, their arithmetic and comparison operations work with floats as well as integers and other BigNumbers.</td></tr>
+  <tr>
+    <td>b.Add(num)<br>b.Add(BigNumber)<br><eg>Returns itself</td>
+    <td>Adds a number to a BigNumber (+)<br><eg>E.g.<br>var bn = math.BigNumber(12)<br>bn.Add(5)<br>>@bn@<br>// 17</td>
+  </tr>
+  <tr>
+    <td>b.Sub(num)<br>b.Sub(BigNumber)<br><eg>Returns itself</td>
+    <td>Subtracts a number from a BigNumber (-)<br><eg>E.g.<br>var bn = math.BigNumber(12)<br>bn.Sub(5)<br>>@bn@<br>// 7</td>
+  </tr>
+  <tr>
+    <td>b.Mul(num)<br>b.Mul(BigNumber)<br><eg>Returns itself</td>
+    <td>Multiplies a BigNumber by a number (*)<br><eg>E.g.<br>var myBigNum1 = math.BigNumber(12)<br>var myBigNum2 = math.BigNumber(12)<br>myBigNum1.Mul(5)<br>myBigNum2.Mul(1.5)<br>>@myBigNum1@ @myBigNum2@<br>// 60 18</td>
+  </tr>
+  <tr>
+    <td>b.Div(num)<br>b.Div(BigNumber)<br><eg>Returns itself</td>
+    <td>Divides a BigNumber by a number (/)<br><eg>E.g.<br>var myBigNum1 = math.BigNumber(12)<br>var myBigNum2 = math.BigNumber(12)<br>myBigNum1.Div(5)<br>myBigNum2.Div(1.5)<br>>@myBigNum1@ @myBigNum2@<br>// 2 8</td>
+  </tr>
+  <tr>
+    <td>b.Eq(num)<br>b.Eq(BigNumber)<br><eg>Returns bool</td>
+    <td>Determines if a BigNumber is equal to a number (=)<br><eg>E.g.<br>var bn = math.BigNumber(5)<br>>@bn.Eq(5)@ @bn.Eq(3)@<br>// true false</td>
+  </tr>
+  <tr>
+    <td>b.Gt(num)<br>b.Gt(BigNumber)<br><eg>Returns bool</td>
+    <td>Determines if a BigNumber is greater than a number (>)<br><eg>E.g.<br>var bn = math.BigNumber(5)<br>>@bn.Gt(3)@ @bn.Gt(10)@<br>// true false</td>
+  </tr>
+  <tr>
+    <td>b.Ge(num)<br>b.Ge(BigNumber)<br><eg>Returns bool</td>
+    <td>Determines if a BigNumber is greater than or equal to a number (>=)<br><eg>E.g.<br>var bn = math.BigNumber(5)<br>>@bn.Ge(3)@ @bn.Ge(5)@<br>// true true</td>
+  </tr>
+  <tr>
+    <td>b.Lt(num)<br>b.Lt(BigNumber)<br><eg>Returns bool</td>
+    <td>Determines if a BigNumber is less than a number (<)<br><eg>E.g.<br>var bn = math.BigNumber(5)<br>>@bn.Lt(3)@ @bn.Lt(10)@<br>// false true</td>
+  </tr>
+  <tr>
+    <td>b.Le(num)<br>b.Le(BigNumber)<br><eg>Returns bool</td>
+    <td>Determines if a BigNumber is less than or equal to a number (<=)<br><eg>E.g.<br>var bn = math.BigNumber(5)<br>>@bn.Le(10)@ @bn.Le(5)@<br>// true true</td>
+  </tr>
+  <tr>
+    <td>b.ToString()<br><eg>Returns string</td>
+    <td>Returns a string representation of the BigNumber. Can be used to serialize it for storage.<br><eg>E.g.<br>var myBigNum = math.BigNumber("123456789123456789")<br>storage.Set("myBN", myBigNum.ToString())<br>---<br>var bnStr = storage.Get("myBN")<br>var myBigNum = math.BigNumber(bnStr)</td>
+  </tr>
+  <tr>
+    <td>b.ToUI()<br><eg>Returns string</td>
+    <td>Returns a shortened string representation of the number for use in user interfaces.<br><eg>E.g.<br>var myBigNum = math.BigNumber("123456789123456789")<br>>@myBigNum.ToUI()@<br>// 123.5Qa</td>
+  </tr>
   <tr><td><br>color<br>‾‾‾‾‾</td><td><br>Colors in Stonescript are represented with a string in <a href="https://htmlcolorcodes.com/" target="_blank">hexadecimal notation</a>, such as <eg>#ff0000</eg> or with simplified presets such as <eg>#red</eg>.</td></tr>
   <tr>
     <td>color.FromRGB(r,g,b)<br><eg>Returns string</td>
@@ -1005,6 +1058,10 @@ See the following table for all available ability strings. NOTE: Invalid ability
   <tr>
     <td>item.GetCount(str)<br><eg>Returns integer</td>
     <td>Returns the number of copies of an item in the inventory. Returns 0 if no item is found.<br><eg>E.g.<br>var searchCriteria = "sword *0 -big -socket"<br>var swordCount = item.GetCount(searchCriteria)<br>>I have @swordCount@ basic swords
+  </tr>
+  <tr>
+    <td>item.GetLoadoutL(int)<br>item.GetLoadoutR(int)<br><eg>Returns string</td>
+    <td>Returns the items in a specific loadout. The integer parameter is the loadout number to query. Returns a blank string if that loadout has no item in that slot.<br><eg>E.g.<br>>`0,1,Left: @item.GetLoadoutL(1)@<br>>`0,2,Right: @item.GetLoadoutR(1)@
   </tr>
   <tr><td>key<br>‾‾‾</td><td><br>The key namespace allows for the customization of standard game inputs and shortcuts. This system is based on <eg>actions (abbreviated "act")</eg> and <eg>keys</eg>, where each action corresponds to a type of input/shortcut and each key corresponds to a physical key press. The list of all possible keys that can be assigned to actions can be found <a href="https://docs.unity3d.com/ScriptReference/KeyCode.html" target="_Blank">here</a>. Changes to action bindings persist between runs (they currently do not save to storage). For optimization purposes, it is recommended to not change bindings every frame.<br>
 <table>
@@ -1154,74 +1211,6 @@ See the following table for all available ability strings. NOTE: Invalid ability
     <td>Returns the absolute value of a given number.<br><eg>E.g.<br>var number = -2<br>number = math.Abs(number)<br>// number now equals 2</td>
   </tr>
   <tr>
-    <td>math.Sign(num)<br><eg>Returns number</td>
-    <td>Returns -1 if the given number is negative. Otherwise, returns 1.<br><eg>E.g.<br>var sign = math.Sign(-21)<br>var n = 10 * sign<br>// n equals -10</td>
-  </tr>
-  <tr>
-    <td>math.Min(num1, num2)<br><eg>Returns number</td>
-    <td>Returns the smallest of the two numbers.<br><eg>E.g.<br>var number = math.Min(3, 10)<br>// number equals 3</td>
-  </tr>
-  <tr>
-    <td>math.Max(num1, num2)<br><eg>Returns number</td>
-    <td>Returns the largest of the two numbers.<br><eg>E.g.<br>var number = math.Max(3, 10)<br>// number equals 10</td>
-  </tr>
-  <tr>
-    <td>math.Clamp(num, min, max)<br><eg>Returns number</td>
-    <td>Constrains a number to within the range 'min' and 'max'. If the number is already within the range then it will be returned without change.<br><eg>E.g.<br>var number = 50<br>number = math.Clamp(number, 0, 10)<br>// number has been clamped down and will equal 10</td>
-  </tr>
-  <tr>
-    <td>math.Round(num)<br><eg>Returns number</td>
-    <td>Rounds a number to the nearest whole number.<br><eg>E.g.<br>var number = math.Round(2.7)<br>// number equals 3.0</td>
-  </tr>
-  <tr>
-    <td>math.RoundToInt(num)<br><eg>Returns integer</td>
-    <td>Rounds a number to the nearest whole integer.<br><eg>E.g.<br>var number = math.RoundToInt(2.7)<br>// number equals 3</td>
-  </tr>
-  <tr>
-    <td>math.Floor(num)<br><eg>Returns number</td>
-    <td>Rounds a number down, to the first whole number smaller than it.<br><eg>E.g.<br>var number = math.Floor(2.7)<br>// number equals 2.0</td>
-  </tr>
-  <tr>
-    <td>math.FloorToInt(num)<br><eg>Returns integer</td>
-    <td>Rounds a number down, to the first integer smaller than it.<br><eg>E.g.<br>var number = math.FloorToInt(2.7)<br>// number equals 2</td>
-  </tr>
-  <tr>
-    <td>math.Ceil(num)<br><eg>Returns number</td>
-    <td>Rounds a number up, to the first whole number greater than it.<br><eg>E.g.<br>var number = math.Ceil(4.2)<br>// number equals 5.0</td>
-  </tr>
-  <tr>
-    <td>math.CeilToInt(num)<br><eg>Returns integer</td>
-    <td>Rounds a number up, to the first integer greater than it.<br><eg>E.g.<br>var number = math.CeilToInt(4.2)<br>// number equals 5</td>
-  </tr>
-  <tr>
-    <td>math.Lerp(a, b, t)<br><eg>Returns number</td>
-    <td>Performs a linear interpolation, from value <eg>a</eg> to <eg>b</eg> at time (percentage) <eg>t</eg>.<br><eg>E.g.<br>var number = math.Lerp(0.0, 20.0, 0.75)<br>// number equals 15.0<br><br>E.g.2:<br>var n = 0.0<br>?key = Begin<br>  n = 0.0<br>n = math.Lerp(n, 100, 0.02)<br>>n = @n@<br>// Variable n eases towards 100, at 2% per frame. When a key is pressed it resets</td>
-  </tr>
-  <tr>
-    <td>math.Log(num, base)<br><eg>Returns number</td>
-    <td>Returns the logarithm of a number at a given base.<br><eg>E.g.<br>var number = math.Log(5, 2)<br>// number equals 2.321928</td>
-  </tr>
-  <tr>
-    <td>math.Pow(num, p)<br><eg>Returns number</td>
-    <td>Returns the number raised to a power.<br><eg>E.g.<br>var number = math.Pow(3, 2)<br>// number equals 9</td>
-  </tr>
-  <tr>
-    <td>math.Sqrt(num)<br><eg>Returns number</td>
-    <td>Returns the square root of a number.<br><eg>E.g.<br>var number = math.Sqrt(9)<br>// number equals 3</td>
-  </tr>
-  <tr>
-    <td>math.pi<br><eg>float</td>
-    <td>The constant π, approximately 3.1415926<br><eg>E.g.<br>>PI = @math.pi@<br>// prints the value of π to the screen</td>
-  </tr>
-  <tr>
-    <td>math.ToDeg(num)<br><eg>Returns number</td>
-    <td>Converts a radian number to degrees.<br><eg>E.g.<br>var number = math.ToDeg(2 * math.pi)<br>// number equals 360</td>
-  </tr>
-  <tr>
-    <td>math.ToRad(num)<br><eg>Returns number</td>
-    <td>Converts a degrees number to radians.<br><eg>E.g.<br>var number = math.ToRad(360)<br>// number equals 2π</td>
-  </tr>
-  <tr>
     <td>math.Acos(num)<br><eg>Returns number</td>
     <td>Returns the arc-cosine of a number, in radians. The input bounds are -1 to 1. If the input value is out of bounds then "NaN" is returned.<br><eg>E.g.<br>var number = math.Acos(-1)<br>// number equals π</td>
   </tr>
@@ -1234,16 +1223,96 @@ See the following table for all available ability strings. NOTE: Invalid ability
     <td>Returns the arc-tangent of a number, in radians.<br><eg>E.g.<br>var number = math.Atan(2)<br>// number equals 1.107149</td>
   </tr>
   <tr>
+    <td>math.Atan2(y, x)<br><eg>Returns number</td>
+    <td>Returns the angle, in radians, between the x-axis and the line from the origin to the point (x,y)<br><eg>E.g.<br>var number = math.Atan2(3, 2)<br>// number equals 0.9827937</td>
+  </tr>
+  <tr>
+    <td>math.Ceil(num)<br><eg>Returns number</td>
+    <td>Rounds a number up, to the first whole number greater than it.<br><eg>E.g.<br>var number = math.Ceil(4.2)<br>// number equals 5.0</td>
+  </tr>
+  <tr>
+    <td>math.CeilToInt(num)<br><eg>Returns integer</td>
+    <td>Rounds a number up, to the first integer greater than it.<br><eg>E.g.<br>var number = math.CeilToInt(4.2)<br>// number equals 5</td>
+  </tr>
+  <tr>
+    <td>math.Clamp(num, min, max)<br><eg>Returns number</td>
+    <td>Constrains a number to within the range 'min' and 'max'. If the number is already within the range then it will be returned without change.<br><eg>E.g.<br>var number = 50<br>number = math.Clamp(number, 0, 10)<br>// number has been clamped down and will equal 10</td>
+  </tr>
+  <tr>
     <td>math.Cos(num)<br><eg>Returns number</td>
     <td>Returns the cosine of a given radian angle.<br><eg>E.g.<br>var number = math.Cos(0)<br>// number equals 1</td>
+  </tr>
+  <tr>
+    <td>math.e<br><eg>float</td>
+    <td>The constant <eg>e</eg>, also known as Euler's number, approximately 2.71828<br><eg>E.g.<br>>E = @math.e@<br>// prints the value of e to the screen</td>
+  </tr>
+  <tr>
+    <td>math.Exp(num)<br><eg>Returns number</td>
+    <td>Returns <eg>e</eg> raised to a given power.<br><eg>E.g.<br>var number = math.Exp(3)<br>// number equals 20.08554</td>
+  </tr>
+  <tr>
+    <td>math.Floor(num)<br><eg>Returns number</td>
+    <td>Rounds a number down, to the first whole number smaller than it.<br><eg>E.g.<br>var number = math.Floor(2.7)<br>// number equals 2.0</td>
+  </tr>
+  <tr>
+    <td>math.FloorToInt(num)<br><eg>Returns integer</td>
+    <td>Rounds a number down, to the first integer smaller than it.<br><eg>E.g.<br>var number = math.FloorToInt(2.7)<br>// number equals 2</td>
+  </tr>
+  <tr>
+    <td>math.Lerp(a, b, t)<br><eg>Returns number</td>
+    <td>Performs a linear interpolation, from value <eg>a</eg> to <eg>b</eg> at time (percentage) <eg>t</eg>.<br><eg>E.g.<br>var number = math.Lerp(0.0, 20.0, 0.75)<br>// number equals 15.0<br><br>E.g.2:<br>var n = 0.0<br>?key = Begin<br>  n = 0.0<br>n = math.Lerp(n, 100, 0.02)<br>>n = @n@<br>// Variable n eases towards 100, at 2% per frame. When a key is pressed it resets</td>
+  </tr>
+  <tr>
+    <td>math.Log(num, base)<br><eg>Returns number</td>
+    <td>Returns the logarithm of a number at a given base.<br><eg>E.g.<br>var number = math.Log(5, 2)<br>// number equals 2.321928</td>
+  </tr>
+  <tr>
+    <td>math.Max(num1, num2)<br><eg>Returns number</td>
+    <td>Returns the largest of the two numbers.<br><eg>E.g.<br>var number = math.Max(3, 10)<br>// number equals 10</td>
+  </tr>
+  <tr>
+    <td>math.Min(num1, num2)<br><eg>Returns number</td>
+    <td>Returns the smallest of the two numbers.<br><eg>E.g.<br>var number = math.Min(3, 10)<br>// number equals 3</td>
+  </tr>
+  <tr>
+    <td>math.pi<br><eg>float</td>
+    <td>The constant π, approximately 3.1415926<br><eg>E.g.<br>>PI = @math.pi@<br>// prints the value of π to the screen</td>
+  </tr>
+  <tr>
+    <td>math.Pow(num, p)<br><eg>Returns number</td>
+    <td>Returns the number raised to a power.<br><eg>E.g.<br>var number = math.Pow(3, 2)<br>// number equals 9</td>
+  </tr>
+  <tr>
+    <td>math.Round(num)<br><eg>Returns number</td>
+    <td>Rounds a number to the nearest whole number.<br><eg>E.g.<br>var number = math.Round(2.7)<br>// number equals 3.0</td>
+  </tr>
+  <tr>
+    <td>math.RoundToInt(num)<br><eg>Returns integer</td>
+    <td>Rounds a number to the nearest whole integer.<br><eg>E.g.<br>var number = math.RoundToInt(2.7)<br>// number equals 3</td>
+  </tr>
+  <tr>
+    <td>math.Sign(num)<br><eg>Returns number</td>
+    <td>Returns -1 if the given number is negative. Otherwise, returns 1.<br><eg>E.g.<br>var sign = math.Sign(-21)<br>var n = 10 * sign<br>// n equals -10</td>
   </tr>
   <tr>
     <td>math.Sin(num)<br><eg>Returns number</td>
     <td>Returns the sine of a given radian angle.<br><eg>E.g.<br>var number = math.Sin(math.pi / 2)<br>// number equals 1</td>
   </tr>
   <tr>
+    <td>math.Sqrt(num)<br><eg>Returns number</td>
+    <td>Returns the square root of a number.<br><eg>E.g.<br>var number = math.Sqrt(9)<br>// number equals 3</td>
+  </tr>
+  <tr>
     <td>math.Tan(num)<br><eg>Returns number</td>
     <td>Returns the tangent of a given radian angle.<br><eg>E.g.<br>var number = math.Tan(2)<br>// number equals -2.18504</td>
+  </tr>
+  <tr>
+    <td>math.ToDeg(num)<br><eg>Returns number</td>
+    <td>Converts a radian number to degrees.<br><eg>E.g.<br>var number = math.ToDeg(2 * math.pi)<br>// number equals 360</td>
+  </tr>
+  <tr>
+    <td>math.ToRad(num)<br><eg>Returns number</td>
+    <td>Converts a degrees number to radians.<br><eg>E.g.<br>var number = math.ToRad(360)<br>// number equals 2π</td>
   </tr>
   <tr><td></td></tr>
   <tr><td>music<br>‾‾‾‾‾</td></tr>
@@ -2167,7 +2236,7 @@ root
 
 ·:·:· Tips ·:·:·
 <font color="#bbbbbb">
-<f>Space (identation) matters when defining what happens as a result of '?' comparisons (scope).</f>
+<f>Space (indentation) matters when defining what happens as a result of '?' comparisons (scope).</f>
 
 <f>The script can be changed in the middle of a run by pressing 'M' on your keyboard.</f>
 
