@@ -28,7 +28,7 @@
 
 <center>· ·:·: Stonescript :·:· ·</center>
 <div id="title-separator"><!---------------------------></div>
-<center><font color="#808080">v3.51.4 - 2023/12/21</font></center>
+<center><font color="#808080">v3.56.0 - 2024/03/07</font></center>
 <answer><center><a href="https://stonestoryrpg.com/stonescript">intro</a> | manual | <a href="https://stonestoryrpg.com/stonescript/beta.html">beta</a>  ·:·  <a href="https://stonestoryrpg.com/releasenotes">release notes</a> | <a href="https://stonestoryrpg.com/faq.html">faq</a></center></answer>
 <center><font color="#808080">
       _ ______________________ _            
@@ -968,8 +968,8 @@ While scripts can define their own functions, Stonescript comes with a set of pr
     <td>Returns the glyph at screen position (x, y).<br><eg>This example selects a screen coordinate and draws the symbol found there in the top left. The selection [ ] can be moved by the player:<br>var s<br>var x = 20<br>var y = 10<br>var drawX<br>?key=leftBegin<br>  x--<br>?key=rightBegin<br>  x++<br>?key=upBegin<br>  y--<br>?key=downBegin<br>  y++<br>s = draw.GetSymbol(x, y)<br>>`0,1,Symbol = @s@<br>drawX = x - 1<br>>`@drawX@,@y@,[#］<br></td>
   </tr>
   <tr>
-    <td>draw.Player()<br><eg>No return value</td>
-    <td>Draws the player character, with all equipment and addons, at a specific point in the script.</td>
+    <td>draw.Player()<br>draw.Player(x,y)<br><eg>No return value</td>
+    <td>Draws the player character, with all equipment and addons, at a specific point in the script. Optional offset values x, y. For drawing to an absolute screen position, see the <eg>screen</eg> namespace and derive offsets that convert from the player's local position to screen position.</td>
   </tr>
   <tr><td><br>int<br>‾‾‾</td></tr>
   <tr>
@@ -1233,6 +1233,10 @@ See the following table for all available ability strings. NOTE: Invalid ability
   <tr>
     <td>math.Atan2(y, x)<br><eg>Returns number</td>
     <td>Returns the angle, in radians, between the x-axis and the line from the origin to the point (x,y)<br><eg>E.g.<br>var number = math.Atan2(3, 2)<br>// number equals 0.9827937</td>
+  </tr>
+  <tr>
+    <td>math.BigNumber()<br>math.BigNumber(number)<br>math.BigNumber(str)<br><eg>Returns BigNumber</td>
+    <td>Creates a new BigNumber object from a float or int, or parses a string into a BigNumber object.<br><eg>E.g.<br>var myBigNum = math.BigNumber("500")<br>myBigNum.Add(500).Mul(1000).Mul(1000).Mul(1000)<br>>@myBigNum@<br>// 1000000000000</td>
   </tr>
   <tr>
     <td>math.Ceil(num)<br><eg>Returns number</td>
@@ -1511,6 +1515,14 @@ See the following table for all available ability strings. NOTE: Invalid ability
     <td>Converts an amount of frames into a human-readable string representation of time, such as "1:23". The second parameter (bool) is optional; If 'true', then precision is maximized in the result.<eg><br>E.g.<br>>`0,0,Current time =<br>^ @time.FormatDigital(totaltime, true)@</td>
   </tr>
   <tr><td>UI<br>‾‾</td><td><br>See the <a href="#user-interface">User Interface</a> section for details about Stonescript's advanced UI system. Miscellaneous functions of the <eg>ui</eg> namespace:</td></tr>
+  <tr>
+    <td>ui.OpenInv()<br><eg>No return value</td>
+    <td>Opens the inventory screen.</td>
+  </tr>
+  <tr>
+    <td>ui.OpenMind()<br><eg>No return value</td>
+    <td>Opens the Mind Stone screen.</td>
+  </tr>
   <tr>
     <td>ui.ShowBanner(str)<br>ui.ShowBanner(str,str)<br><eg>No return value</td>
     <td>Displays the animated banner with up to two messages. The banner animation restarts each time ui.ShowBanner() is called.<eg><br>E.g.<br>?time = 120<br>  ui.ShowBanner("Hello World!")</td>
