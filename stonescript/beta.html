@@ -28,7 +28,7 @@
 
 <center>· ·:·: Stonescript (Beta) :·:· ·</center>
 <div id="title-separator"><!---------------------------></div>
-<center><font color="#808080">v3.49.5 - 2023/10/28</font></center>
+<center><font color="#808080">v3.51.4 - 2023/12/21</font></center>
 <answer><center><a href="https://stonestoryrpg.com/stonescript">intro</a> | <a href="https://stonestoryrpg.com/stonescript/manual.html">manual</a> | beta  ·:·  <a href="https://stonestoryrpg.com/releasenotes/beta.html">release notes</a> | <a href="https://stonestoryrpg.com/faq.html">faq</a></center></answer>
 <center><font color="#808080">
       _ ______________________ _            
@@ -966,8 +966,8 @@ While scripts can define their own functions, Stonescript comes with a set of pr
     <td>Returns the glyph at screen position (x, y).<br><eg>This example selects a screen coordinate and draws the symbol found there in the top left. The selection [ ] can be moved by the player:<br>var s<br>var x = 20<br>var y = 10<br>var drawX<br>?key=leftBegin<br>  x--<br>?key=rightBegin<br>  x++<br>?key=upBegin<br>  y--<br>?key=downBegin<br>  y++<br>s = draw.GetSymbol(x, y)<br>>`0,1,Symbol = @s@<br>drawX = x - 1<br>>`@drawX@,@y@,[#］<br></td>
   </tr>
   <tr>
-    <td>draw.Player()<br><eg>No return value</td>
-    <td>Draws the player character, with all equipment and addons, at a specific point in the script.</td>
+    <td>draw.Player()<br>draw.Player(x,y)<br><eg>No return value</td>
+    <td>Draws the player character, with all equipment and addons, at a specific point in the script. Optional offset values x, y. For drawing to an absolute screen position, see the <eg>screen</eg> namespace and derive offsets that convert from the player's local position to screen position.</td>
   </tr>
   <tr><td><br>int<br>‾‾‾</td></tr>
   <tr>
@@ -1060,6 +1060,14 @@ See the following table for all available ability strings. NOTE: Invalid ability
   <tr>
     <td>item.GetLoadoutL(int)<br>item.GetLoadoutR(int)<br><eg>Returns string</td>
     <td>Returns the items in a specific loadout. The integer parameter is the loadout number to query. Returns a blank string if that loadout has no item in that slot.<br><eg>E.g.<br>>`0,1,Left: @item.GetLoadoutL(1)@<br>>`0,2,Right: @item.GetLoadoutR(1)@
+  </tr>
+  <tr>
+    <td>item.GetTreasureCount()<br><eg>Returns integer</td>
+    <td>Returns the current number of treasure chests in your inventory.
+  </tr>
+  <tr>
+    <td>item.GetTreasureLimit()<br><eg>Returns integer</td>
+    <td>Returns the total space for treasure chests in your inventory. In other words, the maximum capacity.<br><eg>E.g.<br>var trs<br>var max<br>trs = item.GetTreasureCount()<br>max = item.GetTreasureLimit()<br>>`0,2,Treasures: @trs@/@max@
   </tr>
   <tr><td>key<br>‾‾‾</td><td><br>The key namespace allows for the customization of standard game inputs and shortcuts. This system is based on <eg>actions (abbreviated "act")</eg> and <eg>keys</eg>, where each action corresponds to a type of input/shortcut and each key corresponds to a physical key press. The list of all possible keys that can be assigned to actions can be found <a href="https://docs.unity3d.com/ScriptReference/KeyCode.html" target="_Blank">here</a>. Changes to action bindings persist between runs (they currently do not save to storage). For optimization purposes, it is recommended to not change bindings every frame.<br>
 <table>
@@ -1505,6 +1513,14 @@ See the following table for all available ability strings. NOTE: Invalid ability
     <td>Converts an amount of frames into a human-readable string representation of time, such as "1:23". The second parameter (bool) is optional; If 'true', then precision is maximized in the result.<eg><br>E.g.<br>>`0,0,Current time =<br>^ @time.FormatDigital(totaltime, true)@</td>
   </tr>
   <tr><td>UI<br>‾‾</td><td><br>See the <a href="#user-interface">User Interface</a> section for details about Stonescript's advanced UI system. Miscellaneous functions of the <eg>ui</eg> namespace:</td></tr>
+  <tr>
+    <td>ui.OpenInv()<br><eg>No return value</td>
+    <td>Opens the inventory screen.</td>
+  </tr>
+  <tr>
+    <td>ui.OpenMind()<br><eg>No return value</td>
+    <td>Opens the Mind Stone screen.</td>
+  </tr>
   <tr>
     <td>ui.ShowBanner(str)<br>ui.ShowBanner(str,str)<br><eg>No return value</td>
     <td>Displays the animated banner with up to two messages. The banner animation restarts each time ui.ShowBanner() is called.<eg><br>E.g.<br>?time = 120<br>  ui.ShowBanner("Hello World!")</td>
