@@ -154,16 +154,23 @@ IF THE DISCLAIMER AND DAMAGE WAIVER MENTIONED IN SECTION 6. AND SECTION 7. CANNO
 ·:·:· Signing ·:·:·
 <answer>
 By submitting a complete and accurate electronic signature below, You thereby agree to the terms of this License Agreement:
-<form action="path/to/your/backend.php" method="post">
-  <label for="discordName">Discord name</label>
+<form action="https://stonestoryrpg.com/misc/cla.php" method="post">
+  <label for="discordName">Discord name*</label>
   <input type="text" id="discordName" name="discordName"><br>
-  <label for="email">Email</label>
+  <label for="githubEmail">Github email*</label>
+  <input type="text" id="githubEmail" name="githubEmail"><br>
+  <label for="email">Communications email (if different)</label>
   <input type="text" id="email" name="email"><br>
-  <label for="legalName">Legal name</label>
+  <label for="legalName">Legal name*</label>
   <input type="text" id="legalName" name="legalName"><br>
-  <label for="countryOfResidence">Country of residence</label>
+  <label for="countryOfResidence">Country of residence*</label>
   <input type="text" id="countryOfResidence" name="countryOfResidence"><br>
   <input type="submit" value="Submit">
+
+  <div style="display:none;">
+    <label for="age">Leave this blank. It's for detecting webcrawlers</label>
+    <input type="text" id="age" name="age">
+  </div>
 </form>
 
 Gabriel Santos
