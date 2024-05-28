@@ -299,6 +299,10 @@
     <td>The item equipped to the right hand.<eg><br>E.g.<br>?item.right = quarterstaff<br>  activate R</td>
   </tr>
   <tr>
+    <td>?item.left.gp<br>?item.right.gp</td>
+    <td>The gear power value of the item equipped to the left or right hand.<eg><br>E.g.<br>>`0,1,Left GP:@item.left.gp@<br>>`0,2,Right GP:@item.right.gp@</td>
+  </tr>
+  <tr>
     <td>?item.left.id<br>?item.right.id</td>
     <td>The ID of the item equipped to the left or right hand.<eg><br>E.g.<br>>`0,1,Left ID:@item.left.id@<br>>`0,2,Right ID:@item.right.id@</td>
   </tr>
@@ -975,6 +979,11 @@ While scripts can define their own functions, Stonescript comes with a set of pr
   <tr>
     <td>int.Parse(str)<br><eg>Returns integer</td>
     <td>Converts a string of a number into an integer value. If the given string is not a number an error is thrown.<br><eg>E.g.<br>var s = "999"<br>var i = int.Parse(s)<br>i++</td>
+  </tr>
+  <tr><td>event<br>‾‾‾‾‾</td></tr>
+  <tr>
+    <td>event.GetObjectiveId(int)<br><eg>Returns string</eg><br><br>event.GetObjectiveProgress<br>(int)<br>event.GetObjectiveGoal(int)<br><eg>Returns int</td>
+    <td>Returns information about active objectives in a community or seasonal event. Pass the index of the desired objective. Events are usually limited to a maximum of 3 active objectives, therefore the first parameter would be 0, 1 or 2.<br><eg>E.g.<br>var id<br>var p<br>var g<br>id = event.GetObjectiveId(0)<br>p = event.GetObjectiveProgress(0)<br>g = event.GetObjectiveGoal(0)<br>>`0,1,@id@:@p@/@g@</td>
   </tr>
   <tr><td>item<br>‾‾‾‾</td></tr>
   <tr>
