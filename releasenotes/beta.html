@@ -51,6 +51,35 @@ For information about save file locations and about switching to the beta branch
 </f>
 <div id="separator"><!---------------------------></div>
 
+v3.61.0 - 2024/06/03
+<answer>
+New
+- Added cloud save system for easy backups and transfer of save data between devices.
+- Added a warning when playing with a modified system clock.
+- A new toast UI appears when a leaderboard score is improved.
+- Added Elite foe encounters and modifiers (Green & Hamartia).
+- New foe type "elite".
+- An item's gear power can now be seen in the details dialog.
+
+New Stonescript
+- event.GetObjectiveId(), event.GetObjectiveProgress() and event.GetObjectiveGoal()
+- item.left.gp, item.right.gp
+- encounter.isElite, encounter.eliteMod
+
+Changes
+- The Hamartia event has been reworked.
+- Leaderboards will be reset and are no longer coupled with offline farm times.
+- An item's gear power is now = Stars + Enchantment * 2 + 20(if Lost)
+- Achievement "Finally, a Wizard" should now be credited upon loading a save file that is max level.
+- Burnout: Increased HP on Workhorse and fixed bug in case he's killed.
+- Elite Ice Elemental renamed to Elder Ice Elemental.
+
+Bugs
+- Fixed invading foes in Temple that would often appear above the screen.
+- Burnout: Fixed pause skipping of final scene.
+
+</answer><div id="separator"><!---------------------------></div>
+
 v3.60.6 - 2024/05/16
 <answer>
 - Fixed bug with malformed daily quests affecting some players that transitioned from 3.59 to 3.60
