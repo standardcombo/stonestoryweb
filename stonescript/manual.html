@@ -259,6 +259,14 @@
     <td>A composite of information about all the buffs on the target foe.<eg><br>E.g.<br>?foe.buffs.count > 0<br>  >`0,3,Foe buffs = @foe.buffs.string@</td>
   </tr>
   <tr>
+    <td>?foe.buffs.GetCount(str)</td>
+    <td>The number of a specific buff on the target foe.</td>
+  </tr>
+  <tr>
+    <td>?foe.buffs.GetTime(str)</td>
+    <td>The duration of a specific buff on the target foe.</td>
+  </tr>
+  <tr>
     <td>?buffs.oldest</td>
     <td>The ID of the oldest buff on the player<eg><br>E.g.<br>>`0,1,Oldest buff: @buffs.oldest@</td>
   </tr>
@@ -269,6 +277,14 @@
   <tr>
     <td>?foe.debuffs.string</td>
     <td>A composite of information about all the debuffs on the target foe.<eg><br>E.g.<br>?foe.debuffs.count > 0<br>  >`0,4,Foe debuffs = @foe.debuffs.string@</td>
+  </tr>
+  <tr>
+    <td>?foe.debuffs.GetCount(str)</td>
+    <td>The number of a specific debuff on the target foe.<eg><br>E.g.<br>>`0,1,Chill debuff count =<br>^ @foe.debuffs.GetCount("debuff_chill")@</td>
+  </tr>
+  <tr>
+    <td>?foe.debuffs.GetTime(str)</td>
+    <td>The duration of a specific debuff on the target foe.<eg><br>E.g.<br>>`0,2,Chill debuff time =<br>^ @foe.debuffs.GetTime("debuff_chill")@</td>
   </tr>
   <tr>
     <td>?debuffs.oldest</td>
@@ -351,12 +367,28 @@
     <td>A composite of information about all buffs on the player.<eg><br>E.g.<br>?buffs.count > 0<br>  >`0,1,Player buffs = @buffs.string@</td>
   </tr>
   <tr>
+    <td>?buffs.GetCount(str)</td>
+    <td>The number of a specific buff on the player.</td>
+  </tr>
+  <tr>
+    <td>?buffs.GetTime(str)</td>
+    <td>The duration of a specific buff on the player.</td>
+  </tr>
+  <tr>
     <td>?debuffs.count</td>
     <td>The number of debuffs (negative effects) on the player.</td>
   </tr>
   <tr>
     <td>?debuffs.string</td>
     <td>A composite of information about all debuffs on the player.<eg><br>E.g.<br>?debuffs.count > 0<br>  >`0,2,Player debuffs = @debuffs.string@</td>
+  </tr>
+  <tr>
+    <td>?debuffs.GetCount(str)</td>
+    <td>The number of a specific debuff on the player.</td>
+  </tr>
+  <tr>
+    <td>?debuffs.GetTime(str)</td>
+    <td>The duration of a specific debuff on the player.</td>
   </tr>
   <tr>
     <td>?hp</td>
