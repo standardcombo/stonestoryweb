@@ -28,7 +28,7 @@
 
 <center>· ·:·: Stonescript (Beta) :·:· ·</center>
 <div id="title-separator"><!---------------------------></div>
-<center><font color="#808080">v4.0.0 - 2024/10/07</font></center>
+<center><font color="#808080">v4.5.0 - 2024/11/21</font></center>
 <answer><center><a href="https://stonestoryrpg.com/stonescript">intro</a> | <a href="https://stonestoryrpg.com/stonescript/manual.html">manual</a> | beta  ·:·  <a href="https://stonestoryrpg.com/releasenotes/beta.html">release notes</a> | <a href="https://stonestoryrpg.com/faq.html">faq</a></center></answer>
 <center><font color="#808080">
       _ ______________________ _            
@@ -458,6 +458,10 @@
   <tr>
     <td>?player.direction</td>
     <td>Indicates the direction in which the player is facing. Returns a value of 1 for <eg>right</eg> and -1 for <eg>left</eg>.<eg><br>E.g.<br>?player.direction = 1<br>  >`0,0,Walking right<br>:<br>  >`0,0,Walking left</td>
+  </tr>
+  <tr>
+    <td>player.framesPerMove</td>
+    <td>The amount of frames it takes the player to move one position forward.<eg><br>>`0,1,Player Movement: @player.framesPerMove@</td>
   </tr>
   <tr>
     <td>player.name</td>
@@ -989,6 +993,14 @@ While scripts can define their own functions, Stonescript comes with a set of pr
   <tr>
     <td>b.Le(num)<br>b.Le(BigNumber)<br><eg>Returns bool</td>
     <td>Determines if a BigNumber is less than or equal to a number (<=)<br><eg>E.g.<br>var bn = math.BigNumber(5)<br>>@bn.Le(10)@ @bn.Le(5)@<br>// true true</td>
+  </tr>
+  <tr>
+    <td>b.ToFloat()<br><eg>Returns float</td>
+    <td>Converts a big number to float value. Throws error if the number is too large or too small.<br><eg>E.g.<br>var bn = math.BigNumber(5)<br>var fNumber = bn.ToFloat()<br>>float = @fNumber@</td>
+  </tr>
+  <tr>
+    <td>b.ToInt()<br><eg>Returns int</td>
+    <td>Converts a big number to integer value. Throws error if the number is too large or too small.<br><eg>E.g.<br>var bn = math.BigNumber(5)<br>var iNumber = bn.ToInt()<br>>integer = @iNumber@</td>
   </tr>
   <tr>
     <td>b.ToString()<br><eg>Returns string</td>
