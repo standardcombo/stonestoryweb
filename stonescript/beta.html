@@ -28,7 +28,7 @@
 
 <center>· ·:·: Stonescript (Beta) :·:· ·</center>
 <div id="title-separator"><!---------------------------></div>
-<center><font color="#808080">v4.9.1 - 2025/01/18</font></center>
+<center><font color="#808080">v4.10.1 - 2025/02/02</font></center>
 <answer><center><a href="https://stonestoryrpg.com/stonescript">intro</a> | <a href="https://stonestoryrpg.com/stonescript/manual.html">manual</a> | beta  ·:·  <a href="https://stonestoryrpg.com/releasenotes/beta.html">release notes</a> | <a href="https://stonestoryrpg.com/faq.html">faq</a></center></answer>
 <center><font color="#808080">
       _ ______________________ _            
@@ -75,10 +75,10 @@
 <f>  <a href="#user-interface">16. User Interface</a></f>
 <f>  <a href="#tips">17. Tips</a></f>
 <f>  <a href="#default-script">18. Default script</a></f>
-<f>  <a href="#roadmap">19. Roadmap</a></f>
-<f>  <a href="#sounds">Appendix A - Sound Effects</a></f>
-<f>  <a href="#music">Appendix B - Music</a></f>
-<f>  <a href="#ambient">Appendix C - Ambient Loops</a></f>
+<f>  <a href="#ability_ids">Appendix A - Ability Cooldown IDs</a></f>
+<f>  <a href="#sounds">Appendix B - Sound Effects</a></f>
+<f>  <a href="#music">Appendix C - Music</a></f>
+<f>  <a href="#ambient">Appendix D - Ambient Loops</a></f>
 
 
 <div id="example"><div id="separator"><!---------------------------></div>
@@ -1072,73 +1072,7 @@ While scripts can define their own functions, Stonescript comes with a set of pr
   </tr>
   <tr>
     <td>item.GetCooldown(str)<br><eg>Returns integer</td>
-    <td>Returns the remaining cooldown time (in frames) for a given ability.<br><eg>E.g.<br>?foe = boss & item.GetCooldown("bardiche") <= 0<br>  equip bardiche<br>  activate R
-</eg>
-See the following table for all available ability strings. NOTE: Invalid ability strings will return -1. Some abilities from weapons that have not been used yet will return -1.
-
-<table>
-  <tr>
-    <td>Item<br>----</td>
-    <td>Cooldown ID<br>-----------</td>
-    <td><br></td>
-  </tr>
-  <tr>
-    <td>Æther Talisman</td>
-    <td>"aether_talisman"</td>
-  </tr>
-  <tr>
-    <td>Bardiche</td>
-    <td>"bardiche"</td>
-  </tr>
-  <tr>
-    <td>Bashing Shield</td>
-    <td>"bash"</td>
-  </tr>
-  <tr>
-    <td>Blade of the Fallen God</td>
-    <td>"blade"</td>
-  </tr>
-  <tr>
-    <td>Cinderwisp Devour</td>
-    <td>"cinderwisp"</td>
-  </tr>
-  <tr>
-    <td>Cultist Mask</td>
-    <td>"mask"</td>
-  </tr>
-  <tr>
-    <td>Dashing Shield</td>
-    <td>"dash"</td>
-  </tr>
-  <tr>
-    <td>Fire Talisman</td>
-    <td>"fire_talisman"</td>
-  </tr>
-  <tr>
-    <td>Hatchet</td>
-    <td>"hatchet"</td>
-  </tr>
-  <tr>
-    <td>Heavy Hammer</td>
-    <td>"heavy_hammer"</td>
-  </tr>
-  <tr>
-    <td>Mind Stone</td>
-    <td>"mind"</td>
-  </tr>
-  <tr>
-    <td>Quarterstaff</td>
-    <td>"quarterstaff"</td>
-  </tr>
-  <tr>
-    <td>Skeleton Arm</td>
-    <td>"skeleton_arm"</td>
-  </tr>
-  <tr>
-    <td>Voidweaver Devour</td>
-    <td>"voidweaver"</td>
-  </tr>
-</table></td>
+    <td>Returns the remaining cooldown time (in frames) for a given ability.<br>See <a href="#ability_ids">Appendix A</a> for all available ability strings. NOTE: Invalid ability strings will return -1. Some abilities from weapons that have not been used yet will return -1.<br><eg>E.g.<br>?foe = boss & item.GetCooldown("bardiche") <= 0<br>  equip bardiche<br>  activate R</eg>
   </tr>
   <tr>
     <td>item.GetCount(str)<br><eg>Returns integer</td>
@@ -2280,7 +2214,7 @@ root
   </tr>
   <tr>
     <td>anim.paused<br><eg>bool<br>read-only</td>
-    <td>True if the animatino is playing, but has been paused with a call to <eg>anim.Pause()</eg>.</td>
+    <td>True if the animation is playing, but has been paused with a call to <eg>anim.Pause()</eg>.</td>
   </tr>
   <tr>
     <td>anim.pivotX<br>anim.pivotY<br><eg>int</td>
@@ -2397,27 +2331,122 @@ import Fishing
 <a href="#"><font color="#505050">^Back to top</font></a>
 </div>
 
-<div id="roadmap"><div id="separator"><!---------------------------></div>
+<div id="ability_ids"><div id="separator"><!---------------------------></div>
 
-·:·:· Roadmap ·:·:·
+·:·:· Appendix - Ability Cooldown IDs ·:·:·
 <font color="#bbbbbb"><f>
-Things that are planned, but not yet in the game:
-
-Line drawing.
-
-Find() to get ahold of enemy or decoration references.
-
-Native modding of enemies, decorations and weapons.
-
-Expanded API for use in user-generated side quests.
-
-Particle emissions.
-
-equipF (str) - equips an item to the Faerie.
-
-foes - The list of foes within 46 units.
+<table>
+  <tr>
+    <td>Item<br>----</td>
+    <td>Cooldown ID<br>-----------</td>
+    <td><br></td>
+  </tr>
+  <tr>
+    <td>Æther Talisman</td>
+    <td>"aether_talisman"</td>
+  </tr>
+  <tr>
+    <td>Bardiche</td>
+    <td>"bardiche"</td>
+  </tr>
+  <tr>
+    <td>Bashing Shield</td>
+    <td>"bash"</td>
+  </tr>
+  <tr>
+    <td>Blade of the Fallen God</td>
+    <td>"blade"</td>
+  </tr>
+  <tr>
+    <td>Cinderwisp Devour</td>
+    <td>"cinderwisp"</td>
+  </tr>
+  <tr>
+    <td>Cultist Mask</td>
+    <td>"mask"</td>
+  </tr>
+  <tr>
+    <td>Dashing Shield</td>
+    <td>"dash"</td>
+  </tr>
+  <tr>
+    <td>Fire Talisman</td>
+    <td>"fire_talisman"</td>
+  </tr>
+  <tr>
+    <td>Hatchet</td>
+    <td>"hatchet"</td>
+  </tr>
+  <tr>
+    <td>Heavy Hammer</td>
+    <td>"heavy_hammer"</td>
+  </tr>
+  <tr>
+    <td>Mind Stone</td>
+    <td>"mind"</td>
+  </tr>
+  <tr>
+    <td>Quarterstaff</td>
+    <td>"quarterstaff"</td>
+  </tr>
+  <tr>
+    <td>Skeleton Arm</td>
+    <td>"skeleton_arm"</td>
+  </tr>
+  <tr>
+    <td>Voidweaver Devour</td>
+    <td>"voidweaver"</td>
+  </tr>
+  <tr>
+    <td>Calamity Wand</td>
+    <td>"wand_aether"</td>
+  </tr>
+  <tr>
+    <td>Explosive Wand</td>
+    <td>"wand_fire"</td>
+  </tr>
+  <tr>
+    <td>Frost Wand</td>
+    <td>"wand_ice"</td>
+  </tr>
+  <tr>
+    <td>Plague Wand</td>
+    <td>"wand_poison"</td>
+  </tr>
+  <tr>
+    <td>Reset Wand</td>
+    <td>"wand_vigor"</td>
+  </tr>
+  <tr>
+    <td>Gravity Wand</td>
+    <td>"wand_stone"</td>
+  </tr>
+  <tr>
+    <td>Grasping Staff</td>
+    <td>"staff_aether"</td>
+  </tr>
+  <tr>
+    <td>Infernal Staff</td>
+    <td>"staff_fire"</td>
+  </tr>
+  <tr>
+    <td>Eternity Staff</td>
+    <td>"staff_ice"</td>
+  </tr>
+  <tr>
+    <td>Berserker Staff</td>
+    <td>"staff_poison"</td>
+  </tr>
+  <tr>
+    <td>Prevention Staff</td>
+    <td>"staff_vigor"</td>
+  </tr>
+  <tr>
+    <td>Acrobatic Staff</td>
+    <td>"staff_stone"</td>
+  </tr>
+</table>
 </f></font>
-
 <a href="#"><font color="#505050">^Back to top</font></a>
 </div>
 
