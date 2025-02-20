@@ -28,7 +28,7 @@
 
 <center>· ·:·: Stonescript :·:· ·</center>
 <div id="title-separator"><!---------------------------></div>
-<center><font color="#808080">v4.10.1 - 2025/02/02</font></center>
+<center><font color="#808080">v4.10.3 - 2025/02/09</font></center>
 <answer><center><a href="https://stonestoryrpg.com/stonescript">intro</a> | manual | <a href="https://stonestoryrpg.com/stonescript/beta.html">beta</a>  ·:·  <a href="https://stonestoryrpg.com/releasenotes">release notes</a> | <a href="https://stonestoryrpg.com/faq.html">faq</a></center></answer>
 <center><font color="#808080">
       _ ______________________ _            
@@ -500,11 +500,11 @@
   </tr>
   <tr>
     <td>?summon.count</td>
-    <td>The number of summoned allies currently in game.<eg><br>E.g.<br>?summon.count = 0<br>  equipL talisman<br>  activate L</td>
+    <td>The number of summoned allies currently in game.<eg><br>E.g.<br>?summon.count = 0 &<br>^ item.CanActivate()<br>  equipL talisman<br>  activate L</td>
   </tr>
   <tr>
     <td>summon.GetId(index = 0)</td>
-    <td>Returns the ID of the summon at a given index. The index parameter is optional and defaults to zero (first summon). Returns null if no summons are at that index.<eg><br>E.g.<br>?summon.GetId() ! "cinderwisp"<br>  equipR fire talisman<br>  activate R</td>
+    <td>Returns the ID of the summon at a given index. The index parameter is optional and defaults to zero (first summon). Returns null if no summons are at that index.<eg><br>E.g.<br>?summon.GetId() ! "cinderwisp" &<br>^ item.CanActivate()<br>  equipR fire talisman<br>  activate R</td>
   </tr>
   <tr>
     <td>summon.GetName(index = 0)</td>
@@ -2347,7 +2347,7 @@ import UI/MindstoneButton
   </tr>
   <tr>
     <td>Æther Talisman</td>
-    <td>"aether_talisman"</td>
+    <td>"talisman_aether"</td>
   </tr>
   <tr>
     <td>Bardiche</td>
@@ -2375,7 +2375,7 @@ import UI/MindstoneButton
   </tr>
   <tr>
     <td>Fire Talisman</td>
-    <td>"fire_talisman"</td>
+    <td>"talisman_fire"</td>
   </tr>
   <tr>
     <td>Hatchet</td>
