@@ -1,0 +1,3270 @@
+<!DOCTYPE html>
+<html><head><meta name="viewport" http-equiv="Content-Type" content="text/html; charset=UTF-8; width=device-width; initial-scale=1; minimum-scale=1">
+  
+<meta content="Руководство по Stonescript" property="og:title">
+<meta content="Все инструкции для Stonescript, языка программирования внутри Stone Story RPG. Включает примеры и советы для максимального выхлопа от Камня Разума." property="og:description">
+<meta content="https://stonestoryrpg.com/mind_stone.png" property="og:image">
+<meta name="theme-color" content="#ffffff">
+<meta name="twitter:card" content="summary_large_image">
+<link type="application/json+oembed" href="https://stonestoryrpg.com/faq.json"> 
+
+<title>Руководство по Stonescript</title>
+
+<link rel="stylesheet" href="https://stonestoryrpg.com/faq-fixed.css" type="text/css" media="only screen and (min-device-width: 891px)" />
+<link rel="stylesheet" href="https://stonestoryrpg.com/faq-stretch.css" type="text/css" media="only screen and (max-width: 890px)" />
+
+<style type="text/css">
+	eg {
+		color: #707070;
+	}
+</style>
+
+</head>
+<body><div id="content">
+<f>
+<div id="logo"><a href="https://StoneStoryRPG.com" target="_blank"><img src="https://stonestoryrpg.com/capsule_b_231x87.png" alt="Stone Story RPG" align="middle"></a></div>
+
+<div id="title-separator"><!---------------------------></div>
+
+<center>· ·:·: Stonescript :·:· ·</center>
+<div id="title-separator"><!---------------------------></div>
+<center><font color="#808080">v4.11.2 - 2025/02/23</font></center>
+<answer><center><a href="https://stonestoryrpg.com/ru/stonescript">введение</a> | руководство | <a href="https://stonestoryrpg.com/stonescript/beta.html">beta</a>  ·:·  <a href="https://stonestoryrpg.com/releasenotes">release notes</a> | <a href="https://stonestoryrpg.com/faq.html">faq</a></center></answer>
+<center><font color="#808080">      _ ______________________ _            
+  ,:´      \____        __.---<font color="#ffffff">,.</font> `.         
+ :.!  __________\_______\__`--<font color="#ffffff">`´</font>__ \        
+ :' \ \--------------------------.\ \       
+ ':' · \ <font color="#ffffff">·:. :'· :.:·             </font>\\ \      
+  ':' \ \ <font color="#ffffff">:·' :·:.                 </font>\\ \     
+   ':' · \ <font color="#ffffff">.: ·:: '.:. ':'··:.      </font>\\ \    
+    ':' \ \ <font color="#ffffff">· :..                    </font>\\ \   
+     ':' · \ <font color="#ffffff">:·: ..': :·:. ·:: '.     </font>\\ \  
+      ':' \ \__________________________\\ \ 
+       ':' `     .         \         .     )
+        ':' . . . \ . . . . ' . . . . \ . .;
+          `·.;,;,;,;,;,;,;,;,;,;,;,;,;,;,:' 
+</font></center>
+</f>
+<font color="#bbbbbb">
+<f><font color="#666666">Перевел DimaKul совместно с IvaBel. Все права принадлежат разработчикам Stone Story RPG, которые написали все это руководство на английском языке.</font></f>
+
+<f>Stonescript используется в Камне Разума (Mind Stone) для автоматизации выбора снаряжения. Stonescript - минималистичный, однако мощный язык в <a href="https://stonestoryrpg.com/" target="_blank">Stone Story RPG</a>.</f>
+
+<f>Впервые работаете со Stonescript? Начните с <a href="https://dimakul.github.io/introduction">Введения в Камень Разума</a>.
+
+<f>Нужна помощь? Посетите <a href="https://discord.gg/StoneStoryRPG" target="_blank">официальный Discord</a> или <a href="https://t.me/StoneStoryRpgRu" target="_blank">канал в Telegram</a>.<f>
+
+<f>Данное руководство является всеобъемлющим справочником всех доступных возможностей Stonescript. Большинство приведенных примеров можно скопировать/вставить прямо в Камень Разума, что является отличным способом проверить их работу на деле.</f>
+</f></f></f></font>
+
+·:·:· Оглавление ·:·:·
+
+<f>  <a href="https://dimakul.github.io/manual#example">1. Пример</a></f>
+<f>  <a href="https://dimakul.github.io/manual#basics">2. Основы</a></f>
+<f>  <a href="https://dimakul.github.io/manual#game-state">3. Состояние игры</a></f>
+<f>  <a href="https://dimakul.github.io/manual#commands">4. Команды</a></f>
+<f>  <a href="https://dimakul.github.io/manual#search-filters">5. Фильтры поиска</a></f>
+<f>  <a href="https://dimakul.github.io/manual#comparisons">6. Сравнения</a></f>
+<f>  <a href="https://dimakul.github.io/manual#variables">7. Переменные</a></f>
+<f>  <a href="https://dimakul.github.io/manual#math-operations">8. Математические операции</a></f>
+<f>  <a href="https://dimakul.github.io/manual#functions">9. Функции</a></f>
+<f>  <a href="https://dimakul.github.io/manual#native-functions">10. Встроенные функции</a></f>
+<f>  <a href="https://dimakul.github.io/manual#import">11. Импорт сторонних скриптов</a></f>
+<f>  <a href="https://dimakul.github.io/manual#ascii-art">12. ASCII-арт </a></f>
+<f>  <a href="https://dimakul.github.io/manual#loops">13. Циклы</a></f>
+<f>  <a href="https://dimakul.github.io/manual#arrays">14. Массивы</a></f>
+<f>  <a href="https://dimakul.github.io/manual#custom-input">15. Кастомный ввод</a></f>
+<f>  <a href="https://dimakul.github.io/manual#user-interface">16. Пользовательский интерфейс</a></f>
+<f>  <a href="https://dimakul.github.io/manual#tips">17. Советы</a></f>
+<f>  <a href="https://dimakul.github.io/manual#default-script">18. Скрипт по умолчанию</a></f>
+<f>  <a href="https://dimakul.github.io/manual#ability_ids">Приложение A - ID перезарядки способностей</a></f>
+<f>  <a href="https://dimakul.github.io/manual#sounds">Приложение B - Звуковые эффекты</a></f>
+<f>  <a href="https://dimakul.github.io/manual#music">Приложение C - Музыка</a></f>
+<f>  <a href="https://dimakul.github.io/manual#ambient">Приложение D - Атмосферные звуки</a></f>
+<f>  <a href="https://dimakul.github.io/manual#scripts">Приложение E - Все импортируемые скрипты</a></f>
+
+
+<div id="example"><div id="separator"><!---------------------------></div>
+
+·:·:· Пример ·:·:·
+<font color="#bbbbbb">
+// Снаряжает вас лопатой для Каменистого плато.
+// В Пещерах страха выбирает выкладку 1,
+//   за исключением боя с боссом, где 
+//   будут использованы крюк-кошка
+//   и боевой молот 7*.
+// Для призрачных залов скрипт использует два 
+//   жезла, выбирая яд для левой руки и
+//   силу для правой. Однако, если сложность
+//   выше 5 звезд, выбирается зачарованный
+//   на +13 посох силы.
+// Зелье активируется, когда здоровье падает
+//   ниже 10.
+<f>?loc=rocky
+ equip shovel
+?loc=cave
+ loadout 1
+ ?foe=bolesh
+  equip grap
+  equip hammer *7 D
+?loc=halls
+ equipL poison wand
+ equipR vigor wand
+ ?loc.stars &gt; 5
+  equip vigor staff +13
+?hp &lt; 10
+ activate potion
+</f>
+</font>
+<a href="https://dimakul.github.io/manual#"><font color="#505050">^К началу</font></a>
+</div>
+
+<div id="basics"><div id="separator"><!---------------------------></div>
+
+·:·:· Основы ·:·:·
+<font color="#bbbbbb">
+<table>
+  <tbody><tr>
+    <td style="min-width: 3em"> ?  </td>
+    <td>Проверяет логическое условие. Если оно верно, выполняет вложенные линии (ветка 'если').<eg><br>Например:<br>?loc = caves<br>  loadout 1</eg></td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> :  </td>
+    <td>Альтернативная логическая ветвь, в случае, если условие '?' ложно (ветка 'иначе').<eg><br>Например:<br>?loc = caves<br>  loadout 1<br>:<br>  loadout 2</eg></td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> :? </td>
+    <td>Альтернативная логическая ветвь, с доп.условием (ветка 'иначе-если').<eg><br>Например:<br>?loc = caves<br>  loadout 1<br>:?loc = deadwood<br>  loadout 2<br>:<br>  loadout 3</eg></td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> // </td>
+    <td>Комментарий. Весь текст справа от '//' не имеет эффекта при запуске скрипта.<eg><br>Например:<br>?loc = caves<br>  loadout 1<br>//Данный код выбирает выкладку 1 для Пещер страха</eg></td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> /* */ </td>
+    <td>Блочный комментарий. Весь текст между символами не имеет эффекта при запуске скрипта.<eg><br>Например:<br>/*<br>?loc = caves<br>  loadout 1<br>*/<br>Данный скрипт ничего не делает, так как он весь находится внутри блочного комментария.</eg></td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> ^  </td>
+    <td>Продолжает предыдущую строку кода.<eg><br>Например:<br>?loc=caves |<br>^loc = mine<br>  equip repeating<br><br>//Код выше равносилен:<br>?loc=caves|loc=mine<br>  equip repeating</eg></td>
+  </tr>
+</tbody></table></font>
+<a href="https://dimakul.github.io/manual#"><font color="#505050">^К началу</font></a>
+</div>
+
+<div id="game-state"><div id="separator"><!---------------------------></div>
+
+·:·:· Состояние игры ·:·:·
+<font color="#bbbbbb">
+<f>Эти условия помогут узнать, что вообще происходит в игре и что находится перед игроком.</f>
+
+<table>
+  <tbody><tr>
+    <td>?loc</td>
+    <td>Локация, на которой находится игрок.<eg><br>Например:<br>?loc = caves<br>  loadout 1</eg></td>
+  </tr>
+  <tr>
+    <td>?loc.id</td>
+    <td>Уникальный идентификатор локации.<eg><br>Например:<br>var id<br>id = loc.id<br>&gt;Сейчас исследуем @id@</eg></td>
+  </tr>
+  <tr>
+    <td>?loc.gp</td>
+    <td>Суммарная мощь оружия (GP / Gear Power) за этот забег.<eg><br>Например:<br>&gt;`0,1,GP забега = @loc.gp@</eg></td>
+  </tr>
+  <tr>
+    <td>?loc.name</td>
+    <td>Имя нынешней локации на языке игры.<eg><br>Например:<br>&gt;Сейчас мы на локации @loc.name@</eg></td>
+  </tr>
+  <tr>
+    <td>?loc.stars</td>
+    <td>Сложность нынешней локации.<eg><br>Например:<br>?loc = caves<br>  ?loc.stars=4<br>    loadout 1<br>  ?loc.stars=5<br>    loadout 2</eg></td>
+  </tr>
+  <tr>
+    <td>?loc.begin</td>
+    <td>Это условие истинно только на самом первом кадре игры, когда time = 0, до любых других вычислений. Ложно при цикле Уробороса. Полезно, чтобы переопределять переменные.<eg><br>Например:<br>var i<br>?loc.begin<br>  i = 0<br>  ?loc = caves<br>    i = -100</eg></td>
+  </tr>
+  <tr>
+    <td>?loc.loop</td>
+    <td>Истинно на первом кадре забега при цикле Уробороса.<eg><br>Например:<br>var loopCount = 0<br>?loc.loop<br>  loopCount++</eg></td>
+  </tr>
+  <tr>
+    <td>?loc.isQuest</td>
+    <td>Истинно, если сейчас игрок находится на специальной локации из легенды или специального задания, в ином случае ложно.<eg><br>Например:<br>?loc.isQuest<br>  &gt;`0,1,Мы на специальной квестовой локаци</eg></td>
+  </tr>
+  <tr>
+    <td>loc.averageTime</td>
+    <td>Среднее время прохождения локации. Среднее время прохождения считается с учетом веса, где последние прохождения влияют сильнее, чем старые.<eg><br>Например:<br>&gt;`0,2,Среднее время =<br>^ @loc.averageTime@ кадров</eg></td>
+  </tr>
+  <tr>
+    <td>loc.bestTime</td>
+    <td>Лучшее время прохождения локации (ваш рекорд).<eg><br>Например:<br>&gt;`0,1,Лучшее время =<br>^ @loc.bestTime@ кадров</eg></td>
+  </tr>
+  <tr>
+    <td>?encounter.isElite</td>
+    <td>Показывает, является ли встреча элитной.<eg><br>Например:<br>&gt;`0,1,Элита = @encounter.isElite@</eg></td>
+  </tr>
+  <tr>
+    <td>?encounter.eliteMod</td>
+    <td>Если существует элитный модификатор, то возвращает его.<eg><br>Например:<br>&gt;`0,2,Модификатор = @encounter.eliteMod@</eg></td>
+  </tr>
+  <tr>
+    <td>?foe</td>
+    <td>Текущий противник, выбранный игроком в качестве цели.<eg><br>Например:<br>?foe = boo<br>  equip vigor staff</eg></td>
+  </tr>
+  <tr>
+    <td>?foe.id</td>
+    <td>Уникальный ID (или тип) выбранного противника.</td>
+  </tr>
+  <tr>
+    <td>?foe.name</td>
+    <td>Имя выбранного противника на языке игры.</td>
+  </tr>
+  <tr>
+    <td>?foe.damage</td>
+    <td>Урон выбранного противника за одну атаку.<eg><br>Например:<br>&gt;`0,1,Урон = @foe.damage@</eg></td>
+  </tr>
+  <tr>
+    <td>?foe.distance</td>
+    <td>Расстояние между игроком и выбранным противником.</td>
+  </tr>
+  <tr>
+    <td>?foe.z</td>
+    <td>Положение выбранного противника по координате Z.</td>
+  </tr>
+  <tr>
+    <td>?foe.count</td>
+    <td>Количество врагов на расстоянии 46 единиц от игрока.</td>
+  </tr>
+  <tr>
+    <td>?foe.GetCount(int)</td>
+    <td>Количество врагов на указанном расстоянии от игрока.</td>
+  </tr>
+  <tr>
+    <td>?foe.hp</td>
+    <td>Здоровье выбранного противника.</td>
+  </tr>
+  <tr>
+    <td>?foe.maxhp</td>
+    <td>Максимальное здоровье выбранного противника.</td>
+  </tr>
+  <tr>
+    <td>?foe.armor</td>
+    <td>Количество брони у выбранного противника в данный момент.</td>
+  </tr>
+  <tr>
+    <td>?foe.maxarmor</td>
+    <td>Максимальное количество брони у выбранного противника.</td>
+  </tr>
+  <tr>
+    <td>?foe.buffs.count</td>
+    <td>Количество баффов (положительных эффектов) на выбранном противнике.</td>
+  </tr>
+  <tr>
+    <td>?foe.buffs.string</td>
+    <td>Строка с информацией обо всех наложенных на выбранного противника баффах.<eg><br>Например:<br>?foe.buffs.count &gt; 0<br>  &gt;`0,3,Баффы = @foe.buffs.string@</eg></td>
+  </tr>
+  <tr>
+    <td>?foe.buffs.GetCount(str)</td>
+    <td>Количество баффов конкретного вида на противнике.</td>
+  </tr>
+  <tr>
+    <td>?foe.buffs.GetTime(str)</td>
+    <td>Длительность конкретного баффа на противнике.</td>
+  </tr>
+  <tr>
+    <td>?buffs.oldest</td>
+    <td>ID самого старого баффа на игроке.<eg><br>Например:<br>&gt;`0,1,Самый старый бафф: @buffs.oldest@</eg></td>
+  </tr>
+  <tr>
+    <td>?foe.debuffs.count</td>
+    <td>Количество дебаффов (негативных эффектов) на выбранном противнике.</td>
+  </tr>
+  <tr>
+    <td>?foe.debuffs.string</td>
+    <td>Строка с информацией обо всех наложенных на противника дебаффах.<eg><br>Например:<br>?foe.debuffs.count &gt; 0<br>  &gt;`0,4,Дебаффы = @foe.debuffs.string@</eg></td>
+  </tr>
+  <tr>
+    <td>?foe.debuffs.GetCount(str)</td>
+    <td>Количество дебаффов конкретного вида на противнике.<eg><br>Например:<br>&gt;`0,1,Количество замедляющих дебаффов =<br>^ @foe.debuffs.GetCount("debuff_chill")@</eg></td>
+  </tr>
+  <tr>
+    <td>?foe.debuffs.GetTime(str)</td>
+    <td>Длительность конкретного дебаффа на противнике.<eg><br>Например:<br>&gt;`0,2,Время замедляющего дебаффа =<br>^ @foe.debuffs.GetTime("debuff_chill")@</eg></td>
+  </tr>
+  <tr>
+    <td>?debuffs.oldest</td>
+    <td>ID самого старого дебаффа на игроке.<eg><br>Например:<br>&gt;`0,1,Самый старый дебафф: @debuffs.oldest@</eg></td>
+  </tr>
+  <tr>
+    <td>?foe.state</td>
+    <td>Число, обозначающее состояние противника. Подробнее: <a href="https://github.com/Hukutus/stone-script-reference?tab=readme-ov-file">список состояний от Hukutus</a>.<eg><br>Например:<br>?foe.state = 0<br>  &gt;`0,0,Противник неактивен</eg></td>
+  </tr>
+  <tr>
+    <td>?foe.time</td>
+    <td>Количество кадров, которое враг провел в нынешнем состоянии.<eg><br>Например:<br>&gt;`0,0,Враг = @foe.name@:@foe.state@,@foe.time@</eg></td>
+  </tr>
+  <tr>
+    <td>?foe.level</td>
+    <td>Уровень выбранного противника.<eg><br>Например:<br>&gt;`0,0,Противник = @foe.name@ @foe.level@ уровня</eg></td>
+  </tr>
+  <tr>
+    <td>?harvest</td>
+    <td>Ближайший собираемый объект, например, дерево или булыжник.<eg><br>Например:<br>?harvest=Boulder<br>  equip shovel</eg></td>
+  </tr>
+  <tr>
+    <td>?harvest.distance</td>
+    <td>Расстояние между игроком и ближайшим собираемым объектом.<eg><br>Например:<br>?loc=Rocky &amp; harvest.distance &lt; 7<br>  equip shovel</eg></td>
+  </tr>
+  <tr>
+    <td>?harvest.z</td>
+    <td>Положение ближайшего собираемого объекта по координате Z.<eg><br>Например:<br>?loc=Rocky &amp; harvest.z &gt; 5<br>  equip shovel</eg></td>
+  </tr>
+  <tr>
+    <td>?input.x</td>
+    <td>Координата X (на сетке ASCII) вашего устройства ввода (мышь/касание).</td>
+  </tr>
+  <tr>
+    <td>?input.y</td>
+    <td>Координата Y (на сетке ASCII) вашего устройства ввода (мышь/касание).<eg><br>Например:<br>&gt; (@input.x@, @input.y@)</eg></td>
+  </tr>
+  <tr>
+    <td>?item.left</td>
+    <td>Предмет в левой руке игрока.<eg><br>Например:<br>&gt;`0,1,В левой:@item.left@<br>&gt;`0,2,В правой:@item.right@</eg></td>
+  </tr>
+  <tr>
+    <td>?item.right</td>
+    <td>Предмет в правой руке игрока.<eg><br>Например:<br>?item.right = quarterstaff<br>  activate R</eg></td>
+  </tr>
+  <tr>
+    <td>?item.left.gp<br>?item.right.gp</td>
+    <td>Сила оружия (GP / Gear Power) предмета в левой или правой руке.<eg><br>Например:<br>&gt;`0,1,GP слева:@item.left.gp@<br>&gt;`0,2,GP справа:@item.right.gp@</eg></td>
+  </tr>
+  <tr>
+    <td>?item.left.id<br>?item.right.id</td>
+    <td>ID предмета в левой или правой руке.<eg><br>Например:<br>&gt;`0,1,ID слева:@item.left.id@<br>&gt;`0,2,ID справа:@item.right.id@</eg></td>
+  </tr>
+  <tr>
+    <td>?item.left.state<br>?item.left.time<br>?item.right.state<br>?item.right.time</td>
+    <td>Числовое значение нынешнего состояния предмета, и количество кадров, которое предмет провел в этом состоянии.<eg><br>Например:<br>&gt;`0,1,@item.left.state@:@item.left.time@<br>&gt;`0,2,@item.right.state@:@item.right.time@</eg></td>
+  </tr>
+  <tr>
+    <td>?item.potion</td>
+    <td>Ваше зелье в данный момент. Строка включает "auto", если в котле включен автозалив.<eg><br>Например:<br>?item.potion ! empty &amp; item.potion = auto<br>  activate potion</eg></td>
+  </tr>
+  <tr>
+    <td>?pickup</td>
+    <td>Собираемый объект, выбранный игроком.<eg><br>Например:<br>?pickup<br>  equip star stone<br>:<br>  loadout 1</eg></td>
+  </tr>
+  <tr>
+    <td>?pickup.distance</td>
+    <td>Дистанция между игроком и собираемым объектом.<eg><br>Например:<br>?pickup.distance &lt; 5<br>  equipL star stone</eg></td>
+  </tr>
+  <tr>
+    <td>?pickup.z</td>
+    <td>Положение собираемого объекта по координате Z.<eg><br>Например:<br>?pickup.z &gt; 7<br>  equipL star stone</eg></td>
+  </tr>
+  <tr>
+    <td>?armor</td>
+    <td>Количество брони у игрока (округленное вниз).<br>Например: если написано, что у вас [2.4] брони, ?armor вернет 2.</td>
+  </tr>
+  <tr>
+    <td>?armor.f</td>
+    <td>Количество брони у игрока (после запятой).<br>Например: если написано, что у вас [2.4] брони, ?armor.f вернет 4.</td>
+  </tr>
+  <tr>
+    <td>?buffs.count</td>
+    <td>Количество баффов (положительных эффектов) на игроке.</td>
+  </tr>
+  <tr>
+    <td>?buffs.string</td>
+    <td>Строка со всей информацией о баффах на игроке.<eg><br>Например:<br>?buffs.count &gt; 0<br>  &gt;`0,1,Баффы игрока = @buffs.string@</eg></td>
+  </tr>
+  <tr>
+    <td>?buffs.GetCount(str)</td>
+    <td>Количество баффов конкретного вида на игроке.</td>
+  </tr>
+  <tr>
+    <td>?buffs.GetTime(str)</td>
+    <td>Длительность конкретного баффа на игроке.</td>
+  </tr>
+  <tr>
+    <td>?debuffs.count</td>
+    <td>Количество дебаффов (негативных эффектов) на игроке.</td>
+  </tr>
+  <tr>
+    <td>?debuffs.string</td>
+    <td>Строка со всей информацией о дебаффах на игроке.<eg><br>Например:<br>?debuffs.count &gt; 0<br>  &gt;`0,2,Player debuffs = @debuffs.string@</eg></td>
+  </tr>
+  <tr>
+    <td>?debuffs.GetCount(str)</td>
+    <td>Количество дебаффов конкретного вида.</td>
+  </tr>
+  <tr>
+    <td>?debuffs.GetTime(str)</td>
+    <td>Длительность конкретного дебаффа на игроке.</td>
+  </tr>
+  <tr>
+    <td>?hp</td>
+    <td>Здоровье игрока.</td>
+  </tr>
+  <tr>
+    <td>?maxhp</td>
+    <td>Максимальное здоровье игрока.</td>
+  </tr>
+  <tr>
+    <td>?maxarmor</td>
+    <td>Максимальное значение брони игрока, округленное вниз.</td>
+  </tr>
+  <tr>
+    <td>?pos.x</td>
+    <td>Положение игрока по X.</td>
+  </tr>
+  <tr>
+    <td>?pos.y</td>
+    <td>Положение игрока по Y.</td>
+  </tr>
+  <tr>
+    <td>?pos.z</td>
+    <td>Положение игрока по Z.</td>
+  </tr>
+  <tr>
+    <td>?ai.enabled</td>
+    <td>Истинно, если ИИ игрока включен, ложно, если выключен (Например, во время катсцены).</td>
+  </tr>
+  <tr>
+    <td>?ai.paused</td>
+    <td>Истинно, если ИИ временно приостановлен, например, когда проигрывается анимация выпавшего с босса сундука.</td>
+  </tr>
+  <tr>
+    <td>?ai.idle</td>
+    <td>Истинно, если игрок стоит на месте, ожидая завершения какого-то действия, например, атаки.</td>
+  </tr>
+  <tr>
+    <td>?ai.walking</td>
+    <td>Истинно, если игрок движется.</td>
+  </tr>
+  <tr>
+    <td>?bighead</td>
+    <td>Истинно, если включена большая голова (на лунном камне).</td>
+  </tr>
+  <tr>
+    <td>?face</td>
+    <td>Выражение лица игрока.<eg><br>Например:<br>?face = "^^"<br>  &gt;Хепи-хепи</eg></td>
+  </tr>
+  <tr>
+    <td>?key</td>
+    <td>Состояние <a href="https://dimakul.github.io/manual#custom-input">кастомной клавиши ввода</a>.<eg><br>Данный код выведет нажатую в данный момент клавишу:<br>&gt;@key@</eg></td>
+  </tr>
+  <tr>
+    <td>?res.stone<br>?res.wood<br>?res.tar<br>?res.ki<br>?res.bronze<br>?res.crystals</td>
+    <td>Количество ресурсов в инвентаре у игрока.<eg><br>Например:<br>?loc = Deadwood<br>  &gt;Wood = @res.wood@<br><br>Или:<br>&gt;`0,1,#magenta, ♦ @res.crystals@</eg></td>
+  </tr>
+  <tr>
+    <td>?player.direction</td>
+    <td>Показывает направление, в котором смотрит игрок. Возвращает 1, если <eg>направо</eg>, и -1, если <eg>налево</eg>.<eg><br>Например:<br>?player.direction = 1<br>  &gt;`0,0,Идем направо<br>:<br>  &gt;`0,0,Идем налево</eg></td>
+  </tr>
+  <tr>
+    <td>player.framesPerMove</td>
+    <td>Количество кадров, за которое игрок сдвинется на одну позицию вперед.<eg><br>&gt;`0,1,Скорость: @player.framesPerMove@</eg></td>
+  </tr>
+  <tr>
+    <td>player.name</td>
+    <td>Имя игрока.<eg><br>Данный пример показывает имя игрока над его головой:<br>var name<br>var x<br>name = player.name<br>x = string.Size(name) / -2<br>&gt;o@x@,-2,@name@</eg></td>
+  </tr>
+  <tr>
+    <td>player.GetNextLegendName()</td>
+    <td>Следующая разблокированная легенда, которую игрок еще не прошел.<eg></eg></td>
+  </tr>
+  <tr>
+    <td>?rng</td>
+    <td>Возвращает случайное число между 0 и 9999.<eg><br>Например:<br>?rng &lt; 5000<br>  &gt;Орел!<br>:<br>  &gt;Решка!<br><br>Способ сгенерировать случайное число, например, между 5 и 24:<br>var min = 5<br>var max = 24<br>var n = min + rng % (max - min + 1)</eg></td>
+  </tr>
+  <tr>
+    <td>?rngf</td>
+    <td>Возвращает случайное дробное число между 0 и 1.<eg><br>Например:<br>&gt;random float = @rngf@<br><br>Способ сгенерировать случайное дробное число между 5.0 и 24.0:<br>var min = 5.0<br>var max = 24.0<br>var n = min + (max - min) * rngf</eg></td>
+  </tr>
+  <tr>
+    <td>?screen.i</td>
+    <td>Позиция внутриигрового экрана (индекс, который увеличивается, когда игрок доходит до края экрана и переходит на следующий экран).<eg><br>Например:<br>&gt;`0,0,Индекс экрана = @screen.i@</eg></td>
+  </tr>
+  <tr>
+    <td>?screen.x</td>
+    <td>Положение внутриигрового экрана.<eg><br>Например:<br>&gt;`0,0,Позиция по X = @screen.x@</eg></td>
+  </tr>
+  <tr>
+    <td>?screen.w</td>
+    <td>Ширина сетки ASCII на экране.<eg><br>Например:<br>var sw = screen.w<br>&gt;Ширина экрана = @sw@</eg></td>
+  </tr>
+  <tr>
+    <td>?screen.h</td>
+    <td>Высота сетки ASCII на экране.<eg><br>Например:<br>var sh = screen.h<br>&gt;Высота экрана = @sh@</eg></td>
+  </tr>
+  <tr>
+    <td>?summon.count</td>
+    <td>Количество призванных союзников в данный момент.<eg><br>Например:<br>?summon.count = 0 &amp;<br>^ item.CanActivate()<br>  equipL talisman<br>  activate L</eg></td>
+  </tr>
+  <tr>
+    <td>summon.GetId(index = 0)</td>
+    <td>Возвращает ID призванного существа по указанному индексу. Индекс не является необходимым параметром и по умолчанию равен нулю (первому призванному). Возвращает null, если по данному индексу нет призывов.<eg><br>Например:<br>?summon.GetId() ! "cinderwisp" &amp;<br>^ item.CanActivate()<br>  equipR fire talisman<br>  activate R</eg></td>
+  </tr>
+  <tr>
+    <td>summon.GetName(index = 0)</td>
+    <td>Возвращает имя призванного существа по указанному индексу. Индекс не является необходимым параметром и по умолчанию равен нулю (первому призванному). Возвращает null, если по данному индексу нет призывов.<eg><br>Например:<br>&gt;`0,1,Призван: @summon.GetName()@</eg></td>
+  </tr>
+  <tr>
+    <td>summon.GetVar(varName,<br>index = 0)</td>
+    <td>Возвращает значение кастомной переменной у призванного существа. Различные существа используют различные переменные, в зависимости от своих уникальных способностей. Индекс не является необходимым параметром и по умолчанию равен нулю (первому призванному). Возвращает null, если по данному индексу нет призывов. Выдает ошибку, если <f>varName</f> не является действительной переменной.<eg><br>Например:<br>?summon.GetId() = cinderwisp &amp;<br>^summon.GetVar("ignition") &gt; 2<br>  activate cinderwisp</eg></td>
+  </tr>
+  <tr>
+    <td>summon.GetState(index = 0)</td>
+    <td>Возвращает число, равное нынешнему состоянию призванного существа. Индекс не является необходимым параметром и по умолчанию равен нулю (первому призванному). Возвращает -1, если по данному индексу нет призывов.<eg><br>Например:<br>&gt;`0,1,Summon state:@summon.GetState()@</eg></td>
+  </tr>
+  <tr>
+    <td>summon.GetTime(index = 0)</td>
+    <td>Возвращает количество кадров, которое призванное существо провело в нынешнем состоянии. Индекс не является необходимым параметром и по умолчанию равен нулю (первому призванному). Возвращает -1, если по данному индексу нет призывов.<eg><br>Например:<br>&gt;`0,1,Summon time:@summon.GetTime()@</eg></td>
+  </tr>
+  <tr>
+    <td>?totalgp</td>
+    <td>Общая сила оружия (GP / Gear Power) инвентаря игрока, рассчитанная с учетом уровня и зачарований предметов.<eg><br>Например:<br>&gt;Мои GP = @totalgp@</eg></td>
+  </tr>
+  <tr>
+    <td>?time</td>
+    <td>Номер нынешнего кадра локации.<eg><br>Например:<br>?time % 300 = 0<br>  &gt;Это сообщение выводится каждые 10 минут.</eg></td>
+  </tr>
+  <tr>
+    <td>?totaltime</td>
+    <td>Номер нынешнего кадра всего забега (например, некоторые боссы используют доп.локации).<eg><br>Например:<br>&gt;`0,0,Нынешнее время = @totaltime@ кадров</eg></td>
+  </tr>
+  <tr>
+    <td>time.msbn</td>
+    <td>Время в формате Unix показывает кол-во миллисекунд, прошедших с <br>00:00:00 1 января 1970 года. Не учитывает високосные года. Возвращает объект типа BigNumber.<eg><br>Например:<br>&gt;@time.msbn@</eg></td>
+  </tr>
+  <tr>
+    <td>time.year, time.month, time.day, time.hour, time.minute, time.second</td>
+    <td>Системное время на устройстве.<eg><br>Например:<br>&gt;`0,0,@time.day@/@time.month@/@time.year@<br>^ @time.hour@:@time.minute@:@time.second@</eg></td>
+  </tr>
+  <tr>
+    <td>utc.year, utc.month, utc.day, utc.hour, utc.minute, utc.second</td>
+    <td>Нынешнее время UTC.<eg><br>Например:<br>var utcZ = utc.year*365*12*24*30 +<br>^utc.month*12*24 + utc.day*24+utc.hour<br>var timeZ = time.year*365*12*24*30 +<br>^time.month*12*24 + time.day*24+time.hour<br>var timeZone = timeZ - utcZ<br>?timeZone &lt; 0<br>  &gt;`0,0,Часовой пояс: UTC@timeZone@<br>:<br>  &gt;`0,0,Часовой пояс: UTC+@timeZone@</eg></td>
+  </tr>
+</tbody></table></font>
+<a href="https://dimakul.github.io/manual#"><font color="#505050">^К началу</font></a>
+</div>
+
+<div id="commands"><div id="separator"><!---------------------------></div>
+
+·:·:· Команды ·:·:·
+<font color="#bbbbbb">
+Они говорят игре совершить какое-либо действие.
+
+<table>
+  <tbody><tr>
+    <td>activate (ability)</td>
+    <td>Активирует способность предмета. Параметр (ability) может принимать следующие значения: potion, P, left, L, right, R. Также работает с ID способностей.<eg><br>Например:<br>activate R<br>(активирует способность правого предмета, например, топора)</eg></td>
+  </tr>
+  <tr>
+    <td>brew (ingredients)</td>
+    <td>Заливает в бутылку для зелья указанные ингредиенты. Может выполниться только в первый кадр, когда time = 0. Ингредиенты могут быть следующими: <eg>stone</eg>, <eg>wood</eg>, <eg>tar</eg> or <eg>bronze</eg>, а разделяться должны с помощью символа <eg>+</eg>. Имя можно писать как на английском, так и на используемом вами языке (например, на русском).<eg><br>Например:<br>?loc.begin<br>  brew bronze + tar</eg></td>
+  </tr>
+  <tr>
+    <td>equip (str)</td>
+    <td>Снаряжает вас предметом. Параметр (str) имеет лимит в 7 критериев поиска. Двуручные оружия обязаны использовать данный формат команды equip.<eg><br>Например:<br>equip vigor crossbow *8 +5</eg></td>
+  </tr>
+  <tr>
+    <td>equipL (str)</td>
+    <td>Снаряжает вас предметом в левую руку, который лучше всех подходит под заданные критерии.<eg><br>Например:<br>equipL poison d_sword</eg></td>
+  </tr>
+  <tr>
+    <td>equipR (str)</td>
+    <td>Снаряжает вас предметом в правую руку, который лучше всех подходит под заданные критерии.<eg><br>Например:<br>equipR vigor shield</eg></td>
+  </tr>
+  <tr>
+    <td>equip @var@</td>
+    <td>Снаряжает предметом по критерию из строковой переменной. Equip и прочие команды поиска предметов поддерживают вычитательные критерии (те, которые вы не хотите использовать).<eg><br>Например:<br>var weaponName = "poison sword *10 -big"<br>equipR @weaponName@</eg></td>
+  </tr>
+  <tr>
+    <td>loadout (n)</td>
+    <td>Снаряжает вас выкладкой с номером n.<eg><br>Например:<br>?loc = caves<br>  loadout 1<br>?loc = deadwood<br>  loadout 2</eg></td>
+  </tr>
+  <tr>
+    <td>&gt; (str)</td>
+    <td>Выводит строку на верх экрана.<eg><br>Например:<br>&gt;Hello World!</eg></td>
+  </tr>
+  <tr>
+    <td>&gt; @varName@</td>
+    <td>Выводит указанную переменную на экран. В одну команду вывода можно вставлять несколько переменных. Имя переменной необходимо окружать с обоих сторон символом @.<eg><br>Данный пример выводит информацию о выбранном в качестве цели противнике:<br>var foeInfo<br>foeInfo = foe<br>&gt;FOE = @foeInfo@</eg></td>
+  </tr>
+  <tr>
+    <td>&gt;(abcd</td>
+    <td>Показывает на лице игрока кастомное выражение лица. Требует большую голову (лунный камень).<eg><br>Например:<br>&gt;( UwU</eg></td>
+  </tr>
+  <tr>
+    <td>&gt;oX,Y,[#rrggbb,](str)</td>
+    <td>Продвинутая функция вывода относительно позиции игрока. X и Y - координатные смещения. #rrggbb - цвет текста в <a href="https://htmlcolorcodes.com/" target="_blank">шестнадцатеричной форме</a>. Цвет также может быть одной из следующих констант: #white, #cyan, #yellow, #green, #blue или #red. Радужный цвет использует #rainFF, где 2 последних символа определяют яркость.<eg><br>Данный пример выводит "Погнали!" красным цветом на 6 блоков влево и 3 вниз относительно игрока:<br>&gt;o-6,3,#red,Погнали!</eg></td>
+  </tr>
+  <tr>
+    <td>&gt;hX,Y,[#rrggbb,](str)</td>
+    <td>Похоже на "&gt;o", но отрисовывается на том же слое, что и большая голова. Идеально для аксессуаров по типу шляп.<eg><br>Данный код рисует на игроке желтую шляпку. Работает лучше с включенной большой головой:<br>&gt;h-2,-3,#yellow,ascii<br>##_<br>#| |<br>_|_|_<br>asciiend</eg></td>
+  </tr>
+  <tr>
+    <td>&gt;`X,Y,[#rrggbb,](str)</td>
+    <td>Продвинутая функция вывода относительно верхнего левого угла экрана.<eg><br>Данный код выводит "Hello World!", используя переменные для координат и цвета:<br>var posX = 10<br>var posY = 5<br>var color = rainE1<br>&gt;`@posX@,@posY@,#@color@,Hello World!</eg></td>
+  </tr>
+  <tr>
+    <td>&gt;cX,Y,[#rrggbb,](str)</td>
+    <td>Продвинутая функция вывода  относительно центра экрана. Похожа на "&gt;`". Во всех этих командах необязательно указывать цвет.<eg><br>Данный пример показывает, что цвет не обязателен (по умолчанию ставится белый):<br>&gt;c0,0,Hello World!</eg></td>
+  </tr>
+  <tr>
+    <td>&gt;fX,Y,[#rrggbb,](str)</td>
+    <td>Продвинутая функция вывода относительно головы выбранного противника.<eg><br>Данный код рисует красный крестик на враге:<br>&gt;f-2,0,#ff0000,ascii<br>##!<br>-#·#-<br>##¡<br>asciiend</eg></td>
+  </tr>
+  <tr>
+    <td>var (variable)</td>
+    <td>Объявляет переменную для последующих действий. Для подробной информации можете прочесть раздел <a href="https://dimakul.github.io/manual#variables">переменных</a>.<eg><br>Например:<br>var message = Hello World!<br>&gt;@message@</eg></td>
+  </tr>
+  <tr>
+    <td>func (function)</td>
+    <td>Объявляет <a href="https://dimakul.github.io/manual#functions">функцию</a> для последующего вызова.<eg><br>Например:<br>func Print(message)<br>  &gt;@message@<br><br>Print(Hello World!)</eg></td>
+  </tr>
+  <tr>
+    <td>for v = a..b</td>
+    <td>Создает <a href="https://dimakul.github.io/manual#loops">цикл</a>, прогоняющий переменную 'v' от 'a' до 'b'. Код внутри цикла сработает несколько раз.<eg><br>Например:<br>var a<br>a = 0<br>for i = 1..5<br>  a = a + i<br>&gt;a = @a@</eg></td>
+  </tr>
+  <tr>
+    <td>import (script)</td>
+    <td>Загружает и выполняет копию <a href="https://dimakul.github.io/manual#import">стороннего скрипта</a>.<eg><br>Данный пример импортирует мини-игру 'Рыбалка', расположенную в <br>(save-file folder)/Stonescript/Fishing.txt<br><br>import Fishing</eg></td>
+  </tr>
+  <tr>
+    <td>new (script)</td>
+    <td>Загружает и выполняет <a href="https://dimakul.github.io/manual#import">сторонний скрипт</a>, почти как 'import'. Однако скрипты, загруженные с помощью 'new', являются индивидуальными объектами, и сработают только один раз.<eg><br>Данный пример создает и выводит объект вектора:<br>var v = new Components/Vector<br>v.Init(10, 5)<br>&gt;Vector = @v@</eg></td>
+  </tr>
+  <tr>
+    <td>disable abilities</td>
+    <td>Запрещает активацию способностей (оружия, зелий, и т.д.). Также делает кнопку интерфейса серой.</td>
+  </tr>
+  <tr>
+    <td>enable abilities</td>
+    <td>Возвращает возможность активации способностей, вызванную "disable abilities".</td>
+  </tr>
+  <tr>
+    <td>disable banner</td>
+    <td>Отключает отображение баннера с названием локации в начале забега.</td>
+  </tr>
+  <tr>
+    <td>enable banner</td>
+    <td>Возвращает отображение баннера с названием локации.</td>
+  </tr>
+  <tr>
+    <td>disable hud (opts)</td>
+    <td>Отключает элементы пользовательского интерфейса. Может принимать параметры, определяющие набор отключаемых элементов: p = здоровье и дебаффы игрока, f = здоровье и дебаффы противника, a = кнопки способностей, r = ресурсы, b = баннер с названием локации, u = ремень с выкладками.<eg><br>Например:<br>disable hud // Отключает весь HUD<br>Или:<br>disable hud ru // Отключает только ресурсы (r) и выкладки (u)</eg></td>
+  </tr>
+  <tr>
+    <td>enable hud (opts)</td>
+    <td>Возвращает элементы интерфейса, скрытые с помощью 'disable hud'. Может принимать такие же параметры.</td>
+  </tr>
+  <tr>
+    <td>disable loadout input</td>
+    <td>Запрещает сохранение/загрузку выкладок по горячим клавишам.</td>
+  </tr>
+  <tr>
+    <td>enable loadout input</td>
+    <td>Возвращает возможность сохранения/загрузки выкладок.</td>
+  </tr>
+  <tr>
+    <td>disable loadout print</td>
+    <td>Скрывает сообщения при загрузке выкладки.</td>
+  </tr>
+  <tr>
+    <td>enable loadout print</td>
+    <td>Возвращает сообщения при загрузке выкладок.</td>
+  </tr>
+  <tr>
+    <td>disable npcDialog</td>
+    <td>Скрывает и автоматически пропускает все диалоги с NPC.</td>
+  </tr>
+  <tr>
+    <td>enable npcDialog</td>
+    <td>Возвращает диалоги с NPC.</td>
+  </tr>
+  <tr>
+    <td>disable pause</td>
+    <td>Скрывает кнопку паузы. Она все еще доступна при нажатии на [P].</td>
+  </tr>
+  <tr>
+    <td>enable pause</td>
+    <td>Возвращает кнопку паузы.</td>
+  </tr>
+  <tr>
+    <td>disable player</td>
+    <td>Скрывает игрока. Нет эффекта во время боя, изменение исключительно косметическое.</td>
+  </tr>
+  <tr>
+    <td>enable player</td>
+    <td>Возвращает отображение игрока.</td>
+  </tr>
+  <tr>
+    <td>play (sound) (pitch)</td>
+    <td>Проигрывает <a href="https://dimakul.github.io/manual#sounds">звуковой эффект</a> с (необязательным) уровнем питча. По умолчанию питч равен 100.<eg><br>Например:<br>?key = primary<br>  play buy<br>?key = up<br>  play buy 200<br><br>Или:<br>var pitch<br>?time%30 = 0<br>  pitch = rng/100 + 50<br>  &gt;@pitch@<br>  play buy @pitch@</eg></td>
+  </tr>
+</tbody></table></font>
+<a href="https://dimakul.github.io/manual#"><font color="#505050">^К началу</font></a>
+</div>
+
+<div id="search-filters"><div id="separator"><!---------------------------></div>
+
+·:·:· Фильтры поиска ·:·:·
+<font color="#bbbbbb">
+Используются для проверки врагов, локаций и предметов.
+
+<eg><f>Например:
+?foe = insect | foe = poison
+  loadout 3</f></eg>
+
+poison
+vigor
+aether
+fire
+air
+ice
+arachnid
+serpent
+insect
+machine
+humanoid
+elemental
+boss
+phase1
+phase2
+phase3
+spawner
+flying
+slow
+ranged
+explode
+swarm
+unpushable
+undamageable
+magic_resist
+magic_vulnerability
+immune_to_stun
+immune_to_ranged
+immune_to_debuff_damage
+immune_to_physical
+*[number]  звездный уровень (локации или предмета)
++[number]  уровень зачарования (предмета)
+</font>
+
+<a href="https://dimakul.github.io/manual#"><font color="#505050">^К началу</font></a>
+</div>
+
+<div id="comparisons"><div id="separator"><!---------------------------></div>
+
+·:·:· Сравнения ·:·:·
+<font color="#bbbbbb">
+<f>Используются вместе с состояниями игры для принятия решений.</f>
+
+<table>
+  <tbody><tr>
+    <td style="min-width: 3em"> =</td>
+    <td>Проверяет равенство значений или вхождение строки в другую строку.<eg><br>Например:<br>?hp = maxhp<br>  loadout 2</eg></td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> !</td>
+    <td>Проверяет неравенство значений или невхождение строки в другую строку.<eg><br>Например:<br>?foe ! poison<br>  equipL sword</eg></td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> &amp;</td>
+    <td>Логические оператор И.<eg><br>Например:<br>?loc=caves &amp; foe=boss</eg></td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> |</td>
+    <td>Логический оператор ИЛИ. Если '&amp;' и '|' используются вместе, операторы '&amp;' просчитываются первыми.<eg><br>Например:<br>?foe=slow | foe.count&gt;3<br>  activate potion</eg></td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> &gt;</td>
+    <td>Сравнение 'больше чем'. Можно использовать, например, со сложностью локаици, количеством врагов, здоровьем, и т.д.<eg><br>Например:<br>?foe.count &gt; 10<br>  equip shiny bardiche</eg></td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> &lt;</td>
+    <td>Сравнение 'меньше чем'.<eg><br>Например:<br>?hp &lt; 6<br>  activate potion</eg></td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> &gt;=</td>
+    <td>Сравнение 'больше или равно'. Является комбинацией '&gt;' и '=' в одно выражение.<eg><br>Следующие два примера идентичны:<br><br>?loc.stars &gt;= 6<br>  equipR vigor shield<br><br>?loc.stars &gt; 6 | loc.stars = 6<br>  equipR vigor shield</eg></td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> &lt;=</td>
+    <td>Сравнение 'меньше или равно'. Является комбинацией '&lt;' и '=' в одно выражение.<eg><br>Например:<br>?hp &lt;= 6<br>  activate potion</eg></td>
+  </tr>
+</tbody></table></font>
+<a href="https://dimakul.github.io/manual#"><font color="#505050">^К началу</font></a>
+</div>
+
+<div id="variables"><div id="separator"><!---------------------------></div>
+
+·:·:· Переменные ·:·:·
+<font color="#bbbbbb">
+Переменные - это способ хранить значение чего-либо для последующего использования. Объявить переменную можно ключевым словом 'var'.
+
+<eg>Например:
+var myVar = 10</eg>
+(myVar - название переменной, и она инициализируется со значением 10)
+
+<eg>myVar = myVar + 5</eg>
+(myVar теперь равно 15)
+
+<eg>var secondVar = 3
+myVar = myVar - secondVar</eg>
+(Множество переменных можно использовать в математических операциях. myVar теперь равно 12)
+
+
+Когда переменная объявлена, она инициализируется только один раз, впервые при выполнении 'var'.
+
+<eg>Например:
+var i = 0
+i++
+&gt;i = @i@</eg>
+В данном примере, переменная 'i' объявлена и стартует со значением 0. Каждый кадр ее значение увеличивается на 1 и выводится на экран.
+
+Переменные сбрасываются к изначальным значениям только тогда, когда вы вручную начинаете новый забег. Они не сбрасываются при открытии/закрытии Камня Разума или циклах Уробороса.
+
+Строковые значения можно опционально объявлять с помощью кавычек. Это позволяет использовать спецсимволы и оставлять пробелы в конце.
+<eg>Например:
+var a = 10
+var b = 5
+var myVar = a + " x " + b + " = " + (a * b)
+&gt;@myVar@</eg>
+(Этот пример также показывает, как объединять строки с помощью оператора '+')
+
+Переменные в импортированных скриптах находятся внутри этих скриптов, и их названия не помешают работе переменных или функций в других скриптах.
+</font>
+
+<a href="https://dimakul.github.io/manual#"><font color="#505050">^К началу</font></a>
+</div>
+
+<div id="math-operations"><div id="separator"><!---------------------------></div>
+
+·:·:· Математические операции ·:·:·
+<font color="#bbbbbb">
+<f>Операторы изменяют числа. Можно использовать вместе с переменными или прямо в проверках состояний игры.</f>
+
+<table>
+  <tbody><tr>
+    <td style="min-width: 3em"> +</td>
+    <td>Складывает два числа или переменные.<eg><br>Например:<br>var a = 2 + 3<br>(a равно 5)</eg></td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> -</td>
+    <td>Вычитает два числа или переменные друг из друга.<eg><br>Например:<br>?hp &lt; maxhp - 5<br>  equip vigor sword dL</eg></td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> *</td>
+    <td>Перемножает два числа или переменные.<eg><br>Например:<br>var a = 2<br>var b = 5<br>a = a * b<br>// a равно 10<br><br>Или:<br>var a = 2 * 0.4<br>// a равно 0.8</eg></td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> /</td>
+    <td>Делит одно число на другое. Целые числа (int) округляются вниз.<eg><br>Например:<br>var a = 8<br>a = a / 4<br>// a равно 2<br><br>Или:<br>var a = 5.0<br>a = a / 2<br>// a равно 2.5</eg></td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> ++</td>
+    <td>Инкремент (увеличение переменной на 1).<eg><br>Например:<br>var a = 3<br>a++<br>// a равно 4</eg></td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> --</td>
+    <td>Декремент (уменьшение переменной на 1).<eg><br>Например:<br>var a = 3<br>a--<br>// a равно 2</eg></td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> %</td>
+    <td>Деление с остатком. Возвращает остаток от деления одного числа на другое.<eg><br>Например:<br>var a = 5 % 4<br>(a равно 1)<br><br>Или:<br>?time % 8 &lt; 4<br>  &gt; \O)<br>?time % 8 &gt; 3<br>  &gt; (O/<br>// этот код рисует анимированный смайлик</eg></td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> ( )</td>
+    <td>Скобки можно использовать для приоритизации операций.<eg><br>Например:<br>var a = 2 * (3 - 1)<br>// a равно 4</eg></td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> !</td>
+    <td>Отрицание. Инвертирует значение (истина -&gt; ложь, а ложь -&gt; истина).<eg><br>Например:<br>? !ai.enabled<br>  &gt;ИИ игрока не включен.</eg></td>
+  </tr>
+</tbody></table></font>
+<a href="https://dimakul.github.io/manual#"><font color="#505050">^К началу</font></a>
+</div>
+
+<div id="functions"><div id="separator"><!---------------------------></div>
+
+·:·:· Функции ·:·:·
+<font color="#bbbbbb">
+Пользовательские функции довольно полезны для скриптов, чья сложность растет с каждым разом. Функции позволяют делать скрипты читабельнее и убирают лишние повторения. Когда функция объявлена, ее тело не выполняется сразу же. Вместо этого они выполнятся каждый раз, когда функция будет вызвана позже в коде.
+
+Данный пример создает счетчик, который увеличивается на 1 каждый кадр. Когда любая кастомная клавиша нажата, вызывается функция ResetCounter(), обнуляя счетчик:
+<f><eg>
+var count = 0
+count++
+&gt;Counter = @count@
+
+func ResetCounter()
+  count = 0
+
+?key=begin
+  ResetCounter()
+</eg>
+Еще один важный аспект функций: они могут возвращать значение. В данном примере объявлена простая функция, которая возвращает время основной локации (не локации с боссом):
+<eg>
+func NonBossDuration()
+  return totalTime - time
+
+var duration
+duration = NonBossDuration()
+&gt;Время: @duration@
+</eg>
+Функции также могут принимать любое количество аргументов/параметров, что делает их еще мощнее, давая возможность взаимодействовать с любыми значениями. В данном примере объявлена полезная функция, генерирующая случайное число из диапазона, после чего она использована, чтобы сгенерировать число от 5 до 10:
+<eg>
+func RandomRange(min, max)
+  ?min &gt;= max
+    return min
+  return min + rng % (max - min + 1)
+
+var randomValue
+randomValue = RandomRange(5, 10)
+&gt;Рандом: @randomValue@
+</eg>
+Префикс 'this' можно использовать внутри функций для взаимодействия с переменными, находящимися во внешнем скрипте. Использовать 'this' не обязательно, так как доступ к ним можно получить и без префикса. Однако, в следующем примере переменная 'a' есть как внутри, так и снаружи функции, так что 'this.a' используется, чтобы их отличать:
+<eg>
+var a = 1
+func TestScope(a)
+  &gt;В скрипте = @this.a@, в функции = @a@
+
+TestScope(3)
+</eg>
+Когда функции вызывают другие функции или сами себя, создается стек выполнения, который может расти до необъятных размеров, пока игра ен вылетит. Для того, чтобы сберечь ресурсы компьютера, в Stonescript есть лимит стека (215), и при его превышении будет выброшено исключение.
+</f></font>
+
+<a href="https://dimakul.github.io/manual#"><font color="#505050">^К началу</font></a>
+</div>
+
+<div id="native-functions"><div id="separator"><!---------------------------></div>
+
+·:·:· Встроенные функции ·:·:·
+<font color="#bbbbbb">
+Хотя скрипты и могут определять свои собственные функции, в Stonescript есть множество заранее определенных (нативных) функций, которые ведут себя почти так же, как команды, но более сгруппированы по своей сути, а также могут принимать параметры и иногда возвращать какое-то значение.
+
+<table>
+  <tbody><tr><td>ambient<br>‾‾‾‾‾‾‾</td></tr>
+  <tr>
+    <td>?ambient<br><eg>Возвращает string</eg></td>
+    <td>Возвращает список ID всех активных в данный момент звуков окружающей среды, разделенный запятыми.<br><eg>Например:<br>&gt;`0,0,Эмбиенты = @ambient@</eg></td>
+  </tr>
+  <tr>
+    <td>ambient.Add(str)<br><eg>Ничего не возвращает</eg></td>
+    <td>Добавляет слой аудио окружающей среды с указанным ID. Не больше 4 слоев. При добавлении 5-го слоя самый старый слой автоматически удаляется.<br><eg>Например:<br>?loc.begin<br>  ambient.Add(ambient_crypt)</eg></td>
+  </tr>
+  <tr>
+    <td>ambient.Stop()<br><eg>Ничего не возвращает</eg></td>
+    <td>Очищает все слои звуков окружающей среды.<br><eg>Например:<br>?time = 3<br>  ambient.Stop()<br>  ambient.Add(ambient_mines)</eg></td>
+  </tr>
+  <tr><td><br>BigNumber<br>‾‾‾‾‾‾‾‾‾</td><td><br>BigNumber (БольшоеЧисло) - специальный тип объекта, дающий возможность работать с большими числами размером выше 32 бит. Хоть они и могут содержать только положительные и отрицательные целочисленные значения, операции с ними работают как с дробными, так и с обычными целыми числами наравне с другими числами типа BigNumber.</td></tr>
+  <tr>
+    <td>b.Add(num)<br>b.Add(BigNumber)<br><eg>Возвращает itself</eg></td>
+    <td>Прибавляет число к BigNumber (+)<br><eg>Например:<br>var bn = math.BigNumber(12)<br>bn.Add(5)<br>&gt;@bn@<br>// 17</eg></td>
+  </tr>
+  <tr>
+    <td>b.Sub(num)<br>b.Sub(BigNumber)<br><eg>Возвращает itself</eg></td>
+    <td>Вычитает число из BigNumber (-)<br><eg>Например:<br>var bn = math.BigNumber(12)<br>bn.Sub(5)<br>&gt;@bn@<br>// 7</eg></td>
+  </tr>
+  <tr>
+    <td>b.Mul(num)<br>b.Mul(BigNumber)<br><eg>Возвращает itself</eg></td>
+    <td>Умножает BigNumber на число (*)<br><eg>Например:<br>var myBigNum1 = math.BigNumber(12)<br>var myBigNum2 = math.BigNumber(12)<br>myBigNum1.Mul(5)<br>myBigNum2.Mul(1.5)<br>&gt;@myBigNum1@ @myBigNum2@<br>// 60 18</eg></td>
+  </tr>
+  <tr>
+    <td>b.Div(num)<br>b.Div(BigNumber)<br><eg>Возвращает itself</eg></td>
+    <td>Делит BigNumber на число (/)<br><eg>Например:<br>var myBigNum1 = math.BigNumber(12)<br>var myBigNum2 = math.BigNumber(12)<br>myBigNum1.Div(5)<br>myBigNum2.Div(1.5)<br>&gt;@myBigNum1@ @myBigNum2@<br>// 2 8</eg></td>
+  </tr>
+  <tr>
+    <td>b.Eq(num)<br>b.Eq(BigNumber)<br><eg>Возвращает bool</eg></td>
+    <td>Определяет, равно ли BigNumber числу(=)<br><eg>Например:<br>var bn = math.BigNumber(5)<br>&gt;@bn.Eq(5)@ @bn.Eq(3)@<br>// true false</eg></td>
+  </tr>
+  <tr>
+    <td>b.Gt(num)<br>b.Gt(BigNumber)<br><eg>Возвращает bool</eg></td>
+    <td>Определяет, больше ли BigNumber числа (&gt;)<br><eg>Например:<br>var bn = math.BigNumber(5)<br>&gt;@bn.Gt(3)@ @bn.Gt(10)@<br>// true false</eg></td>
+  </tr>
+  <tr>
+    <td>b.Ge(num)<br>b.Ge(BigNumber)<br><eg>Возвращает bool</eg></td>
+    <td>Определяет, больше или равно BigNumber числу (&gt;=)<br><eg>Например:<br>var bn = math.BigNumber(5)<br>&gt;@bn.Ge(3)@ @bn.Ge(5)@<br>// true true</eg></td>
+  </tr>
+  <tr>
+    <td>b.Lt(num)<br>b.Lt(BigNumber)<br><eg>Возвращает bool</eg></td>
+    <td>Определяет, меньше ли BigNumber числа (&lt;)<br><eg>Например:<br>var bn = math.BigNumber(5)<br>&gt;@bn.Lt(3)@ @bn.Lt(10)@<br>// false true</eg></td>
+  </tr>
+  <tr>
+    <td>b.Le(num)<br>b.Le(BigNumber)<br><eg>Возвращает bool</eg></td>
+    <td>Определяет, меньше или равно BigNumber числу (&lt;=)<br><eg>Например:<br>var bn = math.BigNumber(5)<br>&gt;@bn.Le(10)@ @bn.Le(5)@<br>// true true</eg></td>
+  </tr>
+  <tr>
+    <td>b.ToFloat()<br><eg>Возвращает float</eg></td>
+    <td>Конвертирует значение в дробное. Выдает ошибку, если число слишком маленькое или слишком большое.<br><eg>Например:<br>var bn = math.BigNumber(5)<br>var fNumber = bn.ToFloat()<br>&gt;float = @fNumber@</eg></td>
+  </tr>
+  <tr>
+    <td>b.ToInt()<br><eg>Возвращает int</eg></td>
+    <td>Конвертирует значение в обычное целочисленное. Выдает ошибку, если число слишком маленькое или слишком большое.<br><eg>Например:<br>var bn = math.BigNumber(5)<br>var iNumber = bn.ToInt()<br>&gt;integer = @iNumber@</eg></td>
+  </tr>
+  <tr>
+    <td>b.ToString()<br><eg>Возвращает string</eg></td>
+    <td>Возвращает BigNumber в строковом виде. Можно использовать для сериализации с целью хранения.<br><eg>Например:<br>var myBigNum = math.BigNumber("123456789123456789")<br>storage.Set("myBN", myBigNum.ToString())<br>---<br>var bnStr = storage.Get("myBN")<br>var myBigNum = math.BigNumber(bnStr)</eg></td>
+  </tr>
+  <tr>
+    <td>b.ToUI()<br><eg>Возвращает string</eg></td>
+    <td>Возвращает число в кратком виде для использования в UI.<br><eg>Например:<br>var myBigNum = math.BigNumber("123456789123456789")<br>&gt;@myBigNum.ToUI()@<br>// 123.5Qa</eg></td>
+  </tr>
+  <tr><td><br>color<br>‾‾‾‾‾</td><td><br>Цвета в Stonescript представлены в виде строк в <a href="https://htmlcolorcodes.com/" target="_blank">шестнадцатеричной форме</a>, например, <eg>#ff0000</eg>, либо же с помощью упрощенных шаблонов, например, <eg>#red</eg>.</td></tr>
+  <tr>
+    <td>color.FromRGB(r,g,b)<br><eg>Возвращает string</eg></td>
+    <td>Конвертирует цвет из трех чисел (от 0 до 255) в строку.<br><eg>Например:<br>var c = color.FromRGB(255, 0, 128)<br>&gt;`0,0,@c@, @c@</eg></td>
+  </tr>
+  <tr>
+    <td>color.ToRGB(string)<br><eg>Возвращает int[3]</eg></td>
+    <td>Конвертирует цвет из строки в массив из трех чисел (от 0 до 255).<br><eg>Например:<br>var c = color.Random()<br>var rgb = color.ToRGB(c)<br>var r = rgb［0］<br>var g = rgb［1］<br>var b = rgb［2］<br>&gt;`0,0,@c@, @c@ \n @r@ \n @g@ \n @b@</eg></td>
+  </tr>
+  <tr>
+    <td>color.Lerp(c1,c2,t)<br><eg>Возвращает string</eg></td>
+    <td>Возвращает линейную интерполяцию от цвета <eg>c1</eg> до цвета <eg>c2</eg> в момент времени (процент) <eg>t</eg>.<br><eg>Например:<br>var c1 = "#ff4400"<br>var c2 = "#8888ff"<br>var t = 0.5<br>var c<br>t = math.sin(time*0.1) / 2 + 0.5<br>c = color.Lerp(c1, c2, t)<br>&gt;`0,1,@c@,@c@\n ██████</eg></td>
+  </tr>
+  <tr>
+    <td>color.Random()<br><eg>Возвращает string</eg></td>
+    <td>Возвращает случайный цвет.<br><eg>Например:<br>var c<br>c = color.Random()<br>&gt;`0,0,@c@,@c@\n ██████</eg></td>
+  </tr>
+  <tr><td>draw<br>‾‾‾‾</td></tr>
+  <tr>
+    <td>draw.Bg(x, y, color)<br><eg>Ничего не возвращает</eg></td>
+    <td>Устанавливает цвет фона в конкретной позиции на экране.<br><eg>Например:<br>draw.Bg(5, 4, #red)</eg></td>
+  </tr>
+  <tr>
+    <td>draw.Bg(x, y, color, w, h)<br><eg>Ничего не возвращает</eg></td>
+    <td>Устанавливает цвет фона в прямоугольной области на экране.<br><eg>Например:<br>draw.Bg(5, 4, #cyan, 10, 6)</eg></td>
+  </tr>
+  <tr>
+    <td>draw.Box(x, y, w, h, color, style)<br><eg>Ничего не возвращает</eg></td>
+    <td>Отрисовывает прямоугольник в указанной позиции указанного размера. Граница определена цветом и номером стиля. Отрицательные значения стиля делают границу прозрачной. ПРЕДОСТЕРЕЖЕНИЕ - В данный момент продвинутые функции вывода печатают текст поверх таких прямоугольников.<br><eg>Используйте этот пример, чтобы исследовать различные стили нажатием кнопок влево/вправо<br>var style = 1<br>?key = leftBegin<br>  style--<br>?key = rightBegin<br>  style++<br>draw.Box(10, 5, 30, 15, #333333, style)<br>&gt;`12,6,#ffffff,Style = @style@<br>&gt;`12,8,#888888,Нажмите Влево/Вправо\nдля смены стиля</eg></td>
+  </tr>
+  <tr>
+    <td>draw.Clear()<br><eg>Ничего не возвращает</eg></td>
+    <td>Полностью очищает экран.</td>
+  </tr>
+  <tr>
+    <td>draw.GetSymbol(x, y)<br><eg>Возвращает string</eg></td>
+    <td>Возвращает символ на указанной позиции (x, y).<br><eg>Данный пример выбирает координату на экране и отрисовывает символ в верхнем левом углу экрана. Выбор [ ] может быть передвинут игроком:<br>var s<br>var x = 20<br>var y = 10<br>var drawX<br>?key=leftBegin<br>  x--<br>?key=rightBegin<br>  x++<br>?key=upBegin<br>  y--<br>?key=downBegin<br>  y++<br>s = draw.GetSymbol(x, y)<br>&gt;`0,1,Symbol = @s@<br>drawX = x - 1<br>&gt;`@drawX@,@y@,[#］<br></eg></td>
+  </tr>
+  <tr>
+    <td>draw.Player()<br>draw.Player(x,y)<br><eg>Ничего не возвращает</eg></td>
+    <td>Отрисовывает игрока, со всем снаряжением и прочим. Опционально можно передать смещения по х и у. Для отрисовки на абсолютной позиции экрана, обратитесь к пространству имен <eg>screen</eg> и используйте смещения, которые конвертируют позицию игрока в позицию на экране.</td>
+  </tr>
+  <tr><td><br>int<br>‾‾‾</td></tr>
+  <tr>
+    <td>int.Parse(str)<br><eg>Возвращает integer</eg></td>
+    <td>Конвертирует строку с числом в нормальное число. Если строка не численная, выбрасывает ошибку.<br><eg>Например:<br>var s = "999"<br>var i = int.Parse(s)<br>i++</eg></td>
+  </tr>
+  <tr><td>event<br>‾‾‾‾‾</td></tr>
+  <tr>
+    <td>event.GetObjectiveId(int)<br><eg>Возвращает string</eg><br><br>event.GetObjectiveProgress<br>(int)<br>event.GetObjectiveGoal(int)<br><eg>Возвращает int</eg></td>
+    <td>Возвращает информацию об активных целях в событии сообщества или сезонном событии. Принимает индекс желаемой цели. Обычно в событиях есть лимит на 3 активные цели, следовательно, параметр должен быть 0, 1 или 2.<br><eg>Например:<br>var id<br>var p<br>var g<br>id = event.GetObjectiveId(0)<br>p = event.GetObjectiveProgress(0)<br>g = event.GetObjectiveGoal(0)<br>&gt;`0,1,@id@:@p@/@g@</eg></td>
+  </tr>
+  <tr><td>item<br>‾‾‾‾</td></tr>
+  <tr>
+    <td>item.CanActivate()<br><eg>Возвращает boolean</eg></td>
+    <td>Возвращает true, если сейчас можно использовать способность предмета, и false в противном случае. В некоторых ситуациях все способности заблокированы, даже если они не на перезарядке, например, до боя с боссом, во время катсцены или на 1 кадре.<br><eg>Например:<br>?item.CanActivate()<br>  equip Bardiche<br>  activate R</eg></td>
+  </tr>
+  <tr>
+    <td>item.CanActivate(str)<br><eg>Возвращает boolean</eg></td>
+    <td>Возвращает true, если сейчас можно использовать конкретную способность. Может быть истинно, только если предмет надет. Некоторые предметы имеют способности, которые требуют особых условий для активации способности. Эта функция является подфункцией item.GetCooldown(), так как перезарядка предмета может быть равна 0 и предмет не может быть активирован, хотя и активировать предмет, находящийся на перезарядке, невозможно никогда.<br><eg>Например:<br>equip bardiche<br>?item.GetCooldown("skeleton_arm") &lt;= 0<br>  equip skeleton arm<br>  ?item.CanActivate("skeleton_arm")<br>    activate R</eg></td>
+  </tr>
+  <tr>
+    <td>item.GetCooldown(str)<br><eg>Возвращает integer</eg></td>
+    <td>Возвращает оставшееся время перезарядки (в кадрах) для указанной способности.<br>См. <a href="https://dimakul.github.io/manual#ability_ids">Приложение A</a>  для всех видов способности. ВНИМАНИЕ: Несуществующие способности вернут -1. Некоторые способности предметов, которые еще не были использованы, также будут возвращать -1.<br><eg>Например:<br>?foe = boss &amp; item.GetCooldown("bardiche") &lt;= 0<br>  equip bardiche<br>  activate R</eg>
+  </td></tr>
+  <tr>
+    <td>item.GetCount(str)<br><eg>Возвращает integer</eg></td>
+    <td>Возвращает количество копий предмета в инвентаре. Возвращает 0, если их нет.<br><eg>Например:<br>var searchCriteria = "sword *0 -big -socket"<br>var swordCount = item.GetCount(searchCriteria)<br>&gt;У меня @swordCount@ обычных мечей
+  </eg></td></tr>
+  <tr>
+    <td>item.GetLoadoutL(int)<br>item.GetLoadoutR(int)<br><eg>Возвращает string</eg></td>
+    <td>Возвращает предмет в указанной выкладке. Передаваемый параметр равен номеру выкладки. Возвращает пустую строку, если в выкладке нет предмета на данном слоте.<br><eg>Например:<br>&gt;`0,1,Слева: @item.GetLoadoutL(1)@<br>&gt;`0,2,Справа: @item.GetLoadoutR(1)@
+  </eg></td></tr>
+  <tr>
+    <td>item.GetTreasureCount()<br><eg>Возвращает integer</eg></td>
+    <td>Возвращает количество сундуков в инвентаре игрока.
+  </td></tr>
+  <tr>
+    <td>item.GetTreasureLimit()<br><eg>Возвращает integer</eg></td>
+    <td>Возвращает лимит сундуков в инвентаре игрока. Другими словами, это максимальная вместимость.<br><eg>Например:<br>var trs<br>var max<br>trs = item.GetTreasureCount()<br>max = item.GetTreasureLimit()<br>&gt;`0,2,Сокровищ: @trs@/@max@
+  </eg></td></tr>
+  <tr><td>key<br>‾‾‾</td><td><br>Пространство имен key позволяет кастомизировать дефолтные клавиши и комбинации клавиш. Эта система основана на  <eg>действиях (сокращенно "act")</eg> и <eg>клавишах</eg>, где каждое действие соответствует определенному типу ввода/комбинации клавиш, а каждый ключ соответствует физическому нажатию клавиши. Список всех доступных клавиш, которые можно назначить действиям, можно найти <a href="https://docs.unity3d.com/ScriptReference/KeyCode.html" target="_Blank">здесь</a>. Такие изменения сохраняются между забегами (в данный момент они не сохраняются в хранилище). Для оптимизации рекомендуется не менять бинды каждый кадр.<br>
+<table>
+  <tbody><tr>
+    <td>Действие<br>--------</td>
+    <td>Клавиша по умолчанию<br>--------------------</td>
+    <td>Клавиша по умолчанию 2<br>----------------------</td>
+    <td><br></td>
+  </tr>
+  <tr>
+    <td>Pause</td>
+    <td>P</td>
+    <td>Space</td>
+  </tr>
+  <tr>
+    <td>Leave</td>
+    <td>L</td>
+  </tr>
+  <tr>
+    <td>Inventory</td>
+    <td>I</td>
+  </tr>
+  <tr>
+    <td>Mindstone</td>
+    <td>M</td>
+  </tr>
+  <tr><td></td></tr>
+  <tr>
+    <td>Potion</td>
+    <td>Q</td>
+  </tr>
+  <tr>
+    <td>ItemLeft</td>
+    <td>E</td>
+  </tr>
+  <tr>
+    <td>ItemRight</td>
+    <td>R</td>
+  </tr>
+  <tr><td></td></tr>
+  <tr>
+    <td>Up</td>
+    <td>W</td>
+    <td>UpArrow</td>
+  </tr>
+  <tr>
+    <td>Down</td>
+    <td>S</td>
+    <td>DownArrow</td>
+  </tr>
+  <tr>
+    <td>Left</td>
+    <td>A</td>
+    <td>LeftArrow</td>
+  </tr>
+  <tr>
+    <td>Right</td>
+    <td>D</td>
+    <td>RightArrow</td>
+  </tr>
+  <tr><td></td></tr>
+  <tr>
+    <td>Primary</td>
+    <td>Return</td>
+    <td>KeypadEnter</td>
+  </tr>
+  <tr>
+    <td>Back</td>
+    <td>X</td>
+  </tr>
+  <tr>
+    <td>Ability1</td>
+    <td>LeftShift</td>
+    <td>RightShift</td>
+  </tr>
+  <tr>
+    <td>Ability2</td>
+    <td>LeftControl</td>
+    <td>RightControl</td>
+  </tr>
+  <tr>
+    <td>BumpL</td>
+    <td>Z</td>
+  </tr>
+  <tr>
+    <td>BumpR</td>
+    <td>C</td>
+  </tr>
+  <tr><td></td></tr>
+  <tr>
+    <td>Dynamic1</td>
+    <td>F</td>
+  </tr>
+  <tr>
+    <td>Dynamic2</td>
+    <td>T</td>
+  </tr>
+  <tr>
+    <td>Dynamic3</td>
+    <td>G</td>
+  </tr>
+  <tr>
+    <td>Dynamic4</td>
+    <td>V</td>
+  </tr>
+  <tr>
+    <td>Dynamic5</td>
+    <td>B</td>
+  </tr>
+</tbody></table></td>
+  </tr><tr>
+    <td>key.Bind(act, key1)<br>key.Bind(act, key1, key2)<br><eg>Ничего не возвращает</eg></td>
+    <td>Назначает новый набор клавиш конкретному действию. Если у другого действия уже задана такая клавиша, то она сбрасывается. Одному действию можно назначить до двух различных клавиш.<br><eg>Например:<br>?loc.begin<br>  key.Bind("Potion", "P")<br>  // В данном примере клавиша "P", которая изначально назначена для паузы, больше не ставит игру на паузу и вместо этого активирует зелье. Помимо этого, клавиша "Q" для зелья больше не работает. "Q" не назначена никакому действию.</eg></td>
+  </tr>
+  <tr>
+    <td>key.GetKeyAct(key)<br><eg>Возвращает string</eg></td>
+    <td>Возвращает действие, назначенное на конкретную клавишу. Возвращает "None", если клавиша не назначена никакому действию.</td>
+  </tr>
+  <tr>
+    <td>key.GetActKey(act)<br><eg>Возвращает string</eg></td>
+    <td>Возвращает первую клавишу, назначенную действию. Возвращает "None", если действию не назначены никакие клавиши.</td>
+  </tr>
+  <tr>
+    <td>key.GetActKey2(act)<br><eg>Возвращает string</eg></td>
+    <td>Возвращает вторую клавишу, назначенную действию. Возвращает "None", если действию не назначены никакие клавиши.</td>
+  </tr>
+  <tr>
+    <td>key.GetActLabel(act)<br><eg>Возвращает string</eg></td>
+    <td>Возвращает назначенную действию клавишу в удобном для пользователя формате. В данный момент функция возвращает первую букву назначенной клавиши, что может сбить с толку в случаях с клавишами по типу "LeftShift".</td>
+  </tr>
+  <tr>
+    <td>key.ResetBinds()<br><eg>Ничего не возвращает</eg></td>
+    <td>Сбрасывает все действия на дефолтные клавиши.</td>
+  </tr>
+  <tr><td><br>loc<br>‾‾‾</td></tr>
+  <tr>
+    <td>loc.Leave()<br><eg>Ничего не возвращает</eg></td>
+    <td>Покидает забег, будто бы игрок вышел самостоятельно.</td>
+  </tr>
+  <tr>
+    <td>loc.Pause()<br><eg>Ничего не возвращает</eg></td>
+    <td>Ставит забег на паузу, будто бы игрок нажал на кнопку паузы.</td>
+  </tr>
+  <tr><td><br>math<br>‾‾‾‾</td><td><br>API математики работает и с целыми, и с дробными (float) числами. Когда число объявлено с десятичной точкой, подразумевается, что оно дробное<eg>(например: var a = 0.5)</eg>. Если ее нет, то число рассматривается как целое <eg>(например: var a = 2)</eg>.</td></tr>
+  <tr>
+    <td>math.Abs(num)<br><eg>Возвращает число</eg></td>
+    <td>Возвращает значение числа по модулю.<br><eg>Например:<br>var number = -2<br>number = math.Abs(number)<br>// number теперь равно 2</eg></td>
+  </tr>
+  <tr>
+    <td>math.Acos(num)<br><eg>Возвращает число</eg></td>
+    <td>Возвращает арккосинус числа в радианах. Принимает на вход числа от -1 до 1. Если число за их пределами, возвращает "NaN".<br><eg>Например:<br>var number = math.Acos(-1)<br>// number равно π</eg></td>
+  </tr>
+  <tr>
+    <td>math.Asin(num)<br><eg>Возвращает число</eg></td>
+    <td>Возвращает арксинус числа в радианах. The input bounds are -1 to 1. Если число за их пределами, возвращает "NaN".<br><eg>Например:<br>var number = math.Asin(1)<br>// number равно π/2</eg></td>
+  </tr>
+  <tr>
+    <td>math.Atan(num)<br><eg>Возвращает число</eg></td>
+    <td>Возвращает арктангенс числа в радианах.<br><eg>Например:<br>var number = math.Atan(2)<br>// number равно 1.107149</eg></td>
+  </tr>
+  <tr>
+    <td>math.Atan2(y, x)<br><eg>Возвращает число</eg></td>
+    <td>Возвращает угол в радианах между осью Х и линии от точки отсчета до точки (x,y).<br><eg>Например:<br>var number = math.Atan2(3, 2)<br>// number равно 0.9827937</eg></td>
+  </tr>
+  <tr>
+    <td>math.BigNumber()<br>math.BigNumber(number)<br>math.BigNumber(str)<br><eg>Возвращает BigNumber</eg></td>
+    <td>Создает новый объект типа BigNumber из дробного или целого числа, либо парсит строку в объект такого типа.<br><eg>Например:<br>var myBigNum = math.BigNumber("500")<br>myBigNum.Add(500).Mul(1000).Mul(1000).Mul(1000)<br>&gt;@myBigNum@<br>// 1000000000000</eg></td>
+  </tr>
+  <tr>
+    <td>math.Ceil(num)<br><eg>Возвращает число</eg></td>
+    <td>Округляет число вверх, до ближайшего целого.<br><eg>Например:<br>var number = math.Ceil(4.2)<br>// number равно 5.0</eg></td>
+  </tr>
+  <tr>
+    <td>math.CeilToInt(num)<br><eg>Возвращает integer</eg></td>
+    <td>Округляет число вверх, до ближайшего целого, но возвращает int.<br><eg>Например:<br>var number = math.CeilToInt(4.2)<br>// number равно 5</eg></td>
+  </tr>
+  <tr>
+    <td>math.Clamp(num, min, max)<br><eg>Возвращает число</eg></td>
+    <td>Ограничивает число в пределах 'min' и 'max'. Если число уже в диапазоне, то будет возвращено без изменения.<br><eg>Например:<br>var number = 50<br>number = math.Clamp(number, 0, 10)<br>// number было урезано до указанного диапазона и равно 10</eg></td>
+  </tr>
+  <tr>
+    <td>math.Cos(num)<br><eg>Возвращает число</eg></td>
+    <td>Возвращает косинус угла в радианах.<br><eg>Например:<br>var number = math.Cos(0)<br>// number равен 1</eg></td>
+  </tr>
+  <tr>
+    <td>math.e<br><eg>float</eg></td>
+    <td>Константа <eg>e</eg>, также известная как число Эйлера, примерно равная 2.71828.<br><eg>Например:<br>&gt;E = @math.e@<br>// выводит е на экран</eg></td>
+  </tr>
+  <tr>
+    <td>math.Exp(num)<br><eg>Возвращает число</eg></td>
+    <td>Возвращает <eg>e</eg> в указанной степени.<br><eg>Например:<br>var number = math.Exp(3)<br>// number равно 20.08554</eg></td>
+  </tr>
+  <tr>
+    <td>math.Floor(num)<br><eg>Возвращает число</eg></td>
+    <td>Округляет число вниз, до ближайшего целого.<br><eg>Например:<br>var number = math.Floor(2.7)<br>// number равно 2.0</eg></td>
+  </tr>
+  <tr>
+    <td>math.FloorToInt(num)<br><eg>Возвращает integer</eg></td>
+    <td>Округляет число вниз, до ближайшего целого, но возвращает int.<br><eg>Например:<br>var number = math.FloorToInt(2.7)<br>// number равно 2</eg></td>
+  </tr>
+  <tr>
+    <td>math.Lerp(a, b, t)<br><eg>Возвращает число</eg></td>
+    <td>Производит линейную интерполяцию от <eg>a</eg> до <eg>b</eg> в момент времени (процент) <eg>t</eg>.<br><eg>Например:<br>var number = math.Lerp(0.0, 20.0, 0.75)<br>// number равно 15.0<br><br>Например:2:<br>var n = 0.0<br>?key = Begin<br>  n = 0.0<br>n = math.Lerp(n, 100, 0.02)<br>&gt;n = @n@<br>// Variable n движется к 100, со скоростью 2% в кадр. Когда клавиша нажата, сбрасывается</eg></td>
+  </tr>
+  <tr>
+    <td>math.Log(num, base)<br><eg>Возвращает число</eg></td>
+    <td>Возвращает логарифм числа по указанному основанию.<br><eg>Например:<br>var number = math.Log(5, 2)<br>// number равно 2.321928</eg></td>
+  </tr>
+  <tr>
+    <td>math.Max(num1, num2)<br><eg>Возвращает число</eg></td>
+    <td>Возвращает большее из двух чисел.<br><eg>Например:<br>var number = math.Max(3, 10)<br>// number равно 10</eg></td>
+  </tr>
+  <tr>
+    <td>math.Min(num1, num2)<br><eg>Возвращает число</eg></td>
+    <td>Возвращает меньшее из двух чисел.<br><eg>Например:<br>var number = math.Min(3, 10)<br>// number равно 3</eg></td>
+  </tr>
+  <tr>
+    <td>math.pi<br><eg>float</eg></td>
+    <td>Константа π, примерно равная 3.1415926<br><eg>Например:<br>&gt;PI = @math.pi@<br>// выводит π на экран</eg></td>
+  </tr>
+  <tr>
+    <td>math.Pow(num, p)<br><eg>Возвращает число</eg></td>
+    <td>Возвращает число в указанной степени.<br><eg>Например:<br>var number = math.Pow(3, 2)<br>// number равно 9</eg></td>
+  </tr>
+  <tr>
+    <td>math.Round(num)<br><eg>Возвращает число</eg></td>
+    <td>Округляет число до ближайшего целого.<br><eg>Например:<br>var number = math.Round(2.7)<br>// number равно 3.0</eg></td>
+  </tr>
+  <tr>
+    <td>math.RoundToInt(num)<br><eg>Возвращает integer</eg></td>
+    <td>Округляет число до ближайшего целого, но возвращает int.<br><eg>Например:<br>var number = math.RoundToInt(2.7)<br>// number равно 3</eg></td>
+  </tr>
+  <tr>
+    <td>math.Sign(num)<br><eg>Возвращает число</eg></td>
+    <td>Возвращает -1, если число отрицательное, в других случаях возвращает 1.<br><eg>Например:<br>var sign = math.Sign(-21)<br>var n = 10 * sign<br>// n равно -10</eg></td>
+  </tr>
+  <tr>
+    <td>math.Sin(num)<br><eg>Возвращает число</eg></td>
+    <td>Возвращает синус угла в радианах.<br><eg>Например:<br>var number = math.Sin(math.pi / 2)<br>// number равно 1</eg></td>
+  </tr>
+  <tr>
+    <td>math.Sqrt(num)<br><eg>Возвращает число</eg></td>
+    <td>Возвращает квадратный корень из числа.<br><eg>Например:<br>var number = math.Sqrt(9)<br>// number равно 3</eg></td>
+  </tr>
+  <tr>
+    <td>math.Tan(num)<br><eg>Возвращает число</eg></td>
+    <td>Возвращает тангенс угла в радианах.<br><eg>Например:<br>var number = math.Tan(2)<br>// number равно -2.18504</eg></td>
+  </tr>
+  <tr>
+    <td>math.ToDeg(num)<br><eg>Возвращает число</eg></td>
+    <td>Конвертирует радианы в градусы.<br><eg>Например:<br>var number = math.ToDeg(2 * math.pi)<br>// number равно 360</eg></td>
+  </tr>
+  <tr>
+    <td>math.ToRad(num)<br><eg>Возвращает число</eg></td>
+    <td>Конвертирует градусы в радианы.<br><eg>Например:<br>var number = math.ToRad(360)<br>// number равно 2π</eg></td>
+  </tr>
+  <tr><td></td></tr>
+  <tr><td>music<br>‾‾‾‾‾</td></tr>
+  <tr>
+    <td>?music<br><eg>Возвращает string</eg></td>
+    <td>Возвращает ID музыки, играющей в данный момент.<br><eg>Например:<br>&gt;`0,0,Музыка = @music@</eg></td>
+  </tr>
+  <tr>
+    <td>music.Play(str)<br><eg>Ничего не возвращает</eg></td>
+    <td>Проигрывает музыку с указанным ID. Может играть только один музыкальный трек.<br><eg>Например:<br>?loc.begin | loc.loop<br>  music.Play(temple_0)</eg></td>
+  </tr>
+  <tr>
+    <td>music.Stop()<br><eg>Ничего не возвращает</eg></td>
+    <td>Останавливает всю музыку.<br><eg>Например:<br>?!string.Equals(music, "")<br>  music.Stop()</eg></td>
+  </tr>
+  <tr><td></td></tr>
+  <tr><td>player<br>‾‾‾‾‾‾</td></tr>
+  <tr>
+    <td>player.ShowScaredFace(num)<br><eg>Ничего не возвращает</eg></td>
+    <td>Если у игрока включена большая голова, то лицо на ней будет испуганным заданное количество времени.<eg><br>Например:<br>?key = primaryBegin<br>  player.ShowScaredFace(1)</eg></td>
+  </tr>
+  <tr><td></td></tr>
+  <tr><td>screen<br>‾‾‾‾‾‾</td></tr>
+  <tr>
+    <td>screen.FromWorldX(int)<br><eg>Возвращает integer</eg></td>
+    <td>Конвертирует значение координаты X из всего пространства мира в пространство экрана.</td>
+  </tr>
+  <tr>
+    <td>screen.FromWorldZ(int)<br><eg>Возвращает integer</eg></td>
+    <td>Конвертирует значение координаты Z из пространства мира в координату Y на экране.<eg><br>Например:<br>var x<br>var y<br>x = screen.FromWorldX(pos.x)<br>y = screen.FromWorldZ(pos.z - pos.y)<br>&gt;`0,1,Позиция игрока на экране: @x@,@y@</eg></td>
+  </tr>
+  <tr>
+    <td>screen.ToWorldX(int)<br><eg>Возвращает integer</eg></td>
+    <td>Конвертирует значение координаты X из пространства экрана в пространство мира.</td>
+  </tr>
+  <tr>
+    <td>screen.ToWorldZ(int)<br><eg>Возвращает integer</eg></td>
+    <td>Конвертирует значение координаты Y на экране в координату Z в пространстве мира.<eg><br>Например:<br>var x<br>var y<br>var z<br>x = input.x<br>y = input.y<br>&gt;`0,1,Позиция курсора на экране: @x@,@y@<br><br>x = screen.ToWorldX(input.x)<br>z = screen.ToWorldZ(input.y)<br>&gt;`0,2,Позиция курсора в мире: @x@,@z@</eg></td>
+  </tr>
+  <tr>
+    <td>screen.Next()<br><eg>Ничего не возвращает</eg></td>
+    <td>Для многоэкранных локаций передвигает камеру на экран вперед.<eg><br>Например:<br>?key = rightBegin<br>  screen.Next()</eg></td>
+  </tr>
+  <tr>
+    <td>screen.Previous()<br><eg>Ничего не возвращает</eg></td>
+    <td>Для многоэкранных локаций передвигает камеру на экран назад.<eg><br>Например:<br>?key = leftBegin<br>  screen.Previous()</eg></td>
+  </tr>
+  <tr>
+    <td>screen.ResetOffset()<br><eg>Ничего не возвращает</eg></td>
+    <td>Камера снова начинает следовать за игроком, отменяя изменения, вызванные screen.Next() и screen.Previous().<eg><br>Например:<br>var lastScreenI = -1<br>?lastScreenI ! screen.i<br>  screen.ResetOffset()<br>lastScreenI = screen.i</eg></td>
+  </tr>
+  <tr><td>storage<br>‾‾‾‾‾‾‾</td><td>Значения, сохраненные в это перманентное хранилище, сохраняются, даже если вы покидаете локацию или выключаете игру. Они не являются частью сохранения, а хранятся как отдельные файлы в папке Stonescript. Импортированные скрипты получают доступ к хранилищу отдельно друг от друга, что дает возможность различным модулям использовать одни и те же ключи без влияния на данные друг друга.</td></tr>
+  <tr>
+    <td>storage.Delete(string)<br><eg>Ничего не возвращает</eg></td>
+    <td>Удаляет любое значение указанного ключа.<br><eg>Например:<br>storage.Delete("highscore")</eg></td>
+  </tr>
+  <tr>
+    <td>storage.Get(string)<br><eg>Возвращает value</eg></td>
+    <td>Возвращает значение, хранящееся по заданному ключу.<br><eg>Например:<br>var value = storage.Get("highscore")<br>?value<br>  &gt;Рекоорд = @value@<br>:<br>  &gt;Рекорд не найден.</eg></td>
+  </tr>
+  <tr>
+    <td>storage.Get(string, value)<br><eg>Возвращает value</eg></td>
+    <td>Возвращает значение, хранящееся по заданному ключу. Если оно не найдено, возвращает второй параметр по умолчанию.<br><eg>Например:<br>var value = storage.Get("highscore", 0)<br>&gt;Рекорд = @value@</eg></td>
+  </tr>
+  <tr>
+    <td>storage.Has(string)<br><eg>Возвращает boolean</eg></td>
+    <td>Возвращает <eg>true</eg>, если указанный ключ есть в хранилище; <eg>false</eg> в противном случае.<br><eg>Например:<br>?storage.Has("highscore")<br>  var value = storage.Get("highscore")<br>  &gt;Рекорд = @value@<br>:<br>  &gt;Рекорд не найден.</eg></td>
+  </tr>
+  <tr>
+    <td>storage.Incr(string)<br><eg>Возвращает integer</eg></td>
+    <td>Увеличивает значение по заданному ключу на 1, затем возвращает новое значение.<br><eg>Например:<br>?gameOver<br>  storage.Incr("stat_TimesPlayed")</eg></td>
+  </tr>
+  <tr>
+    <td>storage.Keys()<br><eg>Возвращает массив</eg></td>
+    <td>Возвращает массив строк, содержащий все доступные в данный момент ключи.<br><eg>Например:<br>var a<br>?time % 30 = 0<br>  a = storage.Keys()<br>  for i = 0 .. a.Count()-1<br>    &gt;Key @i@ = @a[i]@</eg></td>
+  </tr>
+  <tr>
+    <td>storage.Incr(string, integer)<br><eg>Возвращает integer</eg></td>
+    <td>Увеличивает значение по заданному ключу на указанное число, затем возвращает новое значение.<br><eg>Например:<br>var amount<br>?foundCoins<br>  amount = rng%5 + 5<br>  storage.Incr("coins", amount)</eg></td>
+  </tr>
+  <tr>
+    <td>storage.Set(string, value)<br><eg>Ничего не возвращает</eg></td>
+    <td>Устанавливает значение по заданному ключу в указанное.<br><eg>Например:<br>var score = 1000<br>storage.Set("highscore", score)</eg></td>
+  </tr>
+  <tr><td>string<br>‾‾‾‾‾‾</td></tr>
+  <tr>
+    <td>string.Break(string, integer)<br><eg>Возвращает массив</eg></td>
+    <td>Разделяет строку на несколько строк с указанной максимальной длиной.<eg><br>Например:<br>var s = "The brown fox jumps over the lazy dog"<br>var a = string.Break(s, 14)<br>for i = 0 .. a.Count()-1<br>  &gt;`0,@i@,@a[i]@</eg></td>
+  </tr>
+  <tr>
+    <td>string.Capitalize(str)<br><eg>Возвращает string</eg></td>
+    <td>Делает первую букву строки заглавной.<eg><br>Например:<br>var a = "foo"<br>a = string.Capitalize(a)<br>&gt;@a@<br>(Выведет "Foo")</eg></td>
+  </tr>
+  <tr>
+    <td>string.Equals(str1, str2)<br><eg>Возвращает boolean</eg></td>
+    <td>Проверяет точное равенство двух строк.<eg><br>Например:<br>var a = "foo"<br>?string.Equals(a, "foo")<br>  &gt;Строки равны<br>:<br>  &gt;Строки НЕ равны<br>// В данном случае строки равны, и string.Equals() возвращает true</eg></td>
+  </tr>
+  <tr>
+    <td>string.Format(str1, ...)<br><eg>Возвращает string</eg></td>
+    <td>Форматирует строку, заменяя шаблоны форматирования значениями прочих параметров, и возвращает итоговую строку. Эта функция поддерживает большинство <a href="https://docs.microsoft.com/en-us/dotnet/api/system.string.format?view=net-5.0" target="_Blank">настроек форматирования</a>.<eg><br>Например:<br>var str = "Меня зовут {0} и у меня {1} GP!"<br>var result = string.Format(<br>^  str,<br>^  player.name,<br>^  totalgp<br>^)<br>&gt;@result@</eg></td>
+  </tr>
+  <tr>
+    <td>string.IndexOf(str, criteria)<br><eg>Возвращает integer</eg></td>
+    <td>Принимает строку с текстом и строку для проверки, и возвращает индекс, по которому находится строка для проверки. Возвращает -1, если таковой нет.<eg><br>Например:<br>var a = Hello World!<br>var index = string.IndexOf(a, llo)<br>// index равен 2</eg></td>
+  </tr>
+  <tr>
+    <td>string.IndexOf(str, criteria, startAt)<br><eg>Возвращает integer</eg></td>
+    <td>Принимает строку с текстом, строку для проверки и место начала проверки, и возвращает индекс, по которому находится строка для проверки, но начинает поиск с указанного места. Возвращает -1, если таковой нет.<eg><br>Например:<br>var a = Hello World!<br>var index = string.IndexOf(a, llo, 4)<br>// index равен -1, так как поиск начали с позиции 4<br>// так что 'llo' не было найдено</eg></td>
+  </tr>
+  <tr>
+    <td>string.Join(s, [])<br>string.Join(s, [], int)<br>string.Join(s, [], int,int)<br><eg>Возвращает string</eg></td>
+    <td>Принимает массив строк <eg>[]</eg> и соединяет их в одну, используя <eg>s</eg> как разделитель. Также можно передать два аргумента, указывающие <eg>индекс стартового элемента</eg> и <eg>количество соединяемых элементов</eg>. Если они не переданы, по умолчанию объединяется весь массив.<eg><br>Например:<br>var a = ［"Hello", "World", "!"］<br>var b = string.Join(";", a)<br>&gt;`0,0,@b@<br>// Выведет "Hello;World;!"<br><br>Пример 2:<br>var a = ［"Hello", "World", "!"］<br>var b = string.Join(";", a, 1)<br>&gt;`0,0,@b@<br>// Выведет "World;!"<br><br>Пример 3:<br>var a = ［"Hello", "World", "!"］<br>var b = string.Join(";", a, 0, 2)<br>&gt;`0,0,@b@<br>// Выведет "Hello;World"</eg></td>
+  </tr>
+  <tr>
+    <td>string.Size(str)<br><eg>Возвращает integer</eg></td>
+    <td>Возвращает длину строки в символах.<eg><br>Например:<br>var a = Hello World!<br>var size = string.Size(a)<br>&gt;size = @size@</eg></td>
+  </tr>
+  <tr>
+    <td>string.Split(str)<br>string.Split(str, s…)<br>string.Split(str, s…, bool)<br>string.Split(str, bool)<br><eg>Возвращает array</eg></td>
+    <td>Принимает строку и разбивает ее на массив строк, основываясь на наборе разделителей <eg>s…</eg>. Если разделители не переданы, то строка делится на пробелы. Опциональный параметр типа bool определяет, будут ли удалены пустые строки.<eg><br>Например:<br>var a = string.Split("Hello World !")<br>for i = 0 .. a.Count()-1<br>  &gt;`0,@i@,［@i@］ = @a［i］@<br>// Разделит строку на: "Hello", "World", "!"<br><br>Пример 2:<br>var a = string.Split("Hello World !", " ", "l")<br>for i = 0 .. a.Count()-1<br>  &gt;`0,@i@,［@i@］ = @a［i］@<br>// Разделит строку на: "He", " ", "o", "Wor", "d", "!"<br><br>Пример 3:<br>var a<br>a = string.Split("Hello World !","l","r",true)<br>for i = 0 .. a.Count()-1<br>  &gt;`0,@i@,［@i@］ = @a［i］@<br>// Разделит строку на: "He", "o Wo", "d !"</eg></td>
+  </tr>
+  <tr>
+    <td>string.Sub(str, startAt)<br><eg>Возвращает string</eg></td>
+    <td>Принимает строку и стартовый индекс, и разделяет строку, начиная с этого индекса.<eg><br>Например:<br>var a = Hello World!<br>var subString = string.Sub(a, 6)<br>&gt;substring = @subString@<br>// subString equals "World!"</eg></td>
+  </tr>
+  <tr>
+    <td>string.Sub(str, startAt, length)<br><eg>Возвращает string</eg></td>
+    <td>Принимает строку, стартовый индекс и длину, и возвращает строку конкретной длины, начиная с указанного индекса..<eg><br>Например:<br>var a = Hello World!<br>var subString = string.Sub(a, 6, 3)<br>&gt;substring = @subString@<br>// subString равно "Wor"</eg></td>
+  </tr>
+  <tr>
+    <td>string.ToLower(str)<br><eg>Возвращает string</eg></td>
+    <td>Меняет все буквы в строке на строчные.<eg><br>Например:<br>var a = "Foo"<br>a = string.ToLower(a)<br>&gt;@a@<br>// Выведет "foo"</eg></td>
+  </tr>
+  <tr>
+    <td>string.ToUpper(str)<br><eg>Возвращает string</eg></td>
+    <td>Меняет все буквы в строке на заглавные.<eg><br>Например:<br>var a = "Foo"<br>a = string.ToUpper(a)<br>&gt;@a@<br>// Выведет "FOO"</eg></td>
+  </tr>
+  <tr><td>sys<br>‾‾‾</td><td>(The sys namespace is not functioning as intended at the moment)</td></tr>
+  <tr>
+    <td>sys.cacheRemoteFiles<br><eg>boolean</eg></td>
+    <td>Указывает, стоит ли кэшировать импортированные удаленно файлы между забегами. По умолчанию <eg>true</eg>. Если false, то скрипты будут загружены заново каждый раз, когда вы начинаете новый забег. Полезно, если вы меняете удаленные скрипты во время разработки. Эта переменная сохраняется между забегами.<eg><br>Например:<br>// Переключаем кнопкой 'вверх'<br>// вкл/выкл удаленное кэширование во время быстрых итераций<br>?key = upBegin<br>  sys.cacheRemoteFiles = !sys.cacheRemoteFiles<br>  ?sys.cacheRemoteFiles<br>    &gt;Кэширование ВКЛЮЧЕНО<br>  :<br>    &gt;Кэширование ОТКЛЮЧЕНО</eg></td>
+  </tr>
+  <tr>
+    <td>sys.fileUrl<br><eg>string (get only)</eg></td>
+    <td>Геттер нынешнего файлового пути для импорта скриптов. Значение по умолчанию зависит от устройства. На ПК - <eg>local</eg>, на телефоне - <eg>https://StonestoryRPG.com/stonescript/</eg><eg><br>Например:<br>&gt;`0,1,fileUrl = @sys.fileUrl@</eg></td>
+  </tr>
+  <tr>
+    <td>sys.SetFileUrl(str)<br><eg>Ничего не возвращает</eg></td>
+    <td>Изменяет источник импортируемых с помощью <eg>import</eg> и <eg>new</eg> файлов. Можно вызвать только в Камне Разума, в противном случае выдаст ошибку. Принимает любой URL в качестве удаленного места, но также может принимать значения <eg>"local"</eg> и <eg>"remote"</eg> для простого обращения к вашему локальному диску или официальному репозиторию Stone Story RPG соответственно. Если в качестве параметра передать <eg>null</eg>, то URL сбросится до дефолтного. Сохраняется меджу забегами.<eg><br>Например:<br>sys.SetFileUrl(<br>^"https://MyCoolDomain.com/scripts/")<br>import MyCombatScript</eg></td>
+  </tr>
+  <tr>
+    <td>sys.MindConnect()<br><eg>Ничего не возвращает</eg></td>
+    <td>(Экспериментальная возможность) Работает, только если <eg>sys.MindConnect()</eg> - единственная команда в скрипте. Запускает интерфейс, который ждет подключения от другой программы, например, от скрипта на Python. После соединения сторонняя программа может выполнять команды в Stonescript и проверять переменные состояния игры.<br>Узнать больше:<br><a href="https://github.com/artificial-potato/SSRPGInterface">https://github.com/artificial-potato/SSRPGInterface</a>
+  </td></tr>
+  <tr>
+    <td>sys.isMobile<br><eg>Возвращает bool</eg></td>
+    <td><eg>true</eg>, если игра запущена с Android или iOS.
+  </td></tr>
+  <tr>
+    <td>sys.isPC<br><eg>Возвращает bool</eg></td>
+    <td><eg>true</eg>, если игра запущена с компьютера.
+  </td></tr>
+  <tr>
+    <td>sys.os<br><eg>Возвращает string</eg></td>
+    <td>Операционная система, например, "Android", "iOS", "Linux", "OSX" или "Windows".
+  </td></tr>
+  <tr><td>Локализация<br>‾‾‾‾‾‾‾‾‾‾‾</td><td>Stonescript поддерживает 12 языков на момент написания. Некоторые команды позволяют скриптам адаптироваться к языку игрока.</td></tr>
+  <tr>
+  </tr><tr>
+    <td>te.language<br><eg>string</eg></td>
+    <td>Код выбранного игроком языка. Возможные значения: EN, PT-BR, ZH-CN, ZH-TW, FR, DE, RU, ES-LA, ES-EU, JP, KR и TK.<eg><br>Например:<br>var lang = te.language<br>&gt;Язык = @lang@</eg></td>
+  </tr>
+  <tr>
+    <td>te.xt(str)<br><eg>Возвращает string</eg></td>
+    <td>Переводит текст на английском в выбранный игроком язык. Если переведенный текст не найден, то возвращается переданное значение. Также в эту функцию можно передать ID текста (TID), однако огромный лист этих TID не влезет в руководство.<eg><br>Например:<br>var button = ui.AddButton()<br>button.text = te.xt(Play)<br>// Измените язык в настройках, чтобы увидеть работу скрипта</eg></td>
+  </tr>
+  <tr>
+    <td>te.GetTID(str)<br><eg>Возвращает string</eg></td>
+    <td>Возвращает айди текста (TID) для указанного текста. Текст на вход ожидается в выбранном игроком языке.<eg><br>Например:<br>var tid = te.GetTID("Play")<br>&gt;`0,1,@tid@<br>// Выводит tid_button_play на экран</eg></td>
+  </tr>
+  <tr>
+    <td>te.ToEnglish(str)<br><eg>Возвращает string</eg></td>
+    <td>Переводит текст с языка, выбранного игроком, на оригинальный английский текст. Если переведенный текст не найден, то возвращается переданное значение.<eg><br>Например:<br>&gt;`0,1,@te.ToEnglish("Jogar")@<br>// если в настройках выбран португальский, то выведется "Play"<br>// иначе выведется просто "Jogar"</eg></td>
+  </tr>
+  <tr><td>time<br>‾‾‾‾</td></tr>
+  <tr>
+    <td>time.FormatCasual(int)<br>time.FormatCasual(int,bool)<br><eg>Возвращает string</eg></td>
+    <td>Конвертирует количество кадров в удобное отображение времени, например: "1м 23к". Второй параметр (bool) опционален; если он 'true', то значение возвращается с точностью до кадров.<eg><br>Например:<br>&gt;`0,0,Время =<br>^ @time.FormatCasual(totaltime, true)@</eg></td>
+  </tr>
+  <tr>
+    <td>time.FormatDigital(int)<br>time.FormatDigital(int,bool)<br><eg>Возвращает string</eg></td>
+    <td>Конвертирует количество кадров в удобное отображение времени, например: "1:23". Второй параметр (bool) опционален; если он 'true', то значение возвращается с точностью до кадров.<eg><br>Например:<br>&gt;`0,0,Время =<br>^ @time.FormatDigital(totaltime, true)@</eg></td>
+  </tr>
+  <tr><td>UI<br>‾‾</td><td><br>В разделе <a href="https://dimakul.github.io/manual#user-interface">Пользовательский интерфейс</a> есть больше информации об UI. Различные функции пространства имен <eg>ui</eg>:</td></tr>
+  <tr>
+    <td>ui.OpenInv()<br><eg>Ничего не возвращает</eg></td>
+    <td>Открывает экран инвентаря.</td>
+  </tr>
+  <tr>
+    <td>ui.OpenMind()<br><eg>Ничего не возвращает</eg></td>
+    <td>Открывает экран Камня Разума.</td>
+  </tr>
+  <tr>
+    <td>ui.ShowBanner(str)<br>ui.ShowBanner(str,str)<br><eg>Ничего не возвращает</eg></td>
+    <td>Показывает баннер с сообщениями (до двух). Анимация баннера перезапускается при каждом вызове ui.ShowBanner().<eg><br>Например:<br>?time = 120<br>  ui.ShowBanner("Hello World!")</eg></td>
+  </tr>
+  <tr><td>Прочее<br>‾‾‾‾‾</td></tr>
+  <tr>
+    <td>Type(var)<br><eg>Возвращает string</eg></td>
+    <td>Возвращает тип переменной в строковом формате. Типы могут быть: 'string', 'int', 'bool', 'function', 'object' и 'null'.<eg><br>Например:<br>var a = 0<br>?Type(a) = int<br>  &gt;Переменная 'a' является целым числом.</eg></td>
+  </tr>
+</tbody></table></font>
+<a href="https://dimakul.github.io/manual#"><font color="#505050">^К началу</font></a>
+</div>
+
+<div id="import"><div id="separator"><!---------------------------></div>
+
+·:·:· Импорт сторонних скриптов ·:·:·
+<font color="#bbbbbb">
+Необязательно писать весь скрипт внутри Камня Разума. Stonescript поддерживает загрузку сторонних файлов с помощью команд 'import' и 'new'. Для корректной работы сторонних скриптов они должны располагаться в вашей <a href="https://stonestoryrpg.com/faq.html#Technical%20Help">папке с сохранениями</a>, внутри папки /Stonescript и заканчиваться на '.txt'.
+
+Самый простой пример - сторонний скрипт импортируется и выполняется так, будто он напрямую написан в Камне Разума, что позволяет сделать удобную организацию скриптов для фарма:
+<eg>
+import Rocky
+import Deadwood
+import Caves
+import Forest
+</eg>
+Когда скрипт импортируется, он копируется в свой личный контейнер и возвращается как ссылка на объект. Переменные, объявленные в стороннем скрипте, изолированы и не взаимодействуют с другими скриптами. В данном примере представлен простой скрипт продвинутых функций вывода:
+<eg><f>
+// PrintUtil.txt
+func LowerLeft(x, y, color, message)
+  y = y + screen.h
+  &gt;`@x@,@y@,@color@,@message@
+
+func LowerRight(x, y, color, message)
+  x = x + screen.w
+  y = y + screen.h
+  &gt;`@x@,@y@,@color@,@message@
+
+// Основной скрипт в Камне Разума
+var print = import PrintUtil
+disable hud
+print.LowerLeft(0,-1,#ffffff,"Здоровье: " + hp)
+</f></eg>
+Продвинутые решения могут импортировать один и тот же скрипт несколько раз с помощью команды 'new', например, чтобы использовать компоненты или парадигмы объектно-ориентированного программирования:
+<eg><f>
+// Vector.txt
+var x = 0
+var y = 0
+
+func init(_x, _y)
+  x = _x
+  y = _y
+
+func subtract(otherVect)
+  x = x - otherVect.x
+  y = y - otherVect.y
+
+// Основной скрипт в Камне Разума
+var vectFrom = new Components/Vector
+var vectTo = new Components/Vector
+
+vectFrom.init(5, 4)
+vectTo.init(8, 2)
+vectTo.subtract(vectFrom)
+
+&gt;x = @vectTo.x@, y = @vectTo.y@
+</f></eg>
+Сторонние скрипты могут включать в себя функцию 'ToString()', чтобы их можно было напрямую использовать в продвинутых функциях ввода:
+<eg><f>
+// Vector.txt
+var x = 0
+var y = 0
+
+func init(_x, _y)
+  x = _x
+  y = _y
+
+func ToString()
+  return "(" + x + ", " + y + ")"
+
+// Основной скрипт в Камне Разума
+var v = import Components/Vector
+v.init(3,5)
+&gt;Vector = @v@
+</f></eg>
+Сторонние скрипты можно импортировать из подпапок:
+<eg><f>
+import Games/Blackjack
+import Cosmetics/PetFrog
+import Cosmetics/Hats
+</f></eg>
+Хоть они и похожи, между 'import' и 'new' есть два важных различия. 'import' возвращает один и тот же объект каждый раз. Если вы импортируете один и тот же скрипт несколько раз, они все будут использовать один и тот же объект. Скрипты, импортированные с помощью 'new', являются уникальными копиями, но их тело сработает только один раз, а не каждый кадр.
+</font>
+
+<a href="https://dimakul.github.io/manual#"><font color="#505050">^К началу</font></a>
+</div>
+
+<div id="ascii-art"><div id="separator"><!---------------------------></div>
+
+·:·:· ASCII-арт ·:·:·
+<font color="#bbbbbb">
+На языке Stonescript, кастомные ASCII-арты можно создавать прямо внутри скрипта и выводить на экран с помощью продвинутых команд вывода. Существует несколько способов сделать это, и у некоторых символов есть особое поведение:
+<f>
+#  - Пустое место. Прозрачный символ. Не отрисовывается.
+\n - Перевод каретки. Отрисовка продолжится на следующей линии. ВНИМАНИЕ: Этот оператор не ресурсоемкий и его не следует использовать для разрыва линий в больших рисунках. Для этого лучше использовать блок ascii или asciiend.
+</f>
+
+Способ 1 - Продвинутый вывод
+
+Этот пример рисует зеленый круг в верхней левой части экрана.
+<eg><f>
+&gt;`1,0,#green,ascii
+#.-.
+(   )
+#`-´
+asciiend
+</f></eg>
+
+Способ 2 - Переменные
+
+Этот пример записывает рисунок страшной рыбки в переменную, а затем рисует его красным цветом в верхней левой части экрана.
+<eg><f>
+var fishSprite
+fishSprite = ascii
+###(°_##
+#_/_ o\#
+#´  `'"#
+asciiend
+
+&gt;`0,3,#red,@fishSprite@
+</f></eg></font>
+
+<a href="https://dimakul.github.io/manual#"><font color="#505050">^К началу</font></a>
+</div>
+
+<div id="loops"><div id="separator"><!---------------------------></div>
+
+·:·:· Циклы ·:·:·
+<font color="#bbbbbb"><f>
+
+Циклы позволяют выполнить часть кода несколько раз подряд. Для создания цикла используйте ключевое слово 'for' следующим образом:
+<eg>
+for v = a..b
+</eg>
+Переменная 'v' в начале цикла равна 'a' и увеличивается, пока не станет равна 'b', затем цикл закончится:
+<eg>
+for i = 1..5
+  &gt;`0,@i@,i = @i@
+</eg>
+Итерируемую переменную 'v' не стоит объявлять до цикла 'for', и она хранится лишь в области цикла. С другой стороны, 'a' и 'b' можно определять до цикла:
+<eg>
+var min = 1
+var max = 4
+var sum
+sum = 0
+for j = min..max
+  sum = sum + j
+&gt;sum = @sum@
+</eg>
+Циклы также могут идти в обратном направлении, как и использовать отрицательные числа:
+<eg>
+var g
+g = ""
+for k = 5..-2
+  g = g + k
+&gt;g = @g@
+</eg>
+Циклы могут быть вложены друг в друга, а также использовать математические выражения:
+<eg>
+for x = 1..9
+  for y = x/2 .. x/2 + 6
+    &gt;`@x@,@y@,*
+</eg>
+Чтобы досрочно выйти из цикла, можно установить итерируемую переменную в значение за пределами диапазона:
+<eg>
+var n
+n = ""
+for i = 1..5
+  ?i = 3
+    i = -1
+  n = n + i
+&gt;n = @n@
+</eg>
+Для этого также используется команда <eg>break</eg>:
+<eg>
+for i = 1..5
+  ?i = 3
+    break
+</eg>
+Циклы также поддерживают команду <eg>continue</eg>. При ее вызове последующие команды пропускаются, а цикл начинает новую итерацию:
+<eg>
+var n
+n = ""
+for i = 1..5
+  ?i = 3
+    continue
+  n = n + i
+&gt;n = @n@
+</eg>
+Также можно прогнать цикл по элементам <a href="https://dimakul.github.io/manual#arrays">массива</a> следующим образом:
+<eg>
+var a = [1, 2, 3]
+var n
+n = ""
+for value : a
+  n = n + value
+&gt;n = @n@
+</eg></f></font>
+
+<a href="https://dimakul.github.io/manual#"><font color="#505050">^К началу</font></a>
+</div>
+
+<div id="arrays"><div id="separator"><!---------------------------></div>
+
+·:·:· Массивы ·:·:·
+<font color="#bbbbbb"><f>
+Массивы - это особый тип переменной. Они предоставляют способ последовательно организовывать различные значения и объекты в коллекцию, хранящуюся в отдельной переменной.
+
+<table>
+  <tbody><tr>
+    <td>Операция<br>--------</td>
+    <td>Описание<br>--------</td>
+  </tr>
+  <tr>
+    <td>a = []</td>
+    <td>Инициализирует новый массив. См. далее для более подробной информации.</td>
+  </tr>
+  <tr>
+    <td>a[integer]</td>
+    <td>Возвращает значение на указанной позиции.<br><eg>Например:<br>var myArray = [10, 3]<br>?myArray[1] = 3<br>  &gt;Да, значение по индексу [1] равно 3</eg></td>
+  </tr>
+  <tr>
+    <td>a.Add(value)</td>
+    <td>Добавляет новое значение/объект в конец массива.<br><eg>Например:<br>var myArray = []<br>myArray.Add(10)</eg></td>
+  </tr>
+  <tr>
+    <td>a.Clear()</td>
+    <td>Очищает массив. Это более эффективно, чем переопределение массива через a = [].<br><eg>Например:<br>var myArray = [10, 3]<br>myArray.Clear()</eg></td>
+  </tr>
+  <tr>
+    <td>a.Contains(value)</td>
+    <td>Возвращает true, если указанное значение есть в массиве, иначе false.<br><eg>Например:<br>var myArray = [10, 3]<br>?myArray.Contains(3)<br>  &gt;Да</eg></td>
+  </tr>
+  <tr>
+    <td>a.Count()</td>
+    <td>Возвращает количество элементов в массиве.<br><eg>Например:<br>var myArray = ["apple","banana"]<br>var size = myArray.Count()<br>&gt;Размер массива = @size@</eg></td>
+  </tr>
+  <tr>
+    <td>a.Emplace(integer, value)</td>
+    <td>Заменяет значение на указанной позиции новым значением.<br><eg>Например:<br>var myArray = [10, 3]<br>myArray.Emplace(0, 4)<br>var value = myArray[0]<br>&gt;Значение в [0] теперь @value@</eg></td>
+  </tr>
+  <tr>
+    <td>a.IndexOf(value)</td>
+    <td>Возвращает индекс первого вхождения элемента с указанным значением. Если таковых нет, возвращает -1.<br><eg>Например:<br>var myArray = [10, 3]<br>var index = myArray.IndexOf(3)<br>&gt;Найдено на позиции @index@</eg></td>
+  </tr>
+  <tr>
+    <td>a.Insert(integer, value)</td>
+    <td>Добавляет новое значение/объект в указанное место. Элементы справа сдвигаются на одну позицию.<br><eg>Например:<br>var myArray = [10, 3]<br>myArray.Insert(1, "apple")<br>// Массив теперь [10, "apple", 3]</eg></td>
+  </tr>
+  <tr>
+    <td>a.RemoveAt(integer)</td>
+    <td>Удаляет элемент на конкретной позиции. Возвращает удаленный элемент.<br>Индексация с нуля: <eg>myArray.RemoveAt(0)</eg> удаляет первый элемент.<br>Элементы справа сдвигаются на одну позицию влево.<br><eg>Например:<br>var myArray = [1, 2, 3]<br>myArray.RemoveAt(1)<br>// Массив теперь [1, 3]</eg></td>
+  </tr>
+  <tr>
+    <td>a.Sort()</td>
+    <td>Сортирует список по возрастанию. Если в массиве есть объекты разных типов, он все равно будет отсортирован, но результат нельзя определить заранее, и не гарантировано, что элементы будут сгруппированы по типу.<br><eg>Например:<br>var myArray = ["Cherry", 2, "Apple", 1, true, false, "Banana", 3]<br>var value<br><br>myArray.Sort()<br><br>for i = 0 .. myArray.Count() - 1<br>  value = myArray[i]<br>  &gt;`0,@i@,@value@</eg></td>
+  </tr>
+</tbody></table>
+
+Вот еще несколько примеров объявления и использования массивов:
+<eg>
+var emptyCollection = []
+
+var magicNumbers = [10, 3, 0, 15, -7]
+
+var someStrings = ["apple", "banana", "cherry"]
+
+var sameButMultiLine = [
+  "apple",
+  "banana",
+  "cherry",
+]
+
+var redeclaredEachFrame
+redeclaredEachFrame = [] // Не очень хорошо по ресурсам
+
+var clearedEachFrame = []
+clearedEachFrame.Clear() // Лучше для ЦП и памяти
+
+var clearedEachLoop = []
+?loc.begin | loc.loop
+  clearedEachLoop.Clear()
+
+var multiDimensional = [[], [], []]
+
+var objectCollection = [
+  new Components/Float,
+  new Components/Float,
+  new Components/Vector,
+]
+
+var animationFrames = [ascii
+───┼
+  O/
+ /|
+ / \
+asciiend
+^,ascii
+   ---.
+  O    \
+ /|\┼───
+ / \
+asciiend
+^]
+</eg>
+
+Прохождение по массивам циклом:
+<eg>
+var myArray = ["Apple", "Banana", "Cherry"]
+var count
+var value
+
+count = myArray.Count()
+?count &gt; 0
+  for i = 0 .. count - 1
+    value = myArray[i]
+    &gt;`0,@i@,@value@
+
+// Данный пример выводит названия фруктов слева сверху
+</eg>
+
+Массивы могут быть вложены в другие массивы:
+<eg>
+var a = [[1,2], [3,4]]
+var value
+
+value = a[1][0]
+&gt;Значение @value@ по индексам (1, 0)
+</eg></f></font>
+
+<a href="https://dimakul.github.io/manual#"><font color="#505050">^К началу</font></a>
+</div>
+
+<div id="custom-input"><div id="separator"><!---------------------------></div>
+
+·:·:· Кастомный ввод ·:·:·
+<font color="#bbbbbb">
+Stonescript может считывать ввод с использованием игрового состояния ?key. Это можно использовать для каких-либо продвинутых алгоритмов, например, других режимов ИИ, но кастомные способы ввода позволяют создать абсолютно новые штуки поверх Stone Story.
+
+<eg><f>В данном примере символ @ можно двигать по экрану стрелками, как персонажа в какой-либо другой игре. Коды клавиш (leftBegin, и т.п.) соотносятся с нажатием кнопки.
+
+var x = 0
+var y = 0
+
+?key = leftBegin
+  x--
+  ?x &lt; 0
+    x = 0
+?key = rightBegin
+  x++
+
+?key = upBegin
+  y--
+  ?y &lt; 0
+    y = 0
+?key = downBegin
+  y++
+
+&gt;`@x@,@y@,#ffffff,@
+</f></eg>
+
+Таблица со всеми доступными клавишами:
+
+<table>
+  <tbody><tr>
+    <td>Удержание<br>---------</td>
+    <td>Нажатие<br>-------</td>
+    <td>Отпускание<br>----------</td>
+	<td>По умолчанию (ПК)<br>-----------------</td>
+  </tr>
+  <tr>
+    <td>left</td>
+    <td>leftBegin</td>
+    <td>leftEnd</td>
+	<td>A или ←</td>
+  </tr>
+  <tr>
+    <td>right</td>
+    <td>rightBegin</td>
+    <td>rightEnd</td>
+	<td>D или →</td>
+  </tr>
+  <tr>
+    <td>up</td>
+    <td>upBegin</td>
+    <td>upEnd</td>
+	<td>W или ↑</td>
+  </tr>
+  <tr>
+    <td>down</td>
+    <td>downBegin</td>
+    <td>downEnd</td>
+	<td>S или ↓</td>
+  </tr>
+  <tr>
+	<td>primary</td>
+	<td>primaryBegin</td>
+	<td>primaryEnd</td>
+	<td>ЛКМ, Enter</td>
+  </tr>
+  <tr>
+	<td>back</td>
+	<td>backBegin</td>
+	<td>backEnd</td>
+	<td>X</td>
+  </tr>
+  <tr>
+	<td>ability1</td>
+	<td>ability1Begin</td>
+	<td>ability1End</td>
+	<td>Shift</td>
+  </tr>
+  <tr>
+	<td>ability2</td>
+	<td>ability2Begin</td>
+	<td>ability2End</td>
+	<td>Ctrl</td>
+  </tr>
+  <tr>
+	<td>bumpL</td>
+	<td>bumpLBegin</td>
+	<td>bumpLEnd</td>
+	<td>Z</td>
+  </tr>
+  <tr>
+	<td>bumpR</td>
+	<td>bumpRBegin</td>
+	<td>bumpREnd</td>
+	<td>C</td>
+  </tr>
+</tbody></table></font>
+<a href="https://dimakul.github.io/manual#"><font color="#505050">^К началу</font></a>
+</div>
+
+<div id="user-interface"><div id="separator"><!---------------------------></div>
+
+·:·:· Пользовательский интерфейс ·:·:·
+<font color="#bbbbbb">
+Кнопки, текст, анимации... Stonescript предоставляет возможность создания сложного пользовательского интерфейса с высокой производительностью. По умолчанию существует невидимая панель "root", которая является основанием всей огромной системы интерфейса. К этой корневой панели можно добавить множество различных элементов, включая доп.панели, формируя древовидную структуру. Все элементы отрисовываются вместе, за один шаг, в том порядке, в котором они были добавлены.
+<eg><f>
+root
+│
+├─ Панель
+│  ├─ Текст
+│  ├─ ASCII-арт
+│  └─ Кнопка
+│
+├─ Панель
+│  ├─ Панель
+|  |  └─ Текст
+...
+</f></eg>
+
+<table>
+  <tbody><tr><td>UI<br>‾‾</td><td>Вызывайте функции в пространстве имен <eg>ui</eg>, чтобы выстроить интерфейс.</td></tr>
+  <tr>
+    <td>ui.root<br><eg>Panel</eg></td>
+    <td>Основной объект UI, поверх которого строится все дерево.<eg><br>Например:<br>disable hud<br>ui.root.visible = true</eg></td>
+  </tr>
+  <tr>
+    <td>ui.AddAnim(string)<br><eg>Возвращает Anim</eg></td>
+    <td>Добавляет объект типа Anim на корневую панель. Принимает набор спрайтов для анимации как параметр.<eg><br>Например:<br>?loc.begin<br>  ui.AddAnim(ascii<br>\o)<br>%%<br>(o/<br>asciiend)</eg></td>
+  </tr>
+  <tr>
+    <td>ui.AddButton()<br><eg>Возвращает Button</eg></td>
+    <td>Добавляет объект типа Button на корневую панель.<eg><br>Например:<br>func OnPressed()<br>  &gt; Hello World!<br><br>?loc.begin<br>  var button = ui.AddButton()<br>  button.y = 1<br>  button.text = Нажми меня<br>  button.SetPressed(OnPressed)</eg></td>
+  </tr>
+  <tr>
+    <td>ui.AddPanel()<br><eg>Возвращает Panel</eg></td>
+    <td>Добавляет объект типа Panel на корневую панель. Панели - важный тип объекта, так как они служат в качестве контейнера для других элементов.<eg><br>Например:<br>?loc.begin<br>  var p = ui.AddPanel()<br>  p.color = #red</eg></td>
+  </tr>
+  <tr>
+    <td>ui.AddStyle()<br><eg>Возвращает int</eg></td>
+    <td>Добавляет новый стиль, который можно использовать для отрисовки прямоугольных компонентов, таких как панели и кнопки. Возвращает ID нового стиля. Имеется защита от добавления одного и того же стиля несколько раз: в таком случае ничего не изменится, и будет возвращен тот же ID. Посколько различные скрипты могут вызывать ui.AddStyle(), рекомендуется сохранить ID в переменную вместо того, чтобы вручную указывать ID стилей.<eg><br>Например:<br>var customStyle = ui.AddStyle("<br>^123<br>^456<br>^789")<br>?loc.begin<br>  var p = ui.AddPanel()<br>  p.style = customStyle</eg></td>
+  </tr>
+  <tr>
+    <td>ui.AddText()<br>ui.AddText(string)<br><eg>Возвращает Text</eg></td>
+    <td>Добавляет обхект типа Text на корневую панель.<eg><br>Например:<br>?loc.begin<br>  var t = ui.AddText()<br>  t.text = "Hello World!"</eg></td>
+  </tr>
+  <tr>
+    <td>ui.Clear()<br><eg>Ничего не возвращает</eg></td>
+    <td>Удаляет все элементы UI из основного контейнера.<eg><br>Например:<br>?key = backBegin<br>  ui.Clear()</eg></td>
+  </tr>
+  <tr><td><br>Component<br>‾‾‾‾‾‾‾‾‾</td><td><br>Component - родительский тип для всех элементов интерфейса. Это значит, что другие элементы (Panel, Text, Button и Anim) имеют следующие свойства:</td></tr>
+  <tr>
+    <td>component.x<br><eg>integer</eg></td>
+    <td>Координата X компонента относительно точки закрепления.</td>
+  </tr>
+  <tr>
+    <td>component.y<br><eg>integer</eg></td>
+    <td>Координата Y компонента относительно точки закрепления.</td>
+  </tr>
+  <tr>
+    <td>component.w<br><eg>integer</eg></td>
+    <td>Ширина компонента. Значение по умолчанию зависит от типа объекта.<br><eg>Например:<br>button.w = string.Size(button.text) + 4<br>// Устанавливает ширину кнопки, чтобы текст влезал, +2 с каждой стороны</eg></td>
+  </tr>
+  <tr>
+    <td>component.h<br><eg>integer</eg></td>
+    <td>Высота компонента. По умолчанию 5.<br><eg>Например:<br>panel.h = panel.parent.h<br>// Делает высоту панели равной высоте родительской панели</eg></td>
+  </tr>
+  <tr>
+    <td>component.absoluteX<br>component.absoluteY<br><eg>integer<br>read-only</eg></td>
+    <td>Положение компонента относительно экрана.<br><eg>Например:<br>var t<br>?loc.begin<br>  var p = ui.AddPanel()<br>  p.anchor = bottom_right<br>  p.dock = bottom_right<br>  t = ui.AddText("Foo")<br>  p.Add(t)<br>`0,1,Relative pos = @t.x@,@t.y@<br>&gt;`0,2,Позиция = @t.absoluteX@,@t.absoluteY@</eg></td>
+  </tr>
+  <tr>
+    <td>component.anchor<br><eg>string</eg></td>
+    <td>Свойство автоматического размещения компонента, отражающее автоматическую точку-якорь. Указывает системе UI, как расположить компонент относительно самого себя. Default value is "center_center". Possible values: top_left, top_center, top_right, center_left, center_center, center_right, bottom_left, bottom_center и bottom_right.</td>
+  </tr>
+  <tr>
+    <td>component.dock<br><eg>string</eg></td>
+    <td>Свойство автоматического размещения компонента, похожее на <eg>anchor</eg>. Однако <eg>dock</eg> отражает внешнюю точку, то есть позицию внутри родителя. Если сомневаетесь, используйте одинаковые значения и для <eg>anchor</eg>, и для <eg>dock</eg> - это самая частая ситуация.<br><eg>Например:<br>?loc.begin<br>  var p = ui.AddPanel()<br>  p.anchor = top_right<br>  p.dock = top_right<br>  p.w = 20<br>  p.h = 9<br>  var t = ui.AddText("HelloWorld!")<br>  t.anchor = left_bottom<br>  t.dock = bottom_left<br>  t.x = 2<br>  t.h = t.lines.Count() + 1<br>  p.Add(t)</eg></td>
+  </tr>
+  <tr>
+    <td>component.ax<br><eg>string</eg></td>
+    <td>Горизонтальная часть <eg>anchor</eg>. Принимает значения: left, center и right.</td>
+  </tr>
+  <tr>
+    <td>component.ay<br><eg>string</eg></td>
+    <td>Вертикальная часть якоря <eg>anchor</eg>. Принимает значения: top, center и bottom.</td>
+  </tr>
+  <tr>
+    <td>component.dx<br><eg>string</eg></td>
+    <td>Горизонтальная часть <eg>dock</eg>. Принимает значения: left, center и right.</td>
+  </tr>
+  <tr>
+    <td>component.dy<br><eg>string</eg></td>
+    <td>Вертикальная часть <eg>dock</eg>. Принимает значения: top, center и bottom.<br><eg>Например:<br>var p<br>?loc.begin<br>  p = ui.AddPanel()<br>  p.ax = right<br>  p.ay = top<br>  p.dx = right<br>  p.dy = top</eg></td>
+  </tr>
+  <tr>
+    <td>component.parent<br><eg>Panel<br>read-only</eg></td>
+    <td>Ссылка на родительскую панель компонента. Является <eg>корневой</eg> панелью, если компонент не был добавлен на другую панель. Когда вызывается <eg>panel.Add(component)</eg>, родитель компонента меняется.</td>
+  </tr>
+  <tr>
+    <td>component.visible<br><eg>multi type<br>bool/string</eg></td>
+    <td>Видимость компонента. По умолчанию "inherit". Принимает значения: true, false и inherit. Если 'true', компонент всегда виден (вне зависимости от видимости родителя). Если 'false', компонент всегда скрыт (вне зависимости от родителя). Если 'inherit', видимость компонента наследуется от родителя.</td>
+  </tr>
+  <tr>
+    <td>component.Recycle()<br><eg>Ничего не возвращает</eg></td>
+    <td>Удаляет компонент с родительской панели. "Переработанные" компоненты будут повторно использованы в последующих вызовах ui.Add_(). Все ссылки на удаленный объект стоит переназначить или установить в null, чтобы избежать багов.</td>
+  </tr>
+  <tr><td><br>Panel &gt; Component<br>‾‾‾‾‾</td><td><br>Панели (Panel) - прямоугольные компоненты, которые служат 'контейнерами' для других компонентов. Последовательная цепочка панелей, добавленных друг на друга, формирует древовидную структуру.</td></tr>
+  <tr>
+    <td>panel.children<br><eg>Component[]</eg></td>
+    <td>Список всех дочерних компонентов, добавленных на панель с помощью <eg>panel.Add()</eg>.</td>
+  </tr>
+  <tr>
+    <td>panel.clip<br><eg>bool</eg></td>
+    <td>Определяет, следует ли ограничивать отрисовку дочерних компонентов границами панели. Если true, части дочерних компонентов, которые выходят за границы, не будут отрисованы.<br><eg>Например:<br>var p<br>?loc.begin<br>  p = ui.AddPanel()<br>  p.w = 4<br>  p.h = 3<br>  var t = ui.AddText("The quick brown fox jumps<br>^ over the lazy dog.")<br>  p.Add(t)<br><br>?time%30 &lt; 15<br>  p.clip = true<br>:<br>  p.clip = false</eg></td>
+  </tr>
+  <tr>
+    <td>panel.color<br><eg>string</eg></td>
+    <td>Цвет панели, в <a href="https://htmlcolorcodes.com/" target="_blank">шестнадцатеричном формате RGB</a>.</td>
+  </tr>
+  <tr>
+    <td>panel.style<br><eg>int</eg></td>
+    <td>ID стиля, используемого на панели. По умолчанию 1. Может принимать значения от -8 до 8. Дополнительные стили можно добавлять с помощью <eg>ui.AddStyle()</eg>.</td>
+  </tr>
+  <tr>
+    <td>panel.Add(Component)<br>panel.Add(Component, int)<br><eg>Ничего не возвращает</eg></td>
+    <td>Добавляет компонент на панель. Компонент становится дочерним для панели, а панель - родительской для компонента. Порядок добавленных элементов влияет на их отрисовку. Компоненты можно вставить на определенную позицию, если передать опциональный целочисленный параметр. Если этот параметр не передавать, то компонент будет добавлен как последний дочерний. Эта функция также может изменить порядок отрисовки уже добавленных компонентов.</td>
+  </tr>
+  <tr>
+    <td>panel.Clear()<br><eg>Ничего не возвращает</eg></td>
+    <td>Удаляет все компоненты с панели. Компоненты, удаленные таким образом, будут переработаны в системе UI и повторно использованы в будущих вызовах ui.Add_(). Все ссылки на удаленный объект стоит переназначить или установить в null, чтобы избежать багов.</td>
+  </tr>
+  <tr>
+    <td>panel.Remove(Component)<br>panel.Remove(int)<br><eg>Ничего не возвращает</eg></td>
+    <td>Удаляет конкретный компонент с панели или удаляет компонент по указанному индексу. Компоненты, удаленные таким образом, будут переработаны в системе UI и повторно использованы в будущих вызовах ui.Add_(). Все ссылки на удаленный объект стоит переназначить или установить в null, чтобы избежать багов.</td>
+  </tr>
+  <tr><td><br>Text &gt; Component<br>‾‾‾‾</td><td><br>Многострочное текстовое окно. Поддерживает цвета.</td></tr>
+  <tr>
+    <td>text.align<br><eg>string</eg></td>
+    <td>Выравнивание текста внутри границ. По умолчанию "left". Может принимать значения: left, center и right.</td>
+  </tr>
+  <tr>
+    <td>text.color<br><eg>string</eg></td>
+    <td>Цвет текста в <a href="https://htmlcolorcodes.com/" target="_blank">шестнадцатеричном формате RGB</a>.</td>
+  </tr>
+  <tr>
+    <td>text.lines<br><eg>string[]</eg></td>
+    <td>Массив строк текста (после всего прочего форматирования). Не включает данные о цветах.</td>
+  </tr>
+  <tr>
+    <td>text.text<br><eg>string</eg></td>
+    <td>Полное содержание текстового окна. Части текста можно подсветить отдельным цветом с помощью тега [color=#rrggbb][/color].<br><eg>Например:<br>?loc.begin<br>  var t = ui.AddText()<br>  t.text = "Hello [color=#red]World[/color]!"</eg></td>
+  </tr>
+  <tr><td><br>Button &gt; Component<br>‾‾‾‾‾‾</td></tr>
+  <tr>
+    <td>button.text<br><eg>string</eg></td>
+    <td>Текст, который появляется внутри кнопки.<br><eg>Например:<br>button.text = player.name<br>// Помещает ваше имя на кнопку!</eg></td>
+  </tr>
+  <tr>
+    <td>button.tcolor<br><eg>string</eg></td>
+    <td>Цвет текста внутри кнопки в <a href="https://htmlcolorcodes.com/" target="_blank">шестнадцатеричном формате RGB</a>.<br><eg>Например:<br>button.tcolor = #ff0000<br>// Устанавливает цвет текста в красный</eg></td>
+  </tr>
+  <tr>
+    <td>button.bcolor<br><eg>string</eg></td>
+    <td>Цвет границы кнопки в <a href="https://htmlcolorcodes.com/" target="_blank">шестнадцатеричном формате RGB</a>.<br><eg>Например:<br>&gt;@button.bcolor@<br>button.bcolor = #880000<br>// Выводит цвет границы, затем устанавливает его в темно-красный</eg></td>
+  </tr>
+  <tr>
+    <td>button.hcolor<br><eg>string</eg></td>
+    <td>Цвет подсветки кнопки (при нажатии) в <a href="https://htmlcolorcodes.com/" target="_blank">шестнадцатеричном формате RGB</a>.<br><eg>Например:<br>?loc.begin<br>  var b = ui.AddButton()<br>  b.hcolor = #yellow</eg></td>
+  </tr>
+  <tr>
+    <td>button.sound<br><eg>string</eg></td>
+    <td><a href="https://dimakul.github.io/manual#sounds">Звуковой эффект</a>, который проигрывается при нажатии кнопки. По умолчанию "confirm".<br><eg>Например:<br>button.sound = buy<br>//Эта кнопка будет проигрывать звук покупки при нажатии</eg></td>
+  </tr>
+  <tr>
+    <td>button.style<br><eg>int</eg></td>
+    <td>ID стиля кнопки. По умолчанию 1. Может принимать значения от -8 до 8. Дополнительные стили можно добавлять с помощью <eg>ui.AddStyle()</eg>.</td>
+  </tr>
+  <tr>
+    <td>button.SetPressed(f)<br><eg>function callback</eg></td>
+    <td>Назначает функцию, которая вызывается, когда кнопка нажата. Функция может иметь сколько угодно параметров (или не иметь их совсем). При вызове данной функции первый переданный параметр будет являться ссылкой на саму кнопку.<br><eg>Например:<br>var button1<br>var button2<br>func OnPressed(btn)<br>  ?btn = button1<br>    &gt;Button1 was pressed<br>  :<br>    &gt;Button2 was pressed<br><br>?loc.begin<br>  button1 = ui.AddButton()<br>  button1.y = 1<br>  button1.SetPressed(OnPressed)<br><br>  button2 = ui.AddButton()<br>  button2.y = 6<br>  button2.SetPressed(OnPressed)</eg></td>
+  </tr>
+  <tr>
+    <td>button.SetDown(f)<br><eg>function callback</eg></td>
+    <td>По аналогии с .SetPressed(), .SetDown() назначает функцию, которая вызывается, когда начинается нажатие кнопки игроком.</td>
+  </tr>
+  <tr>
+    <td>button.SetUp(f)<br><eg>function callback</eg></td>
+    <td>По аналогии с .SetPressed(), .SetUp() назначает функцию, которая вызывается, когда игрок полностью перестает держать кнопку.<br><eg>Например:<br>func OnDown()<br>  &gt; Down!<br><br>func OnUp()<br>  &gt; Up!<br><br>?loc.begin<br>  var button = ui.AddButton()<br>  button.y = 1<br>  button.text = Press me<br>  button.SetDown(OnDown)<br>  button.SetUp(OnUp)</eg></td>
+  </tr>
+  <tr><td><br>Anim &gt; Component<br>‾‾‾‾</td><td><br>Анимации на основе набора спрайтов ASCII, которые можно добавить на UI.</td></tr>
+  <tr>
+    <td>anim.color<br><eg>string</eg></td>
+    <td>Цвет анимации, в <a href="https://htmlcolorcodes.com/" target="_blank">шестнадцатеричном формате RGB</a>.</td>
+  </tr>
+  <tr>
+    <td>anim.duration<br><eg>int</eg></td>
+    <td>Длина анимации (в кадрах).</td>
+  </tr>
+  <tr>
+    <td>anim.flipX<br><eg>bool</eg></td>
+    <td>Если true, анимация отражена горизонтально.</td>
+  </tr>
+  <tr>
+    <td>anim.flipY<br><eg>bool</eg></td>
+    <td>Если true, анимация отражена вертикально.</td>
+  </tr>
+  <tr>
+    <td>anim.frame<br><eg>int</eg></td>
+    <td>Номер кадра анимации, отрисовываемый в данный момент. Можно поменять, чтобы перевести анимацию на конкретный кадр.</td>
+  </tr>
+  <tr>
+    <td>anim.gamePause<br><eg>bool</eg></td>
+    <td>Если true, анимация ставится на паузу, когда игрок заходит в меню паузы и продолжается, когда игрок из него выходит.</td>
+  </tr>
+  <tr>
+    <td>anim.loop<br><eg>bool</eg></td>
+    <td>Если true, по окончании анимация перезапустится.</td>
+  </tr>
+  <tr>
+    <td>anim.playing<br><eg>bool<br>read-only</eg></td>
+    <td>True, если анимация проигрывается.</td>
+  </tr>
+  <tr>
+    <td>anim.paused<br><eg>bool<br>read-only</eg></td>
+    <td>True, если анимация проигрывается, но поставлена на паузу с помощью <eg>anim.Pause()</eg>.</td>
+  </tr>
+  <tr>
+    <td>anim.pivotX<br>anim.pivotY<br><eg>int</eg></td>
+    <td>Дополнительное смещение, которое можно использовать, чтобы подрехтовать, где должен рисоваться ASCII-арт по отношению к своей позиции.</td>
+  </tr>
+  <tr>
+    <td>anim.playOnStart<br><eg>bool</eg></td>
+    <td>Если true, анимация начнет проигрываться при первой возможности.</td>
+  </tr>
+  <tr>
+    <td>anim.AddLayer(string)<br><eg>Возвращает Anim</eg></td>
+    <td>Добавляет новый спрайт ASCII поверх этого. Пока анимация проигрывается (или ее кадр меняют с помощью <eg>anim.frame</eg>), все слои синхронизированы. Каждый слой имеет свой набор значений для цвета, точки, и т.д.. Преимущества использования слоев анимации для сложных артов ASCII включают улучшенную производительность и более качественный код. Если анимация удалена, все слои очищаются одновременно.<eg><br>Например:<br>var a = ui.AddAnim(asciiArtA)<br>var layer2 = a.AddLayer(asciiArtB)<br>layer2.color = #bbbbbb</eg></td>
+  </tr>
+  <tr>
+    <td>anim.Load(string)<br><eg>Ничего не возвращает</eg></td>
+    <td>Назначает новый набор спрайтов ASCII.</td>
+  </tr>
+  <tr>
+    <td>anim.Pause()<br><eg>Ничего не возвращает</eg></td>
+    <td>Приостанавливает проигрывание анимации на нынешнем кадре. Последующий вызов <eg>anim.Play()</eg> продолжит анимацию.</td>
+  </tr>
+  <tr>
+    <td>anim.Play()<br><eg>Ничего не возвращает</eg></td>
+    <td>Начинает проигрывание анимации или продолжает его, если оно поставлено на паузу.<br><eg>Например:<br>var dance<br>?loc.begin<br>  dance = ui.AddAnim(ascii<br>(O/<br>%%<br>\O)<br>asciiend)<br>  dance.duration = 20<br>  dance.loop = true<br>  dance.Play()</eg></td>
+  </tr>
+  <tr>
+    <td>anim.Stop()<br><eg>Ничего не возвращает</eg></td>
+    <td>Останавливает проигрывание анимации и возвращает ее на первый кадр.</td>
+  </tr>
+  <tr><td><br>Canvas &gt; Component<br>‾‾‾‾‾‾</td><td><br>Контейнер, оптимизированный для отрисовки символов и цветов.</td></tr>
+  <tr>
+    <td>canvas.blend<br><eg>string</eg></td>
+    <td>Режим смешивания холста с элементами за ним. Доступные значения: Opaque, Multiply, Divide, Add, Subtract. По умолчанию используется "opaque".<br><eg>Например:<br>var filter1 = ui.AddCanvas()<br>var filter2 = ui.AddCanvas()<br>filter1.w = screen.w<br>filter1.h = screen.h<br>filter2.w = screen.w<br>filter2.h = screen.h<br><br>filter1.blend = multiply
+<br>filter1.SetFG(#aa5555)<br>filter1.SetBG(#dddddd)<br><br>filter2.blend = add
+<br>filter2.SetFG(#aa6600)<br>filter2.SetBG(#662200)</eg></td>
+  </tr>
+  <tr>
+    <td>canvas.Get(int,int)<br><eg>Возвращает string</eg></td>
+    <td>Возвращает символ на указанной позиции на холсте.</td>
+  </tr>
+  <tr>
+    <td>canvas.Set(str)<br><eg>Ничего не возвращает</eg></td>
+    <td>Заполняет весь холст указанным символом.<br><eg>Например:<br>?loc.begin<br>  var canvas = ui.AddCanvas()<br>  canvas.Set("X")</eg></td>
+  </tr>
+  <tr>
+    <td>canvas.Set(int,int,str)<br><eg>Ничего не возвращает</eg></td>
+    <td>Меняет символ на позиции x,y на указанный.<br><eg>Например:<br>?loc.begin<br>  var canvas = ui.AddCanvas()<br>  canvas.Set(0, 0, "A")</eg></td>
+  </tr>
+  <tr>
+    <td>canvas.Set(int,int, fg,str)<br>canvas.Set(int,int, fg,bg,str)<br><eg>Ничего не возвращает</eg></td>
+    <td>Перегрузки для изменения символа на холсте на указанное позиции, также меняя цвета переднего плана и/или фона.<br><eg>Например:<br>?loc.begin<br>  var canvas = ui.AddCanvas()<br>  for x = 0..canvas.w<br>    for y = 0..canvas.h<br>      var fg = color.Random()<br>      var bg = color.Random()<br>      canvas.Set(x, y, fg, bg, ▄)</eg></td>
+  </tr>
+  <tr>
+    <td>canvas.SetFG(color)<br><eg>Ничего не возвращает</eg></td>
+    <td>Устанавливает цвет переднего плана всему холсту.<br><eg>Например:<br>?loc.begin<br>  var canvas = ui.AddCanvas()<br>  canvas.Set("R")<br>  canvas.SetFG(#red)</eg></td>
+  </tr>
+  <tr>
+    <td>canvas.SetFG(int,int, color)<br><eg>Ничего не возвращает</eg></td>
+    <td>Меняет цвет переднего плана на указанной позиции x,y.<br><eg>Например:<br>?loc.begin<br>  var canvas = ui.AddCanvas()<br>  canvas.Set("X")<br>  canvas.SetFG(2, 1, #ff00ff)<br></eg></td>
+  </tr>
+  <tr>
+    <td>canvas.SetBG(color)<br><eg>Ничего не возвращает</eg></td>
+    <td>Устанавливает цвет фона всему холсту.<br><eg>Например:<br>?loc.begin<br>  var canvas = ui.AddCanvas()<br>  canvas.Set("g")<br>  canvas.SetBG(#00aa00)</eg></td>
+  </tr>
+  <tr>
+    <td>canvas.SetBG(int,int, color)<br><eg>Ничего не возвращает</eg></td>
+    <td>Меняет цвет фона на указанной позиции x,y.<br><eg>Например:<br>?loc.begin<br>  var canvas = ui.AddCanvas()<br>  canvas.Set("X")<br>  canvas.SetBG(2, 1, #yellow)</eg></td>
+  </tr>
+</tbody></table></font>
+<a href="https://dimakul.github.io/manual#"><font color="#505050">^К началу</font></a>
+</div>
+
+<div id="tips"><div id="separator"><!---------------------------></div>
+
+·:·:· Советы ·:·:·
+<font color="#bbbbbb">
+<f>Пробелы (отступы) очень важны, когда вы описываете, что должно произойти после проверки условий с помощью '?'.</f>
+
+<f>Скрипт можно редактировать прямо во время забега: для этого необходимо нажать 'M' на клавиатуре.</f>
+
+<f>Кнопка 'Power' в верхней правой части Камня Разума включает/выключает его.</f>
+
+<f>Если одновременно срабатывает несколько команд equip, приоритет имеет та, которая сработает последней.</f>
+
+<f>Скрипт выполняется 30 раз в секунду (или 1 раз за кадр).</f>
+
+<f>Чтобы экспериментировать с различными скриптами, рекомендуется копировать их в сторонний редактор текста, например, в Блокнот.</f>
+
+<f>Полезными могут быть такие популярные комбинации клавиш, как Ctrl+A, Ctrl+C, Ctrl+V.</f>
+
+<f>Удерживая Tab во время игры, можно увидеть много полезной информации о состоянии игры, а также с последними ошибками в работе Stonescript (если таковые есть).</f>
+
+<f>Команды вывода могут напечатать несколько линий текста: используйте '\n', чтобы их разграничить.</f>
+</font>
+
+<a href="https://dimakul.github.io/manual#"><font color="#505050">^К началу</font></a>
+</div>
+
+<div id="default-script"><div id="separator"><!---------------------------></div>
+
+·:·:· Скрипт по умолчанию ·:·:·
+<font color="#bbbbbb"><f>
+import UI/MindstoneButton
+
+?hp &lt; 7
+  activate potion
+?loc = caves
+  equipL sword
+  equipR shield
+  ?foe = boss
+    equip crossbow
+</f></font>
+
+<a href="https://dimakul.github.io/manual#"><font color="#505050">^К началу</font></a>
+</div>
+
+<div id="ability_ids"><div id="separator"><!---------------------------></div>
+
+·:·:· Приложение - ID перезарядки способностей ·:·:·
+<font color="#bbbbbb"><f>
+<table>
+  <tbody><tr>
+    <td>Item<br>----</td>
+    <td>Cooldown ID<br>-----------</td>
+    <td><br></td>
+  </tr>
+  <tr>
+    <td>Эфирный талисман (Æther Talisman)</td>
+    <td>"talisman_aether"</td>
+  </tr>
+  <tr>
+    <td>Бердыш (Bardiche)</td>
+    <td>"bardiche"</td>
+  </tr>
+  <tr>
+    <td>Таранный щит (Bashing Shield)</td>
+    <td>"bash"</td>
+  </tr>
+  <tr>
+    <td>Меч павшего бога (Blade of the Fallen God)</td>
+    <td>"blade"</td>
+  </tr>
+  <tr>
+    <td>Способность золинки (Cinderwisp Devour)</td>
+    <td>"cinderwisp"</td>
+  </tr>
+  <tr>
+    <td>Маска культиста (Cultist Mask)</td>
+    <td>"mask"</td>
+  </tr>
+  <tr>
+    <td>Стремительный щит (Dashing Shield)</td>
+    <td>"dash"</td>
+  </tr>
+  <tr>
+    <td>Огненный талисман (Fire Talisman)</td>
+    <td>"talisman_fire"</td>
+  </tr>
+  <tr>
+    <td>Топор (Hatchet)</td>
+    <td>"hatchet"</td>
+  </tr>
+  <tr>
+    <td>Тяжелый молот (Heavy Hammer)</td>
+    <td>"heavy_hammer"</td>
+  </tr>
+  <tr>
+    <td>Камень разума (Mind Stone)</td>
+    <td>"mind"</td>
+  </tr>
+  <tr>
+    <td>Квотерстафф (Quarterstaff)</td>
+    <td>"quarterstaff"</td>
+  </tr>
+  <tr>
+    <td>Рука скелета (Skeleton Arm)</td>
+    <td>"skeleton_arm"</td>
+  </tr>
+  <tr>
+    <td>Способность ткача (Voidweaver Devour)</td>
+    <td>"voidweaver"</td>
+  </tr>
+  <tr>
+    <td>Жезл действий (Calamity Wand)</td>
+    <td>"wand_aether"</td>
+  </tr>
+  <tr>
+    <td>Метеоритный жезл (Explosive Wand)</td>
+    <td>"wand_fire"</td>
+  </tr>
+  <tr>
+    <td>Ледяной жезл (Frost Wand)</td>
+    <td>"wand_ice"</td>
+  </tr>
+  <tr>
+    <td>Чумной жезл (Plague Wand)</td>
+    <td>"wand_poison"</td>
+  </tr>
+  <tr>
+    <td>Жезл сброса (Reset Wand)</td>
+    <td>"wand_vigor"</td>
+  </tr>
+  <tr>
+    <td>Жезл гравитации (Gravity Wand)</td>
+    <td>"wand_stone"</td>
+  </tr>
+  <tr>
+    <td>Хватательный посох (Grasping Staff)</td>
+    <td>"staff_aether"</td>
+  </tr>
+  <tr>
+    <td>Инфернальный посох (Infernal Staff)</td>
+    <td>"staff_fire"</td>
+  </tr>
+  <tr>
+    <td>Посох вечности (Eternity Staff)</td>
+    <td>"staff_ice"</td>
+  </tr>
+  <tr>
+    <td>Посох берсерка (Berserker Staff)</td>
+    <td>"staff_poison"</td>
+  </tr>
+  <tr>
+    <td>Посох предотвращения (Prevention Staff)</td>
+    <td>"staff_vigor"</td>
+  </tr>
+  <tr>
+    <td>Посох акробата (Acrobatic Staff)</td>
+    <td>"staff_stone"</td>
+  </tr>
+</tbody></table>
+</f></font>
+<a href="https://dimakul.github.io/manual#"><font color="#505050">^К началу</font></a>
+</div>
+
+<div id="sounds"><div id="separator"><!---------------------------></div>
+
+·:·:· Приложение - Звуковые эффекты ·:·:·
+<font color="#bbbbbb">
+Stonescript может проигрывать звуковые эффекты, доступные в игре.
+
+<eg><f>В данном примере, звук 'unequip' проигрывается, когда игрок теряет здоровье:
+
+var lasthp = hp
+?hp &lt; lasthp
+  play unequip
+lasthp = hp</f></eg>
+
+Многие звуки имеют разновидности, которые играют случайно (либо последовательно). Если один и тот же звук проигрывается чаще, чем раз в кадр, он будет проигнорирован. Если вы попытаетесь проиграть больше 5 звуков в секунду, они будут частично заглушены.
+
+Полный список доступных в Stone Story RPG звуков:
+
+acronian_cultist_power_up
+air_hiss
+ant_attack
+ant_death
+ant_hill
+ant_walk
+auggie_voice
+bang_go_forward
+bardiche_cast
+bat_attack
+bat_attack_small
+bat_death
+bat_death_small
+bat_wing
+bat_wing_small
+bearer3_talk
+bearer4_talk
+bearer4_talk_evolving
+bearer5_talk
+bearer_attack
+bearer_attack_hit
+bearer_death
+bearer_evolving
+bearer_scream
+bearer_stealing
+bearer_super_attack
+bell_ringer_attack
+bell_ringer_attack_hit
+blade_drag
+blade_glow
+blade_pallas_attack
+blade_raise
+bomb_cart_explosion
+bomb_cart_fuse
+bomb_cart_move
+boo_voice
+booklet_close
+booklet_open
+booklet_turn_page
+bronze_gate_close
+bronze_gate_locked
+bronze_gate_open
+bronze_guardian_attack1
+bronze_guardian_attack2
+bronze_guardian_attack3
+bronze_guardian_attack4
+bronze_guardian_death
+bronze_guardian_ears_ring
+bronze_guardian_fuse
+bronze_guardian_helmet
+bronze_guardian_power_up
+bronze_guardian_pulling_hammer
+bronze_guardian_removing_hammer
+bronze_guardian_steps
+bronze_guardian_turbine
+buy
+click
+confirm
+controller_death
+controller_whip_attack
+controller_whip_hit
+cross_deadwood_bump
+cross_deadwood_row
+cross_deadwood_splash
+crossbow_cast
+crossbow_hit
+cult_guard_attack
+cult_guard_attack_hit
+cult_marksman_attack
+cult_marksman_attack_hit
+cult_sorcerer_attack
+cult_sorcerer_attack_hit
+cultist_death
+devolved_talk
+dog_bark
+dominotaur_awake
+dominotaur_death
+dominotaur_whip_attack
+dominotaur_whip_hit
+dysangelos_guidance
+dysangelos_guidance_1
+dysangelos_guidance_2
+dysangelos_guidance_3
+dysangelos_intro_talk
+elementalist_aether_attack
+elementalist_aether_attack_hit
+elementalist_aether_blink
+elementalist_death
+elementalist_evolving
+elementalist_fire_attack
+elementalist_fire_attack_hit
+elementalist_fire_blink
+elementalist_ice_attack
+elementalist_ice_attack_hit
+elementalist_ice_blink
+elementalist_poison_attack
+elementalist_poison_attack_hit
+elementalist_poison_blink
+elementalist_vigor_attack
+elementalist_vigor_attack_hit
+elementalist_vigor_blink
+epilogue_devolving
+epilogue_talk
+epliogue_player_evolves
+equip
+error
+falling_stonefolk
+fire_beast_1
+fire_beast_2
+fire_elemental_attack
+fire_elemental_attack_hit
+fire_elemental_awake
+fire_elemental_death
+fire_geyser
+fire_orbs
+first_controller
+fissure_break_apart
+fissure_unmake
+flying_serpent_loop
+frog
+ghost_attack
+ghost_attack_small
+ghost_death
+ghost_death_small
+ghost_loop
+ghost_loop_small
+ghost_tomb_death
+giant_ice_elemental_attack
+grappling_cast
+grappling_hit
+grappling_idle
+hammer_cast
+hammer_hit
+hans_scream
+hans_talk_intro
+hans_talk_reward
+hatchet_cast
+hatchet_hit
+haunted_gate_key_bounce_1
+haunted_gate_key_bounce_2
+haunted_gate_key_bounce_3
+haunted_gate_key_into_gate
+haunted_gate_npc_voice
+haunted_gate_opening
+haunted_gate_point_lost
+haunted_gate_shuffle
+haunted_gate_shuffle_fast
+haunted_gate_torch_off
+haunted_gate_torch_on
+haunted_gate_try_to_open
+ice_elemental_attack
+ice_elemental_attack_hit
+ice_elemental_awake
+ice_elemental_death
+ice_pillar
+insta_kill
+key_drop
+ki_eater_attack
+ki_eater_attack_hit
+ki_eater_awake
+ki_eater_death
+ki_gobbler_attack
+ki_gobbler_attack_hit
+ki_gobbler_awake
+ki_gobbler_death
+ki_slerper_attack
+ki_slerper_attack_hit
+ki_slerper_awake
+ki_slerper_death
+ki_slerper_walk
+level_up
+life_gain
+logo_full
+logo_short
+lost_item_boost
+mask_summon_1
+mask_summon_2
+metal_drop
+mindstone_found
+mindstone_off
+mindstone_on
+mine_walker_attack_a
+mine_walker_attack_b
+mine_walker_attack_hit
+mine_walker_awake
+mine_walker_death
+mine_walker_helmet_break
+mine_walker_step
+morel_punch
+mosquito_attack
+mosquito_death
+mosquito_loop
+mushroom_boss_awake
+mushroom_boss_death
+mushroom_boss_fat_slam
+mushroom_boss_punch
+mushroom_boss_shoot
+mushroom_boss_split
+nagaraja_attack_eat
+nagaraja_attack_lick
+nagaraja_attack_swallow
+nagaraja_awake_roar
+nagaraja_awake_swallow
+nagaraja_awake_tongue_1
+nagaraja_awake_tongue_2
+nagaraja_choir
+nagaraja_dead
+nagaraja_poison_attack
+nagaraja_poison_attack_hit
+nagaraja_tongue_damaged
+nagaraja_tongue_lift
+nagaraja_tongue_smell
+nagaraja_tongue_wrap
+nagaraja_wail
+nagaraja_wail_brick
+open_note
+paint_splat
+pallas_voice
+perfected_attack
+perfected_attack_hit
+perfected_death
+perfected_defense
+perfected_energy_ball
+perfected_energy_ball_hit
+perfected_fly_end
+perfected_fly_loop
+perfected_fly_start
+perfected_summon
+perfected_talk
+pickup_bronze
+pickup_stone
+pickup_success
+pickup_tar
+pickup_wood
+player_death
+player_hit
+player_kick
+player_punch
+poison_adept_attack
+poison_adept_attack_hit
+poison_powerup
+potion_berserk
+potion_cleansing
+potion_defensive
+potion_experience
+potion_healing
+potion_invisibility
+potion_lightning
+potion_lucky
+potion_strength
+potion_vampiric
+progress_1
+progress_2
+progress_3
+progress_4
+progress_5
+progress_6
+progress_7
+progress_8
+progress_9
+prompt_choice
+quarterstaff_cast
+quest_stone_jump
+quest_stone_unlock
+ranting_tree_halt
+ranting_tree_talk_again
+ranting_tree_talk_avenge
+ranting_tree_talk_extra
+ranting_tree_talk_get_out
+ranting_tree_talk_halt
+ranting_tree_talk_how_dare
+ranting_tree_talk_impressive
+ranting_tree_talk_very_well
+scarab_awake
+scarab_bite
+scarab_death
+scarab_horn
+scarab_wings
+scorpion_death
+scotty_a_pleasure
+scotty_a_worthy_opponent
+scotty_deuced
+scotty_failte_back
+scotty_getting_good
+scotty_grr
+scotty_guess_which
+scotty_hell_be_back
+scotty_intro
+scotty_lets_harden
+scotty_make_ye_guess
+scotty_noo_jist
+scotty_out_of_treasure
+scotty_perhaps_the_rules
+scotty_pick_some_treasure
+scotty_shall_we_up
+scotty_there_he_is
+scotty_we_have_wee_use
+scotty_well_met
+scotty_well_then
+scotty_wizard
+scotty_wrong_choice
+scout_arrives
+scout_dialog
+scout_focus
+scout_leaves
+scout_wing
+serpent_attack
+serpent_death
+serpent_handler_release
+serpent_hiss
+serpent_slither
+shield_dash
+shop_door_enter
+shop_door_open
+shovel_cast
+sightstone_cast
+skeletimmy_attack
+skeletimmy_death
+skeleton_boss_arm1
+skeleton_boss_arm2
+skeleton_boss_arm_reconnect
+skeleton_boss_arm_woosh
+skeleton_boss_attack
+skeleton_boss_awake
+skeleton_boss_bone_bounce
+skeleton_boss_death
+skeleton_boss_hand_slam
+skeleton_boss_idle
+skeleton_boss_legs_die
+skeleton_boss_summon_minions
+skeletony_attack
+skeletony_awake_a
+skeletony_awake_b
+skeletony_death
+skeletony_walk
+slave_npc
+slave_outro_chatter
+slave_outro_transition
+slave_outro_voice
+smithy_hammer
+smithy_hammer_fail
+snail_attack
+snail_attack_small
+snail_death
+snail_death_small
+snail_walk
+soul_stone
+soul_stone_drop
+spider_attack
+spider_boss_attack
+spider_boss_awake
+spider_boss_death
+spider_death
+spider_death_small
+spider_eggs_spawn
+spider_walk
+stone_throw_cast
+stone_throw_hit
+sword_cast
+sword_hit
+talisman_reveal
+temple_npc_chant
+temple_npc_clear_throat
+temple_npc_talk
+torch_cast
+torch_hit
+torch_idle
+treasure_close
+treasure_drop
+treasure_drop_common
+treasure_drop_epic
+treasure_drop_giant
+treasure_drop_humble
+treasure_drop_rare
+treasure_item_blue
+treasure_item_cyan
+treasure_item_green
+treasure_item_lost
+treasure_item_pop
+treasure_item_rainbow
+treasure_item_red
+treasure_item_show
+treasure_item_yellow
+treasure_open
+tree_boss_attack
+tree_boss_awake
+tree_boss_death
+tree_boss_idle
+tree_boss_spike
+triskelion_fuse
+ui_starfirst
+ui_starnew
+ui_starold1
+ui_starold2
+ui_starold3
+ui_starold4
+unequip
+uulaa_voice
+wand_aether_cast
+wand_aether_hit
+wand_air_cast
+wand_air_hit
+wand_cast
+wand_drop
+wand_fire_cast
+wand_fire_hit
+wand_hit
+wand_ice_cast
+wand_ice_hit
+wand_poison_cast
+wand_poison_hit
+wand_vigor_cast
+wand_vigor_hit
+waterfall_hook_hit
+waterfall_land
+waterfall_rope_grab
+waterfall_rope_swing
+waterfall_splash
+worm_rider_hop
+xp_tick
+yeti_attack
+yeti_attack_flick
+yeti_attack_hit
+yeti_awake_blow
+yeti_awake_explosion
+yeti_awake_inhale
+yeti_awake_lick
+yeti_blow
+yeti_blow_ice_wall
+yeti_death
+yeti_inhale
+yeti_inhale_lick
+</font>
+
+<a href="https://dimakul.github.io/manual#"><font color="#505050">^К началу</font></a>
+</div>
+
+<div id="music"><div id="separator"><!---------------------------></div>
+
+·:·:· Приложение - Музыка ·:·:·
+<font color="#bbbbbb">
+Stonescript может включать различную музыку. Доступные для воспроизведения треки зависят от устройства.
+<eg><f>
+?loc.begin | loc.loop
+  music.Play(temple_0)</f></eg>
+
+Список всей доступной в Stone Story RPG музыки:
+
+<eg>Бурлящая шахта</eg>
+bronze_guardian_3
+bronze_guardian_4
+bronze_guardian_5
+bronze_guardian_cyan
+bronze_mine_0
+bronze_mine_1
+bronze_mine_2
+bronze_mine_3
+bronze_mine_4
+bronze_mine_5
+bronze_mine_cyan
+slave_outro_climb
+slave_outro_loop
+
+<eg>Пещеры страха</eg>
+caustic_caves
+spider_boss
+
+<eg>Каньон Дедвуд</eg>
+cross_deadwood_river
+cross_deadwood_wind
+deadwood_0
+deadwood_1
+deadwood_2
+deadwood_3
+deadwood_4
+deadwood_5
+deadwood_cyan
+tree_boss
+waterfall_descent
+poena
+
+<eg>Призрачные залы</eg>
+skeleton_boss
+undead_crypt_0
+undead_crypt_1
+undead_crypt_2
+undead_crypt_3
+undead_crypt_4
+undead_crypt_5
+undead_crypt_cyan
+undead_crypt_intro
+
+<eg>Ледяной хребет</eg>
+bridge_broken
+bridge_crossing
+icy_ridge_0
+icy_ridge_1
+icy_ridge_2
+icy_ridge_3
+icy_ridge_4
+icy_ridge_5
+icy_ridge_cyan
+yeti
+
+<eg>Грибной лес</eg>
+fire_loop
+fungus_forest_0
+fungus_forest_1
+fungus_forest_2
+fungus_forest_3
+fungus_forest_4
+fungus_forest_5
+fungus_forest_cyan
+mushroom_boss
+mushroom_boss_cyan
+shop
+
+<eg>Каменистое плато</eg>
+rocky_plateau_0
+rocky_plateau_1
+rocky_plateau_2
+rocky_plateau_3
+rocky_plateau_4
+rocky_plateau_5
+rocky_plateau_epilogue
+rocky_plateau_fight
+rocky_plateau_talk
+
+<eg>Храм</eg>
+nagaraja
+temple_0
+temple_1
+temple_2
+temple_3
+temple_4
+temple_5
+temple_cyan
+
+<eg>События</eg>
+event_fall
+event_hamartia
+event_spring
+event_stonejam
+event_summer
+event_winter
+
+<eg>Прочее</eg>
+credits
+main_menu
+bone_factory
+osteophone
+uulaa
+</font>
+
+<a href="https://dimakul.github.io/manual#"><font color="#505050">^К началу</font></a>
+</div>
+
+<div id="ambient"><div id="separator"><!---------------------------></div>
+
+·:·:· Приложение - Атмосферные звуки ·:·:·
+<font color="#bbbbbb">
+Stonescript может проигрывать несколько слоев фонового атмосферного аудио.
+<eg><f>
+?loc.begin
+  ambient.Stop()
+  ambient.Add(ambient_crypt)</f></eg>
+
+Полный список доступных атмосферных звуков в Stone Story RPG:
+
+ambient_mines
+ambient_caves
+ambient_bronze_gate
+ambient_deadwood
+ambient_mushroom
+ambient_bridge
+ambient_icy
+ambient_cave
+ambient_rocky
+ambient_temple
+ambient_crypt
+ambient_haunted_gate
+ambient_pallas
+waterfall_a
+waterfall_b
+waterfall_c
+</font>
+
+<a href="https://dimakul.github.io/manual#"><font color="#505050">^К началу</font></a>
+</div>
+
+<div id="scripts"><div id="separator"><!---------------------------></div>
+
+·:·:· Appendix - Все импортируемые скрипты ·:·:·
+<font color="#bbbbbb">
+import Chisel
+import CozyCave
+import Fishing
+import TrainAdventure
+
+import Cosmetics/Acrocorn
+import Cosmetics/AcronianGuardian
+import Cosmetics/AuroraBorealis
+import Cosmetics/BadApple
+import Cosmetics/Beach
+import Cosmetics/Bolesh
+import Cosmetics/CaveParty
+import Cosmetics/ChristmasTree
+import Cosmetics/ChrWings
+import Cosmetics/ConfettiHead
+import Cosmetics/CultGroup
+import Cosmetics/DragonWorm
+import Cosmetics/Drill
+import Cosmetics/Explosion
+import Cosmetics/FireFly
+import Cosmetics/Fireworks
+import Cosmetics/FrogInvasion
+import Cosmetics/Giftbag
+import Cosmetics/Infected
+import Cosmetics/Knight
+import Cosmetics/Mech
+import Cosmetics/MineManager
+import Cosmetics/MushroomAnt
+import Cosmetics/MushroomHead
+import Cosmetics/Party
+import Cosmetics/PartyNoisemaker
+import Cosmetics/Portobello
+import Cosmetics/PumpkinCarving
+import Cosmetics/Pumpkins
+import Cosmetics/quips
+import Cosmetics/SantaFlyingSleigh
+import Cosmetics/SillyGoose
+import Cosmetics/SleepyStonehead
+import Cosmetics/SpookyScarySkeletons
+import Cosmetics/SpringBloom
+import Cosmetics/StoneClause
+import Cosmetics/StoneheadFall
+import Cosmetics/StoneHeadless
+import Cosmetics/StonePhone
+import Cosmetics/SuperStoneHead
+import Cosmetics/TheSun
+import Cosmetics/Turret
+import Cosmetics/TwinSuns
+import Cosmetics/WavyScarf
+import Cosmetics/WitchBroom
+
+import Foes/FlowerFoes
+import Foes/PallasCrown
+import Foes/PumpkinWraith
+import Foes/SurferGuardian
+
+import Games/2048
+import Games/Arena
+import Games/Asteroids
+import Games/Blackjack
+import Games/BurgerRush
+import Games/cColorTetris
+import Games/cGomoku
+import Games/cTetris
+import Games/DigitsPuzzle
+import Games/FeedABat
+import Games/FlyupText
+import Games/FrogBog
+import Games/FrogJump
+import Games/GetawayDriver
+import Games/GrowPlants
+import Games/KillerRPG
+import Games/Metallophone
+import Games/Minesweeper
+import Games/PlayingCards
+import Games/Simon
+import Games/Snake
+import Games/SpearThrowing
+import Games/SSRPGIdle
+import Games/StoneasaurGame
+import Games/StoneBoxman
+import Games/StoneDungeon
+import Games/Stonemon
+import Games/Sudoku
+import Games/SudokuEnchant
+import Games/SwordGame
+import Games/TowerDefense
+import Games/WhackaMole
+
+import Hats/CatHat
+import Hats/ChefHat
+import Hats/DefectFaceplate
+import Hats/DiscoVisor
+import Hats/Enchanthead
+import Hats/Headphones
+import Hats/Helmet
+import Hats/HrimnirHair
+import Hats/IroncladMask
+import Hats/JesterHat
+import Hats/LanternTalisman
+import Hats/MushroomHat
+import Hats/PirateHat
+import Hats/ReindeerHead
+import Hats/SantaHat
+import Hats/ShuffleHat
+import Hats/SilentSkull
+import Hats/Skully
+import Hats/StarCloak
+import Hats/Treeman
+import Hats/WitchHat
+
+import Pets/Bear
+import Pets/BlackHole
+import Pets/Boo
+import Pets/Bunny
+import Pets/CatBalloon
+import Pets/CavePets
+import Pets/Chick
+import Pets/Crab
+import Pets/Cranius
+import Pets/Dog
+import Pets/Dracula
+import Pets/Dragon
+import Pets/Fly
+import Pets/FoesNoMore
+import Pets/Frog
+import Pets/JackOLantern
+import Pets/LegsTurkey
+import Pets/Mushroom
+import Pets/Panda
+import Pets/Pomeranian
+import Pets/RoyaltyDeliverer
+import Pets/Skully
+import Pets/Snail
+import Pets/SnowBunny
+import Pets/Snowman
+import Pets/Spider
+import Pets/SpringBuddy
+import Pets/Stonehead
+import Pets/Sun
+import Pets/TarPusher
+import Pets/Wisp
+
+import UI/A2S
+import UI/BetterInfo2
+import UI/BetterText
+import UI/BorderClock
+import UI/BossBar
+import UI/BossHealthBar
+import UI/BragMeter
+import UI/Calculator
+import UI/CDTime
+import UI/ClickAbilities
+import UI/damageFlash
+import UI/DragController
+import UI/FaceHUD
+import UI/FoeStateTracker
+import UI/FreeChestTracker
+import UI/InfoFloat
+import UI/LiveSplit
+import UI/MindstoneButton
+import UI/MiniMap
+import UI/MusicBox
+import UI/OkamiroyUtils
+import UI/PefWindow
+import UI/PlayerStateTracker
+import UI/RecordPlayer
+import UI/ScrollText
+import UI/StealMeter
+import UI/ToolBelt
+import UI/VisualStatusEffects
+import UI/ChiselFiles/Additional Documentation
+import UI/ChiselFiles/SetLayer
+import UI/FancyUI/colour
+import UI/FancyUI/fancyui
+import UI/FancyUI/print
+
+import Weapons/ArmorGenerator
+import Weapons/EmbueDaggers
+import Weapons/LanternTalisman
+import Weapons/MajPack
+import Weapons/MajVines
+import Weapons/PsyCrusher
+import Weapons/RecoilKick
+import Weapons/RootBats
+import Weapons/Scythe
+import Weapons/ShockwaveWhip
+import Weapons/SpellBook
+</font>
+
+<a href="https://dimakul.github.io/manual#"><font color="#505050">^К началу</font></a>
+</div>
+
+<font color="#505050">
+Copyright Martian Rex, Inc. 2020
+
+</font>
+</div>
+
+<br>
+
+</body></html>
