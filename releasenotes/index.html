@@ -45,6 +45,171 @@
 </f>
 <div id="separator"><!---------------------------></div>
 
+v4.17.2 - 2025/06/11
+<answer>
+- The AR cosmetic script no longer disables other scripts (fix by  ).
+
+</answer><div id="separator"><!---------------------------></div>
+
+v4.17.1 - 2025/06/08
+<answer>
+New
+- New event: Crossbonanza
+- New: import Weapons/AR (by tapititon)
+
+Community Fixes
+- Added error handling for NetworkStream.Write (by ArtificialPotato)
+- Fixed bugs in the Glitch cosmetic (by hexyhexagon)
+- Fixed hitpoint calculation for elite Hydra enemies (by hexyhexagon)
+
+Changes
+- Hamartia: Lowered the invading foe goal from 150 to 120.
+- Split community texts into a separate localization sheet.
+- Added "ranged" type to bosses: Dysangelos, Enoki, Hrimnir, Nagaraja and Xyloalgia.
+- Added "flying" type to Mr. Puff and Acronian Scout.
+- Updated new types in the Beastiary and fixed missing types.
+- Piercing shots now add the tag "pierce" to the damage.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v4.16.0 - 2025/05/07
+<answer>
+Community
+- MiniMap update v10: import UI/MiniMap
+- Fixed the timer on the first Moonbloom Bud, so it's the intended 1 hour (fix by e1a00000)
+- item.GetCount() now returns the correct value for Lost items (fix by hexy)
+- Transmutable Trials now gives the correct Ki reimbursment (fix by hexy)
+- (Russian) Replaced the Discord icon with Telegram in the main menu (suggestion and ASCII-art by Poplynyasha)
+
+Other Improvements
+- Mask Reheat: Tightened the vertical space of the Initiate icon.
+- Subscription UI no longer appears on PC.
+- Hamartia: Fixed the first objective's title, so it shows "A Taste of Blue" for high-level players.
+- Hamartia: Changed the description of the first objective so it has red arrows on the sides, to indicate high difficulty.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v4.15.0 - 2025/04/27
+<answer>
+New event: Rites & Acolytes
+
+Hamartia
+- Added special location LBs that replace regular ones while the event is active.
+- Improved the event icon and main menu information.
+
+Additional Changes
+- Removed the glitch effect from moons.
+- Improved position of event and shop clocks.
+- Reduced rush time max objectives from 50 to 35.
+
+Bugs
+- Fixed the Infernal Staff so its two buffs have their clocks reset together, in case the staff is activated a second time while the buffs are still active.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v4.14.4 - 2025/04/13
+<answer>
+- Fixed Emerald Egg sometimes skipping top rewards (fixed by Hallifax)
+- Fixed spring party bundle appearing with candy cost.
+- The spring event now appears before Burnout is played, to clarify the requirement with a warning text.
+- Deleted some very old data migrations, from before version 1.0
+
+</answer><div id="separator"><!---------------------------></div>
+
+v4.14.2 - 2025/04/08
+<answer>
+New
+- Event: Mask Reheat (May 1)
+- Glitched cosmetic collection (May 1)
+- import Pets/Snake
+
+Improvements
+- Fuse+ is now 60% faster
+- The invading foe in Spring event is now a Dominotaur.
+- Revamped the Summer event
+
+Community
+- import Pets/CatBallon v1.0.2 by Bitty45
+- Cosmetics/AuroraBorealis v1.5 (by Incoherent Toast)
+  Updates wands and staves abilities, as well as a fix for heavy hammer.
+- UI/ClickAbilities v3.0 (by Incoherent Toast)
+  Added a settings menu.
+- UI/FoeStateTracker v5.0 (by Incoherent Toast)
+  Fixed wrong file.
+- CultGroup v1.1: Deleted shadows and disabled player sprite.
+
+Bugs
+- Fixed Frog import in Beastiary (reported by Saleh)
+- Fixed the vertical alignment of snowflake glyph in the 14x25 font.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v4.13.1 - 2025/03/20
+<answer>
+- Infernal Staff: Fixed the ID for move speed buff.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v4.13.0 - 2025/03/18
+<answer>
+New Event: All Staff on Deck!
+
+Changes
+- Staffs now have a hidden activated ability at max level.
+- Stun debuffs now show 'o' in the HUD instead of using the item's element.
+- (mobile) The standard Deadwood boss music now plays during Poena.
+- Expanded the Moondial Stone's description to mention workstation tasks.
+- Swapped the order of debuffs applied by Hrimnir.
+- Gear points for advanced wands or staffs are always calculated as if they were max star level.
+
+Hamartia
+- Increased the Star Stone requirement to yellow (level 3).
+- Updated the Elite objective to say "A taste of Blue" if your Star Stone is green.
+
+Changed several parts of the game to adhere to the screen dim setting:
+(reported by River The Nidorina)
+- The Reset Wand's full screen effect
+- The animated rings during Anvil crafting
+- Berserk Potion, XP Potion, Vampiric Potion
+- Berserker Staff
+- Bronze Guardian bomb attack
+
+Bugs
+- Fixed rerolling of wands and staffs so the hidden ability is correctly restricted to max star (reported by Ket).
+- Fixed R&D book progression for wands that was stuck for some people.
+- Advanced wands used as enchantment fuse sources now revert to basic wands.
+- Simultaneously defeating and being eaten by Nagaraja no longer soft-locks the game.
+- Fixed visuals of basic resource drops in the "Unethically Sourced" quest.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v4.12.1 - 2025/03/03
+<answer>
+- Revamped Spring Equinox event.
+- Added clock with remaining time to event shops.
+- Seasonal event resources no longer drop when the event clock ends.
+- Event rewards screen now clarifies that rewards are given at the end.
+- Adjusted the inventory order of Grappling Hook, Stone Throw and event resources.
+- Small increase to the width of the help button in Mind Stone screen.
+
+</answer><div id="separator"><!---------------------------></div>
+
+v4.11.2 - 2025/02/23
+<answer>
+New
+- The next two events are ready: Deadwood and Staff Abilities
+- Added 28 new speedrun trophies.
+
+Changes
+- All import paths have changed for Hats, Pets, Foes and a few other scripts.
+- Event leaderboards are now automatically created and unique each year.
+
+Bugs
+- Fixed a couple of bad frames in the Heavy Hammer attack animation.
+- Small fix to the vertical alignment of glyphs in 14x25 font.
+
+</answer><div id="separator"><!---------------------------></div>
+
 v4.10.4 - 2025/02/10
 <answer>
 - Fixed @ reimbursments in Transmutable Trials.
