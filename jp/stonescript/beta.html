@@ -1,0 +1,3269 @@
+<!DOCTYPE html>
+<html><head><meta name="viewport" http-equiv="Content-Type" content="text/html; charset=UTF-8; width=device-width; initial-scale=1; minimum-scale=1">
+
+<meta content="Stonescriptマニュアル" property="og:title">
+<meta content="Stone Story RPG専用プログラミング言語、Stonescriptの説明書です。明瞭の石を最大限に活用するための使用例とヒントが含まれています。" property="og:description">
+<meta content='https://stonestoryrpg.com/mind_stone.png' property='og:image'>
+<meta name="theme-color" content="#ffffff">
+<meta name="twitter:card" content="summary_large_image">
+<link type="application/json+oembed" href="https://stonestoryrpg.com/faq.json" /> 
+
+<title>Stonescriptマニュアル</title>
+
+<link rel="stylesheet" href="https://stonestoryrpg.com/faq-fixed.css" type="text/css" media="only screen and (min-device-width: 891px)" />
+<link rel="stylesheet" href="https://stonestoryrpg.com/faq-stretch.css" type="text/css" media="only screen and (max-width: 890px)" />
+
+<style type="text/css">
+	eg {
+		color: #707070;
+	}
+</style>
+
+</head>
+<body><div id="content">
+<f>
+<div id="logo"><a href="https://StoneStoryRPG.com" target="_blank"><img src="https://stonestoryrpg.com/capsule_b_231x87.png" alt="Stone Story RPG" align="middle"></a></div>
+
+<answer><center><a href="https://stonestoryrpg.com/stonescript/beta.html">English</a> | 日本語</center></answer>
+<div id="title-separator"><!---------------------------></div>
+
+<center>· ·:·: Stonescript（ベータ版）:·:· ·</center>
+<div id="title-separator"><!---------------------------></div>
+<center><font color="#808080">v4.11.2 - 2025/02/23</font></center>
+<answer><center><a href="https://stonestoryrpg.com/jp/stonescript">入門</a> | <a href="https://stonestoryrpg.com/jp/stonescript/manual.html">マニュアル</a> | ベータ  ·:·  <a href="https://stonestoryrpg.com/jp/releasenotes/beta.html">リリースノート</a> | <a href="https://stonestoryrpg.com/faq.html">よくある質問</a></center></answer>
+<center><font color="#808080">
+      _ ______________________ _            
+  ,:´      \____        __.---<font color="#ffffff">,.</font> `.         
+ :.!  __________\_______\__`--<font color="#ffffff">`´</font>__ \        
+ :' \ \--------------------------.\ \       
+ ':' · \ <font color="#ffffff">·:. :'· :.:·             </font>\\ \      
+  ':' \ \ <font color="#ffffff">:·' :·:.                 </font>\\ \     
+   ':' · \ <font color="#ffffff">.: ·:: '.:. ':'··:.      </font>\\ \    
+    ':' \ \ <font color="#ffffff">· :..                    </font>\\ \   
+     ':' · \ <font color="#ffffff">:·: ..': :·:. ·:: '.     </font>\\ \  
+      ':' \ \__________________________\\ \ 
+       ':' `     .         \         .     )
+        ':' . . . \ . . . . ' . . . . \ . .;
+          `·.;,;,;,;,;,;,;,;,;,;,;,;,;,;,:' 
+</font></center>
+</f>
+<font color="#bbbbbb">
+<f>Stonescriptは<a href="https://StoneStoryRPG.com" target="_blank">Stone Story RPG</a>内で使用されるシンプルながら強力なプログラミングであり、明瞭の石で装備の選択を自動化するために利用出来ます。</f>
+
+<f>スクリプトを使いこなせない？共同でスクリプトを作りたい？ぜひ私たちの<a href="https://discord.gg/StoneStoryRPG" target="_blank">Discordコミュニティ</a>に参加してください！<f>
+
+<f>このマニュアルは、利用可能なすべてのStonescriptの機能を包括的に解説しています。ほとんどの使用例はそのまま動作するので、明瞭の石に直接コピー＆ペーストして動作を学ぶことができます。</f>
+</font>
+
+
+·:·:· 目次 ·:·:·
+
+<f>  <a href="#example">1. 使用例</a></f>
+<f>  <a href="#basics">2. 基本</a></f>
+<f>  <a href="#game-state">3. ゲームの状態</a></f>
+<f>  <a href="#commands">4. コマンド</a></f>
+<f>  <a href="#search-filters">5. 検索フィルター</a></f>
+<f>  <a href="#comparisons">6. 比較</a></f>
+<f>  <a href="#variables">7. 変数</a></f>
+<f>  <a href="#math-operations">8. 数学演算</a></f>
+<f>  <a href="#functions">9. 関数</a></f>
+<f>  <a href="#native-functions">10. ネイティブ関数</a></f>
+<f>  <a href="#import">11. 外部スクリプトのインポート</a></f>
+<f>  <a href="#ascii-art">12. アスキーアート</a></f>
+<f>  <a href="#loops">13. ループ</a></f>
+<f>  <a href="#arrays">14. 配列</a></f>
+<f>  <a href="#custom-input">15. 入力のカスタマイズ</a></f>
+<f>  <a href="#user-interface">16. ユーザーインターフェース</a></f>
+<f>  <a href="#tips">17. ヒント</a></f>
+<f>  <a href="#default-script">18. デフォルトスクリプト</a></f>
+<f>  <a href="#ability_ids">おまけ A - アイテム能力のクールダウンID</a></f>
+<f>  <a href="#sounds">おまけ B - 効果音</a></f>
+<f>  <a href="#music">おまけ C - 楽曲</a></f>
+<f>  <a href="#ambient">おまけ D - 環境音</a></f>
+<f>  <a href="#scripts">おまけ E - インポート可能なすべてのスクリプト</a></f>
+
+
+<div id="example"><div id="separator"><!---------------------------></div>
+
+·:·:· 使用例 ·:·:·
+<font color="#bbbbbb">
+// ロッキー高原ではシャベルを装備。
+// 恐怖の洞窟ではロードアウト1を装備し、
+//   ボス戦では、代わりに鉤縄と
+//   7つ星のウォーハンマーを装備。
+// 呪われた会館では魔法の杖を2本装備し、
+//   左手には毒属性、右手には活力属性を指定。
+//   ただし、難易度が5つ星を超える場合は、
+//   エンチャントされた+13の活力の杖を装備。
+// HPが10未満になった時、ポーションを使用。
+<f>?loc=rocky
+ equip shovel
+?loc=cave
+ loadout 1
+ ?foe=bolesh
+  equip grap
+  equip hammer *7 D
+?loc=halls
+ equipL poison wand
+ equipR vigor wand
+ ?loc.stars &gt; 5
+  equip vigor staff +13
+?hp < 10
+ activate potion
+</f>
+</font>
+<a href="#"><font color="#505050">トップへ戻る</font></a>
+</div>
+
+<div id="basics"><div id="separator"><!---------------------------></div>
+
+·:·:· 基本 ·:·:·
+<font color="#bbbbbb">
+<table>
+  <tr>
+    <td style="min-width: 3em"> ?  </td>
+    <td>論理条件を評価する。条件が真(true)の場合、インデントされた行を実行する(if文)。<eg><br>使用例：<br>?loc = caves<br>  loadout 1</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> :  </td>
+    <td>代替論理分岐(else文)。'?'の条件が偽(false)の場合に実行する。<eg><br>使用例：<br>?loc = caves<br>  loadout 1<br>:<br>  loadout 2</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> :? </td>
+    <td>代替論理分岐(else-if)。条件を追加することができる。<eg><br>使用例：<br>?loc = caves<br>  loadout 1<br>:?loc = deadwood<br>  loadout 2<br>:<br>  loadout 3</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> // </td>
+    <td>コメント。'//'の右側に記載されたテキストはスクリプト実行時に無視される。<eg><br>使用例：<br>?loc = caves<br>  loadout 1<br>//上記のスクリプトは、恐怖の洞窟でロードアウト1を装備するという意味。</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> /* */ </td>
+    <td>ブロックコメント。この記号に囲われたテキストはスクリプト実行時に無視される。<eg><br>使用例：<br>/*<br>?loc = caves<br>  loadout 1<br>*/<br>このスクリプトは、すべてがブロックコメント内にあるため何もしない。</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> ^  </td>
+    <td>1つ前の行と連続する。<eg><br>使用例：<br>?loc=caves |<br>^loc = mine<br>  equip repeating<br><br>//上記のスクリプトは以下のスクリプトと同じ意味である。<br>?loc=caves|loc=mine<br>  equip repeating</td>
+  </tr>
+</table></font>
+<a href="#"><font color="#505050">トップへ戻る</font></a>
+</div>
+
+<div id="game-state"><div id="separator"><!---------------------------></div>
+
+·:·:· ゲームの状態 ·:·:·
+<font color="#bbbbbb">
+<f>以下の質問は、プレイヤーの前で何が起こっているのか、何が目の前にあるかを教えてくれます。</f>
+
+<table>
+  <tr>
+    <td>?loc</td>
+    <td>現在、プレイヤーが存在しているエリア。<eg><br>使用例：<br>?loc = caves<br>  loadout 1</td>
+  </tr>
+  <tr>
+    <td>?loc.id</td>
+    <td>現在のエリアの固有の識別子。<eg><br>使用例：<br>var id<br>id = loc.id<br>&gt;探検エリア @id@</td>
+  </tr>
+  <tr>
+    <td>?loc.gp</td>
+    <td>現在のループで使用されている総ギアパワー。<eg><br>使用例：<br>>`0,1,1ループのGP = @loc.gp@</td>
+  </tr>
+  <tr>
+    <td>?loc.name</td>
+    <td>ローカライズされた現在のエリア。<eg><br>使用例：<br>&gt;探検エリア @loc.name@</td>
+  </tr>
+  <tr>
+    <td>?loc.stars</td>
+    <td>現在のエリアの難易度。<eg><br>使用例：<br>?loc = caves<br>  ?loc.stars=4<br>    loadout 1<br>  ?loc.stars=5<br>    loadout 2</td>
+  </tr>
+  <tr>
+    <td>?loc.begin</td>
+    <td>エリアの最初のフレーム(time = 0)でのみ真になり、ゲームシミュレーションが開始する前を示す。ウロボロスループ以降は真にならない。変数のリセットに便利。<eg><br>使用例：<br>var i<br>?loc.begin<br>  i = 0<br>  ?loc = caves<br>    i = -100</td>
+  </tr>
+  <tr>
+    <td>?loc.loop</td>
+    <td>ウロボロスループ後の最初のフレームでのみ真になる。<eg><br>使用例：<br>var loopCount = 0<br>?loc.loop<br>  loopCount++</td>
+  </tr>
+  <tr>
+    <td>?loc.isQuest</td>
+    <td>現在のエリアが伝説のクエストやカスタムクエストといった特殊なエリアの場合、真になる。それ以外の場合は偽になる。<eg><br>使用例：<br>?loc.isQuest<br>  >`0,1,特殊なクエストエリアにいます</td>
+  </tr>
+  <tr>
+    <td>loc.averageTime</td>
+    <td>現在のエリアの平均クリアタイム。エリアの平均タイムは加重方式で計算され、最新のクリアタイムほど影響が強く、古くなる度に影響が弱くなる。<eg><br>使用例：<br>&gt;`0,2,平均タイム =<br>^ @loc.averageTime@フレーム</td>
+  </tr>
+  <tr>
+    <td>loc.bestTime</td>
+    <td>現在のエリアの最短クリアタイム(自己ベスト、ハイスコア)。<eg><br>使用例：<br>&gt;`0,1,ベストタイム =<br>^ @loc.bestTime@フレーム</td>
+  </tr>
+  <tr>
+    <td>?encounter.isElite</td>
+    <td>現在交戦中の敵がエリートかどうかを示す。<eg><br>使用例：<br>>`0,1,エリート = @encounter.isElite@</td>
+  </tr>
+  <tr>
+    <td>?encounter.eliteMod</td>
+    <td>現在交戦中の敵に特殊効果がある場合、その効果を示す。<eg><br>使用例：<br>>`0,2,特殊効果 = @encounter.eliteMod@</td>
+  </tr>
+  <tr>
+    <td>?foe</td>
+    <td>現在プレイヤーがターゲットにしている敵。<eg><br>使用例：<br>?foe = boo<br>  equip vigor staff</td>
+  </tr>
+  <tr>
+    <td>?foe.id</td>
+    <td>プレイヤーがターゲットにしている敵の固有ID（またはタイプ)。</td>
+  </tr>
+  <tr>
+    <td>?foe.name</td>
+    <td>プレイヤーがターゲットにしている敵のローカライズされた名前。</td>
+  </tr>
+  <tr>
+    <td>?foe.damage</td>
+    <td>プレイヤーがターゲットにしている敵の攻撃1回あたりのダメージ。<eg><br>使用例：<br>>`0,1,敵のダメージ = @foe.damage@</td>
+  </tr>
+  <tr>
+    <td>?foe.distance</td>
+    <td>プレイヤーとターゲットにしている敵との距離。</td>
+  </tr>
+  <tr>
+    <td>?foe.z</td>
+    <td>ターゲットにしている敵のZ座標。</td>
+  </tr>
+  <tr>
+    <td>?foe.count</td>
+    <td>プレイヤーから46ユニット以内にいる敵の数。</td>
+  </tr>
+  <tr>
+    <td>?foe.GetCount(int)</td>
+    <td>指定されたユニット数以内にいる敵の数。</td>
+  </tr>
+  <tr>
+    <td>?foe.hp</td>
+    <td>プレイヤーがターゲットにしている敵の現在のHP。</td>
+  </tr>
+  <tr>
+    <td>?foe.maxhp</td>
+    <td>プレイヤーがターゲットにしている敵の最大HP。</td>
+  </tr>
+  <tr>
+    <td>?foe.armor</td>
+    <td>プレイヤーがターゲットにしている敵の現在のアーマー値。</td>
+  </tr>
+  <tr>
+    <td>?foe.maxarmor</td>
+    <td>プレイヤーがターゲットにしている敵の最大アーマー値。</td>
+  </tr>
+  <tr>
+    <td>?foe.buffs.count</td>
+    <td>ターゲットにしている敵にかかっているバフ(プラス効果)の数。</td>
+  </tr>
+  <tr>
+    <td>?foe.buffs.string</td>
+    <td>ターゲットにしている敵のバフに関する詳細な情報。<eg><br>使用例：<br>?foe.buffs.count > 0<br>  >`0,3,敵のバフ = @foe.buffs.string@</td>
+  </tr>
+  <tr>
+    <td>?foe.buffs.GetCount(str)</td>
+    <td>ターゲットにしている敵の特定のバフの数。</td>
+  </tr>
+  <tr>
+    <td>?foe.buffs.GetTime(str)</td>
+    <td>ターゲットにしている敵の特定のバフの持続時間。</td>
+  </tr>
+  <tr>
+    <td>?buffs.oldest</td>
+    <td>プレイヤーにかかっている最も古いバフのID。<eg><br>使用例：<br>>`0,1,最古バフ: @buffs.oldest@</td>
+  </tr>
+  <tr>
+    <td>?foe.debuffs.count</td>
+    <td>ターゲットにしている敵にかかっているデバフ(マイナス効果)の数。</td>
+  </tr>
+  <tr>
+    <td>?foe.debuffs.string</td>
+    <td>ターゲットにしている敵のデバフに関する詳細な情報。<eg><br>使用例：<br>?foe.debuffs.count > 0<br>  >`0,4,敵のデバフ = @foe.debuffs.string@</td>
+  </tr>
+  <tr>
+    <td>?foe.debuffs.GetCount(str)</td>
+    <td>ターゲットにしている敵の特定のデバフの数。<eg><br>使用例：<br>>`0,1,氷デバフの数 =<br>^ @foe.debuffs.GetCount("debuff_chill")@</td>
+  </tr>
+  <tr>
+    <td>?foe.debuffs.GetTime(str)</td>
+    <td>ターゲットにしている敵の特定のデバフの持続時間。<eg><br>使用例：<br>>`0,2,氷デバフの持続時間 =<br>^ @foe.debuffs.GetTime("debuff_chill")@</td>
+  </tr>
+  <tr>
+    <td>?debuffs.oldest</td>
+    <td>プレイヤーにかかっている最も古いデバフのID。<eg><br>使用例：<br>>`0,1,最古デバフ: @debuffs.oldest@</td>
+  </tr>
+  <tr>
+    <td>?foe.state</td>
+    <td>ターゲットにしている敵の現在の状態を表す数値。<eg><br>使用例：<br>?foe.state = 0<br>  >`0,0,敵は寝ています</td>
+  </tr>
+  <tr>
+    <td>?foe.time</td>
+    <td>ターゲットにしている敵が現在の状態で経過したフレーム数。<eg><br>使用例：<br>>`0,0,敵 = @foe.name@:@foe.state@,@foe.time@</td>
+  </tr>
+  <tr>
+    <td>?foe.level</td>
+    <td>ターゲットにしている敵のレベル。<eg><br>使用例：<br>>`0,0,敵 = @foe.name@のレベル @foe.level@</td>
+  </tr>
+  <tr>
+    <td>?harvest</td>
+    <td>木や岩など、近くの収穫可能なオブジェクト。<eg><br>使用例：<br>?harvest=Boulder<br>  equip shovel</td>
+  </tr>
+  <tr>
+    <td>?harvest.distance</td>
+    <td>プレイヤーと最も近い収穫可能なオブジェクトとの距離。<eg><br>使用例：<br>?loc=Rocky & harvest.distance < 7<br>  equip shovel</td>
+  </tr>
+  <tr>
+    <td>?harvest.z</td>
+    <td>最も近い収穫可能なオブジェクトのZ座標。<eg><br>使用例：<br>?loc=Rocky & harvest.z > 5<br>  equip shovel</td>
+  </tr>
+  <tr>
+    <td>?input.x</td>
+    <td>入力デバイス(マウス/タッチ)のアスキーグリッド上のX座標。</td>
+  </tr>
+  <tr>
+    <td>?input.y</td>
+    <td>入力デバイス(マウス/タッチ)のアスキーグリッド上のY座標。<eg><br>使用例：<br>> (@input.x@, @input.y@)</td>
+  </tr>
+  <tr>
+    <td>?item.left</td>
+    <td>左手に装備されているアイテム。<eg><br>使用例：<br>>`0,1,左装備:@item.left@<br>>`0,2,右装備:@item.right@</td>
+  </tr>
+  <tr>
+    <td>?item.right</td>
+    <td>右手に装備されているアイテム。<eg><br>使用例：<br>?item.right = quarterstaff<br>  activate R</td>
+  </tr>
+  <tr>
+    <td>?item.left.gp<br>?item.right.gp</td>
+    <td>左または右に装備されているアイテムのギアパワー。<eg><br>使用例：<br>>`0,1,左装備のGP:@item.left.gp@<br>>`0,2,右装備のGP:@item.right.gp@</td>
+  </tr>
+  <tr>
+    <td>?item.left.id<br>?item.right.id</td>
+    <td>左または右に装備されているアイテムのID。<eg><br>使用例：<br>>`0,1,Left ID:@item.left.id@<br>>`0,2,Right ID:@item.right.id@</td>
+  </tr>
+  <tr>
+    <td>?item.left.state<br>?item.left.time<br>?item.right.state<br>?item.right.time</td>
+    <td>装備されている武器の現在の状態と、その状態の経過フレーム数。<eg><br>使用例：<br>>`0,1,@item.left.state@:@item.left.time@<br>>`0,2,@item.right.state@:@item.right.time@</td>
+  </tr>
+  <tr>
+    <td>?item.potion</td>
+    <td>現在調合されているポーション。大釜の自動補充が有効になっている場合は'auto'が含まれる。<eg><br>使用例：<br>?item.potion ! empty & item.potion = auto<br>  activate potion</td>
+  </tr>
+  <tr>
+    <td>?pickup</td>
+    <td>現在プレイヤーがターゲットにしている素材。<eg><br>使用例：<br>?pickup<br>  equip star stone<br>:<br>  loadout 1</td>
+  </tr>
+  <tr>
+    <td>?pickup.distance</td>
+    <td>プレイヤーとターゲットにしている素材との距離。<eg><br>使用例：<br>?pickup.distance < 5<br>  equipL star stone</td>
+  </tr>
+  <tr>
+    <td>?pickup.z</td>
+    <td>ターゲットにしている素材のZ座標。<eg><br>使用例：<br>?pickup.z > 7<br>  equipL star stone</td>
+  </tr>
+  <tr>
+    <td>?armor</td>
+    <td>プレイヤーの現在のアーマー値(小数点以下は切り捨て)。<br>例：アーマーが[2.4]の場合、?armorは2を返す。</td>
+  </tr>
+  <tr>
+    <td>?armor.f</td>
+    <td>プレイヤーの現在のアーマー値の小数部分。<br>例：アーマーが[2.4]の場合、?armor.fは4を返す。</td>
+  </tr>
+  <tr>
+    <td>?buffs.count</td>
+    <td>プレイヤーにかかっているバフ(プラス効果)の数。</td>
+  </tr>
+  <tr>
+    <td>?buffs.string</td>
+    <td>プレイヤーのバフに関する詳細な情報。<eg><br>使用例：<br>?buffs.count > 0<br>  >`0,1,プレイヤーバフ = @buffs.string@</td>
+  </tr>
+  <tr>
+    <td>?buffs.GetCount(str)</td>
+    <td>プレイヤーの特定のバフの数。</td>
+  </tr>
+  <tr>
+    <td>?buffs.GetTime(str)</td>
+    <td>プレイヤーの特定のバフの持続時間。</td>
+  </tr>
+  <tr>
+    <td>?debuffs.count</td>
+    <td>プレイヤーにかかっているデバフ(マイナス効果)の数。</td>
+  </tr>
+  <tr>
+    <td>?debuffs.string</td>
+    <td>プレイヤーのデバフに関する詳細な情報。<eg><br>使用例：<br>?debuffs.count > 0<br>  >`0,2,プレイヤーデバフ = @debuffs.string@</td>
+  </tr>
+  <tr>
+    <td>?debuffs.GetCount(str)</td>
+    <td>プレイヤーの特定のデバフの数。</td>
+  </tr>
+  <tr>
+    <td>?debuffs.GetTime(str)</td>
+    <td>プレイヤーの特定のデバフの持続時間。</td>
+  </tr>
+  <tr>
+    <td>?hp</td>
+    <td>プレイヤーの現在のHP。</td>
+  </tr>
+  <tr>
+    <td>?maxhp</td>
+    <td>プレイヤーの最大HP。</td>
+  </tr>
+  <tr>
+    <td>?maxarmor</td>
+    <td>プレイヤーの最大アーマー(端数切り捨て)。</td>
+  </tr>
+  <tr>
+    <td>?pos.x</td>
+    <td>プレイヤーの現在のX座標。</td>
+  </tr>
+  <tr>
+    <td>?pos.y</td>
+    <td>プレイヤーの現在のY座標。</td>
+  </tr>
+  <tr>
+    <td>?pos.z</td>
+    <td>プレイヤーの現在のZ座標。</td>
+  </tr>
+  <tr>
+    <td>?ai.enabled</td>
+    <td>AIが有効であれば真、無効であれば偽になる(イベントムービー中など)。</td>
+  </tr>
+  <tr>
+    <td>?ai.paused</td>
+    <td>AIが一時的に停止していれば真になる(宝箱のドロップ待機中など)。</td>
+  </tr>
+  <tr>
+    <td>?ai.idle</td>
+    <td>プレイヤーが待機状態であれば真になる(攻撃の完了待ちなど)。</td>
+  </tr>
+  <tr>
+    <td>?ai.walking</td>
+    <td>プレイヤーが移動中であれば真になる。</td>
+  </tr>
+  <tr>
+    <td>?bighead</td>
+    <td>プレイヤーがビッグヘッド(月時計の石)を有効にしていれば真になる。</td>
+  </tr>
+  <tr>
+    <td>?face</td>
+    <td>プレイヤーの現在の表情。<eg><br>使用例：<br>?face = "^^"<br>  >ハッピー</td>
+  </tr>
+  <tr>
+    <td>?key</td>
+    <td><a href="#custom-input">カスタムゲーム入力</a>の状態。<eg><br>以下は現在の入力状態を出力する：<br>&gt;@key@</td>
+  </tr>
+  <tr>
+    <td>?res.stone<br>?res.wood<br>?res.tar<br>?res.ki<br>?res.bronze<br>?res.crystals</td>
+    <td>プレイヤーのインベントリ内にある現在の素材量。<eg><br>使用例1：<br>?loc = Deadwood<br>  >木の枝 = @res.wood@<br><br>使用例2：<br>>`0,1,#magenta, ♦ @res.crystals@</td>
+  </tr>
+  <tr>
+    <td>?player.direction</td>
+    <td>プレイヤーが向いている方向を示す。<eg>右</eg>の場合は1を、<eg>左</eg>の場合は-1を返す。<eg><br>使用例：<br>?player.direction = 1<br>  >`0,0,右に歩いています<br>:<br>  >`0,0,左に歩いています</td>
+  </tr>
+  <tr>
+    <td>player.framesPerMove</td>
+    <td>プレイヤーが一マス先に移動するのにかかるフレーム数。<eg><br>>`0,1,Player Movement: @player.framesPerMove@</td>
+  </tr>
+  <tr>
+    <td>player.name</td>
+    <td>プレイヤーが決めた名前。<eg><br>以下はプレイヤーの名前を頭上に表示する例です：<br>var name<br>var x<br>name = player.name<br>x = string.Size(name) / -2<br>>o@x@,-2,@name@</td>
+  </tr>
+  <tr>
+    <td>player.GetNextLegendName()</td>
+    <td>プレイヤーがまだクリアしていない、次にアンロックされる伝説のクエストの名前。<eg></td>
+  </tr>
+  <tr>
+    <td>?rng</td>
+    <td>0から9999の範囲でランダムな整数を返す。<eg><br>使用例1：<br>?rng < 5000<br>  &gt;表！<br>:<br>  &gt;裏！<br><br>使用例2：5から24の範囲でランダムな整数を生成：<br>var min = 5<br>var max = 24<br>var n = min + rng % (max - min + 1)</td>
+  </tr>
+  <tr>
+    <td>?rngf</td>
+    <td>0から1のランダムな浮動小数点数を返す。<eg><br>使用例1：<br>>ランダム小数 = @rngf@<br><br>使用例2：5.0から24.0の範囲でランダムな小数を生成：<br>var min = 5.0<br>var max = 24.0<br>var n = min + (max - min) * rngf</td>
+  </tr>
+  <tr>
+    <td>?screen.i</td>
+    <td>ゲーム内画面の位置をインデックスとして表す。プレイヤーが右端に到達して画面がスライドするたびに増加する。<eg><br>使用例：<br>>`0,0,画面のインデックス = @screen.i@</td>
+  </tr>
+  <tr>
+    <td>?screen.x</td>
+    <td>ゲーム内画面のX座標。<eg><br>使用例：<br>>`0,0,画面のX座標 = @screen.x@</td>
+  </tr>
+  <tr>
+    <td>?screen.w</td>
+    <td>画面のアスキーグリッドの幅。<eg><br>使用例：<br>var sw = screen.w<br>&gt;画面の横幅 = @sw@</td>
+  </tr>
+  <tr>
+    <td>?screen.h</td>
+    <td>画面のアスキーグリッドの高さ。<eg><br>使用例：<br>var sh = screen.h<br>&gt;画面の高さ = @sh@</td>
+  </tr>
+  <tr>
+    <td>?summon.count</td>
+    <td>現在ゲーム内にいる召喚された仲間の数。<eg><br>使用例：<br>?summon.count = 0 &<br>^ item.CanActivate()<br>  equipL talisman<br>  activate L</td>
+  </tr>
+  <tr>
+    <td>summon.GetId(index = 0)</td>
+    <td>指定されたインデックスの召喚された仲間のIDを返す｡インデックスパラメータは省略可能で、デフォルトは0(最初の召喚)。指定したインデックスに仲間がいない場合はnullを返す｡<eg><br>使用例：<br>?summon.GetId() ! "cinderwisp" &<br>^ item.CanActivate()<br>  equipR fire talisman<br>  activate R</td>
+  </tr>
+  <tr>
+    <td>summon.GetName(index = 0)</td>
+    <td>指定されたインデックスの召喚された仲間のローカライズ名を返す。インデックスパラメータは省略可能で、デフォルトは0(最初の召喚)。指定したインデックスに仲間がいない場合はnullを返す｡<eg><br>使用例：<br>>`0,1,召喚:@summon.GetName()@</td>
+  </tr>
+  <tr>
+    <td>summon.GetVar(varName,<br>index = 0)</td>
+    <td>召喚された仲間のカスタム変数の値を返す。召喚の種類によって異なる変数が使用されている。インデックスパラメータは省略可能で、デフォルトは0(最初の召喚)。指定したインデックスに仲間がいない場合はnullを返す｡<f>varName</f>が無効な変数の場合はエラーを表示する。<eg><br>使用例：<br>?summon.GetId() = cinderwisp &<br>^summon.GetVar("ignition") > 2<br>  activate cinderwisp</td>
+  </tr>
+  <tr>
+    <td>summon.GetState(index = 0)</td>
+    <td>指定されたインデックスの召喚された仲間の現在の状態を表す数値を返す。インデックスパラメータは省略可能で、デフォルトは0(最初の召喚)。指定したインデックスに仲間がいない場合は-1を返す｡<eg><br>使用例：<br>>`0,1,召喚の状態:@summon.GetState()@</td>
+  </tr>
+  <tr>
+    <td>summon.GetTime(index = 0)</td>
+    <td>指定されたインデックスの召喚された仲間の状態の経過フレーム数を返す。インデックスパラメータは省略可能で、デフォルトは0(最初の召喚)。指定したインデックスに仲間がいない場合は-1を返す｡<eg><br>使用例：<br>>`0,1,召喚状態の経過時間:@summon.GetTime()@</td>
+  </tr>
+  <tr>
+    <td>?totalgp</td>
+    <td>インベントリ内の"ギアパワー"の合計値。アイテムの星レベルやエンチャントボーナスから計算される。<eg><br>使用例：<br>&gt;ギアパワー = @totalgp@</td>
+  </tr>
+  <tr>
+    <td>?time</td>
+    <td>現在のエリアで経過したフレーム数。<eg><br>使用例：<br>?time % 300 = 0<br>  >10秒ごとにこのメッセージが表示されます</td>
+  </tr>
+  <tr>
+    <td>?totaltime</td>
+    <td>ボスエリアを含めた、現在のエリアで経過した合計フレーム数。<eg><br>使用例：<br>>`0,0,現在の時間 = @totaltime@フレーム</td>
+  </tr>
+  <tr>
+    <td>time.msbn</td>
+    <td>Unix時間をミリ秒単位で表す。(1970年1月1日00:00:00 UTC以降の経過時間)うるう秒は考慮されない。BigNumber型を返す。<eg><br>使用例：<br>>@time.msbn@</td>
+  </tr>
+  <tr>
+    <td>time.year, time.month, time.day, time.hour, time.minute, time.second</td>
+    <td>プレイヤーのコンピュータ上のローカルシステム時間。<eg><br>使用例：<br>>`0,0,@time.year@/@time.month@/@time.day@<br>^ @time.hour@:@time.minute@:@time.second@</td>
+  </tr>
+  <tr>
+    <td>utc.year, utc.month, utc.day, utc.hour, utc.minute, utc.second</td>
+    <td>現在のUTC時間。<eg><br>使用例：<br>var utcZ = utc.year*356*12*24*30 +<br>^utc.month*12*24 + utc.day*24+utc.hour<br>var timeZ = time.year*356*12*24*30 +<br>^time.month*12*24 + time.day*24+time.hour<br>var timeZone = timeZ - utcZ<br>?timeZone < 0<br>  >`0,0,タイムゾーン: UTC@timeZone@<br>:<br>  >`0,0,タイムゾーン: UTC+@timeZone@</td>
+  </tr>
+</table></font>
+<a href="#"><font color="#505050">トップへ戻る</font></a>
+</div>
+
+<div id="commands"><div id="separator"><!---------------------------></div>
+
+·:·:· コマンド ·:·:·
+<font color="#bbbbbb">
+ゲームに指示を与えることが出来ます。
+
+<table>
+  <tr>
+    <td>activate (ability)</td>
+    <td>アイテムの能力を発動する。(ability)の値として、'potion' 'P' 'left' 'L' 'right' 'R' そして能力IDを指定できる。<eg><br>使用例：<br>activate R<br>(手斧など右手に装備されたアイテムの能力を発動する)</td>
+  </tr>
+  <tr>
+    <td>brew (ingredients)</td>
+    <td>ポーションボトルに指定された調合の材料を補充する。実行の開始、time 0にのみ実行される。材料には<eg>石ころ(stone)</eg>、<eg>木の枝(wood)</eg>、<eg>タール(tar)</eg>、<eg>銅の塊(bronze)</eg>が含まれ、<eg>+</eg>で区切る必要がある。材料名は英語または選択した言語で指定できる。<eg><br>使用例：<br>?loc.begin<br>  brew bronze + tar</td>
+  </tr>
+  <tr>
+    <td>equip  (str)</td>
+    <td>アイテムを装備する。(str)には7つの基準がある。両手持ちのアイテムはこの形式のequipコマンドを使わなければならない。<eg><br>使用例：<br>equip vigor crossbow *8 +5</td>
+  </tr>
+  <tr>
+    <td>equipL (str)</td>
+    <td>指定された条件に最も合うアイテムを左手に装備する。<eg><br>使用例：<br>equipL poison d_sword</td>
+  </tr>
+  <tr>
+    <td>equipR (str)</td>
+    <td>指定された条件に最も合うアイテムを右手に装備する。<eg><br>使用例：<br>equipR vigor shield</td>
+  </tr>
+  <tr>
+    <td>equip @var@</td>
+    <td>文字列変数からの条件に基づいてアイテムを装備する。装備やその他アイテム検索コマンドは減算条件に対応している。<eg><br>使用例：<br>var weaponName = "poison sword *10 -big"<br>equipR @weaponName@</td>
+  </tr>
+  <tr>
+    <td>loadout (n)</td>
+    <td>特定のロードアウト番号を装備する。<eg><br>使用例：<br>?loc = caves<br>  loadout 1<br>?loc = deadwood<br>  loadout 2</td>
+  </tr>
+  <tr>
+    <td>&gt; (str)</td>
+    <td>画面の上部に文字列を表示する。<eg><br>使用例：<br>&gt;Hello World!</td>
+  </tr>
+  <tr>
+    <td>&gt; @varName@</td>
+    <td>変数の値を挿入した文字列を表示する。表示には複数の変数を挿入でき、変数名を'@'で囲む。<eg><br>以下の例では、現在ターゲットにしている敵の情報を表示する。<br>var foeInfo<br>foeInfo = foe<br>&gt;敵 = @foeInfo@</td>
+  </tr>
+  <tr>
+    <td>&gt;(abcd</td>
+    <td>プレイヤーの表情をカスタムして表示する。ビッグヘッドが必要。<eg><br>使用例：<br>&gt;( OwO</td>
+  </tr>
+  <tr>
+    <td>&gt;oX,Y,[#rrggbb,](str)</td>
+    <td>プレイヤーの位置を基準にした高度な表示。XとYは座標のオフセット。"#rrggbb"はテキストの色を<a href="https://www.colordic.org/" target="_blank">16進数</a>で表記したもの。色は次の定数で設定することもできる。'#white' '#cyan' '#yellow' '#green' '#blue' '#red' 虹色は'rainFF'を使用し、最後の2文字(FF)で明るさを指定する。<eg><br>以下の例では、プレイヤーの位置を基準に、左に6、下に3の位置に赤文字で"Let's go!"と表示する。<br>&gt;o-6,3,#red,Let's go!</td>
+  </tr>
+  <tr>
+    <td>&gt;hX,Y,[#rrggbb,](str)</td>
+    <td>"&gt;o"とほぼ同じだが、ビッグヘッドと同じレイヤーに描画する。帽子などアクセサリーに最適。<eg><br>以下の例では、プレイヤーに黄色の帽子を描画する。ビッグヘッドが有効だと最適。<br>&gt;h-2,-3,#yellow,ascii<br>##_<br>#| |<br>_|_|_<br>asciiend</td>
+  </tr>
+  <tr>
+    <td>&gt;`X,Y,[#rrggbb,](str)</td>
+    <td>画面の左上隅を基準にした高度な表示。<eg><br>以下の例では、座標と色に変数を使用して"Hello World!"を表示する。<br>var posX = 10<br>var posY = 5<br>var color = rainE1<br>&gt;`@posX@,@posY@,#@color@,Hello World!</td>
+  </tr>
+  <tr>
+    <td>&gt;cX,Y,[#rrggbb,](str)</td>
+    <td>画面の中央を基準にした高度な表示。"&gt;`"と似ている。いずれも色は任意であることに注意。<eg><br>以下の例で、色は任意で、デフォルトは白であることが分かる。<br>&gt;c0,0,Hello World!</td>
+  </tr>
+  <tr>
+    <td>&gt;fX,Y,[#rrggbb,](str)</td>
+    <td>ターゲットの敵の頭の位置を基準にした高度な表示。<eg><br>以下の例では、ターゲットにした敵に赤い十字線を描画する。<br>&gt;f-2,0,#ff0000,ascii<br>##!<br>-#·#-<br>##¡<br>asciiend</td>
+  </tr>
+  <tr>
+    <td>var (variable)</td>
+    <td>数学、論理、文字列演算で使用できる変数を宣言する。変数の循環と挙動についての詳細は、他の言語と異なる可能性があるため、<a href="#variables">変数の章</a>を参照してください。<eg><br>使用例：<br>var message = Hello World!<br>&gt;@message@</td>
+  </tr>
+  <tr>
+    <td>func (function)</td>
+    <td>後で呼び出せる<a href="#functions">関数</a>を宣言する。<eg><br>使用例：<br>func Print(message)<br>  >@message@<br><br>Print(Hello World!)</td>
+  </tr>
+  <tr>
+    <td>for v = a..b</td>
+    <td>変数'v'を'a'から'b'までの値で繰り返し実行する<a href="#loops">ループ</a>を作成する。ループのスコープ内に表示されるコードは複数回実行される｡ <eg><br>使用例：<br>var a<br>a = 0<br>for i = 1..5<br>  a = a + i<br>>a = @a@</td>
+  </tr>
+  <tr>
+    <td>import (script)</td>
+    <td><a href="#import">外部スクリプト</a>の単一のコピーを読み込んで実行する｡<eg><br>以下の例では、Fishing.txtという釣りミニゲームをインポートする｡<br>(save-fileフォルダー)/Stonescript/Fishing.txt<br><br>import Fishing</td>
+  </tr>
+  <tr>
+    <td>new (script)</td>
+    <td>"import"と類似する<a href="#import">外部スクリプト</a>を読み込んで実行する。ただし、"new"で読み込まれたオブジェクトはそれぞれ個別のコピーであり、スクリプト本体は1回しか実行されない。<eg><br>以下の例では、ベクトルオブジェクトを作成して表示する。<br>var v = new Components/Vector<br>v.Init(10, 5)<br>>Vector = @v@</td>
+  </tr>
+  <tr>
+    <td>disable abilities</td>
+    <td>ポーションや武器の能力発動を無効化する。また、HUDボタンが灰色になる。</td>
+  </tr>
+  <tr>
+    <td>enable abilities</td>
+    <td>"disable abilities"によって無効にされた能力の発動を有効化する。</td>
+  </tr>
+  <tr>
+    <td>disable banner</td>
+    <td>エリアの始まりと終わりにエリア名が表示されるバナー演出を無効化する。</td>
+  </tr>
+  <tr>
+    <td>enable banner</td>
+    <td>エリア名が表示されるバナー演出を有効化する。</td>
+  </tr>
+  <tr>
+    <td>disable hud (opts)</td>
+    <td>ゲーム内のUI要素を非表示および無効化する。任意のパラメータを受け入れ、無効にする要素を指定できる。p = プレイヤーの体力とデバフ f = 敵の体力とデバフ a = 能力使用ボタン r = 資源 b = バナー u = 四次元ベルト<eg><br>使用例1：<br>disable hud // すべてのhud要素を無効化<br>使用例2：<br>disable hud ru // 資源(r)と四次元ベルト(u)のみを無効化</td>
+  </tr>
+  <tr>
+    <td>enable hud (opts)</td>
+    <td>"disable hud"コマンドによって非表示にされたUIを表示する。無効にした要素を指定できるよう、disableコマンドと同じ任意パラメータを受け入れる。</td>
+  </tr>
+  <tr>
+    <td>disable loadout input</td>
+    <td>武器のロードアウトをキー入力での保存や呼び出しを無効化する。</td>
+  </tr>
+  <tr>
+    <td>enable loadout input</td>
+    <td>武器のロードアウトをキー入力での保存や呼び出しを有効化する。</td>
+  </tr>
+  <tr>
+    <td>disable loadout print</td>
+    <td>ロードアウトが呼び出された時に表示されるメッセージを非表示にする。</td>
+  </tr>
+  <tr>
+    <td>enable loadout print</td>
+    <td>非表示にされたロードアウトメッセージを表示する。</td>
+  </tr>
+  <tr>
+    <td>disable npcDialog</td>
+    <td>NPCの吹き出しを非表示にして会話をスキップする。</td>
+  </tr>
+  <tr>
+    <td>enable npcDialog</td>
+    <td>非表示にされたNPCの吹き出しを表示する。</td>
+  </tr>
+  <tr>
+    <td>disable pause</td>
+    <td>ポーズボタンのUIを非表示にする。[P]キーでのポーズは利用可能。</td>
+  </tr>
+  <tr>
+    <td>enable pause</td>
+    <td>"disable pause"コマンドで非表示にされたポーズボタンを表示する。</td>
+  </tr>
+  <tr>
+    <td>disable player</td>
+    <td>プレイヤーを非表示にする。戦闘には影響しない、見た目だけのもの。</td>
+  </tr>
+  <tr>
+    <td>enable player</td>
+    <td>"disable player"コマンドで非表示にされたプレイヤーを表示する。</td>
+  </tr>
+  <tr>
+    <td>play (sound) (pitch)</td>
+    <td>任意のピッチ値を持つ<a href="#sounds">効果音</a>を再生する。ピッチの初期値は100で、数値が大きいほどピッチが上がり、数値が小さいほど下がる。<eg><br>使用例1：<br>?key = primary<br>  play buy<br>?key = up<br>  play buy 200<br><br>使用例2：<br>var pitch<br>?time%30 = 0<br>  pitch = rng/100 + 50<br>  >@pitch@<br>  play buy @pitch@</td>
+  </tr>
+</table></font>
+<a href="#"><font color="#505050">トップへ戻る</font></a>
+</div>
+
+<div id="search-filters"><div id="separator"><!---------------------------></div>
+
+·:·:· 検索フィルター ·:·:·
+<font color="#bbbbbb">
+敵、エリア、アイテムを評価する際に使用されます。
+
+<eg><f>使用例：
+?foe = insect | foe = poison
+  loadout 3</f></eg>
+
+poison
+vigor
+aether
+fire
+air
+ice
+arachnid
+serpent
+insect
+machine
+humanoid
+elemental
+boss
+phase1
+phase2
+phase3
+spawner
+flying
+slow
+ranged
+explode
+swarm
+unpushable
+undamageable
+magic_resist
+magic_vulnerability
+immune_to_stun
+immune_to_ranged
+immune_to_debuff_damage
+immune_to_physical
+*[number]  star level (location or item)
++[number]  enchantment bonus (item only)
+</font>
+
+<a href="#"><font color="#505050">トップへ戻る</font></a>
+</div>
+
+<div id="comparisons"><div id="separator"><!---------------------------></div>
+
+·:·:· 比較 ·:·:·
+<font color="#bbbbbb">
+<f>ゲームの状態と組み合わせて意思決定を行うために使用されます。</f>
+
+<table>
+  <tr>
+    <td style="min-width: 3em"> =</td>
+    <td>等しい値か、文字列が含まれている値を比較する。<eg><br>使用例：<br>?hp = maxhp<br>  loadout 2</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> !</td>
+    <td>等しくない値か、文字列に含まれていない値を比較する。<eg><br>使用例：<br>?foe ! poison<br>  equipL sword</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> &</td>
+    <td>論理積(AND)演算子。<eg><br>使用例：<br>?loc=caves & foe=boss</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> |</td>
+    <td>論理和(OR)演算子。複雑な式に'&'と'|'が混在している場合、'&'が最初に評価される。<eg><br>使用例：<br>?foe=slow | foe.count&gt;3<br>  activate potion</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> &gt;</td>
+    <td>値が大きいかを比較する。エリアの難易度、敵の数、体力などと組み合わせて使用できる。<eg><br>使用例：<br>?foe.count > 10<br>  equip shiny bardiche</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> <</td>
+    <td>値が小さいかを比較する。<eg><br>使用例：<br>?hp < 6<br>  activate potion</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> &gt;=</td>
+    <td>値が大きいか、等しいかを比較する。'&gt;'と'='を組み合わせて一つの比較とする。<eg><br>The following two examples are equivalent:<br><br>?loc.stars >= 6<br>  equipR vigor shield<br><br>?loc.stars > 6 | loc.stars = 6<br>  equipR vigor shield</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> <=</td>
+    <td>値が大きいか、等しいかを比較する。'<'と'='を組み合わせて一つの比較とする。<eg><br>使用例：<br>?hp <= 6<br>  activate potion</td>
+  </tr>
+</table></font>
+<a href="#"><font color="#505050">トップへ戻る</font></a>
+</div>
+
+<div id="variables"><div id="separator"><!---------------------------></div>
+
+·:·:· 変数 ·:·:·
+<font color="#bbbbbb">
+変数は、値を保存して後で使用するための手段です。'var'キーワードを使用して新しい変数を宣言します。
+
+<eg>使用例：
+var myVar = 10</eg>
+(myVarは変数の名前で、値10で初期化されています)
+
+<eg>myVar = myVar + 5</eg>
+(この時点で、myVarの値は15になります)
+
+<eg>var secondVar = 3
+myVar = myVar - secondVar</eg>
+(複数の変数を数式で組み合わせることができます。この場合、myVarの値は12になります)
+
+
+変数が宣言されると、最初に'var'が実行された時にのみ初期化されます。
+
+<eg>使用例：
+var i = 0
+i++
+>i = @i@</eg>
+この例では、変数'I'が宣言され、値が0から始まります。その後実行すると、各フレームで'i'の値が1増加し、画面に表示されます。
+
+変数が初期値にリセットされるタイミングは、エリアを離れ、再入場して新たな実行を開始した場合のみです。ウロボロスループや、明瞭の石の開閉ではリセットされません。
+
+文字列型変数は、任意で引用符("")で囲んで宣言できます。これにより、特殊記号や末尾のスペースを含めることができます。
+<eg>使用例：
+var a = 10
+var b = 5
+var myVar = a + " x " + b + " = " + (a * b)
+>@myVar@</eg>
+(この例では、'+'で文字列を結合する方法も示しています。)
+
+インポートされたスクリプト内の変数は、そのスクリプト内でのみ有効です。他のスクリプトの変数や関数と競合することはありません。
+</font>
+
+<a href="#"><font color="#505050">トップへ戻る</font></a>
+</div>
+
+<div id="math-operations"><div id="separator"><!---------------------------></div>
+
+·:·:· 数学演算 ·:·:·
+<font color="#bbbbbb">
+<f>演算子は数値を操作します。変数と組み合わせたり、ゲームの状態式で直接使用できます。</f>
+
+<table>
+  <tr>
+    <td style="min-width: 3em"> +</td>
+    <td>2つの数値や変数を加算する。<eg><br>使用例：<br>var a = 2 + 3<br>(a = 5)</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> -</td>
+    <td>2つの数値や変数を減算する。<eg><br>使用例：<br>?hp < maxhp - 5<br>  equip vigor sword dL</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> *</td>
+    <td>2つの数値や変数を乗算する。<eg><br>使用例：<br>var a = 2<br>var b = 5<br>a = a * b<br>// a = 10<br><br>使用例2：<br>var a = 2 * 0.4<br>// a = 0.8</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> /</td>
+    <td>1つの数値や変数をもう1つの数値や変数で除算する。どちらも整数の場合、少数部分は切り捨てられる。<eg><br>使用例：<br>var a = 8<br>a = a / 4<br>// a = 2<br><br>使用例2：<br>var a = 5.0<br>a = a / 2<br>// a = 2.5</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> ++</td>
+    <td>変数の値を1増加させる。<eg><br>使用例：<br>var a = 3<br>a++<br>// a = 4</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> --</td>
+    <td>変数の値を1減少させる。<eg><br>使用例：<br>var a = 3<br>a--<br>// a = 2</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> %</td>
+    <td>余剰演算。割り算の余りを返す。<eg><br>使用例：<br>var a = 5 % 4<br>(a = 1)<br><br>使用例2：<br>?time % 8 < 4<br>  &gt; \O)<br>?time % 8 > 3<br>  &gt; (O/<br>// アニメーションされた絵文字を表示する</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> ( )</td>
+    <td>演算の優先順位を指定できる。カッコ内を先に計算する。<eg><br>使用例：<br>var a = 2 * (3 - 1)<br>// a = 4</td>
+  </tr>
+  <tr>
+    <td style="min-width: 3em"> !</td>
+    <td>否定。真偽値を反転させる。<eg><br>使用例：<br>? !ai.enabled<br>  >AIは有効ではありません。</td>
+  </tr>
+</table></font>
+<a href="#"><font color="#505050">トップへ戻る</font></a>
+</div>
+
+<div id="functions"><div id="separator"><!---------------------------></div>
+
+·:·:· 関数 ·:·:·
+<font color="#bbbbbb">
+関数は、スクリプトが複雑になるにつれて、重要な役割を果たします。コードの読みやすさを向上させ、重複を減らします。関数が宣言されると、その内容はすぐには実行されません。その代わり、後で関数が呼び出された時に実行されます。
+
+次の例では、フレームごとに1ずつ増加させるカウンターが作成されています。特定のキーが入力されると、ResetCounter()が呼び出され、カウンターが0にリセットされます。
+<f><eg>
+var count = 0
+count++
+&gt;カウンター = @count@
+
+func ResetCounter()
+  count = 0
+
+?key=begin
+  ResetCounter()
+</eg>
+関数の別の特徴は、値を返すことができることです。次の例では、メインエリア(ボスエリアではないエリア)の滞在時間を計算するシンプルな関数を宣言しています。
+<eg>
+func NonBossDuration()
+  return totalTime - time
+
+var duration
+duration = NonBossDuration()
+>滞在時間: @duration@
+</eg>
+また、関数は引数/パラメータを受け取ることができ、任意の入力を操作する汎用的な関数を作成できます。次の例では、範囲内のランダムな数値を生成する実用的な関数を宣言し、それを使用して5から10の間のランダムな数値を生成しています。
+<eg>
+func RandomRange(min, max)
+  ?min >= max
+    return min
+  return min + rng % (max - min + 1)
+
+var randomValue
+randomValue = RandomRange(5, 10)
+>RNG: @randomValue@
+</eg>
+関数内で外部スクリプトに属する変数を参照する場合は、'this'を使うことで区別できます。'this'の使用は任意であり、スクリプト変数は'this'なしで関数からアクセスできます。ただし、次の例では、変数'a'は関数の内側にも外側にも現れるので、区別のために'this.a'が使用されています。
+<eg>
+var a = 1
+func TestScope(a)
+  >関数外変数 = @this.a@, 関数内変数 = @a@
+
+TestScope(3)
+</eg>
+関数が他の関数やその関数自身を呼び出すと、実行スタックが生成され、サイズが増え続けるとアプリケーションがクラッシュ可能性があります。コンピューターのリソースを保護するため、Stonescriptではスタックサイズが215に制限されており、それを超えるとエラーが発生します。
+</font>
+
+<a href="#"><font color="#505050">トップへ戻る</font></a>
+</div>
+
+<div id="native-functions"><div id="separator"><!---------------------------></div>
+
+·:·:· ネイティブ関数 ·:·:·
+<font color="#bbbbbb">
+スクリプトが独自の関数を定義できる一方で、Stonescriptにはあらかじめ定義されたネイティブ関数が用意されています。これらはコマンドのように動作しますが、主題ごとに明確に分類され、パラメータを受け取ることや、値を返すことがある点で異なります。
+
+<table>
+  <tr><td>ambient(環境音)<br>‾‾‾‾‾‾‾‾‾‾‾‾‾‾</td></tr>
+  <tr>
+    <td>?ambient<br><eg>戻り値：string</td>
+    <td>再生中の環境音のIDをカンマ区切りで返す。<br><eg>使用例：<br>>`0,0,Ambient Layers = @ambient@</td>
+  </tr>
+  <tr>
+    <td>ambient.Add(str)<br><eg>戻り値なし</td>
+    <td>指定されたIDの環境音レイヤーを追加する。最大4レイヤーまで追加でき、5つ目を追加すると最も古いレイヤーが削除される。<br><eg>使用例：<br>?loc.begin<br>  ambient.Add(ambient_crypt)</td>
+  </tr>
+  <tr>
+    <td>ambient.Stop()<br><eg>戻り値なし</td>
+    <td>再生中の環境音をすべてクリアする。<br><eg>使用例：<br>?time = 3<br>  ambient.Stop()<br>  ambient.Add(ambient_mines)</td>
+  </tr>
+  <tr><td><br>BigNumber<br>‾‾‾‾‾‾‾‾‾</td><td><br>BigNumberは、32ビットを超える大きな整数を扱うための特別なオブジェクト型です。正負の整数しか保持できませんが、四則演算や比較演算は、浮動小数点数や他のBigNumberとともに使用可能です。</td></tr>
+  <tr>
+    <td>b.Add(num)<br>b.Add(BigNumber)<br><eg>戻り値：itself</td>
+    <td>BigNumberに数値を加算する(+)<br><eg>使用例：<br>var bn = math.BigNumber(12)<br>bn.Add(5)<br>>@bn@<br>// 17</td>
+  </tr>
+  <tr>
+    <td>b.Sub(num)<br>b.Sub(BigNumber)<br><eg>戻り値：itself</td>
+    <td>BigNumberから数値を減算する(-)<br><eg>使用例：<br>var bn = math.BigNumber(12)<br>bn.Sub(5)<br>>@bn@<br>// 7</td>
+  </tr>
+  <tr>
+    <td>b.Mul(num)<br>b.Mul(BigNumber)<br><eg>戻り値：itself</td>
+    <td>BigNumberを数値で乗算する(*)<br><eg>使用例：<br>var myBigNum1 = math.BigNumber(12)<br>var myBigNum2 = math.BigNumber(12)<br>myBigNum1.Mul(5)<br>myBigNum2.Mul(1.5)<br>>@myBigNum1@ @myBigNum2@<br>// 60 18</td>
+  </tr>
+  <tr>
+    <td>b.Div(num)<br>b.Div(BigNumber)<br><eg>戻り値：itself</td>
+    <td>BigNumberを数値で除算する(/)<br><eg>使用例：<br>var myBigNum1 = math.BigNumber(12)<br>var myBigNum2 = math.BigNumber(12)<br>myBigNum1.Div(5)<br>myBigNum2.Div(1.5)<br>>@myBigNum1@ @myBigNum2@<br>// 2 8</td>
+  </tr>
+  <tr>
+    <td>b.Eq(num)<br>b.Eq(BigNumber)<br><eg>戻り値：bool</td>
+    <td>BigNumberが数値と等しいかを判定する(=)<br><eg>使用例：<br>var bn = math.BigNumber(5)<br>>@bn.Eq(5)@ @bn.Eq(3)@<br>// true false</td>
+  </tr>
+  <tr>
+    <td>b.Gt(num)<br>b.Gt(BigNumber)<br><eg>戻り値：bool</td>
+    <td>BigNumberが数値より大きいかを判定する(>)<br><eg>使用例：<br>var bn = math.BigNumber(5)<br>>@bn.Gt(3)@ @bn.Gt(10)@<br>// true false</td>
+  </tr>
+  <tr>
+    <td>b.Ge(num)<br>b.Ge(BigNumber)<br><eg>戻り値：bool</td>
+    <td>BigNumberが数値以上かを判定する(>=)<br><eg>使用例：<br>var bn = math.BigNumber(5)<br>>@bn.Ge(3)@ @bn.Ge(5)@<br>// true true</td>
+  </tr>
+  <tr>
+    <td>b.Lt(num)<br>b.Lt(BigNumber)<br><eg>戻り値：bool</td>
+    <td>BigNumberが数値より小さいかを判定する(<)<br><eg>使用例：<br>var bn = math.BigNumber(5)<br>>@bn.Lt(3)@ @bn.Lt(10)@<br>// false true</td>
+  </tr>
+  <tr>
+    <td>b.Le(num)<br>b.Le(BigNumber)<br><eg>戻り値：bool</td>
+    <td>BigNumberが数値以下かを判定する(<=)<br><eg>使用例：<br>var bn = math.BigNumber(5)<br>>@bn.Le(10)@ @bn.Le(5)@<br>// true true</td>
+  </tr>
+  <tr>
+    <td>b.ToFloat()<br><eg>戻り値：float</td>
+    <td>BigNumberを浮動小数点数に変換する。値が大きすぎたり小さすぎる場合はエラーが発生する。<br><eg>E.g.<br>var bn = math.BigNumber(5)<br>var fNumber = bn.ToFloat()<br>>float = @fNumber@</td>
+  </tr>
+  <tr>
+    <td>b.ToInt()<br><eg>戻り値：int</td>
+    <td>BigNumberを整数に変換する。値が大きすぎたり小さすぎる場合はエラーが発生する。<br><eg>E.g.<br>var bn = math.BigNumber(5)<br>var iNumber = bn.ToInt()<br>>integer = @iNumber@</td>
+  </tr>
+  <tr>
+    <td>b.ToString()<br><eg>戻り値：string</td>
+    <td>BigNumberを文字列で返す。ストレージに保存する際に使用できる。<br><eg>使用例：<br>var myBigNum = math.BigNumber("123456789123456789")<br>storage.Set("myBN", myBigNum.ToString())<br>---<br>var bnStr = storage.Get("myBN")<br>var myBigNum = math.BigNumber(bnStr)</td>
+  </tr>
+  <tr>
+    <td>b.ToUI()<br><eg>戻り値：string</td>
+    <td>UIで使用するための短縮された数値表現を返す。<br><eg>使用例：<br>var myBigNum = math.BigNumber("123456789123456789")<br>>@myBigNum.ToUI()@<br>// 123.5Qa</td>
+  </tr>
+  <tr><td><br>color(色)<br>‾‾‾‾‾‾‾‾‾</td><td><br>Stonescriptでは、色は<eg>#ff0000</eg>のような<a href="https://www.colordic.org/" target="_blank">16進数表記</a>や、<eg>#red</eg>のような簡易プリセットで表現されます。</td></tr>
+  <tr>
+    <td>color.FromRGB(r,g,b)<br><eg>戻り値：string</td>
+    <td>RGB(0~255の3つの整数)をカラーコードに変換する。<br><eg>使用例：<br>var c = color.FromRGB(255, 0, 128)<br>>`0,0,@c@, @c@</td>
+  </tr>
+  <tr>
+    <td>color.ToRGB(string)<br><eg>戻り値：int[3]</td>
+    <td>カラーコードをRGB(0~255の3つの整数)に変換する。<br><eg>使用例：<br>var c = color.Random()<br>var rgb = color.ToRGB(c)<br>var r = rgb［0］<br>var g = rgb［1］<br>var b = rgb［2］<br>>`0,0,@c@, @c@ \n @r@ \n @g@ \n @b@</td>
+  </tr>
+  <tr>
+    <td>color.Lerp(c1,c2,t)<br><eg>戻り値：string</td>
+    <td>時間<eg>t</eg>(割合)に応じて、色<eg>c1</eg>から色<eg>c2</eg>へ線形補間を行う。<br><eg>使用例：<br>var c1 = "#ff4400"<br>var c2 = "#8888ff"<br>var t = 0.5<br>var c<br>t = math.sin(time*0.1) / 2 + 0.5<br>c = color.Lerp(c1, c2, t)<br>>`0,1,@c@,@c@\n ██████</td>
+  </tr>
+  <tr>
+    <td>color.Random()<br><eg>戻り値：string</td>
+    <td>ランダムな色を返す。<br><eg>使用例：<br>var c<br>c = color.Random()<br>>`0,0,@c@,@c@\n ██████</td>
+  </tr>
+  <tr><td>draw(描画)<br>‾‾‾‾‾‾‾‾‾‾</td></tr>
+  <tr>
+    <td>draw.Bg(x, y, color)<br><eg>戻り値なし</td>
+    <td>画面上の指定した位置の背景色を設定する。<br><eg>使用例：<br>draw.Bg(5, 4, #red)</td>
+  </tr>
+  <tr>
+    <td>draw.Bg(x, y, color, w, h)<br><eg>戻り値なし</td>
+    <td>画面上の指定した範囲の背景色を設定する。<br><eg>使用例：<br>draw.Bg(5, 4, #cyan, 10, 6)</td>
+  </tr>
+  <tr>
+    <td>draw.Box(x, y, w, h, color, style)<br><eg>戻り値なし</td>
+    <td>指定した位置と範囲の四角形を描画する。四角形の境界線は色とスタイル番号で定義される。スタイル番号がマイナスになるとボックスの内側が透明になる。警告 - 現時点では、高度な表示は常にボックスの上に描画される。<br><eg>次の例を使用して、左右の矢印キーさまざまなスタイルを試してみよう<br>var style = 1<br>?key = leftBegin<br>  style--<br>?key = rightBegin<br>  style++<br>draw.Box(10, 5, 30, 15, #333333, style)<br>>`12,6,#ffffff,Style = @style@<br>>`12,8,#888888,左右の矢印キーを押して\nスタイルを変更</td>
+  </tr>
+  <tr>
+    <td>draw.Clear()<br><eg>戻り値なし</td>
+    <td>画面全体をクリアする。</td>
+  </tr>
+  <tr>
+    <td>draw.GetSymbol(x, y)<br><eg>戻り値：string</td>
+    <td>指定した位置(x,y)の文字を取得する。<br><eg>次の例では、画面座標を指定し、そこにあるシンボルを描画する。矢印キーを押して[ ]を動かしてみよう<br>var s<br>var x = 20<br>var y = 10<br>var drawX<br>?key=leftBegin<br>  x--<br>?key=rightBegin<br>  x++<br>?key=upBegin<br>  y--<br>?key=downBegin<br>  y++<br>s = draw.GetSymbol(x, y)<br>>`0,1,Symbol = @s@<br>drawX = x - 1<br>>`@drawX@,@y@,[#］<br></td>
+  </tr>
+  <tr>
+    <td>draw.Player()<br>draw.Player(x,y)<br><eg>戻り値なし</td>
+    <td>指定した位置に、プレイヤーキャラクターを装備とアドオンを含めて描画する。任意でx,yのオフセット値を指定できる。絶対位置に描画する場合は、screen名前空間を参照して、プレイヤーのローカル位置から画面位置に変換するオフセットを導出する。</td>
+  </tr>
+  <tr><td><br>int(整数)<br>‾‾‾‾‾‾‾‾</td></tr>
+  <tr>
+    <td>int.Parse(str)<br><eg>戻り値：integer</td>
+    <td>数値の文字列を整数に変換する。文字列が数値でない場合、エラーが発生する。<br><eg>使用例：<br>var s = "999"<br>var i = int.Parse(s)<br>i++</td>
+  </tr>
+  <tr><td>event<br>‾‾‾‾‾</td></tr>
+  <tr>
+    <td>event.GetObjectiveId(int)<br><eg>戻り値：string</eg><br><br>event.GetObjectiveProgress<br>(int)<br>event.GetObjectiveGoal(int)<br><eg>戻り値：int</td>
+    <td>コミュニティイベントまたはシーズンイベントの進行中の目標IDを取得する。取得したい目標のインデックスを渡す。イベント目標の数は、基本的に3つまでなので、最初のパラメータは0,1,2のいずれかになる。<br><eg>使用例：<br>var id<br>var p<br>var g<br>id = event.GetObjectiveId(0)<br>p = event.GetObjectiveProgress(0)<br>g = event.GetObjectiveGoal(0)<br>>`0,1,@id@:@p@/@g@</td>
+  </tr>
+  <tr><td>item(アイテム)<br>‾‾‾‾‾‾‾‾‾‾‾‾‾</td></tr>
+  <tr>
+    <td>item.CanActivate()<br><eg>戻り値：boolean</td>
+    <td>アイテムの能力を発動できる場合は真、そうでない場合は偽になる。ボス戦前や、ムービー中など、一部のプレイ状況では能力発動が無効になる場合もある。<br><eg>使用例：<br>?item.CanActivate()<br>  equip Bardiche<br>  activate R</td>
+  </tr>
+  <tr>
+    <td>item.CanActivate(str)<br><eg>戻り値：boolean</td>
+    <td>特定のアイテムが装備されているかつ、能力発動が可能な場合は真となる。アイテムによっては、特定の上限を満たさない限り発動できないものもある。これはitem.GetCooldown()の一部であり、アイテムがクールダウン中でなくても能力発動ができない場合もある。<br><eg>使用例：<br>equip bardiche<br>?item.GetCooldown("skeleton_arm") <= 0<br>  equip skeleton arm<br>  ?item.CanActivate("skeleton_arm")<br>    activate R</td>
+  </tr>
+  <tr>
+    <td>item.GetCooldown(str)<br><eg>戻り値：integer</td>
+    <td>指定されたアイテム能力のクールダウン時間をフレーム単位で返す。<br>利用可能なすべての能力IDは、<a href="#ability_ids">こちら</a>を参照してください。注意：能力IDが無効の場合は-1を返します。まだ実装されていない武器の一部の能力も-1を返すことがあります。<br><eg>使用例：<br>?foe = boss & item.GetCooldown("bardiche") <= 0<br>  equip bardiche<br>  activate R
+  </tr>
+  <tr>
+    <td>item.GetCount(str)<br><eg>戻り値：integer</td>
+    <td>インベントリ内の指定されたアイテムの個数を返す。見つからない場合は0を返す。<br><eg>使用例：<br>var searchCriteria = "sword *0 -big -socket"<br>var swordCount = item.GetCount(searchCriteria)<br>>I have @swordCount@ basic swords
+  </tr>
+  <tr>
+    <td>item.GetLoadoutL(int)<br>item.GetLoadoutR(int)<br><eg>戻り値：string</td>
+    <td>指定された装備セットのアイテムを返す。整数パラメータは、ロードアウト番号を示す。該当スロットに装備が存在しない場合は空白を返す。<br><eg>使用例：<br>>`0,1,Left: @item.GetLoadoutL(1)@<br>>`0,2,Right: @item.GetLoadoutR(1)@
+  </tr>
+  <tr>
+    <td>item.GetTreasureCount()<br><eg>戻り値：integer</td>
+    <td>現在の宝箱の数を返す。
+  </tr>
+  <tr>
+    <td>item.GetTreasureLimit()<br><eg>戻り値：integer</td>
+    <td>保管可能な宝箱の上限を返す。<br><eg>使用例：<br>var trs<br>var max<br>trs = item.GetTreasureCount()<br>max = item.GetTreasureLimit()<br>>`0,2,Treasures: @trs@/@max@
+  </tr>
+  <tr><td>key<br>‾‾‾</td><td><br>keyの名前空間は、標準のゲーム入力およびショートカットを可能にします。このシステムは、<eg>アクション(略称"act")</eg>と<eg>キー</eg>に基づいており、各アクションは入力やショートカットの種類に対応し、各キーは実際のキー入力に対応しています。アクションに割り当て可能なキーの一覧は<a href="https://docs.unity3d.com/ja/560/ScriptReference/KeyCode.html" target="_Blank">こちら</a>で確認できます。アクションの割り当てを変更すると、起動中は保持されます(現時点では、ストレージに保存されません)。最適化のため、毎フレームの割り当ては推奨されていません。<br>
+<table>
+  <tr>
+    <td>アクション<br>---------</td>
+    <td>デフォルトキー<br>------------</td>
+    <td>デフォルトキー2<br>-------------</td>
+    <td><br></td>
+  </tr>
+  <tr>
+    <td>Pause(一時停止)</td>
+    <td>P</td>
+    <td>Space</td>
+  </tr>
+  <tr>
+    <td>Leave(リタイア)</td>
+    <td>L</td>
+  </tr>
+  <tr>
+    <td>Inventory(アイテム)</td>
+    <td>I</td>
+  </tr>
+  <tr>
+    <td>Mindstone(明瞭の石)</td>
+    <td>M</td>
+  </tr>
+  <tr><td></td></tr>
+  <tr>
+    <td>Potion(ポーション)</td>
+    <td>Q</td>
+  </tr>
+  <tr>
+    <td>ItemLeft(左アイテム)</td>
+    <td>E</td>
+  </tr>
+  <tr>
+    <td>ItemRight(右アイテム)</td>
+    <td>R</td>
+  </tr>
+  <tr><td></td></tr>
+  <tr>
+    <td>Up(上)</td>
+    <td>W</td>
+    <td>UpArrow</td>
+  </tr>
+  <tr>
+    <td>Down(下)</td>
+    <td>S</td>
+    <td>DownArrow</td>
+  </tr>
+  <tr>
+    <td>Left(左)</td>
+    <td>A</td>
+    <td>LeftArrow</td>
+  </tr>
+  <tr>
+    <td>Right(右)</td>
+    <td>D</td>
+    <td>RightArrow</td>
+  </tr>
+  <tr><td></td></tr>
+  <tr>
+    <td>Primary(決定)</td>
+    <td>Return</td>
+    <td>KeypadEnter</td>
+  </tr>
+  <tr>
+    <td>Back(戻る)</td>
+    <td>X</td>
+  </tr>
+  <tr>
+    <td>Ability1</td>
+    <td>LeftShift</td>
+    <td>RightShift</td>
+  </tr>
+  <tr>
+    <td>Ability2</td>
+    <td>LeftControl</td>
+    <td>RightControl</td>
+  </tr>
+  <tr>
+    <td>BumpL</td>
+    <td>Z</td>
+  </tr>
+  <tr>
+    <td>BumpR</td>
+    <td>C</td>
+  </tr>
+  <tr><td></td></tr>
+  <tr>
+    <td>Dynamic1</td>
+    <td>F</td>
+  </tr>
+  <tr>
+    <td>Dynamic2</td>
+    <td>T</td>
+  </tr>
+  <tr>
+    <td>Dynamic3</td>
+    <td>G</td>
+  </tr>
+  <tr>
+    <td>Dynamic4</td>
+    <td>V</td>
+  </tr>
+  <tr>
+    <td>Dynamic5</td>
+    <td>B</td>
+  </tr>
+</table></td>
+  <tr>
+    <td>key.Bind(act, key1)<br>key.Bind(act, key1, key2)<br><eg>戻り値なし</td>
+    <td>特定のアクションに対して新しいキーを割り当てる。別のアクションにそのキーが割り当てられている場合、元のアクションにあるそのキーの割り当ては削除される。アクションには最大2つのキーを割り当てることが可能。<br><eg>使用例：<br>?loc.begin<br>  key.Bind("Potion", "P")<br>  // この例では、本来一時停止に割り当てられた"P"キーが、一時停止をせずポーションの使用に割り当てられます。さらに、ポーションの元の"Q"キーも機能せず、"Q"キーはどのアクションにも割り当てられていません。</td>
+  </tr>
+  <tr>
+    <td>key.GetKeyAct(key)<br><eg>戻り値：string</td>
+    <td>指定されたキーに割り当てられているアクションを返す。そのキーがどのアクションにも割り振られていない場合は"None"を返す。</td>
+  </tr>
+  <tr>
+    <td>key.GetActKey(act)<br><eg>戻り値：string</td>
+    <td>指定されたアクションに割り当てられている1つ目のキーを返す。そのアクションにキーが割り振られていない場合は"None"を返す。</td>
+  </tr>
+  <tr>
+    <td>key.GetActKey2(act)<br><eg>戻り値：string</td>
+    <td>指定されたアクションに割り当てられている2つ目のキーを返す。そのアクションに2つ目のキーが割り振られていない場合は"None"を返す。</td>
+  </tr>
+  <tr>
+    <td>key.GetActLabel(act)<br><eg>戻り値：string</td>
+    <td>指定されたアクションに割り当てられている1つ目のキーを示すユーザー向けのラベルを返す。現在の実装では、割り当てられたキーの最初の1文字目を返すため、"LeftShift"のようなキーの場合は分かりにくい可能性がある。</td>
+  </tr>
+  <tr>
+    <td>key.ResetBinds()<br><eg>no return value</td>
+    <td>すべてのアクションのキー割り当てをデフォルトにリセットする。</td>
+  </tr>
+  <tr><td><br>loc(エリア)<br>‾‾‾‾‾‾‾‾‾‾</td></tr>
+  <tr>
+    <td>loc.Leave()<br><eg>戻り値なし</td>
+    <td>プレイヤーが手動でリタイアボタンを押したかようにエリアを退出する。</td>
+  </tr>
+  <tr>
+    <td>loc.Pause()<br><eg>戻り値なし</td>
+    <td>プレイヤーが手動で一時停止ボタンを押したかのようにエリアを一時停止する。</td>
+  </tr>
+  <tr><td><br>math(数学)<br>‾‾‾‾‾‾‾‾‾</td><td><br>math APIは、整数(int)と浮動小数点数(float)の両方を扱います。数値を小数点を含む形で宣言した場合はfloat型として扱われ<eg>(例：var a = 0.5)</eg>、小数点がない場合は、int型として扱われます<eg>(例：var a = 2)</eg>。</td></tr>
+  <tr>
+    <td>math.Abs(num)<br><eg>戻り値：number</td>
+    <td>指定された数値の絶対値を返す。<br><eg>使用例：<br>var number = -2<br>number = math.Abs(number)<br>// numberの値は2になる</td>
+  </tr>
+  <tr>
+    <td>math.Acos(num)<br><eg>戻り値：number</td>
+    <td>指定された数値の逆余弦(アークコサイン)をラジアン単位で返す。入力値は-1から1の範囲である必要があり、範囲外の場合は"NaN"を返す。<br><eg>使用例：<br>var number = math.Acos(-1)<br>// numberの値はπになる</td>
+  </tr>
+  <tr>
+    <td>math.Asin(num)<br><eg>戻り値：number</td>
+    <td>指定された数値の逆正弦(アークサイン)をラジアン単位で返す。入力値は-1から1の範囲である必要があり、範囲外の場合は"NaN"を返す。<br><eg>使用例：<br>var number = math.Asin(1)<br>// numberの値はπ/2になる</td>
+  </tr>
+  <tr>
+    <td>math.Atan(num)<br><eg>戻り値：number</td>
+    <td>指定された数値の逆正接(アークタンジェント)をラジアン単位で返す。<br><eg>使用例：<br>var number = math.Atan(2)<br>// numberの値は1.107149になる</td>
+  </tr>
+  <tr>
+    <td>math.Atan2(y, x)<br><eg>戻り値：number</td>
+    <td>原点から点(x,y)への線とx軸との間の角度をラジアン単位で返す。<br><eg>使用例：<br>var number = math.Atan2(3, 2)<br>// numberの値は0.9827937になる</td>
+  </tr>
+  <tr>
+    <td>math.BigNumber()<br>math.BigNumber(number)<br>math.BigNumber(str)<br><eg>戻り値：BigNumber</td>
+    <td>浮動小数点数または整数から新しいBigNumberオブジェクトを作成するか、文字列を数値に変換してBigNumberオブジェクトを生成する。<br><eg>使用例：<br>var myBigNum = math.BigNumber("500")<br>myBigNum.Add(500).Mul(1000).Mul(1000).Mul(1000)<br>>@myBigNum@<br>// 1000000000000</td>
+  </tr>
+  <tr>
+    <td>math.Ceil(num)<br><eg>戻り値：number</td>
+    <td>数値を切り上げ、元の数より大きい最も近い整数(小数点あり)を返す。<br><eg>使用例：<br>var number = math.Ceil(4.2)<br>// numberの値は5.0になる</td>
+  </tr>
+  <tr>
+    <td>math.CeilToInt(num)<br><eg>戻り値：integer</td>
+    <td>数値を切り上げ、元の数より大きい最も近い整数(小数点なし)を返す。<br><eg>使用例：<br>var number = math.CeilToInt(4.2)<br>// numberの値は5になる</td>
+  </tr>
+  <tr>
+    <td>math.Clamp(num, min, max)<br><eg>戻り値：number</td>
+    <td>数値を'min'から'max'の範囲内に制限する。数値がすでに範囲内にある場合、そのまま返される。<br><eg>使用例：<br>var number = 50<br>number = math.Clamp(number, 0, 10)<br>// numberは10に制限される</td>
+  </tr>
+  <tr>
+    <td>math.Cos(num)<br><eg>戻り値：number</td>
+    <td>指定されたラジアン角の余弦(コサイン)を返す。<br><eg>使用例：<br>var number = math.Cos(0)<br>// numberの値は1になる</td>
+  </tr>
+  <tr>
+    <td>math.e<br><eg>float</td>
+    <td>数学定数<eg>e</eg>、ネイピア数とも呼ばれる。値は約2.71828<br><eg>使用例：<br>>E = @math.e@<br>// 画面にeの値が表示される</td>
+  </tr>
+  <tr>
+    <td>math.Exp(num)<br><eg>戻り値：number</td>
+    <td><eg>e</eg>を指定した数値のべき乗で計算した結果を返す。<br><eg>使用例：<br>var number = math.Exp(3)<br>// numberの値は20.08554になる</td>
+  </tr>
+  <tr>
+    <td>math.Floor(num)<br><eg>戻り値：number</td>
+    <td>数値を切り下げ、元の数より小さい最も近い整数(小数点あり)を返す。<br><eg>使用例：<br>var number = math.Floor(2.7)<br>// numberの値は2.0になる</td>
+  </tr>
+  <tr>
+    <td>math.FloorToInt(num)<br><eg>戻り値：integer</td>
+    <td>数値を切り下げ、元の数より小さい最も近い整数(小数点なし)を返す。<br><eg>使用例：<br>var number = math.FloorToInt(2.7)<br>// numberの値は2になる</td>
+  </tr>
+  <tr>
+    <td>math.Lerp(a, b, t)<br><eg>戻り値：number</td>
+    <td>時間<eg>t</eg>(割合)に応じて、値<eg>a</eg>から<eg>b</eg>へ線形補間を行う。<br><eg>使用例：<br>var number = math.Lerp(0.0, 20.0, 0.75)<br>// numberの値は15.0になる<br><br>使用例2：<br>var n = 0.0<br>?key = Begin<br>  n = 0.0<br>n = math.Lerp(n, 100, 0.02)<br>>n = @n@<br>// 変数nは100に向かって毎フレーム2%ずつ上昇する。キーが押されるとリセットされる</td>
+  </tr>
+  <tr>
+    <td>math.Log(num, base)<br><eg>戻り値：number</td>
+    <td>指定された底(base)での数値の対数を返す。<br><eg>使用例：<br>var number = math.Log(5, 2)<br>// numberの値は2.321928になる</td>
+  </tr>
+  <tr>
+    <td>math.Max(num1, num2)<br><eg>戻り値：number</td>
+    <td>2つの数値のうち大きい方を返す。<br><eg>使用例：<br>var number = math.Max(3, 10)<br>// numberは10になる</td>
+  </tr>
+  <tr>
+    <td>math.Min(num1, num2)<br><eg>戻り値：number</td>
+    <td>2つの数値のうち小さい方を返す。<br><eg>使用例：<br>var number = math.Min(3, 10)<br>// numberは3になる</td>
+  </tr>
+  <tr>
+    <td>math.pi<br><eg>float</td>
+    <td>数学定数π、値は約3.1415926<br><eg>使用例：<br>>PI = @math.pi@<br>// prints the value of π to the screen</td>
+  </tr>
+  <tr>
+    <td>math.Pow(num, p)<br><eg>戻り値：number</td>
+    <td>指定された数値をべき乗で計算した結果を返す。<br><eg>使用例：<br>var number = math.Pow(3, 2)<br>// numberの値は9</td>
+  </tr>
+  <tr>
+    <td>math.Round(num)<br><eg>戻り値：number</td>
+    <td>数値を四捨五入して、元の数から最も近い整数(小数点あり)を返す。<br><eg>使用例：<br>var number = math.Round(2.7)<br>// numberの値は3.0になる</td>
+  </tr>
+  <tr>
+    <td>math.RoundToInt(num)<br><eg>戻り値：integer</td>
+    <td>数値を四捨五入して、元の数から最も近い整数(小数点なし)を返す。<br><eg>使用例：<br>var number = math.RoundToInt(2.7)<br>// numberの値は3になる</td>
+  </tr>
+  <tr>
+    <td>math.Sign(num)<br><eg>戻り値：number</td>
+    <td>指定された数値が負の場合は-1、それ以外の場合は1を返す。<br><eg>使用例：<br>var sign = math.Sign(-21)<br>var n = 10 * sign<br>// nの値は-10になる</td>
+  </tr>
+  <tr>
+    <td>math.Sin(num)<br><eg>戻り値：number</td>
+    <td>指定されたラジアン角の正弦(サイン)を返す。<br><eg>使用例：<br>var number = math.Sin(math.pi / 2)<br>// numberの値は1になる</td>
+  </tr>
+  <tr>
+    <td>math.Sqrt(num)<br><eg>戻り値：number</td>
+    <td>指定された数値の平方根を返す。<br><eg>使用例：<br>var number = math.Sqrt(9)<br>// numberの値は3になる</td>
+  </tr>
+  <tr>
+    <td>math.Tan(num)<br><eg>戻り値：number</td>
+    <td>指定されたラジアン角の正接(タンジェント)を返す。<br><eg>使用例：<br>var number = math.Tan(2)<br>// numberの値は-2.18504になる</td>
+  </tr>
+  <tr>
+    <td>math.ToDeg(num)<br><eg>戻り値：number</td>
+    <td>ラジアン単位の数値を度(°)に変換する。<br><eg>使用例：<br>var number = math.ToDeg(2 * math.pi)<br>// numberの値は360になる</td>
+  </tr>
+  <tr>
+    <td>math.ToRad(num)<br><eg>戻り値：number</td>
+    <td>度数の数値をラジアンに変換する。<br><eg>使用例：<br>var number = math.ToRad(360)<br>// numberの値は2πになる</td>
+  </tr>
+  <tr><td></td></tr>
+  <tr><td>music(楽曲)<br>‾‾‾‾‾‾‾‾‾‾</td></tr>
+  <tr>
+    <td>?music<br><eg>Return string</td>
+    <td>現在再生中の曲のIDを返す。<br><eg>使用例：<br>>`0,0,再生中 = @music@</td>
+  </tr>
+  <tr>
+    <td>music.Play(str)<br><eg>戻り値なし</td>
+    <td>指定されたサウンドIDの曲を再生する。1度に再生できる曲は1つのみ。<br><eg>使用例：<br>?loc.begin | loc.loop<br>  music.Play(temple_0)</td>
+  </tr>
+  <tr>
+    <td>music.Stop()<br><eg>戻り値なし</td>
+    <td>再生中の曲を停止する。<br><eg>使用例：<br>?!string.Equals(music, "")<br>  music.Stop()</td>
+  </tr>
+  <tr><td></td></tr>
+  <tr><td>player(プレイヤー)<br>‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾</td></tr>
+  <tr>
+    <td>player.ShowScaredFace(num)<br><eg>戻り値なし</td>
+    <td>プレイヤーがビッグヘッドを有効にしている場合、指定された時間の間、表情が怖がったものに変わる。<eg><br>使用例：<br>?key = primaryBegin<br>  player.ShowScaredFace(1)</td>
+  </tr>
+  <tr><td></td></tr>
+  <tr><td>screen(画面)<br>‾‾‾‾‾‾‾‾‾‾‾</td></tr>
+  <tr>
+    <td>screen.FromWorldX(int)<br><eg>戻り値：integer</td>
+    <td>ワールド座標のX軸の値を、スクリーン座標に変換する。</td>
+  </tr>
+  <tr>
+    <td>screen.FromWorldZ(int)<br><eg>戻り値：integer</td>
+    <td>ワールド座標のZ軸の値を、スクリーン座標のY軸の値に変換する。<eg><br>使用例：<br>var x<br>var y<br>x = screen.FromWorldX(pos.x)<br>y = screen.FromWorldZ(pos.z - pos.y)<br>>`0,1,画面上でのプレイヤーの位置: @x@,@y@</td>
+  </tr>
+  <tr>
+    <td>screen.ToWorldX(int)<br><eg>戻り値：integer</td>
+    <td>スクリーン座標のX軸の値を、ワールド座標に変換する。</td>
+  </tr>
+  <tr>
+    <td>screen.ToWorldZ(int)<br><eg>戻り値：integer</td>
+    <td>スクリーン座標のY軸の値を、ワールド座標のZ軸の値に変換する。<eg><br>使用例：<br>var x<br>var y<br>var z<br>x = input.x<br>y = input.y<br>>`0,1,画面上でのカーソル位置: @x@,@y@<br><br>x = screen.ToWorldX(input.x)<br>z = screen.ToWorldZ(input.y)<br>>`0,2,ワールド上でのカーソル位置: @x@,@z@</td>
+  </tr>
+  <tr>
+    <td>screen.Next()<br><eg>戻り値なし</td>
+    <td>スクリーンが複数あるエリアの場合、プレイヤーに対してカメラを1画面分前方に移動する。<eg><br>使用例：<br>?key = rightBegin<br>  screen.Next()</td>
+  </tr>
+  <tr>
+    <td>screen.Previous()<br><eg>戻り値なし</td>
+    <td>スクリーンが複数あるエリアの場合、プレイヤーに対してカメラを1画面分後方に移動する。<eg><br>使用例：<br>?key = leftBegin<br>  screen.Previous()</td>
+  </tr>
+  <tr>
+    <td>screen.ResetOffset()<br><eg>戻り値なし</td>
+    <td>screen.Next()やscreen.Previous()によって行われたカメラ位置の変更をリセットし、プレイヤーに追従する状態に戻す。<eg><br>使用例：<br>var lastScreenI = -1<br>?lastScreenI ! screen.i<br>  screen.ResetOffset()<br>lastScreenI = screen.i</td>
+  </tr>
+  <tr><td>storage(ストレージ)<br>‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾</td><td>永続ストレージに保存された値は、エリアを離れたりゲームを終了した際にも保持されます。これらはprimary_saveの一部ではなく、Stonescriptフォルダ内の一連の別ファイルに存在します。インポートされたスクリプトは、互いに独立してストレージにアクセスするため、異なるモジュールが同じキーを使用しても、互いのデータに影響を与えることはありません。</td></tr>
+  <tr>
+    <td>storage.Delete(string)<br><eg>戻り値なし</td>
+    <td>指定されたキーに存在する可能性のある値を削除する。<br><eg>使用例：<br>storage.Delete("highscore")</td>
+  </tr>
+  <tr>
+    <td>storage.Get(string)<br><eg>戻り値：value</td>
+    <td>指定されたキーに保存されている永続的な値を取得する。<br><eg>使用例：<br>var value = storage.Get("highscore")<br>?value<br>  >ハイスコア = @value@<br>:<br>  >ハイスコアなし</td>
+  </tr>
+  <tr>
+    <td>storage.Get(string, value)<br><eg>戻り値：value</td>
+    <td>指定されたキーに保存されている永続的な値を取得する。存在しない場合は、2つ目のパラメータをデフォルト値として返す。<br><eg>使用例：<br>var value = storage.Get("highscore", 0)<br>>ハイスコア = @value@</td>
+  </tr>
+  <tr>
+    <td>storage.Has(string)<br><eg>戻り値：boolean</td>
+    <td>指定されたキーが永続ストレージに存在する場合は<eg>true</eg>、存在しなければ<eg>false</eg>を返す。<br><eg>使用例：<br>?storage.Has("highscore")<br>  var value = storage.Get("highscore")<br>  >High Score = @value@<br>:<br>  >No High Score found.</td>
+  </tr>
+  <tr>
+    <td>storage.Incr(string)<br><eg>戻り値：integer</td>
+    <td>指定されたキーに保存されている値を1増やし、その新しい値を返す。<br><eg>使用例：<br>?gameOver<br>  storage.Incr("stat_TimesPlayed")</td>
+  </tr>
+  <tr>
+    <td>storage.Keys()<br><eg>戻り値：array</td>
+    <td>現在のコンテキストで利用可能なストレージキーを含む文字列の配列を取得する。<br><eg>使用例：<br>var a<br>?time % 30 = 0<br>  a = storage.Keys()<br>  for i = 0 .. a.Count()-1<br>    >Key @i@ = @a[i]@</td>
+  </tr>
+  <tr>
+    <td>storage.Incr(string, integer)<br><eg>戻り値：integer</td>
+    <td>指定されたキーに保存されている値を指定された値分だけ増やし、その新しい値を返す。<br><eg>使用例：<br>var amount<br>?foundCoins<br>  amount = rng%5 + 5<br>  storage.Incr("coins", amount)</td>
+  </tr>
+  <tr>
+    <td>storage.Set(string, value)<br><eg>戻り値なし</td>
+    <td>指定されたキーに値を永続ストレージに保存する。<br><eg>使用例：<br>var score = 1000<br>storage.Set("highscore", score)</td>
+  </tr>
+  <tr><td>string(文字列)<br>‾‾‾‾‾‾‾‾‾‾‾‾‾</td></tr>
+  <tr>
+    <td>string.Break(string, integer)<br><eg>戻り値：array</td>
+    <td>指定された最大幅に基づいて、1つの文字列を複数の文字列に分割する。<eg><br>使用例：<br>var s = "The brown fox jumps over the lazy dog"<br>var a = string.Break(s, 14)<br>for i = 0 .. a.Count()-1<br>  >`0,@i@,@a[i]@</td>
+  </tr>
+  <tr>
+    <td>string.Capitalize(str)<br><eg>戻り値：string</td>
+    <td>文字列の先頭の文字を大文字に変換する。<eg><br>使用例：<br>var a = "foo"<br>a = string.Capitalize(a)<br>>@a@<br>(Prints "Foo")</td>
+  </tr>
+  <tr>
+    <td>string.Equals(str1, str2)<br><eg>戻り値：boolean</td>
+    <td>2つの文字列を比較し、完全に一致していれば真、一致しなければ偽を返す。大文字と小文字は区別される。<eg><br>使用例：<br>var a = "foo"<br>?string.Equals(a, "foo")<br>  >完全一致<br>:<br>  >完全不一致<br>// この場合、文字列は一致するのでstring.Equals()はtrueを返す</td>
+  </tr>
+  <tr>
+    <td>string.Format(str1, ...)<br><eg>戻り値：string</td>
+    <td>フォーマットテンプレートを後続の引数の値に置き換え、最終的に構成された文字列を返す。多くの<a href="https://docs.microsoft.com/ja-jp/dotnet/api/system.string.format?view=net-5.0" target="_Blank">フォーマットオプション</a>に対応している。<eg><br>使用例：<br>var str = "私の名前は{0}です。{1}のパワーを持っています!"<br>var result = string.Format(<br>^  str,<br>^  player.name,<br>^  totalgp<br>^)<br>>@result@</td>
+  </tr>
+  <tr>
+    <td>string.IndexOf(str, criteria)<br><eg>戻り値：integer</td>
+    <td>文字列変数<eg>str</eg>の中から、検索文字列<eg>criteria</eg>の位置を探す。見つからなければ-1を返す。<eg><br>使用例：<br>var a = Hello World!<br>var index = string.IndexOf(a, llo)<br>// indexの値は2になる</td>
+  </tr>
+  <tr>
+    <td>string.IndexOf(str, criteria, startAt)<br><eg>戻り値：integer</td>
+    <td>文字列変数<eg>str</eg>の中から、検索文字列<eg>criteria</eg>を、開始位置<eg>startAt</eg>から探す。見つからなければ-1を返す。<eg><br>使用例：<br>var a = Hello World!<br>var index = string.IndexOf(a, llo, 4)<br>// indexの値は-1となる。検索開始位置が4であるため、'llo'は見つからなかった。</td>
+  </tr>
+  <tr>
+    <td>string.Join(s, [])<br>string.Join(s, [], int)<br>string.Join(s, [], int,int)<br><eg>戻り値：string</td>
+    <td>文字列の配列<eg>[]</eg>を、区切り文字<eg>s</eg>で1つの文字列に結合する。任意で、<eg>結合を開始するインデックス</eg>と<eg>結合する要素数</eg>を指定する整数パラメータを渡すことができる。これらのパラメータを省略した場合は、配列全体が結合される。<eg><br>使用例：<br>var a = ［"Hello", "World", "!"］<br>var b = string.Join(";", a)<br>>`0,0,@b@<br>// "Hello;World;!"と表示される<br><br>使用例2：<br>var a = ［"Hello", "World", "!"］<br>var b = string.Join(";", a, 1)<br>>`0,0,@b@<br>// "World;!"と表示される<br><br>使用例3：<br>var a = ［"Hello", "World", "!"］<br>var b = string.Join(";", a, 0, 2)<br>>`0,0,@b@<br>// "Hello;World"と表示される</td>
+  </tr>
+  <tr>
+    <td>string.Size(str)<br><eg>戻り値：integer</td>
+    <td>文字列変数をパラメータとして受け取り、その文字列の長さ(文字数)を計算する。<eg><br>使用例：<br>var a = Hello World!<br>var size = string.Size(a)<br>>size = @size@</td>
+  </tr>
+  <tr>
+    <td>string.Split(str)<br>string.Split(str, s…)<br>string.Split(str, s…, bool)<br>string.Split(str, bool)<br><eg>戻り値：array</td>
+    <td>文字列を受け取り、区切り文字<eg>s…</eg>に従って文字列の配列に分割する。区切り文字が指定されていない場合は、空白があるところで分割される。任意の真偽値パラメータは、空のエントリを破棄するかどうかを指定する。<eg><br>使用例：<br>var a = string.Split("Hello World !")<br>for i = 0 .. a.Count()-1<br>  >`0,@i@,［@i@］ = @a［i］@<br>// 分割された文字列: "Hello", "World", "!"<br><br>使用例2：<br>var a = string.Split("Hello World !", " ", "l")<br>for i = 0 .. a.Count()-1<br>  >`0,@i@,［@i@］ = @a［i］@<br>// 分割された文字列: "He", " ", "o", "Wor", "d", "!"<br><br>使用例3：<br>var a<br>a = string.Split("Hello World !","l","r",true)<br>for i = 0 .. a.Count()-1<br>  >`0,@i@,［@i@］ = @a［i］@<br>// 分割された文字列: "He", "o Wo", "d !"</td>
+  </tr>
+  <tr>
+    <td>string.Sub(str, startAt)<br><eg>戻り値：string</td>
+    <td>文字列変数から、開始位置以降の文字列を抽出する。<eg><br>使用例：<br>var a = Hello World!<br>var subString = string.Sub(a, 6)<br>>substring = @subString@<br>// subStringは"World!"になる</td>
+  </tr>
+  <tr>
+    <td>string.Sub(str, startAt, length)<br><eg>戻り値：string</td>
+    <td>文字列変数から、開始位置以降の文字列から指定された文字数分のみを抽出する。<eg><br>使用例：<br>var a = Hello World!<br>var subString = string.Sub(a, 6, 3)<br>>substring = @subString@<br>// subStringは"Wor"になる</td>
+  </tr>
+  <tr>
+    <td>string.ToLower(str)<br><eg>戻り値：string</td>
+    <td>文字列内のすべての文字を小文字に変換する。<eg><br>使用例：<br>var a = "Foo"<br>a = string.ToLower(a)<br>>@a@<br>// 画面に"foo"が表示される</td>
+  </tr>
+  <tr>
+    <td>string.ToUpper(str)<br><eg>戻り値：string</td>
+    <td>文字列内のすべての文字を大文字に変換する。<eg><br>使用例：<br>var a = "Foo"<br>a = string.ToUpper(a)<br>>@a@<br>// 画面に"FOO"が表示される</td>
+  </tr>
+  <tr><td>sys<br>‾‾‾<td>注意：現在、sysのファイルURLは意図した通りに機能していません。</td></tr>
+  <tr>
+    <td>sys.cacheRemoteFiles<br><eg>boolean</td>
+    <td>リモートからインポートされたファイルを、実行時にキャッシュするかどうかを示す。デフォルトは<eg>true</eg>。falseに設定すると、エリア画面からプレイ開始する際にリモートスクリプトが再ダウンロードされる。リモートで展開される新しいスクリプトの開発や反復作業中にこれを変更すると便利。このグローバルプロパティは実行間で保持される。<eg><br>使用例：<br>// 上キーを押してリモートキャッシュをオン/オフにする<br>?key = upBegin<br>  sys.cacheRemoteFiles = !sys.cacheRemoteFiles<br>  ?sys.cacheRemoteFiles<br>    >リモートキャッシュ 有効<br>  :<br>    >リモートキャッシュ 無効</td>
+  </tr>
+  <tr>
+    <td>sys.fileUrl<br><eg>string (取得専用)</td>
+    <td>スクリプトのインポート時に使用される現在のファイルパスを取得するためのゲッター。デフォルト値はデバイスによって異なり、PCでは<eg>local</eg>、モバイルでは<eg>https://StonestoryRPG.com/stonescript/</eg>となる。<eg><br>使用例：<br>>`0,1,fileUrl = @sys.fileUrl@</td>
+  </tr>
+  <tr>
+    <td>sys.SetFileUrl(str)<br><eg>戻り値なし</td>
+    <td><eg>import</eg>または<eg>new</eg>コマンドでインポートする際の、元のファイルパスを変更する。明瞭の石でのみ呼び出すことができ、インポートされたスクリプトに書かれている場合はエラーになる。任意のURLをリモート場所として受け付けるが、ローカルドライブを指す<eg>"local"</eg>および公式Stone Story RPGリポジトリを指す<eg>"remote"</eg>という値もショートカットとして対応している。パラメータに<eg>null</eg>が渡されると、ファイルURLはデバイスのデフォルト値にリセットされる。このグローバルプロパティは実行間で保持される。<eg><br>使用例：<br>sys.SetFileUrl(<br>^"https://MyCoolDomain.com/scripts/")<br>import MyCombatScript</td>
+  </tr>
+  <tr>
+    <td>sys.MindConnect()<br><eg>戻り値なし</td>
+    <td>(実験的機能) 明瞭の石に<eg>sys.MindConnect()</eg>だけが記述されている場合にのみ動作する。他のプログラム(Pythonスクリプトなど)からの接続を待つインターフェイスを有効にする。接続されると、外部プログラムがStonescriptコマンドを実行したり、ゲーム状態の変数を評価することができるようになる。<br>詳細はこちら：<br><a href="https://github.com/artificial-potato/SSRPGInterface">https://github.com/artificial-potato/SSRPGInterface</a>
+  </tr>
+  <tr>
+    <td>sys.isMobile<br><eg>戻り値：bool</td>
+    <td>ユーザーがAndroidまたはiOSを使用している場合に<eg>true</eg>を返す。
+  </tr>
+  <tr>
+    <td>sys.isPC<br><eg>戻り値：bool</td>
+    <td>ユーザーがWin/Mac/Linuxを使用している場合に<eg>true</eg>を返す。
+  </tr>
+  <tr>
+    <td>sys.os<br><eg>戻り値：string</td>
+    <td>ユーザーのオペレーティングシステムを返す。例えば"Android"、"iOS"、"Linux"、"OSX"、"Windows"などがある。
+  </tr>
+  <tr><td>テキストのローカライズ<br>‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾</td><td>Stonescriptは、現時点で12言語に対応しています。いくつかの操作により、カスタムスクリプトがプレイヤーの選択した言語に適応させることができます。</td></tr>
+  <tr>
+  <tr>
+    <td>te.language<br><eg>string</td>
+    <td>プレイヤーが設定で選択した言語のコード。<br>使用可能値：EN PT-BR ZH-CN ZH-TW FR DE RU ES-LA ES-EU JP KR TK<eg><br>使用例：<br>var lang = te.language<br>&gt;言語 = @lang@</td>
+  </tr>
+  <tr>
+    <td>te.xt(str)<br><eg>戻り値：string</td>
+    <td>指定された英語のテキストを、プレイヤーの選択した言語に翻訳する。翻訳版が見つからない場合は、入力されたテキストがそのまま返される。また、テキスト識別子(TID)を入力として使うこともできるが、TIDの詳細なリストはマニュアルの範囲外である。<eg><br>使用例：<br>var button = ui.AddButton()<br>button.text = te.xt(Play)<br>// 設定で言語を変更すると、この例の動作を確認できる</td>
+  </tr>
+  <tr>
+    <td>te.GetTID(str)<br><eg>戻り値：string</td>
+    <td>指定されたテキストのテキスト識別子(TID)を返す。入力テキストは、プレイヤーが選択した言語であることが前提である。<eg><br>使用例：<br>var tid = te.GetTID("Play")<br>>`0,1,@tid@<br>// tid_button_playが画面に表示される</td>
+  </tr>
+  <tr>
+    <td>te.ToEnglish(str)<br><eg>戻り値：string</td>
+    <td>プレイヤーが選択した言語のテキストを、元の英語のテキストに翻訳する。翻訳版が見つからない場合は、入力されたテキストがそのまま返される。<eg><br>使用例：<br>>`0,1,@te.ToEnglish("Jogar")@<br>// 言語設定がポルトガル語の場合は"Play"と表示され、<br>// そうでなければ"Jogar"と表示される。</td>
+  </tr>
+  <tr><td>time(時間)<br>‾‾‾‾‾‾‾‾‾</td></tr>
+  <tr>
+    <td>time.FormatCasual(int)<br>time.FormatCasual(int,bool)<br><eg>戻り値：string</td>
+    <td>フレーム数を、"1分 23秒"のような人間が読みやすい時間表現に変換する。第2パラメータは任意であり、trueを指定すると結果の制度が最大化される。<eg><br>使用例：<br>>`0,0,現在の時間 =<br>^ @time.FormatCasual(totaltime, true)@</td>
+  </tr>
+  <tr>
+    <td>time.FormatDigital(int)<br>time.FormatDigital(int,bool)<br><eg>戻り値：string</td>
+    <td>フレーム数を、"1:23"のような人間が読みやすいデジタル時計風の時間表現に変換する。第2パラメータは任意であり、trueを指定すると結果の制度が最大化される。<eg><br>使用例：<br>>`0,0,現在の時間 =<br>^ @time.FormatDigital(totaltime, true)@</td>
+  </tr>
+  <tr><td>UI<br>‾‾</td><td><br>ここは<eg>ui</eg>名前空間のその他の関数についての説明です。Stonescriptの高度なUIシステムに関する詳細は<a href="#user-interface">ユーザーインターフェイス</a>セクションを参照してください。</td></tr>
+  <tr>
+    <td>ui.OpenInv()<br><eg>戻り値なし</td>
+    <td>インベントリ画面を開く。</td>
+  </tr>
+  <tr>
+    <td>ui.OpenMind()<br><eg>戻り値なし</td>
+    <td>明瞭の石を開く。</td>
+  </tr>
+  <tr>
+    <td>ui.ShowBanner(str)<br>ui.ShowBanner(str,str)<br><eg>戻り値なし</td>
+    <td>最大2つのメッセージを含むアニメーションバナーを表示する。ui.ShowBanner()が呼び出されるたびにバナーのアニメーションは再起動される。<eg><br>使用例：<br>?time = 120<br>  ui.ShowBanner("Hello World!")</td>
+  </tr>
+  <tr><td>その他<br>‾‾‾‾‾</td></tr>
+  <tr>
+    <td>Type(var)<br><eg>戻り値：string</td>
+    <td>変数の型を評価し、その型を文字列表現として返す。使用可能な型には、'string' 'int' 'bool' 'function' 'object' 'null'が含まれる。<eg><br>使用例：<br>var a = 0<br>?Type(a) = int<br>  >変数'a'は整数型です。</td>
+  </tr>
+</table></font>
+<a href="#"><font color="#505050">トップへ戻る</font></a>
+</div>
+
+<div id="import"><div id="separator"><!---------------------------></div>
+
+·:·:· 外部スクリプトのインポート ·:·:·
+<font color="#bbbbbb">
+スクリプトをすべて明瞭の石に記述する必要はありません。Stonescriptでは、'import'と'new'キーワードを使用して外部ファイルの読み込むことが可能です。外部スクリプトを機能させるには、<a href="https://stonestoryrpg.com/faq.html#Technical%20Help">セーブファイルのフォルダ</a>内にある/Stonescriptフォルダ内に配置され、'.txt'形式で終わる必要があります。
+
+最も基本的な例では、外部スクリプトをインポートして実行すると、それが明瞭の石に直接記述されているかのように動作します。これはスクリプトを整理する便利な方法です。
+<eg>
+import Rocky
+import Deadwood
+import Caves
+import Forest
+</eg>
+スクリプトがインポートされると、独自のコンテナにコピーされ、参照として返されます。外部スクリプトで宣言された変数は分離されており、他のスクリプト内の変数とは干渉しません。次の例では、実用的な表示スクリプトを簡略化したものを提供します。
+<eg><f>
+// PrintUtil.txt
+func LowerLeft(x, y, color, message)
+  y = y + screen.h
+  >`@x@,@y@,@color@,@message@
+
+func LowerRight(x, y, color, message)
+  x = x + screen.w
+  y = y + screen.h
+  >`@x@,@y@,@color@,@message@
+
+// 明瞭の石のメインスクリプト
+var print = import PrintUtil
+disable hud
+print.LowerLeft(0,-1,#ffffff,"Health: " + hp)
+</f></eg>
+高度な使い方として、'new'コマンドを使用すると同じスクリプトを複数回インポートできます。これにより、コンポーネント化やオブジェクト指向の設計を取り入れることも可能です。
+<eg><f>
+// Vector.txt
+var x = 0
+var y = 0
+
+func init(_x, _y)
+  x = _x
+  y = _y
+
+func subtract(otherVect)
+  x = x - otherVect.x
+  y = y - otherVect.y
+
+// 明瞭の石のメインスクリプト
+var vectFrom = new Components/Vector
+var vectTo = new Components/Vector
+
+vectFrom.init(5, 4)
+vectTo.init(8, 2)
+vectTo.subtract(vectFrom)
+
+>x = @vectTo.x@, y = @vectTo.y@
+</f></eg>
+外部スクリプトに'ToString()'関数を実装することで、高度な表示コマンドで直接利用できるようになります。
+<eg><f>
+// Vector.txt
+var x = 0
+var y = 0
+
+func init(_x, _y)
+  x = _x
+  y = _y
+
+func ToString()
+  return "(" + x + ", " + y + ")"
+
+// 明瞭の石のメインスクリプト
+var v = import Components/Vector
+v.init(3,5)
+>Vector = @v@
+</f></eg>
+外部スクリプトは、サブフォルダからでもインポートできます。
+<eg><f>
+import Games/Blackjack
+import Cosmetics/PetFrog
+import Cosmetics/Hats
+</f></eg>
+'import'と'new'は似ていますが、2つの重要な違いがあります。'import'では、毎回同じオブジェクトが返されます。同じスクリプトを複数の場所からインポートすると、すべて同じオブジェクトを使用することになります。一方で、'new'でインポートされたスクリプトは一意のコピーになりますが、そのスクリプトは毎フレームではなく、1回だけ実行されます。
+</font>
+
+<a href="#"><font color="#505050">トップへ戻る</font></a>
+</div>
+
+<div id="ascii-art"><div id="separator"><!---------------------------></div>
+
+·:·:· アスキーアート ·:·:·
+<font color="#bbbbbb">
+Stonescriptでは、アスキーアートを自作してスクリプト内に組み込み、高度な表示で画面に描画することができます。これにはいくつかの方法があり、一部の文字は特別な動作を持っています。
+<f>
+#  - 空白。透明。描画しない。
+\n - 改行。描画を次の行に続ける。注意：これはコストのかかる演算子であり、大規模な線画には使用しないでください。代わりに、ascii/asciiend で線画を囲んでください。
+</f>
+
+メソッド 1 - 高度な表示
+
+次の例では、画面の左上に緑の円を描画しています。
+<eg><f>
+>`1,0,#green,ascii
+#.-.
+(   )
+#`-´
+asciiend
+</f></eg>
+
+メソッド 2 - 変数
+
+次の例では、不気味な魚の絵を変数に格納し、画面左上に赤い色で描画しています。
+<eg><f>
+var fishSprite
+fishSprite = ascii
+###(°_##
+#_/_ o\#
+#´  `'"#
+asciiend
+
+>`0,3,#red,@fishSprite@
+</f></eg></font>
+
+<a href="#"><font color="#505050">トップへ戻る</font></a>
+</div>
+
+<div id="loops"><div id="separator"><!---------------------------></div>
+
+·:·:· ループ ·:·:·
+<font color="#bbbbbb"><f>
+
+ループは、特定のコードを繰り返し実行するために使用されます。ループを作成するには、'for'を使用します。基本形式は次の通りです。
+<eg>
+for v = a..b
+</eg>
+変数'v'は値'a'からループを開始し、'b'に達するまで値を増やし、ループが終了します。
+<eg>
+for i = 1..5
+  >`0,@i@,i = @i@
+</eg>
+ループ変数'v'は'for'の前に宣言してはならず、ループのスコープに含まれています。ただし、開始値'a'と終了値'b'はループの前に宣言できます。
+<eg>
+var min = 1
+var max = 4
+var sum
+sum = 0
+for j = min..max
+  sum = sum + j
+>sum = @sum@
+</eg>
+ループは、逆方向に進むことも、負の数を使用することもできます。
+<eg>
+var g
+g = ""
+for k = 5..-2
+  g = g + k
+>g = @g@
+</eg>
+ループは互いに入れ子にすることも、複雑なアルゴリズムを形成するために数式とインライン化することもできます。
+<eg>
+for x = 1..9
+  for y = x/2 .. x/2 + 6
+    >`@x@,@y@,*
+</eg>
+ループを早期に抜け出すには、ループ変数を範囲外にするように変更します。
+<eg>
+var n
+n = ""
+for i = 1..5
+  ?i = 3
+    i = -1
+  n = n + i
+>n = @n@
+</eg>
+同様に、<eg>break</eg>コマンドを使用してループから抜け出すこともできます。
+<eg>
+for i = 1..5
+  ?i = 3
+    break
+</eg>
+ループは<eg>continue</eg>もサポートしています。呼び出されると、<eg>continue</eg>以下の命令は無視され、ループが続行します。
+<eg>
+var n
+n = ""
+for i = 1..5
+  ?i = 3
+    continue
+  n = n + i
+>n = @n@
+</eg>
+次の形式を使用して、<a href="#arrays">配列</a>の要素をループすることができます。
+<eg>
+var a = [1, 2, 3]
+var n
+n = ""
+for value : a
+  n = n + value
+>n = @n@
+</eg></font>
+
+<a href="#"><font color="#505050">トップへ戻る</font></a>
+</div>
+
+<div id="arrays"><div id="separator"><!---------------------------></div>
+
+·:·:· 配列 ·:·:·
+<font color="#bbbbbb"><f>
+配列は、特別な変数です。値やオブジェクトを1つの変数に代入し、順次に整理する手段を提供します。
+
+<table>
+  <tr>
+    <td>操作<br>----</td>
+    <td>説明<br>----</td>
+  </tr>
+  <tr>
+    <td>a = []</td>
+    <td>配列を新たに作成し、初期化する。詳細は以下を参照。</td>
+  </tr>
+  <tr>
+    <td>a[integer]</td>
+    <td>指定した位置の値を読み取る。<br><eg>使用例：<br>var myArray = [10, 3]<br>?myArray[1] = 3<br>  >はい、[1]の位置の値は3です</td>
+  </tr>
+  <tr>
+    <td>a.Add(value)</td>
+    <td>新しい値/オブジェクトを配列の末尾に追加する。<br><eg>使用例：<br>var myArray = []<br>myArray.Add(10)</td>
+  </tr>
+  <tr>
+    <td>a.Clear()</td>
+    <td>配列からすべての要素を削除し、空にする。配列を[]で再宣言するよりも効率的。<br><eg>使用例：<br>var myArray = [10, 3]<br>myArray.Clear()</td>
+  </tr>
+  <tr>
+    <td>a.Contains(value)</td>
+    <td>指定された値が配列内に存在するかどうかを判断する。見つかれば真を、見つからなければ偽を返す。<br><eg>使用例：<br>var myArray = [10, 3]<br>?myArray.Contains(3)<br>  >存在します</td>
+  </tr>
+  <tr>
+    <td>a.Count()</td>
+    <td>配列の要素の数を返す。<br><eg>使用例：<br>var myArray = ["apple","banana"]<br>var size = myArray.Count()<br>>配列のサイズ = @size@</td>
+  </tr>
+  <tr>
+    <td>a.Emplace(integer, value)</td>
+    <td>指定された位置の値を新しい値に置き換える。<br><eg>使用例：<br>var myArray = [10, 3]<br>myArray.Emplace(0, 4)<br>var value = myArray[0]<br>>[0]位置の値は@value@になりました</td>
+  </tr>
+  <tr>
+    <td>a.IndexOf(value)</td>
+    <td>配列内で指定された値を検索する。値が最初に出現した位置を示す整数を返す。値が見つからない場合は-1を返す。<br><eg>使用例：<br>var myArray = [10, 3]<br>var index = myArray.IndexOf(3)<br>>@index@番目の位置に存在します</td>
+  </tr>
+  <tr>
+    <td>a.Insert(integer, value)</td>
+    <td>新しい値/オブジェクトを配列の指定された位置に追加する。右側の要素は次の位置に移動します。<br><eg>使用例：<br>var myArray = [10, 3]<br>myArray.Insert(1, "apple")<br>// 配列は[10, "apple", 3]になります</td>
+  </tr>
+  <tr>
+    <td>a.RemoveAt(integer)</td>
+    <td>指定された位置の配列の要素を削除する。削除された値を返す。<br><eg>myArray.RemoveAt(0)</eg>は最初の要素を削除する。<br>右側の要素は前の位置に移動する。<br><eg>使用例：<br>var myArray = [1, 2, 3]<br>myArray.RemoveAt(1)<br>// 配列は[1, 3]になります</td>
+  </tr>
+  <tr>
+    <td>a.Sort()</td>
+    <td>配列の要素を昇順に整理する。配列に異なる型のオブジェクトが含まれていてもソートされるが、期待される結果が定義されず、要素が型ごとにグループ化される保証はされない。<br><eg>使用例：<br>var myArray = ["Cherry", 2, "Apple", 1, true, false, "Banana", 3]<br>var value<br><br>myArray.Sort()<br><br>for i = 0 .. myArray.Count() - 1<br>  value = myArray[i]<br>  >`0,@i@,@value@</td>
+  </tr>
+</table>
+
+以下は、配列を初期化して使用するさまざまな方法を紹介します。
+<eg>
+var emptyCollection = []
+
+var magicNumbers = [10, 3, 0, 15, -7]
+
+var someStrings = ["apple", "banana", "cherry"]
+
+var sameButMultiLine = [
+  "apple",
+  "banana",
+  "cherry",
+]
+
+var redeclaredEachFrame
+redeclaredEachFrame = [] // PCに適していない
+
+var clearedEachFrame = []
+clearedEachFrame.Clear() // CPUとメモリにやさしい
+
+var clearedEachLoop = []
+?loc.begin | loc.loop
+  clearedEachLoop.Clear()
+
+var multiDimensional = [[], [], []]
+
+var objectCollection = [
+  new Components/Float,
+  new Components/Float,
+  new Components/Vector,
+]
+
+var animationFrames = [ascii
+───┼
+  O/
+ /|
+ / \
+asciiend
+^,ascii
+   ---.
+  O    \
+ /|\┼───
+ / \
+asciiend
+^]
+</eg>
+
+配列のループ処理
+<eg>
+var myArray = ["Apple", "Banana", "Cherry"]
+var count
+var value
+
+count = myArray.Count()
+?count > 0
+  for i = 0 .. count - 1
+    value = myArray[i]
+    >`0,@i@,@value@
+
+// 上記の例では、フルーツの名前を画面の左側に表示します
+</eg>
+
+多次元配列のアクセス
+<eg>
+var a = [[1,2], [3,4]]
+var value
+
+value = a[1][0]
+>(1, 0)の位置で値@value@を見つけました
+</eg></font>
+
+<a href="#"><font color="#505050">トップへ戻る</font></a>
+</div>
+
+<div id="custom-input"><div id="separator"><!---------------------------></div>
+
+·:·:· 入力のカスタマイズ ·:·:·
+<font color="#bbbbbb">
+Stonescriptは、ゲームの状態?keyを使用してプレイヤーの入力を読み取ることができます。これはAIの異なるモードなど、高度な動作を制御するのに使用できますが、入力をカスタマイズするとStone Storyの上のレイヤーにまったく新しい体験を作成することができます。
+
+<eg><f>次の例では、@記号を古き良きローグライクゲームの主人公のように画面上を移動できます。キーコード(leftBeginなど)は、キーの押し始めを意味します。
+
+var x = 0
+var y = 0
+
+?key = leftBegin
+  x--
+  ?x < 0
+    x = 0
+?key = rightBegin
+  x++
+
+?key = upBegin
+  y--
+  ?y < 0
+    y = 0
+?key = downBegin
+  y++
+
+>`@x@,@y@,#ffffff,@
+</f></eg>
+
+利用可能なキーコード表
+
+<table>
+  <tr>
+    <td>ホールド<br>-------</td>
+    <td>キーを押す<br>---------</td>
+    <td>キーを離す<br>---------</td>
+	<td>デフォルトキー<br>------------</td>
+  </tr>
+  <tr>
+    <td>left</td>
+    <td>leftBegin</td>
+    <td>leftEnd</td>
+	<td>A または ←</td>
+  </tr>
+  <tr>
+    <td>right</td>
+    <td>rightBegin</td>
+    <td>rightEnd</td>
+	<td>D または →</td>
+  </tr>
+  <tr>
+    <td>up</td>
+    <td>upBegin</td>
+    <td>upEnd</td>
+	<td>W または ↑</td>
+  </tr>
+  <tr>
+    <td>down</td>
+    <td>downBegin</td>
+    <td>downEnd</td>
+	<td>S または ↓</td>
+  </tr>
+  <tr>
+	<td>primary</td>
+	<td>primaryBegin</td>
+	<td>primaryEnd</td>
+	<td>左クリックまたはEnter</td>
+  </tr>
+  <tr>
+	<td>back</td>
+	<td>backBegin</td>
+	<td>backEnd</td>
+	<td>X</td>
+  </tr>
+  <tr>
+	<td>ability1</td>
+	<td>ability1Begin</td>
+	<td>ability1End</td>
+	<td>Shift</td>
+  </tr>
+  <tr>
+	<td>ability2</td>
+	<td>ability2Begin</td>
+	<td>ability2End</td>
+	<td>Ctrl</td>
+  </tr>
+  <tr>
+	<td>bumpL</td>
+	<td>bumpLBegin</td>
+	<td>bumpLEnd</td>
+	<td>Z</td>
+  </tr>
+  <tr>
+	<td>bumpR</td>
+	<td>bumpRBegin</td>
+	<td>bumpREnd</td>
+	<td>C</td>
+  </tr>
+</table></font>
+<a href="#"><font color="#505050">トップへ戻る</font></a>
+</div>
+
+<div id="user-interface"><div id="separator"><!---------------------------></div>
+
+·:·:· ユーザーインターフェース ·:·:·
+<font color="#bbbbbb">
+ボタン、テキスト、アニメーションなどなど、Stonescriptは複雑なレイアウトと高性能なユーザーインターフェイスを構築するシステムを提供します。デフォルトでは、システムの基盤に見えない"root(ルート)"パネルが存在します。このルートパネルに、他のパネルやUI要素を追加することでツリー構造を形成します。すべての要素は、追加された順序ですべての要素が1度に描画されます。
+<eg><f>
+root
+│
+├─ Panel
+│  ├─ Text
+│  ├─ ASCII-art
+│  └─ Button
+│
+├─ Panel
+│  ├─ Panel
+|  |  └─ Text
+...
+</f></eg>
+
+<table>
+  <tr><td>UI<br>‾‾</td><td><eg>ui</eg>名前空間の関数を呼び出してインターフェイスを構築します。</td></tr>
+  <tr>
+    <td>ui.root<br><eg>Panel</td>
+    <td>UIツリー全体を構築する基盤となるUIオブジェクト。<eg><br>使用例：<br>disable hud<br>ui.root.visible = true</td>
+  </tr>
+  <tr>
+    <td>ui.AddAnim(string)<br><eg>戻り値：Anim</td>
+    <td>ルートパネルにアニメーション(Anim)オブジェクトを追加する。<eg><br>使用例：<br>?loc.begin<br>  ui.AddAnim(ascii<br>\o)<br>%%<br>(o/<br>asciiend)</td>
+  </tr>
+  <tr>
+    <td>ui.AddButton()<br><eg>戻り値：Button</td>
+    <td>ルートパネルにボタン(Button)オブジェクトを追加する。<eg><br>使用例：<br>func OnPressed()<br>  > Hello World!<br><br>?loc.begin<br>  var button = ui.AddButton()<br>  button.y = 1<br>  button.text = Press me<br>  button.SetPressed(OnPressed)</td>
+  </tr>
+  <tr>
+    <td>ui.AddPanel()<br><eg>戻り値：Panel</td>
+    <td>ルートパネルにパネル(Panel)オブジェクトを追加する。パネルはほかの要素を格納するための重要なコンテナ型オブジェクト。<eg><br>使用例：<br>?loc.begin<br>  var p = ui.AddPanel()<br>  p.color = #red</td>
+  </tr>
+  <tr>
+    <td>ui.AddStyle()<br><eg>戻り値：int</td>
+    <td>四角形の要素(パネルやボタンなど)の描画に使用できる新しいスタイルを追加する。新しいスタイルID番号を返す。同じスタイルが複数回追加されないように保護されており、その場合は何も変更されず、同じIDが返される。異なるスクリプトが ui.AddStyle() を呼び出す可能性があるため、スクリプトにスタイル番号をハードコーディングする代わりに、IDを変数として保存することを推奨する。<eg><br>使用例：<br>var customStyle = ui.AddStyle("<br>^123<br>^456<br>^789")<br>?loc.begin<br>  var p = ui.AddPanel()<br>  p.style = customStyle</td>
+  </tr>
+  <tr>
+    <td>ui.AddText()<br>ui.AddText(string)<br><eg>戻り値：Text</td>
+    <td>ルートパネルにテキスト(Text)オブジェクトを追加する。<eg><br>使用例：<br>?loc.begin<br>  var t = ui.AddText()<br>  t.text = "Hello World!"</td>
+  </tr>
+  <tr>
+    <td>ui.Clear()<br><eg>戻り値なし</td>
+    <td>メインコンテナからすべてのUI要素を削除する。<eg><br>使用例：<br>?key = backBegin<br>  ui.Clear()</td>
+  </tr>
+  <tr><td><br>Component<br>‾‾‾‾‾‾‾‾‾</td><td><br>コンポーネントはすべてのUIタイプの基本型です。他の要素(パネル、テキスト、ボタン、アニメーション)はすべて以下のプロパティを持っています。</td></tr>
+  <tr>
+    <td>component.x<br><eg>integer</td>
+    <td>コンポーネントのX座標。親要素の位置を基準とした相対位置。</td>
+  </tr>
+  <tr>
+    <td>component.y<br><eg>integer</td>
+    <td>コンポーネントのY座標。親要素の位置を基準とした相対位置。</td>
+  </tr>
+  <tr>
+    <td>component.w<br><eg>integer</td>
+    <td>コンポーネントの幅。デフォルト値はオブジェクトの種類によって異なる。<br><eg>使用例：<br>button.w = string.Size(button.text) + 4<br>// ボタンを現在のテキストに合わせた幅に設定 (両側に+2)</td>
+  </tr>
+  <tr>
+    <td>component.h<br><eg>integer</td>
+    <td>コンポーネントの高さ。デフォルト値は5。<br><eg>使用例：<br>panel.h = panel.parent.h<br>// パネルの高さを親パネルの高さに設定</td>
+  </tr>
+  <tr>
+    <td>component.absoluteX<br>component.absoluteY<br><eg>integer<br>読み取り専用</td>
+    <td>スクリーン全体を基準にしたコンポーネントの相対位置。<br><eg>使用例：<br>var t<br>?loc.begin<br>  var p = ui.AddPanel()<br>  p.anchor = bottom_right<br>  p.dock = bottom_right<br>  t = ui.AddText("Foo")<br>  p.Add(t)<br>`0,1,相対位置 = @t.x@,@t.y@<br>>`0,2,絶対位置 = @t.absoluteX@,@t.absoluteY@</td>
+  </tr>
+  <tr>
+    <td>component.anchor<br><eg>string</td>
+    <td>コンポーネントの内部の配置基準を表す自動レイアウトプロパティ。これは、自身に対してどのように配置するかをUIシステムに指示する。デフォルト値は"center_center"。使用可能値：'top_left' 'top_center' 'top_right' 'center_left' 'center_center' 'center_right' 'bottom_left' 'bottom_center' 'bottom_right'</td>
+  </tr>
+  <tr>
+    <td>component.dock<br><eg>string</td>
+    <td><eg>anchor</eg>に似た自動レイアウトプロパティ。ただし、<eg>dock</eg>は外部の配置基準、親コンテナ内でどのように配置するかを表す。よくわからない場合は、<eg>anchor</eg>と<eg>dock</eg>に同じ値を使用すること。<br><eg>使用例：<br>?loc.begin<br>  var p = ui.AddPanel()<br>  p.anchor = top_right<br>  p.dock = top_right<br>  p.w = 20<br>  p.h = 9<br>  var t = ui.AddText("HelloWorld!")<br>  t.anchor = left_bottom<br>  t.dock = bottom_left<br>  t.x = 2<br>  t.h = t.lines.Count() + 1<br>  p.Add(t)</td>
+  </tr>
+  <tr>
+    <td>component.ax<br><eg>string</td>
+    <td><eg>anchor</eg>のX部分。使用可能値：'left' 'center' 'right'</td>
+  </tr>
+  <tr>
+    <td>component.ay<br><eg>string</td>
+    <td><eg>anchor</eg>のY部分。使用可能値：'top' 'center' 'bottom'</td>
+  </tr>
+  <tr>
+    <td>component.dx<br><eg>string</td>
+    <td><eg>dock</eg>のX部分。使用可能値：'left' 'center' 'right'</td>
+  </tr>
+  <tr>
+    <td>component.dy<br><eg>string</td>
+    <td><eg>dock</eg>のY部分。使用可能値：'top' 'center' 'bottom'<br><eg>使用例：<br>var p<br>?loc.begin<br>  p = ui.AddPanel()<br>  p.ax = right<br>  p.ay = top<br>  p.dx = right<br>  p.dy = top</td>
+  </tr>
+  <tr>
+    <td>component.parent<br><eg>Panel<br>読み取り専用</td>
+    <td>コンポーネントの親パネルの参照。コンポーネントがパネルに追加されなかった場合、<eg>ルート</eg>パネルを参照する。<eg>panel.Add(component)</eg>が呼び出されると、親が変更される。</td>
+  </tr>
+  <tr>
+    <td>component.visible<br><eg>multi type<br>bool/string</td>
+    <td>コンポーネントの表示状態。デフォルト値は"inherit"。使用可能値：'true' 'false' 'inherit'  'true'に設定すると、親の状態に関係なく表示する。'false'に設定すると、親の状態に関係なく非表示になる。'inherit'に設定すると、親の表示状態と連動する。</td>
+  </tr>
+  <tr>
+    <td>component.Recycle()<br><eg>戻り値なし</td>
+    <td>親パネルからコンポーネントを削除する。ui.Add_()の呼び出しで再利用される。バグを避けるために、リサイクルされた要素への変数参照はすべてnullにするか、再割り当てする必要がある。</td>
+  </tr>
+  <tr><td><br>Panel > Component<br>‾‾‾‾‾</td><td><br>パネルは四角形のコンポーネントで、他のコンポーネントを格納するコンテナとして機能します。複数のパネルを親子関係で連鎖することで、ツリー構造を形成します。</td></tr>
+  <tr>
+    <td>panel.children<br><eg>Component[]</td>
+    <td><eg>panel.Add()</eg>でそのパネルに追加された子コンポーネントが格納された配列。</td>
+  </tr>
+  <tr>
+    <td>panel.clip<br><eg>bool</td>
+    <td>パネルの範囲外で、子コンポーネントの描画を制限するかどうかを示す。真の場合、子コンポーネントが範囲外にはみ出した部分は描画されない。<br><eg>使用例：<br>var p<br>?loc.begin<br>  p = ui.AddPanel()<br>  p.w = 4<br>  p.h = 3<br>  var t = ui.AddText("The quick brown fox jumps<br>^ over the lazy dog.")<br>  p.Add(t)<br><br>?time%30 < 15<br>  p.clip = true<br>:<br>  p.clip = false</td>
+  </tr>
+  <tr>
+    <td>panel.color<br><eg>string</td>
+    <td>パネルの枠の色を設定する。色は<a href="https://www.colordic.org/" target="_blank">RGB16進数</a>で指定する。</td>
+  </tr>
+  <tr>
+    <td>panel.style<br><eg>int</td>
+    <td>パネルの現在のスタイルID。デフォルト値は1で、-8から8までの値を指定することができる。スタイルは<eg>ui.AddStyle()</eg>で新たに追加することができる。</td>
+  </tr>
+  <tr>
+    <td>panel.Add(Component)<br>panel.Add(Component, int)<br><eg>戻り値なし</td>
+    <td>パネルにコンポーネントを追加する。追加されたコンポーネントはパネルの子になり、パネルはその親になる。コンポーネントは追加された順に描画する。任意の整数パラメータを指定することで、特定の順序に挿入することもできる。指定されていない場合、パネルの最後の子要素として追加される。すでにパネルの子であるコンポーネントの描画順序を変更するためにも使用できる。</td>
+  </tr>
+  <tr>
+    <td>panel.Clear()<br><eg>戻り値なし</td>
+    <td>パネルに追加されたすべてのUI要素を削除する。削除された要素はUIシステムに戻され、ui.Add_()の呼び出しで再利用される。バグを避けるために、削除された要素への変数参照はすべてnullにするか、再割り当てする必要がある。</td>
+  </tr>
+  <tr>
+    <td>panel.Remove(Component)<br>panel.Remove(int)<br><eg>戻り値なし</td>
+    <td>パネルから指定したコンポーネントを削除する。また、インデックス番号を指定することで削除することもできる。削除された要素はUIシステムに戻され、ui.Add_()の呼び出しで再利用される。バグを避けるために、削除された要素への変数参照はすべてnullにするか、再割り当てする必要がある。</td>
+  </tr>
+  <tr><td><br>Text > Component<br>‾‾‾‾</td><td><br>複数行のテキストボックスを作成します。カラーメタデータをサポートしています。</td></tr>
+  <tr>
+    <td>text.align<br><eg>string</td>
+    <td>ボックス内のテキストの配置/整列を設定する。デフォルト値は"left"。使用可能値：'left' 'center' 'right'</td>
+  </tr>
+  <tr>
+    <td>text.color<br><eg>string</td>
+    <td>テキストの色を設定する。色は<a href="https://www.colordic.org/" target="_blank">RGB16進数</a>で指定する。</td>
+  </tr>
+  <tr>
+    <td>text.lines<br><eg>string[]</td>
+    <td>テキストボックスの内容が行ごとに分解された配列。カラーメタデータは除外される。</td>
+  </tr>
+  <tr>
+    <td>text.text<br><eg>string</td>
+    <td>テキストボックスの全内容。一部のテキストをメタデータ[color=#rrggbb][/color]で色付けすることができる。<br><eg>使用例：<br>?loc.begin<br>  var t = ui.AddText()<br>  t.text = "Hello [color=#red]World[/color]!"</td>
+  </tr>
+  <tr><td><br>Button > Component<br>‾‾‾‾‾‾</td></tr>
+  <tr>
+    <td>button.text<br><eg>string</td>
+    <td>ボタン内に表示されるテキストを設定する。<br><eg>使用例：<br>button.text = player.name<br>// プレイヤー名をボタンに表示!</td>
+  </tr>
+  <tr>
+    <td>button.tcolor<br><eg>string</td>
+    <td>ボタン内のテキストの色を設定する。色は<a href="https://www.colordic.org/" target="_blank">RGB16進数</a>で指定する。<br><eg>使用例：<br>button.tcolor = #ff0000<br>// ボタンテキストを赤に設定</td>
+  </tr>
+  <tr>
+    <td>button.bcolor<br><eg>string</td>
+    <td>ボタンの枠の色を設定する。色は<a href="https://www.colordic.org/" target="_blank">RGB16進数</a>で指定する。<br><eg>使用例：<br>>@button.bcolor@<br>button.bcolor = #880000<br>// ボタンの枠の現在の色を表示し、暗めの赤に設定する</td>
+  </tr>
+  <tr>
+    <td>button.hcolor<br><eg>string</td>
+    <td>ボタンが押された時のハイライト色を設定する。色は<a href="https://www.colordic.org/" target="_blank">RGB16進数</a>で指定する<br><eg>使用例：<br>?loc.begin<br>  var b = ui.AddButton()<br>  b.hcolor = #yellow</td>
+  </tr>
+  <tr>
+    <td>button.sound<br><eg>string</td>
+    <td>ボタンが押された時に再生される<a href="#sounds">効果音</a>を設定する。デフォルトは"confirm"。<br><eg>使用例：<br>button.sound = buy<br>// ボタンが押された時に購入時の効果音が再生されるように変更する</td>
+  </tr>
+  <tr>
+    <td>button.style<br><eg>int</td>
+    <td>ボタンの現在のスタイルID。デフォルト値は1で、-8から8までの値を指定することができる。スタイルは<eg>ui.AddStyle()</eg>で新たに追加することができる。</td>
+  </tr>
+  <tr>
+    <td>button.SetPressed(f)<br><eg>function callaback</td>
+    <td>ボタンが押されたときに実行される関数を指定する。関数は任意の数のパラメータを持つことができる(パラメータがない場合も含む)。関数が呼ばれると、最初のパラメータはボタンへの参照になる。<br><eg>使用例：<br>var button1<br>var button2<br>func OnPressed(btn)<br>  ?btn = button1<br>    >Button1が押されました<br>  :<br>    >Button2が押されました<br><br>?loc.begin<br>  button1 = ui.AddButton()<br>  button1.y = 1<br>  button1.SetPressed(OnPressed)<br><br>  button2 = ui.AddButton()<br>  button2.y = 6<br>  button2.SetPressed(OnPressed)</td>
+  </tr>
+  <tr>
+    <td>button.SetDown(f)<br><eg>function callaback</td>
+    <td>ボタンを押し始めたとき(最初に接触した瞬間)に実行される関数を指定する。</td>
+  </tr>
+  <tr>
+    <td>button.SetUp(f)<br><eg>function callaback</td>
+    <td>ボタンを押し終わったとき(最後の接触が終わった瞬間)に実行される関数を指定する。<br><eg>使用例：<br>func OnDown()<br>  > ボタンが押された!<br><br>func OnUp()<br>  > ボタンが離れた!<br><br>?loc.begin<br>  var button = ui.AddButton()<br>  button.y = 1<br>  button.text = ボタンを押してくれ<br>  button.SetDown(OnDown)<br>  button.SetUp(OnUp)</td>
+  </tr>
+  <tr><td><br>Anim > Component<br>‾‾‾‾</td><td><br>アスキーアートのスプライトシートアニメーションをUIに追加します。</td></tr>
+  <tr>
+    <td>anim.color<br><eg>string</td>
+    <td>アニメーションの色を設定する。色は<a href="https://www.colordic.org/" target="_blank">RGB16進数</a>で指定する。</td>
+  </tr>
+  <tr>
+    <td>anim.duration<br><eg>int</td>
+    <td>アニメーションの長さをフレーム単位で指定する。</td>
+  </tr>
+  <tr>
+    <td>anim.flipX<br><eg>bool</td>
+    <td>真の場合、アニメーションが水平方向に反転する。</td>
+  </tr>
+  <tr>
+    <td>anim.flipY<br><eg>bool</td>
+    <td>真の場合、アニメーションが垂直方向に反転する。</td>
+  </tr>
+  <tr>
+    <td>anim.frame<br><eg>int</td>
+    <td>現在表示されているアニメーションフレーム。指定したフレームを表示することもできる。</td>
+  </tr>
+  <tr>
+    <td>anim.gamePause<br><eg>bool</td>
+    <td>真の場合、ゲームが一時停止したときにアニメーションも自動的に停止し、ゲームを再開するとアニメーションも再生する。</td>
+  </tr>
+  <tr>
+    <td>anim.loop<br><eg>bool</td>
+    <td>真の場合、アニメーションの再生時間が終了した直後に最初から再スタートする。</td>
+  </tr>
+  <tr>
+    <td>anim.playing<br><eg>bool<br>読み取り専用</td>
+    <td>アニメーションが再生中であれば真となる。</td>
+  </tr>
+  <tr>
+    <td>anim.paused<br><eg>bool<br>読み取り専用</td>
+    <td>アニメーションが再生中で、<eg>anim.Pause()</eg>の呼び出しで一時停止されている場合に真となる。</td>
+  </tr>
+  <tr>
+    <td>anim.pivotX<br>anim.pivotY<br><eg>int</td>
+    <td>アスキーアートの描画位置の中心点を微調整できる、追加のオフセット。</td>
+  </tr>
+  <tr>
+    <td>anim.playOnStart<br><eg>bool</td>
+    <td>真の場合、アニメーションはできるだけ早く再生を開始する。</td>
+  </tr>
+  <tr>
+    <td>anim.AddLayer(string)<br><eg>戻り値：Anim</td>
+    <td>現在のアニメーションの上に、新しいアスキーアートのレイヤーを追加する。アニメーションが再生する(または<eg>anim.frame</eg>でフレームが変更する)と、全てのレイヤーが同期される。各レイヤーには色や中心点の調整などのプロパティがある。アニメーションレイヤーには、複雑なアスキーアートのパフォーマンスやコードの品質の向上という利点がある。アニメーションがリサイクルされると、すべてのレイヤーが同時にクリーンアップされる。<eg><br>使用例：<br>var a = ui.AddAnim(asciiArtA)<br>var layer2 = a.AddLayer(asciiArtB)<br>layer2.color = #bbbbbb</td>
+  </tr>
+  <tr>
+    <td>anim.Load(string)<br><eg>戻り値なし</td>
+    <td>新しいアスキーアートのスプライトシートを割り当てる。</td>
+  </tr>
+  <tr>
+    <td>anim.Pause()<br><eg>戻り値なし</td>
+    <td>再生中のアニメーションを一時停止する。<eg>anim.Play()</eg>を呼び出すと再開できる。</td>
+  </tr>
+  <tr>
+    <td>anim.Play()<br><eg>戻り値なし</td>
+    <td>アニメーションの再生を開始する。一時停止の場合は再生を再開する。<br><eg>使用例：<br>var dance<br>?loc.begin<br>  dance = ui.AddAnim(ascii<br>(O/<br>%%<br>\O)<br>asciiend)<br>  dance.duration = 20<br>  dance.loop = true<br>  dance.Play()</td>
+  </tr>
+  <tr>
+    <td>anim.Stop()<br><eg>戻り値なし</td>
+    <td>アニメーションの再生を停止し、最初のフレームに戻す。</td>
+  </tr>
+  <tr><td><br>Canvas > Component<br>‾‾‾‾‾‾</td><td><br>任意の文字や記号と、色を描画するために最適化されたコンテナ。</td></tr>
+  <tr>
+    <td>canvas.blend<br><eg>string</td>
+    <td>キャンバスのブレンドモード。前景と背景の要素の合成方法を設定する。デフォルトは"opaque"。使用可能値：'Opaque'(不透明) 'Multiply'(乗算) 'Divide'(除算) 'Add'(加算) 'Subtract'(減算)<br><eg>使用例：<br>var filter1 = ui.AddCanvas()<br>var filter2 = ui.AddCanvas()<br>filter1.w = screen.w<br>filter1.h = screen.h<br>filter2.w = screen.w<br>filter2.h = screen.h<br><br>filter1.blend = multiply
+<br>filter1.SetFG(#aa5555)<br>filter1.SetBG(#dddddd)<br><br>filter2.blend = add
+<br>filter2.SetFG(#aa6600)<br>filter2.SetBG(#662200)</td>
+  </tr>
+  <tr>
+    <td>canvas.Get(int,int)<br><eg>戻り値：string</td>
+    <td>キャンバス上の指定した位置(x,y)にある文字を返す。</td>
+  </tr>
+  <tr>
+    <td>canvas.Set(str)<br><eg>戻り値なし</td>
+    <td>キャンバス全体を指定した文字で塗りつぶす。<br><eg>使用例：<br>?loc.begin<br>  var canvas = ui.AddCanvas()<br>  canvas.Set("X")</td>
+  </tr>
+  <tr>
+    <td>canvas.Set(int,int,str)<br><eg>戻り値なし</td>
+    <td>キャンバス上の指定した位置(x,y)を指定された文字に変更する。<br><eg>使用例：<br>?loc.begin<br>  var canvas = ui.AddCanvas()<br>  canvas.Set(0, 0, "A")</td>
+  </tr>
+  <tr>
+    <td>canvas.Set(int,int, fg,str)<br>canvas.Set(int,int, fg,bg,str)<br><eg>戻り値なし</td>
+    <td>指定した位置のキャンバスや文字を変更し、同時に前景色と背景色を設定するためのオーバーロード。<br><eg>使用例：<br>?loc.begin<br>  var canvas = ui.AddCanvas()<br>  for x = 0..canvas.w<br>    for y = 0..canvas.h<br>      var fg = color.Random()<br>      var bg = color.Random()<br>      canvas.Set(x, y, fg, bg, ▄)</td>
+  </tr>
+  <tr>
+    <td>canvas.SetFG(color)<br><eg>戻り値なし</td>
+    <td>キャンバス全体の前景色を設定する。<br><eg>使用例：<br>?loc.begin<br>  var canvas = ui.AddCanvas()<br>  canvas.Set("R")<br>  canvas.SetFG(#red)</td>
+  </tr>
+  <tr>
+    <td>canvas.SetFG(int,int, color)<br><eg>戻り値なし</td>
+    <td>キャンバス上の指定した位置(x,y)の前景色を設定する。<br><eg>使用例：<br>?loc.begin<br>  var canvas = ui.AddCanvas()<br>  canvas.Set("X")<br>  canvas.SetFG(2, 1, #ff00ff)<br></td>
+  </tr>
+  <tr>
+    <td>canvas.SetBG(color)<br><eg>戻り値なし</td>
+    <td>キャンバス全体の背景色を設定する。<br><eg>使用例：<br>?loc.begin<br>  var canvas = ui.AddCanvas()<br>  canvas.Set("g")<br>  canvas.SetBG(#00aa00)</td>
+  </tr>
+  <tr>
+    <td>canvas.SetBG(int,int, color)<br><eg>戻り値なし</td>
+    <td>キャンバス上の指定した位置(x,y)の背景を設定する。<br><eg>使用例：<br>?loc.begin<br>  var canvas = ui.AddCanvas()<br>  canvas.Set("X")<br>  canvas.SetBG(2, 1, #yellow)</td>
+  </tr>
+</table></font>
+<a href="#"><font color="#505050">トップへ戻る</font></a>
+</div>
+
+<div id="tips"><div id="separator"><!---------------------------></div>
+
+·:·:· ヒント ·:·:·
+<font color="#bbbbbb">
+<f>スペース(インデント)は重要です。'?'比較の結果として実行される処理を定義する際、インデントがスコープ(範囲)を決定します。</f>
+
+<f>実行中のスクリプトは、キーボードの'M'キーを押すと編集することができます。</f>
+
+<f>明瞭の石の右上には電源ボタンがあり、スクリプトのオンオフを切り替えることができます。</f>
+
+<f>複数のequipコマンドが呼び出された場合、最後に記述されたものが実行されます。</f>
+
+<f>スクリプトは1秒あたり30回(1フレームごとに1回)実行されます。</f>
+
+<f>異なるスクリプトを試す際は、メモ帳などの外部テキストエディタにコピーすることをおすすめします。</f>
+
+<f>Ctrl+A(全選択)、Ctrl+C(コピー)、Ctrl+V(ペースト)といった一般的なショートカットが役に立ちます。</f>
+
+<f>ゲーム内でTabキーを押し続けると、ゲームの状態に関する多くの情報が表示され、直近のStonescriptのエラーの一覧も確認できます。</f>
+
+<f>表示コマンドでテキストを複数行に分割するには、テキスト内で'\n'を使用します。</f>
+</font>
+
+<a href="#"><font color="#505050">トップへ戻る</font></a>
+</div>
+
+<div id="default-script"><div id="separator"><!---------------------------></div>
+
+·:·:· デフォルトスクリプト ·:·:·
+<font color="#bbbbbb"><f>
+import UI/MindstoneButton
+
+?hp < 7
+  activate potion
+?loc = caves
+  equipL sword
+  equipR shield
+  ?foe = boss
+    equip crossbow
+</f></font>
+
+<a href="#"><font color="#505050">トップへ戻る</font></a>
+</div>
+
+<div id="ability_ids"><div id="separator"><!---------------------------></div>
+
+·:·:· おまけ - アイテム能力のクールダウンID ·:·:·
+<font color="#bbbbbb"><f>
+<table>
+  <tr>
+    <td>アイテム<br>-------</td>
+    <td>クールダウンID<br>------------</td>
+    <td><br></td>
+  </tr>
+  <tr>
+    <td>エーテルのお守り</td>
+    <td>"talisman_aether"</td>
+  </tr>
+  <tr>
+    <td>バルディッシュ</td>
+    <td>"bardiche"</td>
+  </tr>
+  <tr>
+    <td>ツッコミシールド</td>
+    <td>"bash"</td>
+  </tr>
+  <tr>
+    <td>堕神の剣</td>
+    <td>"blade"</td>
+  </tr>
+  <tr>
+    <td>燃えカス</td>
+    <td>"cinderwisp"</td>
+  </tr>
+  <tr>
+    <td>カルト団員のマスク</td>
+    <td>"mask"</td>
+  </tr>
+  <tr>
+    <td>ダッシュの盾</td>
+    <td>"dash"</td>
+  </tr>
+  <tr>
+    <td>火のお守り</td>
+    <td>"talisman_fire"</td>
+  </tr>
+  <tr>
+    <td>手斧</td>
+    <td>"hatchet"</td>
+  </tr>
+  <tr>
+    <td>ヘビーハンマー</td>
+    <td>"heavy_hammer"</td>
+  </tr>
+  <tr>
+    <td>明瞭の石</td>
+    <td>"mind"</td>
+  </tr>
+  <tr>
+    <td>六尺棒</td>
+    <td>"quarterstaff"</td>
+  </tr>
+  <tr>
+    <td>ガイコツの腕</td>
+    <td>"skeleton_arm"</td>
+  </tr>
+  <tr>
+    <td>虚無織り</td>
+    <td>"voidweaver"</td>
+  </tr>
+  <tr>
+    <td>災いの杖</td>
+    <td>"wand_aether"</td>
+  </tr>
+  <tr>
+    <td>爆発の杖</td>
+    <td>"wand_fire"</td>
+  </tr>
+  <tr>
+    <td>氷結の杖</td>
+    <td>"wand_ice"</td>
+  </tr>
+  <tr>
+    <td>疫病の杖</td>
+    <td>"wand_poison"</td>
+  </tr>
+  <tr>
+    <td>リセットの杖</td>
+    <td>"wand_vigor"</td>
+  </tr>
+  <tr>
+    <td>重力の杖</td>
+    <td>"wand_stone"</td>
+  </tr>
+  <tr>
+    <td>強欲の杖</td>
+    <td>"staff_aether"</td>
+  </tr>
+  <tr>
+    <td>地獄の杖</td>
+    <td>"staff_fire"</td>
+  </tr>
+  <tr>
+    <td>とこしえの杖</td>
+    <td>"staff_ice"</td>
+  </tr>
+  <tr>
+    <td>狂戦士の杖</td>
+    <td>"staff_poison"</td>
+  </tr>
+  <tr>
+    <td>防護の杖</td>
+    <td>"staff_vigor"</td>
+  </tr>
+  <tr>
+    <td>曲芸の杖</td>
+    <td>"staff_stone"</td>
+  </tr>
+  <tr>
+    <td>シャベル</td>
+    <td>"shovel"</td>
+  </tr>
+</table>
+</f></font>
+<a href="#"><font color="#505050">トップへ戻る</font></a>
+</div>
+
+<div id="sounds"><div id="separator"><!---------------------------></div>
+
+·:·:· おまけ - 効果音 ·:·:·
+<font color="#bbbbbb">
+Stonescriptは、カスタムロジックに基づいて、ゲーム内の効果音を再生することができます。
+
+<eg><f>次の例では、プレイヤーが体力を失うたびに'unequip'という効果音が再生されます。
+
+var lasthp = hp
+?hp < lasthp
+  play unequip
+lasthp = hp</f></eg>
+
+ほとんどの効果音には、ランダムまたは連続的に再生するバリエーションがあります。同じ効果音が、1フレーム内に再生された場合は無視されます。1秒間に5回以上再生された場合は効果音の再生が制限されます。
+
+Stone Story RPGで利用できる効果音のフルリストは次の通りです。
+
+acronian_cultist_power_up
+air_hiss
+ant_attack
+ant_death
+ant_hill
+ant_walk
+auggie_voice
+bang_go_forward
+bardiche_cast
+bat_attack
+bat_attack_small
+bat_death
+bat_death_small
+bat_wing
+bat_wing_small
+bearer3_talk
+bearer4_talk
+bearer4_talk_evolving
+bearer5_talk
+bearer_attack
+bearer_attack_hit
+bearer_death
+bearer_evolving
+bearer_scream
+bearer_stealing
+bearer_super_attack
+bell_ringer_attack
+bell_ringer_attack_hit
+blade_drag
+blade_glow
+blade_pallas_attack
+blade_raise
+bomb_cart_explosion
+bomb_cart_fuse
+bomb_cart_move
+boo_voice
+booklet_close
+booklet_open
+booklet_turn_page
+bronze_gate_close
+bronze_gate_locked
+bronze_gate_open
+bronze_guardian_attack1
+bronze_guardian_attack2
+bronze_guardian_attack3
+bronze_guardian_attack4
+bronze_guardian_death
+bronze_guardian_ears_ring
+bronze_guardian_fuse
+bronze_guardian_helmet
+bronze_guardian_power_up
+bronze_guardian_pulling_hammer
+bronze_guardian_removing_hammer
+bronze_guardian_steps
+bronze_guardian_turbine
+buy
+click
+confirm
+controller_death
+controller_whip_attack
+controller_whip_hit
+cross_deadwood_bump
+cross_deadwood_row
+cross_deadwood_splash
+crossbow_cast
+crossbow_hit
+cult_guard_attack
+cult_guard_attack_hit
+cult_marksman_attack
+cult_marksman_attack_hit
+cult_sorcerer_attack
+cult_sorcerer_attack_hit
+cultist_death
+devolved_talk
+dog_bark
+dominotaur_awake
+dominotaur_death
+dominotaur_whip_attack
+dominotaur_whip_hit
+dysangelos_guidance
+dysangelos_guidance_1
+dysangelos_guidance_2
+dysangelos_guidance_3
+dysangelos_intro_talk
+elementalist_aether_attack
+elementalist_aether_attack_hit
+elementalist_aether_blink
+elementalist_death
+elementalist_evolving
+elementalist_fire_attack
+elementalist_fire_attack_hit
+elementalist_fire_blink
+elementalist_ice_attack
+elementalist_ice_attack_hit
+elementalist_ice_blink
+elementalist_poison_attack
+elementalist_poison_attack_hit
+elementalist_poison_blink
+elementalist_vigor_attack
+elementalist_vigor_attack_hit
+elementalist_vigor_blink
+epilogue_devolving
+epilogue_talk
+epliogue_player_evolves
+equip
+error
+falling_stonefolk
+fire_beast_1
+fire_beast_2
+fire_elemental_attack
+fire_elemental_attack_hit
+fire_elemental_awake
+fire_elemental_death
+fire_geyser
+fire_orbs
+first_controller
+fissure_break_apart
+fissure_unmake
+flying_serpent_loop
+frog
+ghost_attack
+ghost_attack_small
+ghost_death
+ghost_death_small
+ghost_loop
+ghost_loop_small
+ghost_tomb_death
+giant_ice_elemental_attack
+grappling_cast
+grappling_hit
+grappling_idle
+hammer_cast
+hammer_hit
+hans_scream
+hans_talk_intro
+hans_talk_reward
+hatchet_cast
+hatchet_hit
+haunted_gate_key_bounce_1
+haunted_gate_key_bounce_2
+haunted_gate_key_bounce_3
+haunted_gate_key_into_gate
+haunted_gate_npc_voice
+haunted_gate_opening
+haunted_gate_point_lost
+haunted_gate_shuffle
+haunted_gate_shuffle_fast
+haunted_gate_torch_off
+haunted_gate_torch_on
+haunted_gate_try_to_open
+ice_elemental_attack
+ice_elemental_attack_hit
+ice_elemental_awake
+ice_elemental_death
+ice_pillar
+insta_kill
+key_drop
+ki_eater_attack
+ki_eater_attack_hit
+ki_eater_awake
+ki_eater_death
+ki_gobbler_attack
+ki_gobbler_attack_hit
+ki_gobbler_awake
+ki_gobbler_death
+ki_slerper_attack
+ki_slerper_attack_hit
+ki_slerper_awake
+ki_slerper_death
+ki_slerper_walk
+level_up
+life_gain
+logo_full
+logo_short
+lost_item_boost
+mask_summon_1
+mask_summon_2
+metal_drop
+mindstone_found
+mindstone_off
+mindstone_on
+mine_walker_attack_a
+mine_walker_attack_b
+mine_walker_attack_hit
+mine_walker_awake
+mine_walker_death
+mine_walker_helmet_break
+mine_walker_step
+morel_punch
+mosquito_attack
+mosquito_death
+mosquito_loop
+mushroom_boss_awake
+mushroom_boss_death
+mushroom_boss_fat_slam
+mushroom_boss_punch
+mushroom_boss_shoot
+mushroom_boss_split
+nagaraja_attack_eat
+nagaraja_attack_lick
+nagaraja_attack_swallow
+nagaraja_awake_roar
+nagaraja_awake_swallow
+nagaraja_awake_tongue_1
+nagaraja_awake_tongue_2
+nagaraja_choir
+nagaraja_dead
+nagaraja_poison_attack
+nagaraja_poison_attack_hit
+nagaraja_tongue_damaged
+nagaraja_tongue_lift
+nagaraja_tongue_smell
+nagaraja_tongue_wrap
+nagaraja_wail
+nagaraja_wail_brick
+open_note
+paint_splat
+pallas_voice
+perfected_attack
+perfected_attack_hit
+perfected_death
+perfected_defense
+perfected_energy_ball
+perfected_energy_ball_hit
+perfected_fly_end
+perfected_fly_loop
+perfected_fly_start
+perfected_summon
+perfected_talk
+pickup_bronze
+pickup_stone
+pickup_success
+pickup_tar
+pickup_wood
+player_death
+player_hit
+player_kick
+player_punch
+poison_adept_attack
+poison_adept_attack_hit
+poison_powerup
+potion_berserk
+potion_cleansing
+potion_defensive
+potion_experience
+potion_healing
+potion_invisibility
+potion_lightning
+potion_lucky
+potion_strength
+potion_vampiric
+progress_1
+progress_2
+progress_3
+progress_4
+progress_5
+progress_6
+progress_7
+progress_8
+progress_9
+prompt_choice
+quarterstaff_cast
+quest_stone_jump
+quest_stone_unlock
+ranting_tree_halt
+ranting_tree_talk_again
+ranting_tree_talk_avenge
+ranting_tree_talk_extra
+ranting_tree_talk_get_out
+ranting_tree_talk_halt
+ranting_tree_talk_how_dare
+ranting_tree_talk_impressive
+ranting_tree_talk_very_well
+scarab_awake
+scarab_bite
+scarab_death
+scarab_horn
+scarab_wings
+scorpion_death
+scotty_a_pleasure
+scotty_a_worthy_opponent
+scotty_deuced
+scotty_failte_back
+scotty_getting_good
+scotty_grr
+scotty_guess_which
+scotty_hell_be_back
+scotty_intro
+scotty_lets_harden
+scotty_make_ye_guess
+scotty_noo_jist
+scotty_out_of_treasure
+scotty_perhaps_the_rules
+scotty_pick_some_treasure
+scotty_shall_we_up
+scotty_there_he_is
+scotty_we_have_wee_use
+scotty_well_met
+scotty_well_then
+scotty_wizard
+scotty_wrong_choice
+scout_arrives
+scout_dialog
+scout_focus
+scout_leaves
+scout_wing
+serpent_attack
+serpent_death
+serpent_handler_release
+serpent_hiss
+serpent_slither
+shield_dash
+shop_door_enter
+shop_door_open
+shovel_cast
+sightstone_cast
+skeletimmy_attack
+skeletimmy_death
+skeleton_boss_arm1
+skeleton_boss_arm2
+skeleton_boss_arm_reconnect
+skeleton_boss_arm_woosh
+skeleton_boss_attack
+skeleton_boss_awake
+skeleton_boss_bone_bounce
+skeleton_boss_death
+skeleton_boss_hand_slam
+skeleton_boss_idle
+skeleton_boss_legs_die
+skeleton_boss_summon_minions
+skeletony_attack
+skeletony_awake_a
+skeletony_awake_b
+skeletony_death
+skeletony_walk
+slave_npc
+slave_outro_chatter
+slave_outro_transition
+slave_outro_voice
+smithy_hammer
+smithy_hammer_fail
+snail_attack
+snail_attack_small
+snail_death
+snail_death_small
+snail_walk
+soul_stone
+soul_stone_drop
+spider_attack
+spider_boss_attack
+spider_boss_awake
+spider_boss_death
+spider_death
+spider_death_small
+spider_eggs_spawn
+spider_walk
+stone_throw_cast
+stone_throw_hit
+sword_cast
+sword_hit
+talisman_reveal
+temple_npc_chant
+temple_npc_clear_throat
+temple_npc_talk
+torch_cast
+torch_hit
+torch_idle
+treasure_close
+treasure_drop
+treasure_drop_common
+treasure_drop_epic
+treasure_drop_giant
+treasure_drop_humble
+treasure_drop_rare
+treasure_item_blue
+treasure_item_cyan
+treasure_item_green
+treasure_item_lost
+treasure_item_pop
+treasure_item_rainbow
+treasure_item_red
+treasure_item_show
+treasure_item_yellow
+treasure_open
+tree_boss_attack
+tree_boss_awake
+tree_boss_death
+tree_boss_idle
+tree_boss_spike
+triskelion_fuse
+ui_starfirst
+ui_starnew
+ui_starold1
+ui_starold2
+ui_starold3
+ui_starold4
+unequip
+uulaa_voice
+wand_aether_cast
+wand_aether_hit
+wand_air_cast
+wand_air_hit
+wand_cast
+wand_drop
+wand_fire_cast
+wand_fire_hit
+wand_hit
+wand_ice_cast
+wand_ice_hit
+wand_poison_cast
+wand_poison_hit
+wand_vigor_cast
+wand_vigor_hit
+waterfall_hook_hit
+waterfall_land
+waterfall_rope_grab
+waterfall_rope_swing
+waterfall_splash
+worm_rider_hop
+xp_tick
+yeti_attack
+yeti_attack_flick
+yeti_attack_hit
+yeti_awake_blow
+yeti_awake_explosion
+yeti_awake_inhale
+yeti_awake_lick
+yeti_blow
+yeti_blow_ice_wall
+yeti_death
+yeti_inhale
+yeti_inhale_lick
+</font>
+
+<a href="#"><font color="#505050">トップへ戻る</font></a>
+</div>
+
+<div id="music"><div id="separator"><!---------------------------></div>
+
+·:·:· おまけ - 楽曲 ·:·:·
+<font color="#bbbbbb">
+Stonescriptは、カスタムロジックに基づいて、ゲーム内楽曲を再生することができます。利用可能な楽曲はプラットフォームによって異なります。
+<eg><f>
+?loc.begin | loc.loop
+  music.Play(temple_0)</f></eg>
+
+Stone Story RPGで利用できる楽曲のフルリストは次の通りです。
+
+<eg>Boiling Mine</eg>
+bronze_guardian_3
+bronze_guardian_4
+bronze_guardian_5
+bronze_guardian_cyan
+bronze_mine_0
+bronze_mine_1
+bronze_mine_2
+bronze_mine_3
+bronze_mine_4
+bronze_mine_5
+bronze_mine_cyan
+slave_outro_climb
+slave_outro_loop
+
+<eg>Caves of Fear</eg>
+caustic_caves
+spider_boss
+
+<eg>Deadwood</eg>
+cross_deadwood_river
+cross_deadwood_wind
+deadwood_0
+deadwood_1
+deadwood_2
+deadwood_3
+deadwood_4
+deadwood_5
+deadwood_cyan
+tree_boss
+waterfall_descent
+poena
+
+<eg>Haunted Halls</eg>
+skeleton_boss
+undead_crypt_0
+undead_crypt_1
+undead_crypt_2
+undead_crypt_3
+undead_crypt_4
+undead_crypt_5
+undead_crypt_cyan
+undead_crypt_intro
+
+<eg>Icy Ridge</eg>
+bridge_broken
+bridge_crossing
+icy_ridge_0
+icy_ridge_1
+icy_ridge_2
+icy_ridge_3
+icy_ridge_4
+icy_ridge_5
+icy_ridge_cyan
+yeti
+
+<eg>Mushroom Forest</eg>
+fire_loop
+fungus_forest_0
+fungus_forest_1
+fungus_forest_2
+fungus_forest_3
+fungus_forest_4
+fungus_forest_5
+fungus_forest_cyan
+mushroom_boss
+mushroom_boss_cyan
+shop
+
+<eg>Rocky Plateau</eg>
+rocky_plateau_0
+rocky_plateau_1
+rocky_plateau_2
+rocky_plateau_3
+rocky_plateau_4
+rocky_plateau_5
+rocky_plateau_epilogue
+rocky_plateau_fight
+rocky_plateau_talk
+
+<eg>Temple</eg>
+nagaraja
+temple_0
+temple_1
+temple_2
+temple_3
+temple_4
+temple_5
+temple_cyan
+
+<eg>Events</eg>
+event_fall
+event_hamartia
+event_spring
+event_stonejam
+event_summer
+event_winter
+
+<eg>Other</eg>
+credits
+main_menu
+bone_factory
+osteophone
+uulaa
+</font>
+
+<a href="#"><font color="#505050">トップへ戻る</font></a>
+</div>
+
+<div id="ambient"><div id="separator"><!---------------------------></div>
+
+·:·:· おまけ - 環境音 ·:·:·
+<font color="#bbbbbb">
+Stonescriptは、カスタムロジックに基づいて、バッググラウンドの環境音を何層にも再生することができます。
+<eg><f>
+?loc.begin
+  ambient.Stop()
+  ambient.Add(ambient_crypt)</f></eg>
+
+Stone Story RPGで利用できる環境音のフルリストは次の通りです。
+
+ambient_mines
+ambient_caves
+ambient_bronze_gate
+ambient_deadwood
+ambient_mushroom
+ambient_bridge
+ambient_icy
+ambient_cave
+ambient_rocky
+ambient_temple
+ambient_crypt
+ambient_haunted_gate
+ambient_pallas
+waterfall_a
+waterfall_b
+waterfall_c
+</font>
+
+<a href="#"><font color="#505050">^トップへ戻る</font></a>
+</div>
+
+<div id="scripts"><div id="separator"><!---------------------------></div>
+
+·:·:· おまけ - インポート可能なすべてのスクリプト ·:·:·
+<font color="#bbbbbb">
+import Chisel
+import CozyCave
+import Fishing
+import TrainAdventure
+
+import Cosmetics/Acrocorn
+import Cosmetics/AcronianGuardian
+import Cosmetics/AuroraBorealis
+import Cosmetics/BadApple
+import Cosmetics/Beach
+import Cosmetics/Bolesh
+import Cosmetics/CaveParty
+import Cosmetics/ChristmasTree
+import Cosmetics/ChrWings
+import Cosmetics/ConfettiHead
+import Cosmetics/CultGroup
+import Cosmetics/DragonWorm
+import Cosmetics/Drill
+import Cosmetics/Explosion
+import Cosmetics/FireFly
+import Cosmetics/Fireworks
+import Cosmetics/FrogInvasion
+import Cosmetics/Giftbag
+import Cosmetics/Infected
+import Cosmetics/Knight
+import Cosmetics/Mech
+import Cosmetics/MineManager
+import Cosmetics/MushroomAnt
+import Cosmetics/MushroomHead
+import Cosmetics/Party
+import Cosmetics/PartyNoisemaker
+import Cosmetics/Portobello
+import Cosmetics/PumpkinCarving
+import Cosmetics/Pumpkins
+import Cosmetics/quips
+import Cosmetics/SantaFlyingSleigh
+import Cosmetics/SillyGoose
+import Cosmetics/SleepyStonehead
+import Cosmetics/SpookyScarySkeletons
+import Cosmetics/SpringBloom
+import Cosmetics/StoneClause
+import Cosmetics/StoneheadFall
+import Cosmetics/StoneHeadless
+import Cosmetics/StonePhone
+import Cosmetics/SuperStoneHead
+import Cosmetics/TheSun
+import Cosmetics/Turret
+import Cosmetics/TwinSuns
+import Cosmetics/WavyScarf
+import Cosmetics/WitchBroom
+
+import Foes/FlowerFoes
+import Foes/PallasCrown
+import Foes/PumpkinWraith
+import Foes/SurferGuardian
+
+import Games/2048
+import Games/Arena
+import Games/Asteroids
+import Games/Blackjack
+import Games/BurgerRush
+import Games/cColorTetris
+import Games/cGomoku
+import Games/cTetris
+import Games/DigitsPuzzle
+import Games/FeedABat
+import Games/FlyupText
+import Games/FrogBog
+import Games/FrogJump
+import Games/GetawayDriver
+import Games/GrowPlants
+import Games/KillerRPG
+import Games/Metallophone
+import Games/Minesweeper
+import Games/PlayingCards
+import Games/Simon
+import Games/Snake
+import Games/SpearThrowing
+import Games/SSRPGIdle
+import Games/StoneasaurGame
+import Games/StoneBoxman
+import Games/StoneDungeon
+import Games/Stonemon
+import Games/Sudoku
+import Games/SudokuEnchant
+import Games/SwordGame
+import Games/TowerDefense
+import Games/WhackaMole
+
+import Hats/CatHat
+import Hats/ChefHat
+import Hats/DefectFaceplate
+import Hats/DiscoVisor
+import Hats/Enchanthead
+import Hats/Headphones
+import Hats/Helmet
+import Hats/HrimnirHair
+import Hats/IroncladMask
+import Hats/JesterHat
+import Hats/LanternTalisman
+import Hats/MushroomHat
+import Hats/PirateHat
+import Hats/ReindeerHead
+import Hats/SantaHat
+import Hats/ShuffleHat
+import Hats/SilentSkull
+import Hats/Skully
+import Hats/StarCloak
+import Hats/Treeman
+import Hats/WitchHat
+
+import Pets/Bear
+import Pets/BlackHole
+import Pets/Boo
+import Pets/Bunny
+import Pets/CatBalloon
+import Pets/CavePets
+import Pets/Chick
+import Pets/Crab
+import Pets/Cranius
+import Pets/Dog
+import Pets/Dracula
+import Pets/Dragon
+import Pets/Fly
+import Pets/FoesNoMore
+import Pets/Frog
+import Pets/JackOLantern
+import Pets/LegsTurkey
+import Pets/Mushroom
+import Pets/Panda
+import Pets/Pomeranian
+import Pets/RoyaltyDeliverer
+import Pets/Skully
+import Pets/Snail
+import Pets/SnowBunny
+import Pets/Snowman
+import Pets/Spider
+import Pets/SpringBuddy
+import Pets/Stonehead
+import Pets/Sun
+import Pets/TarPusher
+import Pets/Wisp
+
+import UI/A2S
+import UI/BetterInfo2
+import UI/BetterText
+import UI/BorderClock
+import UI/BossBar
+import UI/BossHealthBar
+import UI/BragMeter
+import UI/Calculator
+import UI/CDTime
+import UI/ClickAbilities
+import UI/damageFlash
+import UI/DragController
+import UI/FaceHUD
+import UI/FoeStateTracker
+import UI/FreeChestTracker
+import UI/InfoFloat
+import UI/LiveSplit
+import UI/MindstoneButton
+import UI/MiniMap
+import UI/MusicBox
+import UI/OkamiroyUtils
+import UI/PefWindow
+import UI/PlayerStateTracker
+import UI/RecordPlayer
+import UI/ScrollText
+import UI/StealMeter
+import UI/ToolBelt
+import UI/VisualStatusEffects
+import UI/ChiselFiles/Additional Documentation
+import UI/ChiselFiles/SetLayer
+import UI/FancyUI/colour
+import UI/FancyUI/fancyui
+import UI/FancyUI/print
+
+import Weapons/ArmorGenerator
+import Weapons/EmbueDaggers
+import Weapons/LanternTalisman
+import Weapons/MajPack
+import Weapons/MajVines
+import Weapons/PsyCrusher
+import Weapons/RecoilKick
+import Weapons/RootBats
+import Weapons/Scythe
+import Weapons/ShockwaveWhip
+import Weapons/SpellBook
+</font>
+
+<a href="#"><font color="#505050">^トップへ戻る</font></a>
+</div>
+
+<font color="#505050">
+Copyright Martian Rex, Inc. 2020
+
+</font>
+</div>
+
+<br>
+</body></html>
