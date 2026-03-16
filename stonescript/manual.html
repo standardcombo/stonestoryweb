@@ -29,7 +29,7 @@
 
 <center>· ·:·: Stonescript :·:· ·</center>
 <div id="title-separator"><!---------------------------></div>
-<center><font color="#808080">v4.11.2 - 2025/02/23</font></center>
+<center><font color="#808080">v4.27.1 - 2026/01/15</font></center>
 <answer><center><a href="https://stonestoryrpg.com/stonescript">intro</a> | manual | <a href="https://stonestoryrpg.com/stonescript/beta.html">beta</a>  ·:·  <a href="https://stonestoryrpg.com/releasenotes">release notes</a> | <a href="https://stonestoryrpg.com/faq.html">faq</a></center></answer>
 <center><font color="#808080">
       _ ______________________ _            
@@ -467,6 +467,10 @@
   <tr>
     <td>player.framesPerMove</td>
     <td>The amount of frames it takes the player to move one position forward.<eg><br>>`0,1,Player Movement: @player.framesPerMove@</td>
+  </tr>
+  <tr>
+    <td>player.moveX<br>player.moveZ<br>player.moveAddX<br>player.moveAddZ</td>
+    <td>Information about the player's current movement. <eg>moveX</eg> and <eg>moveZ</eg> represent speed (steps per second) in units of 30 (the game runs at 30fps). <eg>moveAddX</eg> and <eg>moveAddZ</eg> track the accumulated movement bonus that results in a step when the added amount reaches 30.<eg><br>>`0,1,MoveX=@player.moveX@<br>>`0,2,MoveZ=@player.moveZ@<br>>`0,3,MoveAddX=@player.moveAddX@<br>>`0,4,MoveAddZ=@player.moveAddZ@</td>
   </tr>
   <tr>
     <td>player.name</td>
@@ -2386,6 +2390,10 @@ import UI/MindstoneButton
   <tr>
     <td>Heavy Hammer</td>
     <td>"heavy_hammer"</td>
+  </tr>
+  <tr>
+    <td>Lollipop Wand</td>
+    <td>"lollipop_wand"</td>
   </tr>
   <tr>
     <td>Mind Stone</td>

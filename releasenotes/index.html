@@ -45,6 +45,160 @@
 </f>
 <div id="separator"><!---------------------------></div>
 
+v4.27.2 - 2026/01/17
+<answer>
+Events calendar updated for 2026.
+
+New
+- Added Paintbrush Trophy #13
+- Added Stonescript commands: player.moveX, player.moveZ, player.moveAddX, player.moveAddZ
+
+Balance
+- Movement speed reworked so bonuses are linear instead of exponential.
+
+Bugs
+- Fixed interaction between BFG and False God foes (fix by Kangasaur)
+- Fixed crash with `buffs.oldest` when the player has no buffs (fix by Kangasaur)
+- Fixed Devour abilities rune consumption in offline stats (fix by Kangasaur)
+- Fixed Shovel frame loss if unequipped during ability activation (fix by Kangasaur)
+- The event resources 5x bonus now resets correctly in all cases (fix by Kangasaur)
+- Enchantments can no longer be signed.
+- Fixed an edge case in seasonal shops that caused a crash with Frost Bundle.
+
+</answer><div id="separator"<!---------------------------></div>
+
+v4.26.1 - 2025/12/20
+<answer>
+- Fixed the winter event so rewards can be collected by players who encountered the "false start" bug.
+- Improved cache busting for remote event config data.
+
+</answer><div id="separator"<!---------------------------></div>
+
+v4.26.0 - 2025/12/11
+<answer>
+- Event resources (e.g. Candy) can now be farmed offline.
+
+</answer><div id="separator"<!---------------------------></div>
+
+v4.25.3 - 2025/12/04
+<answer>
+Winter Event: Start date changed to Dec 20.
+
+Changes
+- MindConnect v0.3 (by ArtificialPotato)
+- Fixed event rewards to not generate stacks of signed shiny for players with full inventory (by Kangasaur)
+- Retroactively reduced all signed "shiny" stacks to a single copy.
+- Added an interstitial messaging UI.
+- System changes for Ascension that are not user-facing.
+
+New Scripts
+import Components/MapGenV3 by CitrionDragon
+import Components/Rainbowifier by Toast
+import Cosmetics/67abilities by Guelo
+import Cosmetics/CandyFall by ?
+import Cosmetics/HHCandyDecor by TeumessianSven
+import Cosmetics/MidnightFarmer by GMV
+import Cosmetics/MinersSupport by StoneMan (GaelDavino)
+import Cosmetics/POW by micahel.g.g.
+import Cosmetics/Prismatic2 by Obsidian
+import Cosmetics/cDonut by Catalyst (warning, CPU intensive)
+import Cosmetics/pirat by TTicsur
+import Games/Boarding by michael.g.g.
+import Games/DungeonCrawler by CitrionDragon
+import Games/KiJo by TeumessianSven
+import Games/PlayCards by 流木_とりさん
+import Games/Rhythm by Kangasaur
+import Games/Stone-dle by holadios_
+import Games/UnpossibleQuiz by Toast
+import Hats/BEEGhead by Icynx.001
+import Hats/CalaveritaDeAzucar by Jhon Rock
+import Hats/Fedora by michael.g.g.
+import Hats/GlitchHead by Gigane
+import Hats/Mughead by Icynx.001
+import Hats/NewWaveHat by michael.g.g.
+import Hats/RainbowWitch by Js
+import Hats/TennaHat by DetermiKnight
+import Hats/Tonimator-800 by michael.g.g.
+import Pets/CatWithReffer by holadios_
+import Pets/OiiaCat by Witch
+import Pets/Stick_Bug by Iva-Bel
+import UI/BossGauge by TeumessianSven
+import UI/Edi'sCustomUI by EdisniDaed
+import UI/HauntedGate by SkeletonShoes
+import UI/ItemName by Davit
+import Weapons/OilLamp by michael.g.g.
+
+Script Updates
+import Cosmetics/Mech - v1.3 by EdisniDaed
+import Hats/Enchanthead - v1.1 by Telos6857
+import Hats/JesterHat by - v1.2 by Telos6857
+
+Balance:
+Pierce values have been reworked to account for new weapons in Ascension.
+
+Repeating Crossbow
+from 0 + 1/Lv -> 1 + 0.25/Lv
+
+Heavy Crossbow
+from 0 + 1/Lv -> 1 + 0.4/Lv
+
+Rune Crossbow
+from 0.8 + 0.201/Lv -> [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7, 8, 8, 9, 9]
+
+</answer><div id="separator"<!---------------------------></div>
+
+v4.24.2 - 2025/10/24
+<answer>
+- The Lollipop Wand now appears in loot drops.
+
+</answer><div id="separator"<!---------------------------></div>
+
+v4.24.0 - 2025/10/23
+v4.24.1 (iOS only)
+<answer>
+- Fixed bug where event shop bundles were not reset correctly between years.
+- Halloween 2025 patch resets bundles for players who skipped the Lollipop wand.
+
+</answer><div id="separator"<!---------------------------></div>
+
+v4.23.1 - 2025/10/20
+<answer>
+- Updated engine to 2022.3.62f2
+- Fixed the StoneJam trophy icons.
+- Fixed Quarterstaff jab animation bug.
+
+</answer><div id="separator"<!---------------------------></div>
+
+v4.22.1 - 2025/10/12
+<answer>
+New item: Lollipop Wand
+
+Bugs
+- Fixed crash in R&D book.
+- Fixed error in multi-color text boxes.
+- Fixed the color of Candy drops, to match the inventory icon.
+- Fixed the backup shop unlocking for Halloween and Spring events.
+- Fixed bug where the in-game event shop would keep appearing at the visited location.
+
+</answer><div id="separator"<!---------------------------></div>
+
+v4.21.1 - 2025/09/30
+<answer>
+Added three new languages
+- Indonesian
+- Italian
+- Thai
+
+Other Changes
+- FoeStateTracker: Removed debug log (by IncoherentToast).
+- Fixed enchantment flags on Quarterstaff, Cult Mask, Heavy Hammer and Towering Shield (by Kangasaur).
+- Added support for bold text to some languages.
+- Changed the underlying format of ASCII-art files. Frame headers are now more consistent.
+- Fixed StoneJam "8" title.
+- Updated credits.
+
+</answer><div id="separator"<!---------------------------></div>
+
 v4.20.2 - 2025/08/25
 <answer>
 Community Scripts
