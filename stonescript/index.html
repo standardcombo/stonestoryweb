@@ -412,8 +412,14 @@ You can even use the Quarterstaff activated ability to dash forward while you're
 <eg>
 ?foe.distance > 17 &
 ^item.GetCooldown("quarterstaff") <= 0 &
+^item.CanActivate()
+  equip quarterstaff
   activate R
 </eg>
+
+One new symbol you will notice here is the <eg>^</eg> which is a way of continuing the previous line.
+
+In this example, we use the Quarterstaff's ability when you're far away from any foes (<eg>?foe.distance > 17</eg>) by calling <eg>equip quarterstaff</eg> and then <eg>activate R</eg>. We also use <eg>item.CanActivate()</eg> to make sure abilities can be activated at this time, as well as <eg>item.GetCooldown()</eg> to check whether the cooldown on the Quarterstaff's dash is up (<eg><= 0</eg>).
 
 
 Attack Animation Canceling
