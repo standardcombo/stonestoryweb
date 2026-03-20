@@ -377,6 +377,27 @@ With a good Poison weapon (dP) you can mitigate most of the damage from the boss
 In this idea, we check the number of debuffs to avoid re-applying the Poison before its time runs out.
 
 
+Dodging
+
+Equipping the Mind Stone in combat causes you to dodge backwards. This can be useful to avoid nasty boss attacks, but to dodge in Stonescript, you need to know the exact timing.
+
+Foe attack animations can be decoded using two questions: <eg>?foe.state</eg>, which tells you which animation is playing, and <eg>?foe.time</eg>, how far along that animation is. To see this in action, we can use the following line of code:
+
+<eg>
+  >Foe state: @foe.state@, foe time: @foe.time@
+</eg>
+
+The <eg>></eg> command prints the rest of the text to the upper-left corner of the screen. Part of this is text we want to read, but where we have <eg>foe.state</eg> and <eg>foe.time</eg> we want to see the actual numbers the game uses. To do this, we surround them with the @ symbol, so the game knows not to treat them as literal text.
+
+Play a level, and you should see the numbers changing based on what the foe in front of you is doing. Now, if you wait for the boss to attack you, you can look at the numbers to see when you should dodge. E.g.:
+
+<eg>
+  ?foe = boss
+    ?foe.state = 32 & foe.time = 40
+      equipL mind
+</eg>
+
+
 Mobility
 
 Players often employ the Dashing Shield, Triskelion and even the Quarterstaff abilities to greatly improve their loop times. E.g.:
