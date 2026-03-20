@@ -367,7 +367,7 @@ If you have a good Lifesteal sword (dL) you may want to use that to manage your 
 
 Poison
 
-With a good Poison weapon (dP) you can mitigate most of the damage from the boss. Again, greatly improving your survival and need for potions. This allows you to reach higher difficulty locations with less powerful gear:
+With a good Poison weapon (dP) you can mitigate most of the damage from the boss. Again, this greatly improves your survival and need for potions, and allows you to reach higher difficulty locations with less powerful gear:
 
 <eg>
   ?foe = boss & foe.debuffs.count = 0
@@ -379,7 +379,7 @@ In this idea, we check the number of debuffs to avoid re-applying the Poison bef
 
 Dodging
 
-Equipping the Mind Stone in combat causes you to dodge backwards. This can be useful to avoid nasty boss attacks, but to dodge in Stonescript, you need to know the exact timing.
+Equipping the Mind Stone in combat causes you to dodge backwards. This can be useful to avoid nasty boss attacks, but to dodge using Stonescript, you need to know the exact timing.
 
 Foe attack animations can be decoded using two questions: <eg>?foe.state</eg>, which tells you which animation is playing, and <eg>?foe.time</eg>, how far along that animation is. To see this in action, we can use the following line of code:
 
@@ -389,7 +389,7 @@ Foe attack animations can be decoded using two questions: <eg>?foe.state</eg>, w
 
 The <eg>></eg> command prints the rest of the text to the upper-left corner of the screen. Part of this is text we want to read, but where we have <eg>foe.state</eg> and <eg>foe.time</eg> we want to see the actual numbers the game uses. To do this, we surround them with the @ symbol, so the game knows not to treat them as literal text.
 
-Play a level, and you should see the numbers changing based on what the foe in front of you is doing. Now, if you wait for the boss to attack you, you can look at the numbers to see when you should dodge. E.g.:
+Play a level, and you should see the state and time numbers changing based on what the foe in front of you is doing. Now, if you wait for the boss to attack you, you can look at the numbers to see when you should dodge. E.g.:
 
 <eg>
   ?foe = boss
@@ -421,7 +421,7 @@ You can even use the Quarterstaff activated ability to dash forward while you're
 
 One new symbol you will notice here is the <eg>^</eg> which is a way of continuing the previous line.
 
-In this example, we use the Quarterstaff's ability when you're far away from any foes (<eg>?foe.distance > 17</eg>) by calling <eg>equip quarterstaff</eg> and then <eg>activate R</eg>. We also use <eg>item.CanActivate()</eg> to make sure abilities can be activated at this time, as well as <eg>item.GetCooldown()</eg> to check whether the cooldown on the Quarterstaff's dash is up (<eg><= 0</eg>).
+In this example, we use the Quarterstaff's ability when the player is far away from any foes (<eg>?foe.distance > 17</eg>) by calling <eg>equip quarterstaff</eg> and then <eg>activate R</eg>. We also use <eg>item.CanActivate()</eg> to make sure abilities can be activated at this time, as well as <eg>item.GetCooldown()</eg> to check whether the cooldown on the Quarterstaff's dash is up.
 
 
 Advanced Ability Activation
@@ -440,7 +440,7 @@ Here things start getting even more complex. A common question from players is h
 
 In this example we are using the Bardiche's special ability against the boss (<eg>?foe = boss</eg>) when it's in range (<eg>foe.distance <= 10</eg>). Like with the Quarterstaff, we check the cooldown of the Bardiche super-attack and if abilities can activate.
 
-The new lines you will notice are following the <eg>|</eg> symbol, which means <eg>"OR"</eg>. Unlike some ability activations that are instantaneous, the Bardiche has a "cast" time, during which we need to keep it equipped. The game allows you to equip something else during the cast, but that cancels the ability and it goes on cooldown anyway. To stop this from happening, <eg>?item.right = bardiche</eg> checks whether you are already holding the Bardiche, and <eg>?item.right.state = 2</eg> checks whether the weapon is in the "cast" state. So, overall, the snippet roughly translates to:
+The new lines you will notice are following the <eg>|</eg> symbol, which means <eg>"OR"</eg>. Unlike some ability activations that are instantaneous, the Bardiche has a "cast" time, during which we need to keep it equipped. The game allows you to equip something else during the cast, but that cancels the ability and it goes on cooldown anyway. To stop this from happening, <eg>?item.right = bardiche</eg> checks whether you are already holding the Bardiche, and <eg>?item.right.state = 2</eg> checks whether the weapon is in the "cast" state. Overall, the snippet roughly translates to:
 
 <eg>
 "If the foe is a boss within range and the Bardiche can activate, or if it is already being activated, then equip and (continue to) activate the Bardiche."
@@ -449,7 +449,7 @@ The new lines you will notice are following the <eg>|</eg> symbol, which means <
 
 Avoiding Overwriting With Elses and Else-ifs
 
-In the last section, we wrote the Bardiche activation so that it would not get interrupted during its "cast" time. But sometimes, depending on how the code is structured, it will still get interrupted anyway. This frustrating bug is often caused by something called "overwriting". For example, let's say we have this script for a location:
+In the last section, we wrote the Bardiche activation so that it would not get interrupted during its "cast" time. But sometimes, depending on how the code in the Mind Stone is structured, it will still get interrupted anyway. This frustrating bug is often caused by something called "overwriting". For example, let's say we have this script for a location:
 
 <eg>
 equip heavy crossbow
@@ -465,7 +465,7 @@ equip heavy crossbow
     activate R
 </eg>
 
-We equip a heavy crossbow normally, but when the foe is a boss, we switch to a sword and hammer and activate our Bardiche. When we play the game, it seems like we only switch once when we're at the boss. But in reality, the game equips everything in order: first the crossbow, then the hammer and sword (if the foe is a boss), then the bardiche (if it can activate). What this means is when the game loops back around on the next frame, it will equip the heavy crossbow OVER what you previously had, cancelling the Bardiche's activation!
+We equip a Heavy Crossbow normally, but when the foe is a boss, we switch to a sword and hammer and activate our Bardiche. When we play the game, it seems like we only switch once when we're at the boss. But in reality, the game equips everything in order: first the crossbow, then the hammer and sword (if the foe is a boss), then the Bardiche (if it can activate). What this means is when the game loops back around on the next frame, it will equip the Heavy Crossbow OVER what you previously had, cancelling the Bardiche's activation!
 
 So, how can we avoid overwriting? We will use a new symbol <eg>:</eg>, which can be read as <eg>"ELSE"</eg>. Remember that <eg>?</eg> asks a question, and the indented instructions run when the answer to that question is <eg>"yes"</eg>. Putting a following <eg>:</eg> in line with the <eg>?</eg> does the opposite. The dependent instructions to <eg>:</eg> only run when the answer to the question is <eg>"no"</eg>.
 
@@ -487,9 +487,9 @@ To demonstrate, let's rewrite our script to use elses:
   equip heavy crossbow
 </eg>
 
-Notice that when we added <eg>:</eg>, the order of the <eg>equip</eg> calls changed. Now the <eg>?foe = boss</eg> question is at the top. Because of the <eg>:</eg> below it, <eg>equip heavy crossbow</eg> instruction now only runs when the currently targeted foe is NOT a boss. Similarly, you will only equip the sword and hammer if the bardiche is not activating.
+Notice that when we added <eg>:</eg>, the order of the <eg>equip</eg> calls changed. Now the <eg>?foe = boss</eg> question is at the top. Because of the <eg>:</eg> below it, our <eg>equip heavy crossbow</eg> instruction now only runs when the currently targeted foe is NOT a boss. Similarly, you will only equip the sword and hammer if the Bardiche is not activating.
 
-You can also use a combined <eg>"ELSE-IF"</eg> (<eg>:?</eg>) to ask a new question on the same line as the else. For example, the following code executes the checks in order, starting with <eg>?pickup.distance < 10</eg>:
+You can also use a combined <eg>"ELSE-IF"</eg> (<eg>:?</eg>) to ask a new question on the same line as the else. For example, the following code executes the checks in order, starting from the top:
 
 <eg>
 ?pickup.distance < 10
