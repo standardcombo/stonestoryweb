@@ -441,10 +441,73 @@ Here things start getting even more complex. A common question from players is h
 In this example we are using the Bardiche's special ability against the boss (<eg>?foe = boss</eg>) when it's in range (<eg>foe.distance <= 10</eg>). Like with the Quarterstaff, we check the cooldown of the Bardiche super-attack and if abilities can activate.
 
 The new lines you will notice are following the <eg>|</eg> symbol, which means </eg>"OR"</eg>. Unlike some ability activations that are instantaneous, the Bardiche has a "cast" time, during which we need to keep it equipped. The game allows you to equip something else during the cast, but that cancels the ability and it goes on cooldown anyway. To stop this from happening, <eg>?item.right = bardiche</eg> checks whether you are already holding the Bardiche, and <eg>?item.right.state = 2</eg> checks whether the weapon is in the "cast" state. So, overall, the snippet roughly translates to:
+The new lines you will notice are following the <eg>|</eg> symbol, which means <eg>"OR"</eg>. Unlike some ability activations that are instantaneous, the Bardiche has a "cast" time, during which we need to keep it equipped. The game allows you to equip something else during the cast, but that cancels the ability and it goes on cooldown anyway. To stop this from happening, <eg>?item.right = bardiche</eg> checks whether you are already holding the Bardiche, and <eg>?item.right.state = 2</eg> checks whether the weapon is in the "cast" state. So, overall, the snippet roughly translates to:
 
 <eg>
 "If the foe is a boss within range and the Bardiche can activate, or if it is already being activated, then equip and (continue to) activate the Bardiche."
 </eg>
+
+
+Avoiding Overwriting With Elses and Else-ifs
+
+In the last section, we wrote the Bardiche activation so that it would not get interrupted during its "cast" time. But sometimes, depending on how the code is structured, it will still get interrupted anyway. This frustrating bug is often caused by something called "overwriting". For example, let's say we have this script for a location:
+
+<eg>
+equip heavy crossbow
+?foe = boss
+  equipL sword
+  equipR hammer
+  ?foe.distance <= 10 &
+  ^item.GetCooldown("bardiche") <= 0 &
+  ^item.CanActivate() |
+  ^item.right = bardiche &
+  ^item.right.state = 2
+    equip bardiche
+    activate R
+</eg>
+
+We equip a heavy crossbow normally, but when the foe is a boss, we switch to a sword and hammer and activate our Bardiche. When we play the game, it seems like we only switch once when we're at the boss. But in reality, the game equips everything in order: first the crossbow, then the hammer and sword (if the foe is a boss), then the bardiche (if it can activate). What this means is when the game loops back around on the next frame, it will equip the heavy crossbow OVER what you previously had, cancelling the Bardiche's activation!
+
+So, how can we avoid overwriting? We will use a new symbol <eg>:</eg>, which can be read as <eg>"ELSE"</eg>. Remember that <eg>?</eg> asks a question, and the indented instructions run when the answer to that question is <eg>"yes"</eg>. Putting a following <eg>:</eg> in line with the <eg>?</eg> does the opposite. The dependent instructions to <eg>:</eg> only run when the answer to the question is <eg>"no"</eg>.
+
+To demonstrate, let's rewrite our script to use elses:
+
+<eg>
+?foe = boss
+  ?foe.distance <= 10 &
+  ^item.GetCooldown("bardiche") <= 0 &
+  ^item.CanActivate() |
+  ^item.right = bardiche &
+  ^item.right.state = 2
+    equip bardiche
+    activate R
+  :
+    equipL sword
+    equipR hammer
+:
+  equip heavy crossbow
+</eg>
+
+Notice that when we added <eg>:</eg>, the order of the <eg>equip</eg> calls changed. Now the <eg>?foe = boss</eg> question is at the top. Because of the <eg>:</eg> below it, <eg>equip heavy crossbow</eg> instruction now only runs when the currently targeted foe is NOT a boss. Similarly, you will only equip the sword and hammer if the bardiche is not activating.
+
+You can also use a combined <eg>"ELSE-IF"</eg> (<eg>:?</eg>) to ask a new question on the same line as the else. For example, the following code executes the checks in order, starting with <eg>?pickup.distance < 10</eg>:
+
+<eg>
+?pickup.distance < 10
+  equipL star
+:?foe.distance > 10
+  equipR shield
+  equipL triskelion
+:?foe = boss
+  equip ice crossbow
+:
+  equipR shield
+  equipL ice wand
+</eg>
+
+If the <eg>?pickup.distance < 10</eg> condition is satisfied, the code completely skips over all of the later questions. It will only check <eg>?foe.distance</eg> when there are no pickups nearby.
+
+As your script gets larger and more complex, it's recommended to use <eg>:</eg> and <eg>:?</eg> to keep it well-organized and continue to avoid overwriting issues.
 
 
 Attack Animation Canceling
