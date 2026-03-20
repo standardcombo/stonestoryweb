@@ -424,32 +424,25 @@ In this example, we use the Quarterstaff's ability when you're far away from any
 
 Advanced Ability Activation
 
-Here things start getting more complex. A common question from players is how to activate abilities. While some items like the Hatchet and Blade of the Fallen God are easier, an important one that gives players lots of trouble is the Bardiche:
+Here things start getting even more complex. A common question from players is how to activate abilities. While some items like the Hatchet and Blade of the Fallen God can be activated like the Quarterstaff, an important one that gives players lots of trouble is the Bardiche:
 
 <eg>
 ?foe = boss & foe.distance <= 10 &
-^item.GetCooldown("bardiche") <= 0 |
-^item.GetCooldown("bardiche") > 870
+^item.GetCooldown("bardiche") <= 0 &
+^item.CanActivate() |
+^item.right = bardiche &
+^item.right.state = 2
   equip bardiche
   activate R
 </eg>
 
-A few new symbols you will notice here are the <eg>^</eg> which is a way of continuing the previous line, as well as the <eg>|</eg> which means <eg>"OR"</eg>.
+In this example we are using the Bardiche's special ability against the boss (<eg>?foe = boss</eg>) when it's in range (<eg>foe.distance <= 10</eg>). Like with the Quarterstaff, we check the cooldown of the Bardiche super-attack and if abilities can activate.
 
-In this example we are using the Bardiche's special ability against the boss (<eg>?foe = boss</eg>) when it's in range (<eg>foe.distance <= 10</eg>) by calling <eg>equip bardiche</eg> then <eg>activate R</eg>. We are also using <eg>item.GetCooldown()</eg> to check the cooldown on the Bardiche's super attack.
-
-We use the cooldown information to keep it equipped only during the activation. Unlike some ability activations that are instantaneous, the Bardiche has a "cast" time, during which we need to keep it equipped. The game allows you to equip something else during the cast, but that cancels the ability and it goes on cooldown anyway. That's where the <eg>870</eg> comes from: Cooldown values are represented in frames. Each second equals 30 frames. The Bardiche has a 30 second cooldown which translates to 900 frames. Minus the cast time which is roughly one second, equals 870 frames.
-
-To better visualize what's happening with the Bardiche, try adding this:
+The new lines you will notice are following the <eg>|</eg> symbol, which means </eg>"OR"</eg>. Unlike some ability activations that are instantaneous, the Bardiche has a "cast" time, during which we need to keep it equipped. The game allows you to equip something else during the cast, but that cancels the ability and it goes on cooldown anyway. To stop this from happening, <eg>?item.right = bardiche</eg> checks whether you are already holding the Bardiche, and <eg>?item.right.state = 2</eg> checks whether the weapon is in the "cast" state. So, overall, the snippet roughly translates to:
 
 <eg>
-var cd
-cd = item.GetCooldown("bardiche")
->`0,0,Bardiche cooldown = @cd@
+"If the foe is a boss within range and the Bardiche can activate, or if it is already being activated, then equip and (continue to) activate the Bardiche."
 </eg>
-
-The above snippet will print the cooldown in the upper-left corner. Activate the Bardiche's ability to see it go up to 900 then count down back to zero.
-
 
 
 Attack Animation Canceling
