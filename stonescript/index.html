@@ -440,7 +440,6 @@ Here things start getting even more complex. A common question from players is h
 
 In this example we are using the Bardiche's special ability against the boss (<eg>?foe = boss</eg>) when it's in range (<eg>foe.distance <= 10</eg>). Like with the Quarterstaff, we check the cooldown of the Bardiche super-attack and if abilities can activate.
 
-The new lines you will notice are following the <eg>|</eg> symbol, which means </eg>"OR"</eg>. Unlike some ability activations that are instantaneous, the Bardiche has a "cast" time, during which we need to keep it equipped. The game allows you to equip something else during the cast, but that cancels the ability and it goes on cooldown anyway. To stop this from happening, <eg>?item.right = bardiche</eg> checks whether you are already holding the Bardiche, and <eg>?item.right.state = 2</eg> checks whether the weapon is in the "cast" state. So, overall, the snippet roughly translates to:
 The new lines you will notice are following the <eg>|</eg> symbol, which means <eg>"OR"</eg>. Unlike some ability activations that are instantaneous, the Bardiche has a "cast" time, during which we need to keep it equipped. The game allows you to equip something else during the cast, but that cancels the ability and it goes on cooldown anyway. To stop this from happening, <eg>?item.right = bardiche</eg> checks whether you are already holding the Bardiche, and <eg>?item.right.state = 2</eg> checks whether the weapon is in the "cast" state. So, overall, the snippet roughly translates to:
 
 <eg>
@@ -512,7 +511,7 @@ As your script gets larger and more complex, it's recommended to use <eg>:</eg> 
 
 Attack Animation Canceling
 
-Attack Animation Canceling (or AAC for short) speeds up how fast you attack, and is very simple
+Attack Animation Canceling (or AAC for short) is a technique using the Mind Stone to speed up the attack speed of your weapons. To use it, write the following code at the top of your Mind Stone:
 
 <eg>
 ?item.left.state = 3
@@ -522,6 +521,10 @@ Attack Animation Canceling (or AAC for short) speeds up how fast you attack, and
   equipR shield *0*
   equip @item.right@
 </eg>
+
+While attacking, weapons cycle between three different animation states. We saw the "cast" state (state 2) in our Bardiche activation example; the others are "performance" (state 3) and "cooldown" (state 4). At the beginning of the "performance" state is when damage is dealt. AAC works by checking if the weapon in either hand is in state 3 (<eg>?item.left.state = 3</eg> and <eg>?item.right.state = 3</eg>), and then, since the weapon already dealt its damage, intentionally using overwriting to skip the animation straight to the "cooldown" state!
+
+The equipment used for overwriting (<eg>stone throwing</eg> and <eg>shield *0*</eg>) are intended to be "trash" items that you won't use in normal combat. Afterwards, the script re-equips whatever you were attacking with (<eg>equipL @item.left@</eg> and <eg>equip @item.right@</eg>). This ensures that the AAC script works with every weapon that you equip in your combat code, no modifications required.
 
 </font></f>
 <div id="example"><div id="separator"><!---------------------------></div>
