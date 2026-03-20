@@ -398,13 +398,21 @@ Play a level, and you should see the numbers changing based on what the foe in f
 </eg>
 
 
-Mobility
+Mobility and Basic Ability Activation
 
-Players often employ the Dashing Shield, Triskelion and even the Quarterstaff abilities to greatly improve their loop times. E.g.:
+To greatly improve their loop times, players often employ a variety of items that speed up their movement, like the Triskelion or Dashing Shield. The shield does its dash when it's equipped within a specific range of a foe:
 
 <eg>
   ?foe.distance >= 11 & foe.distance <= 16
     equipR dashing
+</eg>
+
+You can even use the Quarterstaff activated ability to dash forward while you're walking. To activate the Quarterstaff (and similar abilities) with the Mind Stone, you can use the following code:
+
+<eg>
+?foe.distance > 17 &
+^item.GetCooldown("quarterstaff") <= 0 &
+  activate R
 </eg>
 
 
