@@ -422,21 +422,7 @@ One new symbol you will notice here is the <eg>^</eg> which is a way of continui
 In this example, we use the Quarterstaff's ability when you're far away from any foes (<eg>?foe.distance > 17</eg>) by calling <eg>equip quarterstaff</eg> and then <eg>activate R</eg>. We also use <eg>item.CanActivate()</eg> to make sure abilities can be activated at this time, as well as <eg>item.GetCooldown()</eg> to check whether the cooldown on the Quarterstaff's dash is up (<eg><= 0</eg>).
 
 
-Attack Animation Canceling
-
-Attack Animation Canceling (or AAC for short) speeds up how fast you attack, and is very simple
-
-<eg>
-  ?item.left.state = 3
-    equipL stone throwing
-    equipL @item.left@
-  ?item.right.state = 3
-    equipR shield *0*
-    equip @item.right@
-</eg>
-
-Attacks have 3 states while attacking. Cast being state 2, perf being state 3, and cooldown being state 4. AAC works by skipping state 3, and going to state 4. Damage is done when the weapon goes from state 2 to state 3.
-Ability Activation
+Advanced Ability Activation
 
 Here things start getting more complex. A common question from players is how to activate abilities. While some items like the Hatchet and Blade of the Fallen God are easier, an important one that gives players lots of trouble is the Bardiche:
 
@@ -463,6 +449,21 @@ cd = item.GetCooldown("bardiche")
 </eg>
 
 The above snippet will print the cooldown in the upper-left corner. Activate the Bardiche's ability to see it go up to 900 then count down back to zero.
+
+
+
+Attack Animation Canceling
+
+Attack Animation Canceling (or AAC for short) speeds up how fast you attack, and is very simple
+
+<eg>
+?item.left.state = 3
+  equipL stone throwing
+  equipL @item.left@
+?item.right.state = 3
+  equipR shield *0*
+  equip @item.right@
+</eg>
 
 </font></f>
 <div id="example"><div id="separator"><!---------------------------></div>
