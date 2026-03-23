@@ -445,7 +445,7 @@ equip heavy crossbow
     activate R
 </eg>
 
-We equip a Heavy Crossbow normally, but when the foe is a boss, we switch to a sword and hammer and activate our Bardiche. When we play the game, it seems like we only switch once when we're at the boss. But in reality, the game equips everything in order: first the crossbow, then the hammer and sword (if the foe is a boss), then the Bardiche (if it can activate). What this means is when the game loops back around on the next frame, it will equip the Heavy Crossbow OVER what you previously had, cancelling the Bardiche's activation!
+We equip a Heavy Crossbow normally, but when the foe is a boss, we switch to a sword and hammer and activate our Bardiche. When we play the game, it seems like we only switch once when we're at the boss. But in reality, the game equips everything in order: first the crossbow, then the hammer and sword (if the foe is a boss), then the Bardiche (if it can activate). What this means is that when the game loops back around on the next frame, it will equip the Heavy Crossbow OVER what you previously had, cancelling the Bardiche's activation!
 
 So, how can we avoid overwriting? We will use a new symbol <eg>:</eg>, which can be read as <eg>"ELSE"</eg>. Remember that <eg>?</eg> asks a question, and the indented instructions run when the answer to that question is <eg>"yes"</eg>. Putting a following <eg>:</eg> in line with the <eg>?</eg> does the opposite. The dependent instructions to <eg>:</eg> only run when the answer to the question is <eg>"no"</eg>.
 
