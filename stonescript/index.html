@@ -367,11 +367,11 @@ If you have a good Lifesteal sword (dL) you may want to use that to manage your 
 
 Poison
 
-With a good Poison weapon (dP) you can mitigate most of the damage from the boss. Again, greatly improving your survival and need for potions. This allows you to reach higher difficulty locations with minimal gear:
+With a good Poison weapon (dP) you can mitigate most of the damage from the boss. Again, this greatly improves your survival and need for potions, and allows you to reach higher difficulty locations with less powerful gear:
 
 <eg>
   ?foe = boss & foe.debuffs.count = 0
-    equipR dp
+    equipR sword dP
 </eg>
 
 In this idea, we check the number of debuffs to avoid re-applying the Poison before its time runs out.
@@ -379,7 +379,7 @@ In this idea, we check the number of debuffs to avoid re-applying the Poison bef
 
 Mobility
 
-Players often employ the Dashing Shield, Triskelion and even the Quarterstaff abilities to greatly improve their loop times. E.g.:
+To greatly improve their loop times, players often employ a variety of items that speed up their movement, like the Triskelion or Dashing Shield. The shield does its dash when it's equipped within a specific range of a foe:
 
 <eg>
   ?foe.distance >= 11 & foe.distance <= 16
@@ -387,47 +387,147 @@ Players often employ the Dashing Shield, Triskelion and even the Quarterstaff ab
 </eg>
 
 
-Attack Animation Canceling
+Basic Ability Activation
 
-Attack Animation Canceling (or AAC for short) speeds up how fast you attack, and is very simple
+For extra mobility, you can even use the Quarterstaff activated ability to dash forward while you're walking. Activating abilities is a common question from players, but many item activations share the same basic structure. The Quarterstaff is an example of this. To activate the Quarterstaff using the Mind Stone, you can use the following code:
 
 <eg>
-  ?item.left.state = 3
-    equipL stone throwing
-    equipL @item.left@
-  ?item.right.state = 3
-    equipR shield *0*
-    equip @item.right@
+?foe.distance > 17 &
+^item.GetCooldown("quarterstaff") <= 0 &
+^item.CanActivate()
+  equip quarterstaff
+  activate R
 </eg>
 
-Attacks have 3 states while attacking. Cast being state 2, perf being state 3, and cooldown being state 4. AAC works by skipping state 3, and going to state 4. Damage is done when the weapon goes from state 2 to state 3.
-Ability Activation
+One new symbol you will notice here is the <eg>^</eg> which is a way of continuing the previous line.
 
-Here things start getting more complex. A common question from players is how to activate abilities. While some items like the Hatchet and Blade of the Fallen God are easier, an important one that gives players lots of trouble is the Bardiche:
+In this example, we use the Quarterstaff's ability when the player is far away from any foes (<eg>?foe.distance > 17</eg>) by calling <eg>equip quarterstaff</eg> and then <eg>activate R</eg>. We also use <eg>item.CanActivate()</eg> to make sure abilities can be activated at this time, as well as <eg>item.GetCooldown()</eg> to check whether the cooldown on the Quarterstaff's dash is up.
+
+
+Advanced Ability Activation
+
+Here things start getting more complex. While many items like the Hatchet and Blade of the Fallen God can be activated like the Quarterstaff, an important one that gives players lots of trouble is the Bardiche:
 
 <eg>
 ?foe = boss & foe.distance <= 10 &
-^item.GetCooldown("bardiche") <= 0 |
-^item.GetCooldown("bardiche") > 870
+^item.GetCooldown("bardiche") <= 0 &
+^item.CanActivate() |
+^item.right = bardiche &
+^item.right.state = 2
   equip bardiche
   activate R
 </eg>
 
-A few new symbols you will notice here are the <eg>^</eg> which is a way of continuing the previous line, as well as the <eg>|</eg> which means <eg>"OR"</eg>.
+In this example we are using the Bardiche's special ability against the boss (<eg>?foe = boss</eg>) when it's in range (<eg>foe.distance <= 10</eg>). Like with the Quarterstaff, we check the cooldown of the Bardiche super-attack and if abilities can activate.
 
-In this example we are using the Bardiche's special ability against the boss (<eg>?foe = boss</eg>) when it's in range (<eg>foe.distance <= 10</eg>) by calling <eg>equip bardiche</eg> then <eg>activate R</eg>. We are also using <eg>item.GetCooldown()</eg> to check the cooldown on the Bardiche's super attack.
-
-We use the cooldown information to keep it equipped only during the activation. Unlike some ability activations that are instantaneous, the Bardiche has a "cast" time, during which we need to keep it equipped. The game allows you to equip something else during the cast, but that cancels the ability and it goes on cooldown anyway. That's where the <eg>870</eg> comes from: Cooldown values are represented in frames. Each second equals 30 frames. The Bardiche has a 30 second cooldown which translates to 900 frames. Minus the cast time which is roughly one second, equals 870 frames.
-
-To better visualize what's happening with the Bardiche, try adding this:
+The new lines you will notice are following the <eg>|</eg> symbol, which means <eg>"OR"</eg>. Unlike some ability activations that are instantaneous, the Bardiche has a "cast" time, during which we need to keep it equipped. The game allows you to equip something else during the cast, but that cancels the ability and it goes on cooldown anyway. To stop this from happening, <eg>?item.right = bardiche</eg> checks whether you are already holding the Bardiche, and <eg>?item.right.state = 2</eg> checks whether the weapon is in the "cast" state. Overall, the snippet roughly translates to:
 
 <eg>
-var cd
-cd = item.GetCooldown("bardiche")
->`0,0,Bardiche cooldown = @cd@
+"If the foe is a boss within range and the Bardiche can activate, or if it is already being activated, then equip and (continue to) activate the Bardiche."
 </eg>
 
-The above snippet will print the cooldown in the upper-left corner. Activate the Bardiche's ability to see it go up to 900 then count down back to zero.
+
+Avoiding Overwriting With Elses and Else-ifs
+
+In the last section, we wrote the Bardiche activation so that it would not get interrupted during its "cast" time. But sometimes, depending on how the code in the Mind Stone is structured, it will still get interrupted anyway. This frustrating bug is often caused by something called "overwriting". For example, let's say we have this script for a location:
+
+<eg>
+equip heavy crossbow
+?foe = boss
+  equipL sword
+  equipR hammer
+  ?foe.distance <= 10 &
+  ^item.GetCooldown("bardiche") <= 0 &
+  ^item.CanActivate() |
+  ^item.right = bardiche &
+  ^item.right.state = 2
+    equip bardiche
+    activate R
+</eg>
+
+We equip a Heavy Crossbow normally, but when the foe is a boss, we switch to a sword and hammer and activate our Bardiche. When we play the game, it seems like we only switch once when we're at the boss. But in reality, the game equips everything in order: first the crossbow, then the hammer and sword (if the foe is a boss), then the Bardiche (if it can activate). What this means is that when the game loops back around on the next frame, it will equip the Heavy Crossbow OVER what you previously had, cancelling the Bardiche's activation!
+
+So, how can we avoid overwriting? We will use a new symbol <eg>:</eg>, which can be read as <eg>"ELSE"</eg>. Remember that <eg>?</eg> asks a question, and the indented instructions run when the answer to that question is <eg>"yes"</eg>. Putting a following <eg>:</eg> in line with the <eg>?</eg> does the opposite. The dependent instructions to <eg>:</eg> only run when the answer to the question is <eg>"no"</eg>.
+
+To demonstrate, let's rewrite our script to use elses:
+
+<eg>
+?foe = boss
+  ?foe.distance <= 10 &
+  ^item.GetCooldown("bardiche") <= 0 &
+  ^item.CanActivate() |
+  ^item.right = bardiche &
+  ^item.right.state = 2
+    equip bardiche
+    activate R
+  :
+    equipL sword
+    equipR hammer
+:
+  equip heavy crossbow
+</eg>
+
+Notice that when we added <eg>:</eg>, the order of the <eg>equip</eg> calls changed. Now the <eg>?foe = boss</eg> question is at the top. Because of the <eg>:</eg> below it, our <eg>equip heavy crossbow</eg> instruction now only runs when the currently targeted foe is NOT a boss. Similarly, you will only equip the sword and hammer if the Bardiche is not activating.
+
+You can also use a combined <eg>"ELSE-IF"</eg> (<eg>:?</eg>) to ask a new question on the same line as the else. For example, the following code executes the checks in order, starting from the top:
+
+<eg>
+?pickup.distance < 10
+  equipL star
+:?foe.distance > 10
+  equipR shield
+  equipL triskelion
+:?foe = boss
+  equip ice crossbow
+:
+  equipR shield
+  equipL ice wand
+</eg>
+
+If the <eg>?pickup.distance < 10</eg> condition is satisfied, the code completely skips over all of the later questions. It will only check <eg>?foe.distance</eg> when there are no pickups nearby.
+
+As your script gets larger and more complex, it's recommended to use <eg>:</eg> and <eg>:?</eg> to keep it well-organized and continue to avoid overwriting issues.
+
+
+Dodging
+
+Equipping the Mind Stone in combat causes you to dodge backwards. This can be useful to avoid nasty boss attacks, but to dodge using Stonescript, you need to know the exact timing.
+
+Foe attack animations can be decoded using two questions: <eg>?foe.state</eg>, which tells you which animation is playing, and <eg>?foe.time</eg>, how far along that animation is. To see this in action, we can use the following line of code:
+
+<eg>
+  >Foe state: @foe.state@, foe time: @foe.time@
+</eg>
+
+The <eg>></eg> command prints the rest of the text to the upper-left corner of the screen. Part of this is text we want to read, but where we have <eg>foe.state</eg> and <eg>foe.time</eg> we want to see the actual numbers the game uses. To do this, we surround them with the @ symbol, so the game knows not to treat them as literal text.
+
+Play a level, and you should see the state and time numbers changing based on what the foe in front of you is doing. Now, if you wait for the boss to attack you, you can look at the numbers to see when you should dodge. E.g.:
+
+<eg>
+  ?foe = boss
+    ?foe.state = 32 & foe.time = 40
+      equipL mind
+</eg>
+
+Printing to the screen is very useful for getting values from the game that you don't know. You can use it not just for dodging, but for getting foe or debuff IDs, weapon cooldowns, or even complex HUD displays and cosmetics.
+
+
+Attack Animation Canceling
+
+Attack Animation Canceling (or AAC for short) is a technique using the Mind Stone to speed up the attack speed of your weapons. To use it, write the following code at the top of your Mind Stone:
+
+<eg>
+?item.left.state = 3
+  equipL stone throwing
+  equipL @item.left@
+?item.right.state = 3
+  equipR shield *0*
+  equip @item.right@
+</eg>
+
+While attacking, weapons cycle between three different animation states. We saw the "cast" state (state 2) in our Bardiche activation example; the others are "performance" (state 3) and "cooldown" (state 4). At the beginning of the "performance" state is when damage is dealt. AAC works by checking if the weapon in either hand is in state 3 (<eg>?item.left.state = 3</eg> and <eg>?item.right.state = 3</eg>), and then, since the weapon already dealt its damage, intentionally using overwriting to skip the animation straight to the "cooldown" state.
+
+The equipment used for overwriting (<eg>stone throwing</eg> and <eg>shield *0*</eg>) are intended to be "trash" items that you won't use in normal combat. Afterwards, the script re-equips whatever you were attacking with (<eg>equipL @item.left@</eg> and <eg>equip @item.right@</eg>). This ensures that the AAC script works with every weapon that you equip in your combat code, no modifications required.
 
 </font></f>
 <div id="example"><div id="separator"><!---------------------------></div>
